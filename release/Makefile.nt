@@ -1,0 +1,173 @@
+#  ***************************************************************
+#  *   Makefile for the CLAIRE system.                           *
+#  *   Windows NT version - CLAIRE 3                             *
+#  *   last modified: May 20th, 2000                             *
+#  *   simplified version: copy .libs from public to debug !     *
+#  ***************************************************************
+
+
+# -----------------------------------------
+# |      directories                      |
+# -----------------------------------------
+
+
+# directories
+Dl = ntv            # where the libs are placed
+Ds = csrc
+Dh = include
+
+all: $(Dl)\cclaire.exe
+
+#flags
+
+CLFLAGS = /Ox -c /nologo /I$(Dh) /DCLPC
+LKFLAGS = /NOLOGO /SUBSYSTEM:CONSOLE user32.lib gdi32.lib shell32.lib comdlg32.lib ws2_32.lib
+LFLAGS = /NOLOGO
+
+.SUFFIXES : .exe .obj .cpp
+
+$(Dl)\Console.obj: $(Ds)\clConsole.cpp
+	CL $(CLFLAGS) /Fo$(Dl)\Console.obj /Tp $(Ds)\clConsole.cpp
+
+$(Dl)\Console.lib: $(Dl)\Console.obj
+	LIB /NOLOGO $(Dl)\Console.obj /OUT:$(Dl)\Console.lib
+
+$(Dl)\noConsole.obj: $(Ds)\clNoConsole.cpp
+	CL $(CLFLAGS) /Fo$(Dl)\noConsole.obj /Tp $(Ds)\clNoConsole.cpp
+
+$(Dl)\noConsole.lib: $(Dl)\noConsole.obj
+	LIB /NOLOGO $(Dl)\noConsole.obj /OUT:$(Dl)\noConsole.lib
+
+$(Dl)\wclConsole.obj: $(Ds)\wclConsole.cpp
+	CL $(CLFLAGS) /Fo$(Dl)\wclConsole.obj /Tp $(Ds)\wclConsole.cpp
+
+$(Dl)\wclConsole.lib: $(Dl)\wclConsole.obj
+	LIB /NOLOGO $(Dl)\wclConsole.obj /OUT:$(Dl)\wclConsole.lib
+
+
+$(Dl)\Kernel.obj: $(Ds)\Kernel.cpp
+	CL $(CLFLAGS) /Fo$(Dl)\Kernel.obj /Tp $(Ds)\Kernel.cpp
+
+$(Dl)\Core.obj: $(Ds)\Core.cpp
+	CL $(CLFLAGS) /Fo$(Dl)\Core.obj /Tp $(Ds)\Core.cpp
+
+$(Dl)\Language.obj: $(Ds)\Language.cpp
+	CL $(CLFLAGS) /Fo$(Dl)\Language.obj /Tp $(Ds)\Language.cpp
+
+$(Dl)\Reader.obj: $(Ds)\Reader.cpp
+	CL $(CLFLAGS) /Fo$(Dl)\Reader.obj /Tp $(Ds)\Reader.cpp
+
+$(Dl)\Optimize.obj: $(Ds)\Optimize.cpp
+	CL $(CLFLAGS) /Fo$(Dl)\Optimize.obj /Tp $(Ds)\Optimize.cpp
+
+$(Dl)\Generate.obj: $(Ds)\Generate.cpp
+	CL $(CLFLAGS) /Fo$(Dl)\Generate.obj /Tp $(Ds)\Generate.cpp
+
+$(Dl)\Serialize.obj: $(Ds)\Serialize.cpp
+	CL $(CLFLAGS) /Fo$(Dl)\Serialize.obj /Tp $(Ds)\Serialize.cpp
+
+$(Dl)\Core.lib: $(Dl)\Core.obj
+	LIB /NOLOGO /DEF $(Dl)\Core.obj /OUT:$(Dl)\Core.lib
+
+$(Dl)\sclaire-s.obj:	$(Ds)\sclaire-s.cpp
+	CL $(CLFLAGS) /Fo$(Dl)\sclaire-s.obj /Tp $(Ds)\sclaire-s.cpp
+
+
+$(Dl)\Kernel.dll: $(Dl)\Core.lib $(Dl)\Kernel.obj
+	LINK $(LKFLAGS) \
+	  $(Dl)\Core.lib \
+	  $(Dl)\Kernel.obj /IMPLIB:$(Dl)\Kernel.lib /DLL /OUT:$(Dl)\Kernel.dll
+
+$(Dl)\Core.dll: $(Dl)\Kernel.dll $(Dl)\Core.obj
+	LINK $(LKFLAGS) \
+	  $(Dl)\Kernel.lib \
+	  $(Dl)\Core.obj /IMPLIB:$(Dl)\Core.lib /DLL /OUT:$(Dl)\Core.dll
+
+$(Dl)\Serialize.dll: $(Dl)\Core.dll $(Dl)\Serialize.obj
+	LINK $(LKFLAGS) \
+	  $(Dl)\Kernel.lib \
+	  $(Dl)\Core.lib \
+	  $(Dl)\Serialize.obj /IMPLIB:$(Dl)\Serialize.lib /DLL /OUT:$(Dl)\Serialize.dll
+
+$(Dl)\Language.dll: $(Dl)\Kernel.dll $(Dl)\Core.dll $(Dl)\Serialize.dll $(Dl)\Language.obj
+	LINK $(LKFLAGS) \
+	  $(Dl)\Kernel.lib \
+	  $(Dl)\Core.lib \
+	  $(Dl)\Serialize.lib \
+	  $(Dl)\Language.obj /IMPLIB:$(Dl)\Language.lib /DLL /OUT:$(Dl)\Language.dll
+
+$(Dl)\Reader.dll: $(Dl)\Kernel.dll $(Dl)\Core.dll $(Dl)\Serialize.dll $(Dl)\Language.dll $(Dl)\Reader.obj
+	LINK $(LKFLAGS) \
+	  $(Dl)\Kernel.lib \
+	  $(Dl)\Core.lib \
+	  $(Dl)\Serialize.lib \
+	  $(Dl)\Language.lib \
+	  $(Dl)\Reader.obj /IMPLIB:$(Dl)\Reader.lib /DLL /OUT:$(Dl)\Reader.dll
+
+$(Dl)\Optimize.dll: $(Dl)\Kernel.dll $(Dl)\Core.dll $(Dl)\Serialize.dll $(Dl)\Language.dll $(Dl)\Reader.dll $(Dl)\Optimize.obj
+	LINK $(LKFLAGS) \
+	  $(Dl)\Kernel.lib \
+	  $(Dl)\Core.lib \
+	  $(Dl)\Serialize.lib \
+	  $(Dl)\Language.lib \
+	  $(Dl)\Reader.lib \
+	  $(Dl)\Optimize.obj /IMPLIB:$(Dl)\Optimize.lib /DLL /OUT:$(Dl)\Optimize.dll
+
+$(Dl)\Generate.dll: $(Dl)\Kernel.dll $(Dl)\Core.dll $(Dl)\Serialize.dll $(Dl)\Language.dll $(Dl)\Reader.dll $(Dl)\Optimize.lib $(Dl)\Generate.obj
+	LINK $(LKFLAGS) \
+	  $(Dl)\Kernel.lib \
+	  $(Dl)\Core.lib \
+	  $(Dl)\Serialize.lib \
+	  $(Dl)\Language.lib \
+	  $(Dl)\Reader.lib \
+	  $(Dl)\Optimize.lib \
+	  $(Dl)\Generate.obj /IMPLIB:$(Dl)\Generate.lib /DLL /OUT:$(Dl)\Generate.dll
+
+
+# +----------------------------------------------------------------+
+# |  How to create the bin directory                               |
+# +----------------------------------------------------------------+
+
+dirs:	
+	mkdir $(Dl)
+
+# +----------------------------------------------------------------+
+# |  How to create a claire compiler                               |
+# +----------------------------------------------------------------+
+
+LIBS_claire = $(Dl)\Kernel.lib \
+  $(Dl)\Core.lib \
+  $(Dl)\Language.lib \
+  $(Dl)\Reader.lib \
+  $(Dl)\Optimize.lib \
+  $(Dl)\Generate.lib \
+  $(Dl)\Serialize.lib
+
+DLLS_claire = $(Dl)\Kernel.dll \
+  $(Dl)\Core.dll \
+  $(Dl)\Language.dll \
+  $(Dl)\Reader.dll \
+  $(Dl)\Optimize.dll \
+  $(Dl)\Generate.dll \
+  $(Dl)\Serialize.dll
+
+
+$(Dl)\sclaire.exe: $(DLLS_claire) $(Dl)\Console.lib $(Dl)\noConsole.lib $(Dl)\wclConsole.lib $(Dl)\sclaire-s.obj
+     LINK $(LKFLAGS) $(LIBS_claire) $(Dl)\Console.obj $(Dl)\sclaire-s.obj /OUT:$(Dl)\sclaire.exe
+
+
+# +----------------------------------------------------------------+
+# |  How to create a proper version of claire                      |
+# +----------------------------------------------------------------+
+
+
+$(Dl)\cclaire.exe: ccmain.cl $(Dl)\sclaire.exe
+	$(Dl)\sclaire -env ntv -O -m Compile -m Serialize -cx ccmain -o cclaire
+
+
+# +----------------------------------------------------------------+
+# |  How to install                                                |
+# +----------------------------------------------------------------+
+
+install: $(Dl)\cclaire.exe
+	$(Dl)\sclaire -f init -f install -q

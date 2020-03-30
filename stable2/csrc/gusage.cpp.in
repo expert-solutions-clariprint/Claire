@@ -1,0 +1,2606 @@
+/***** CLAIRE Compilation of file ./compile/gusage.cl 
+         [version 3.3.36 / safety 5] Thu Nov 17 17:12:53 2005 *****/
+
+#include <claire.h>
+#include <Kernel.h>
+#include <Core.h>
+#include <Serialize.h>
+#include <Language.h>
+#include <Reader.h>
+#include <Optimize.h>
+#include <Generate.h>
+char * external_I_module1(module *v52329)
+{ { char *Result ;
+    Result = ((((v52329->external == (NULL)) ? CTRUE : CFALSE) != CTRUE) ?
+      v52329->external :
+      string_I_symbol(v52329->name) );
+    POP_SIGNAL; return (Result);}
+  }
+
+module * string2module_string1(char *v52335)
+{ { module *Result ;
+    { ClaireObject *V_CC ;
+      { OID  v52329 = value_string(v52335);
+        if (INHERIT(OWNER(v52329),Kernel._module))
+         V_CC = OBJECT(module,v52329);
+        else close_exception(((general_error *) (*Core._general_error)(_string_("~A is not a module"),
+            _oid_(list::alloc(1,_string_(v52335))))));
+          }
+      Result= (module *) V_CC;}
+    POP_SIGNAL; return (Result);}
+  }
+
+char * home_path_void1()
+{ GC_BIND;
+  { char *Result ;
+    { char * v52322 = GC_STRING(realpath_string(getenv_string("_")));
+      CL_INT  v52331 = rfind_string2(v52322,string_v(Core._starfs_star->value));
+      Result = substring_string(v52322,1,((CL_INT)v52331-(CL_INT)5));
+      }
+    GC_UNBIND; POP_SIGNAL; return (Result);}
+  }
+
+void  function_compile_string1(char *v45520,char *v48670)
+{ GC_RESERVE(7);  // v3.0.55 optim !
+  (Optimize.OPT->need_modules = set::empty());
+  { char * v46648 = GC_STRING(append_string(GC_STRING(_7_string(GC_STRING(Optimize.compiler->headers_dir),v45520)),".h"));
+    (Optimize.OPT->legal_modules = set_I_class(Kernel._module));
+    (Optimize.OPT->properties = set::empty(Kernel._property));
+    (Optimize.OPT->objects = list::empty(Kernel._any));
+    (Optimize.OPT->functions = list::empty(Kernel._any));
+    (Optimize.OPT->cinterface = fopen_string1(v46648,"w"));
+    (Optimize.OPT->cfile = _string_(v45520));
+    generate_file_string2(v48670,GC_STRING(_7_string(GC_STRING(Optimize.compiler->source),v45520)));
+    use_as_output_port(Optimize.OPT->cinterface);
+    breakline_void();
+    { CL_INT loop_handle = ClEnv->cHandle;
+      OID gc_local;
+      ITERATE(v52340);
+      bag *v52340_support;
+      v52340_support = GC_OBJECT(set,Optimize.OPT->need_modules);
+      for (START(v52340_support); NEXT(v52340);)
+      if ((OBJECT(module,v52340)->made_of->length != 0) && 
+          (contain_ask_list(OBJECT(list,Optimize.claire_modules->value),v52340) != CTRUE))
+       { princ_string("#include <");
+        ident_symbol(OBJECT(symbol,(*Kernel.name)(v52340)));
+        princ_string(".h>\n");
+        }
+      }
+    { CL_INT loop_handle = ClEnv->cHandle;
+      OID gc_local;
+      ITERATE(v52331);
+      bag *v52331_support;
+      v52331_support = GC_OBJECT(list,Optimize.OPT->functions);
+      for (START(v52331_support); NEXT(v52331);)
+      { GC_LOOP;
+        { OID  v47205 = GC_OID((*Kernel.nth)(v52331,
+            ((OID)1)));
+          OID  v61902 = GC_OID((*Kernel.nth)(v52331,
+            ((OID)2)));
+          OID  v52335 = GC_OID((*Kernel.nth)(v52331,
+            ((OID)3)));
+          princ_string("\nextern ");
+          (*Generate.interface_I)(Generate.PRODUCER->value,
+            v52335);
+          princ_string(" ");
+          (*Kernel.c_princ)(v47205);
+          princ_string("(");
+          typed_args_list_list(OBJECT(list,v61902));
+          princ_string(");");
+          }
+        GC_UNLOOP; POP_SIGNAL;}
+      }
+    princ_string("\n");
+    (*Core.fclose)(GC_OID(_oid_(Optimize.OPT->cinterface)));
+    }
+  GC_UNBIND; POP_SIGNAL;}
+
+char * libpath_void1()
+{ GC_BIND;
+  { char *Result ;
+    Result = (((isfile_ask_string("sclaire") == CTRUE) || 
+        (isfile_ask_string("sclaire.exe") == CTRUE)) ?
+      _7_string("lib",Optimize.compiler->env) :
+      _7_string(GC_STRING(home_path_void1()),"lib") );
+    GC_UNBIND; POP_SIGNAL; return (Result);}
+  }
+
+void  libpath_I_module1(module *v52329)
+{ GC_BIND;
+  { OID  v46854;
+    { { OID  v35295 = CNULL;
+        { CL_INT loop_handle = ClEnv->cHandle;
+          OID gc_local;
+          ITERATE(v52340);
+          bag *v52340_support;
+          v52340_support = GC_OBJECT(list,OBJECT(bag,Reader.used_modules->value));
+          for (START(v52340_support); NEXT(v52340);)
+          { GC_LOOP;
+            if ((*(OBJECT(bag,v52340)))[1] == _oid_(v52329))
+             { v35295= v52340;
+              ClEnv->cHandle = loop_handle; break;}
+            GC_UNLOOP; POP_SIGNAL;}
+          }
+        v46854 = v35295;
+        }
+      GC_OID(v46854);}
+    if (v46854 != CNULL)
+     { tuple * v52340 = OBJECT(tuple,v46854);
+      char * v49447 = GC_STRING(_7_string(string_v((*(v52340))[2]),GC_STRING(append_string(GC_STRING(append_string(GC_STRING(append_string("v",GC_STRING(string_v(release_void())))),"-")),GC_STRING(Optimize.compiler->env)))));
+      char * v25639 = GC_STRING(_7_string(string_v((*(v52340))[2]),GC_STRING(Optimize.compiler->env)));
+      if (isdir_ask_string(v25639) == CTRUE)
+       { if (isfile_ask_string(append_string(GC_STRING(_7_string(GC_STRING(_7_string(v25639,GC_STRING(string_v(Optimize.claire_lib->value)))),external_I_module1(v52329))),".lib")) == CTRUE)
+         princ_string(append_string(GC_STRING(_7_string(GC_STRING(_7_string(v25639,GC_STRING(string_v(Optimize.claire_lib->value)))),external_I_module1(v52329))),".lib"));
+        else if (isfile_ask_string(append_string(GC_STRING(_7_string(GC_STRING(_7_string(v25639,"release")),external_I_module1(v52329))),".lib")) == CTRUE)
+         { if (should_trace_ask_module1(Generate.it,0) == CTRUE)
+           mtformat_module1(Generate.it,"---- warning: debug lib of local module ~S doesn't exists, use release lib instead \n",0,GC_OBJECT(list,list::alloc(1,_oid_(v52329))));
+          else ;princ_string(append_string(GC_STRING(_7_string(GC_STRING(_7_string(v25639,"release")),external_I_module1(v52329))),".lib"));
+          }
+        else if (isfile_ask_string(append_string(GC_STRING(_7_string(GC_STRING(_7_string(v25639,"debug")),external_I_module1(v52329))),".lib")) == CTRUE)
+         { if (should_trace_ask_module1(Generate.it,0) == CTRUE)
+           mtformat_module1(Generate.it,"---- warning: release lib of local module ~S doesn't exists, use debug lib instead \n",0,GC_OBJECT(list,list::alloc(1,_oid_(v52329))));
+          else ;princ_string(append_string(GC_STRING(_7_string(GC_STRING(_7_string(v25639,"debug")),external_I_module1(v52329))),".lib"));
+          }
+        else close_exception(((general_error *) (*Core._general_error)(_string_("Local module ~S have no library file [~A]"),
+            _oid_(list::alloc(2,_oid_(v52329),_string_(v25639))))));
+          }
+      else if (isfile_ask_string(append_string(GC_STRING(_7_string(GC_STRING(_7_string(v49447,GC_STRING(string_v(Optimize.claire_lib->value)))),external_I_module1(v52329))),".lib")) == CTRUE)
+       princ_string(append_string(GC_STRING(_7_string(GC_STRING(_7_string(v49447,GC_STRING(string_v(Optimize.claire_lib->value)))),external_I_module1(v52329))),".lib"));
+      else if (isfile_ask_string(append_string(GC_STRING(_7_string(GC_STRING(_7_string(v49447,"release")),external_I_module1(v52329))),".lib")) == CTRUE)
+       { if (should_trace_ask_module1(Generate.it,0) == CTRUE)
+         mtformat_module1(Generate.it,"---- warning: debug lib of ~S doesn't exists, use release lib instead \n",0,GC_OBJECT(list,list::alloc(1,_oid_(v52329))));
+        else ;princ_string(append_string(GC_STRING(_7_string(GC_STRING(_7_string(v49447,"release")),external_I_module1(v52329))),".lib"));
+        }
+      else if (isfile_ask_string(append_string(GC_STRING(_7_string(GC_STRING(_7_string(v49447,"debug")),external_I_module1(v52329))),".lib")) == CTRUE)
+       { if (should_trace_ask_module1(Generate.it,0) == CTRUE)
+         mtformat_module1(Generate.it,"---- warning: release lib of ~S doesn't exists, use debug lib instead \n",0,GC_OBJECT(list,list::alloc(1,_oid_(v52329))));
+        else ;princ_string(append_string(GC_STRING(_7_string(GC_STRING(_7_string(v49447,"debug")),external_I_module1(v52329))),".lib"));
+        }
+      else close_exception(((general_error *) (*Core._general_error)(_string_("External module ~S have no library file [~A]"),
+          _oid_(list::alloc(2,_oid_(v52329),_string_(v49447))))));
+        }
+    else if (isfile_ask_string(append_string(GC_STRING(_7_string(GC_STRING(libpath_void1()),external_I_module1(v52329))),".lib")) == CTRUE)
+     princ_string(append_string(GC_STRING(_7_string(GC_STRING(libpath_void1()),external_I_module1(v52329))),".lib"));
+    else princ_string(append_string(GC_STRING(_7_string(GC_STRING(_7_string(GC_STRING(Optimize.compiler->env),GC_STRING(string_v(Optimize.claire_lib->value)))),external_I_module1(v52329))),".lib"));
+      }
+  GC_UNBIND; POP_SIGNAL;}
+
+void  headers_I_void1()
+{ GC_RESERVE(1);  // HOHO v3.0.55 optim !
+  { char * v15660 = GC_STRING(Optimize.compiler->env);
+    char * v47176 = ((equal_string(v15660,"ntw") == CTRUE) ?
+      "/i=" :
+      (((equal_string(v15660,"win32v") == CTRUE) || 
+          (equal_string(v15660,"ntw") == CTRUE)) ?
+        "/I" :
+        "-I" ) );
+    if ((isdir_ask_string(_7_string("include",GC_STRING(string_v(Optimize.claire_lib->value)))) == CTRUE) && 
+        (equal(GC_OID(_string_(Optimize.compiler->headers_dir)),GC_OID(_string_(_7_string("include",GC_STRING(string_v(Optimize.claire_lib->value)))))) != CTRUE))
+     { princ_string(v47176);
+      princ_string("include");
+      princ_string(string_v(Core._starfs_star->value));
+      princ_string(string_v(Optimize.claire_lib->value));
+      princ_string(" ");
+      }
+    if (((CL_INT)LENGTH_STRING(Optimize.compiler->headers_dir) > 0) && 
+        (length_bag(entries_string1(GC_STRING(Optimize.compiler->headers_dir),"*.h*")) != 0))
+     { princ_string(v47176);
+      princ_string(Optimize.compiler->headers_dir);
+      princ_string(" ");
+      }
+    if ((isdir_ask_string("include") == CTRUE) && 
+        ((equal_string(Optimize.compiler->headers_dir,"include") != CTRUE) && 
+          (length_bag(entries_string1("include","*.h*")) != 0)))
+     { princ_string(v47176);
+      princ_string("include ");
+      }
+    if ((((isfile_ask_string("sclaire") == CTRUE) ? CTRUE : ((isfile_ask_string("sclaire.exe") == CTRUE) ? CTRUE : CFALSE)) != CTRUE) && 
+        (isdir_ask_string(_7_string(GC_STRING(home_path_void1()),"include")) == CTRUE))
+     { princ_string(v47176);
+      princ_string(_7_string(GC_STRING(home_path_void1()),"include"));
+      princ_string(" ");
+      }
+    { CL_INT loop_handle = ClEnv->cHandle;
+      OID gc_local;
+      ITERATE(v52325);
+      bag *v52325_support;
+      v52325_support = GC_OBJECT(list,OBJECT(bag,Reader.used_modules->value));
+      for (START(v52325_support); NEXT(v52325);)
+      { GC_LOOP;
+        { char * v49447 = GC_STRING(_7_string(string_v((*(OBJECT(bag,v52325)))[2]),GC_STRING(append_string(GC_STRING(append_string(GC_STRING(append_string("v",GC_STRING(string_v(release_void())))),"-")),GC_STRING(Optimize.compiler->env)))));
+          char * v25639 = string_v((*(OBJECT(bag,v52325)))[2]);
+          module * v52329 = OBJECT(module,(*(OBJECT(bag,v52325)))[1]);
+          if (isdir_ask_string(_7_string(v25639,GC_STRING(Optimize.compiler->env))) == CTRUE)
+           { if (isfile_ask_string(append_string(GC_STRING(_7_string(GC_STRING(_7_string(GC_STRING(_7_string(v25639,GC_STRING(Optimize.compiler->env))),GC_STRING(string_v(Optimize.claire_lib->value)))),external_I_module1(v52329))),".lib")) == CTRUE)
+             { princ_string(v47176);
+              princ_string(_7_string(GC_STRING(_7_string(v25639,"include")),GC_STRING(string_v(Optimize.claire_lib->value))));
+              princ_string(" ");
+              }
+            else if (isfile_ask_string(append_string(GC_STRING(_7_string(GC_STRING(_7_string(GC_STRING(_7_string(v25639,GC_STRING(Optimize.compiler->env))),"release")),external_I_module1(v52329))),".lib")) == CTRUE)
+             { princ_string(v47176);
+              princ_string(_7_string(GC_STRING(_7_string(v25639,"include")),"release"));
+              princ_string(" ");
+              }
+            else { princ_string(v47176);
+                princ_string(_7_string(GC_STRING(_7_string(v25639,"include")),"debug"));
+                princ_string(" ");
+                }
+              if ((isdir_ask_string(_7_string(v25639,"include")) == CTRUE) && 
+                (length_bag(entries_string2(GC_STRING(_7_string(v25639,"include")))) != 0))
+             { princ_string(v47176);
+              princ_string(_7_string(v25639,"include"));
+              princ_string(" ");
+              }
+            }
+          else if (isfile_ask_string(append_string(GC_STRING(_7_string(GC_STRING(_7_string(v49447,GC_STRING(string_v(Optimize.claire_lib->value)))),external_I_module1(v52329))),".lib")) == CTRUE)
+           { princ_string(v47176);
+            princ_string(_7_string(v49447,GC_STRING(string_v(Optimize.claire_lib->value))));
+            princ_string(" ");
+            }
+          else if (isfile_ask_string(append_string(GC_STRING(_7_string(GC_STRING(_7_string(v49447,"release")),external_I_module1(v52329))),".lib")) == CTRUE)
+           { princ_string(v47176);
+            princ_string(_7_string(v49447,"release"));
+            princ_string(" ");
+            }
+          else { princ_string(v47176);
+              princ_string(_7_string(v49447,"debug"));
+              princ_string(" ");
+              }
+            }
+        GC_UNLOOP; POP_SIGNAL;}
+      }
+    }
+  GC_UNBIND; POP_SIGNAL;}
+
+void  lib_I_any1(OID v52329,list *v52331)
+{ GC_BIND;
+  { char * v46347 = ".lib";
+    char * v15660 = GC_STRING(Optimize.compiler->env);
+    ClaireBoolean * v16557 = CTRUE;
+    char * v59534 = ((equal_string(v15660,"ntw") == CTRUE) ?
+      "," :
+      " " );
+    { CL_INT loop_handle = ClEnv->cHandle;
+      OID gc_local;
+      ITERATE(v49385);
+      for (START(v52331); NEXT(v49385);)
+      { GC_LOOP;
+        if (OBJECT(module,v49385)->made_of->length != 0)
+         { if (v16557 == CTRUE)
+           v16557= CFALSE;
+          else princ_string(v59534);
+            if (equal_string(v15660,"ntw") == CTRUE)
+           { princ_string("LIBP ");
+            libpath_I_module1(OBJECT(module,v49385));
+            princ_string(" L ");
+            }
+          else libpath_I_module1(OBJECT(module,v49385));
+            { CL_INT loop_handle = ClEnv->cHandle;
+            OID gc_local;
+            ITERATE(v52335);
+            bag *v52335_support;
+            v52335_support = GC_OBJECT(list,OBJECT(module,v49385)->uses);
+            for (START(v52335_support); NEXT(v52335);)
+            if (Kernel._string == OWNER(v52335))
+             { princ_string(v59534);
+              (*Kernel.princ)(v52335);
+              princ_string(v46347);
+              }
+            }
+          }
+        GC_UNLOOP; POP_SIGNAL;}
+      }
+    { CL_INT loop_handle = ClEnv->cHandle;
+      OID gc_local;
+      ITERATE(v49385);
+      bag *v49385_support;
+      v49385_support = GC_OBJECT(list,Optimize.compiler->libraries);
+      for (START(v49385_support); NEXT(v49385);)
+      { if (v16557 == CTRUE)
+         v16557= CFALSE;
+        else princ_string(v59534);
+          if ((equal(v49385,_string_("gui")) == CTRUE) || 
+            ((equal(v49385,_string_("wclConsole")) == CTRUE) || 
+              ((equal(v49385,_string_("noConsole")) == CTRUE) || 
+                ((equal(v49385,_string_("lmain")) == CTRUE) || 
+                  ((equal(v49385,_string_("Console")) == CTRUE) || 
+                    (equal(v49385,_string_("Kernel")) == CTRUE))))))
+         { princ_string(v59534);
+          princ_string(libpath_void1());
+          princ_string(string_v(Core._starfs_star->value));
+          princ_string(string_v(v49385));
+          princ_string(v46347);
+          }
+        else { princ_string(v59534);
+            princ_string(string_v(v49385));
+            }
+          }
+      }
+    }
+  GC_UNBIND; POP_SIGNAL;}
+
+void  files_I_any1(OID v52329,ClaireBoolean *v48514,char *v25485)
+{ GC_RESERVE(10);  // v3.0.55 optim !
+  { char * v12482 = GC_STRING(((v48514 == CTRUE) ?
+      "" :
+      append_string("$T",GC_STRING(string_v(Core._starfs_star->value))) ));
+    char * v20705 = GC_STRING(((v48514 == CTRUE) ?
+      "" :
+      append_string("$U",GC_STRING(string_v(Core._starfs_star->value))) ));
+    char * v15642 = (((equal_string(Optimize.compiler->env,"win32v") == CTRUE) || 
+        ((equal_string(Optimize.compiler->env,"ntv") == CTRUE) || 
+          (equal_string(Optimize.compiler->env,"ntw") == CTRUE))) ?
+      "obj" :
+      "o" );
+    char * v28829 = ((v48514 == CTRUE) ?
+      "," :
+      " " );
+    princ_string(v12482);
+    princ_string((((v48514 == CTRUE) || 
+        (Kernel._string == OWNER(v52329))) ?
+      append_string(v25485,"-s") :
+      external_I_module1(OBJECT(module,v52329)) ));
+    princ_string(".");
+    princ_string(v15642);
+    if (INHERIT(OWNER(v52329),Kernel._module))
+     { if (v48514 != CTRUE)
+       { CL_INT loop_handle = ClEnv->cHandle;
+        OID gc_local;
+        ITERATE(v49220);
+        for (START(OBJECT(module,v52329)->made_of); NEXT(v49220);)
+        { GC_LOOP;
+          if (match_wildcard_ask_string(string_v(v49220),"*@PATH_INFO@*") == CTRUE)
+           { list * v52336 = GC_OBJECT(list,explode_string(string_v(v49220),"@PATH_INFO@"));
+            char * v17901 = GC_STRING(replace_string(string_v((*(v52336))[1]),GC_STRING(string_v(Core._starfs_star->value)),"-"));
+            if (equal_string(left_string(v17901,2),"./") == CTRUE)
+             GC__STRING(v17901 = substring_string(v17901,3,LENGTH_STRING(v17901)), 10);
+            if (equal_string(left_string(v17901,1),".") == CTRUE)
+             GC__STRING(v17901 = substring_string(v17901,2,LENGTH_STRING(v17901)), 10);
+            princ_string(v28829);
+            princ_string(v12482);
+            princ_string(v17901);
+            princ_string(".");
+            princ_string(v15642);
+            princ_string(" ");
+            }
+          else if ((match_wildcard_ask_string(string_v(v49220),"*.cl") == CTRUE) || 
+              (match_wildcard_ask_string(string_v(v49220),"*.*") != CTRUE))
+           { princ_string(v28829);
+            princ_string(v12482);
+            princ_string(replace_string(string_v(v49220),".cl",""));
+            princ_string(".");
+            princ_string(v15642);
+            princ_string(" ");
+            }
+          else if (match_wildcard_ask_string(string_v(v49220),"*.h*") != CTRUE)
+           { princ_string(v28829);
+            princ_string(v20705);
+            princ_string(replace_string(GC_STRING(replace_string(string_v(v49220),".cpp","")),".cc",""));
+            princ_string(".");
+            princ_string(v15642);
+            princ_string(" ");
+            }
+          GC_UNLOOP; POP_SIGNAL;}
+        }
+      else ;}
+    else if (Kernel._string == OWNER(v52329))
+     { princ_string(v28829);
+      princ_string(v12482);
+      princ_string(string_v(v52329));
+      princ_string(".");
+      princ_string(v15642);
+      }
+    else ;}
+  GC_UNBIND; POP_SIGNAL;}
+
+char * job_option_void1()
+{ GC_RESERVE(1);  // HOHO v3.0.55 optim !
+  { char *Result ;
+    { char * v30108 = "";
+      { CL_INT  v52325 = 1;
+        CL_INT  v30441 = ((CL_INT)length_bag(ClEnv->params)-(CL_INT)1);
+        { CL_INT loop_handle = ClEnv->cHandle;
+          OID gc_local;
+          while (((CL_INT)v52325 <= (CL_INT)v30441))
+          { GC_LOOP;
+            if (equal((*(ClEnv->params))[v52325],_string_("-make")) == CTRUE)
+             { GC__STRING(v30108 = append_string(string_v((*(ClEnv->params))[((CL_INT)v52325+(CL_INT)1)])," "), 1);
+              ++v52325;
+              }
+            ++v52325;
+            GC_UNLOOP;POP_SIGNAL;}
+          }
+        }
+      Result = v30108;
+      }
+    GC_UNBIND; POP_SIGNAL; return (Result);}
+  }
+
+void  cmakefile_any1(OID v52329,char *v27722)
+{ GC_BIND;
+  { list * v52331 = GC_OBJECT(list,add_modules_list(GC_OBJECT(list,OBJECT(list,Optimize.claire_modules->value))));
+    char * v52322 = ((INHERIT(OWNER(v52329),Kernel._module)) ?
+      string_I_symbol(OBJECT(thing,v52329)->name) :
+      v27722 );
+    char * v21957 = GC_STRING(Optimize.compiler->env);
+    if (contain_ask_list(ClEnv->params,_string_("-relink")) != CTRUE)
+     { if (equal_string(v27722,"") != CTRUE)
+       generate_s_file_string(v27722,v52331,v52329);
+      if (equal_string(v21957,"win32v") == CTRUE)
+       GC_OBJECT(list,Optimize.compiler->libraries)->addFast((OID)_string_("gui"));
+      if ((contain_ask_list(Optimize.compiler->libraries,_string_("noConsole")) != CTRUE) && 
+          (contain_ask_list(Optimize.compiler->libraries,_string_("wclConsole")) != CTRUE))
+       GC_OBJECT(list,Optimize.compiler->libraries)->addFast((OID)_string_("Console"));
+      if ((equal_string(v21957,"win32v") == CTRUE) || 
+          ((equal_string(v21957,"ntv") == CTRUE) || 
+            (equal_string(v21957,"ntw") == CTRUE)))
+       create_makefile_nt_any1(v52329,v27722,v52331);
+      else create_makefile_unix_any1(v52329,v27722,v52331);
+        }
+    print_in_string_void();
+    if ((equal_string(v21957,"win32v") == CTRUE) || 
+        ((equal_string(v21957,"ntv") == CTRUE) || 
+          (equal_string(v21957,"ntw") == CTRUE)))
+     { princ_string("nmake /nologo /c /f ");
+      princ_string(v52322);
+      princ_string(".mk");
+      }
+    else { princ_string("make ");
+        princ_string(job_option_void1());
+        princ_string("-f ");
+        princ_string(v52322);
+        princ_string(".mk");
+        }
+      { char * v15926 = GC_STRING(end_of_string_void());
+      if (should_trace_ask_module1(Generate.it,0) == CTRUE)
+       mtformat_module1(Generate.it,"==== launch ~A ==== \n",0,list::alloc(1,_string_(v15926)));
+      else ;if (claire_shell(v15926) != 0)
+       CL_exit(1);
+      }
+    }
+  GC_UNBIND; POP_SIGNAL;}
+
+void  create_makefile_nt_any1(OID v52329,char *v27722,list *v52331)
+{ GC_BIND;
+  { char * v52322 = ((INHERIT(OWNER(v52329),Kernel._module)) ?
+      string_I_symbol(OBJECT(thing,v52329)->name) :
+      v27722 );
+    buffer * v52332 = GC_OBJECT(buffer,fopen_string1(GC_STRING(append_string(v52322,".mk")),"w"));
+    char * v15660 = GC_STRING(Optimize.compiler->env);
+    char * v47182 = ((equal_string(v15660,"ntw") == CTRUE) ?
+      "/fo=" :
+      "/Fo" );
+    char * v31193 = ((equal_string(v15660,"ntw") == CTRUE) ?
+      "nt" :
+      v15660 );
+    use_as_output_port(v52332);
+    princ_string("option = ");
+    headers_I_void1();
+    princ_string(string_v(Optimize.claire_options->value));
+    princ_string(" -nologo /DCLPC\n");
+    princ_string(".SUFFIXES : .exe .obj .cpp\n\n");
+    princ_string("T = ");
+    princ_string(Optimize.compiler->source);
+    princ_string("\n");
+    if (INHERIT(OWNER(v52329),Kernel._module))
+     { princ_string("U = ");
+      princ_string(string_v((*Kernel.source)(v52329)));
+      princ_string("\n\n");
+      }
+    princ_string("CC = ");
+    princ_string(((equal_string(Optimize.compiler->env,"ntw") == CTRUE) ?
+      "wpp386" :
+      "cl" ));
+    princ_string("\n");
+    princ_string("FILES = ");
+    files_I_any1(v52329,CFALSE,v27722);
+    princ_string("\n");
+    princ_string("{$T}.cpp{$T}.obj:\n");
+    princ_string("\t$(CC) $(option) ");
+    princ_string(v47182);
+    princ_string("$T\\$(<B).obj ");
+    if (equal_string(v15660,"ntw") != CTRUE)
+     princ_string("/Tp ");
+    princ_string("$T/$(<B).cpp\n");
+    princ_string("{$T}.cc{$T}.obj:\n");
+    princ_string("\t$(CC) $(option) ");
+    princ_string(v47182);
+    princ_string("$T\\$(<B).obj ");
+    if (equal_string(v15660,"ntw") != CTRUE)
+     princ_string("/Tp ");
+    princ_string("$T/$(<B).cc\n");
+    if (INHERIT(OWNER(v52329),Kernel._module))
+     { princ_string("{$U}.cpp{$U}.obj:\n");
+      princ_string("\t$(CC) $(option) ");
+      princ_string(v47182);
+      princ_string("$U\\$(<B).obj ");
+      if (equal_string(v15660,"ntw") != CTRUE)
+       princ_string("/Tp ");
+      princ_string("$U/$(<B).cpp\n");
+      princ_string("{$U}.cc{$U}.obj:\n");
+      princ_string("\t$(CC) $(option) ");
+      princ_string(v47182);
+      princ_string("$U\\$(<B).obj ");
+      if (equal_string(v15660,"ntw") != CTRUE)
+       princ_string("/Tp ");
+      princ_string("$U/$(<B).cc\n");
+      }
+    princ_string("all: ");
+    if (equal_string(v27722,"") != CTRUE)
+     { princ_string(v27722);
+      princ_string(".exe");
+      }
+    else { princ_string(_7_string(GC_STRING(Optimize.compiler->env),GC_STRING(string_v(Optimize.claire_lib->value))));
+        princ_string("\\");
+        print_any(v52329);
+        princ_string(".lib");
+        }
+      princ_string("\n");
+    if (INHERIT(OWNER(v52329),Kernel._module))
+     { princ_string(_7_string(GC_STRING(Optimize.compiler->env),GC_STRING(string_v(Optimize.claire_lib->value))));
+      princ_string(string_v(Core._starfs_star->value));
+      princ_string(external_I_module1(OBJECT(module,v52329)));
+      princ_string(".lib: $(FILES)\n");
+      if (equal_string(v15660,"ntw") == CTRUE)
+       { princ_string("\t!wlib /q /c / b ");
+        princ_string(_7_string(GC_STRING(Optimize.compiler->env),GC_STRING(string_v(Optimize.claire_lib->value))));
+        princ_string(string_v(Core._starfs_star->value));
+        princ_string(external_I_module1(OBJECT(module,v52329)));
+        princ_string(".lib +-$?\n");
+        }
+      else princ_string("\tlib /NOLOGO /OUT:$@ $(FILES)\n");
+        }
+    if (equal_string(v27722,"") != CTRUE)
+     { if (equal_string(v15660,"ntw") != CTRUE)
+       { princ_string("JUNK = /NOLOGO ");
+        if (Optimize.compiler->debug_ask->length != 0)
+         princ_string("/DEBUG /MAP ");
+        princ_string("/STACK:1600000 user32.lib gdi32.lib shell32.lib comdlg32.lib ws2_32.lib\n");
+        }
+      princ_string(v27722);
+      princ_string(".exe: ");
+      if (INHERIT(OWNER(v52329),Kernel._module))
+       { princ_string(_7_string(GC_STRING(Optimize.compiler->env),GC_STRING(string_v(Optimize.claire_lib->value))));
+        princ_string(string_v(Core._starfs_star->value));
+        princ_string(external_I_module1(OBJECT(module,v52329)));
+        princ_string(".lib $T\\");
+        princ_string(v27722);
+        princ_string("-s.obj");
+        }
+      else princ_string("$(FILES)");
+        princ_string("\n");
+      if (equal_string(v15660,"ntw") == CTRUE)
+       { princ_string("\twlink sys ");
+        princ_string(v31193);
+        princ_string(" N ");
+        princ_string(v27722);
+        princ_string(" d all option ");
+        princ_string("q,d,ST=600K,c,mang");
+        princ_string(" P $T F ");
+        files_I_any1(v52329,CTRUE,v27722);
+        princ_string(" ");
+        lib_I_any1(v52329,v52331);
+        princ_string("\n\n");
+        }
+      else { princ_string("\tlink /subsystem:");
+          princ_string(((equal_string(v15660,"win32v") == CTRUE) ?
+            "windows" :
+            "console" ));
+          princ_string(" $(JUNK) ");
+          lib_I_any1(v52329,v52331);
+          princ_string(" /OUT:");
+          princ_string(v27722);
+          princ_string(".exe ");
+          if (INHERIT(OWNER(v52329),Kernel._module))
+           { princ_string("$T\\");
+            princ_string(v27722);
+            princ_string("-s.obj");
+            }
+          else princ_string("$(FILES)");
+            princ_string("\n\n");
+          }
+        }
+    fclose_filter1(v52332);
+    }
+  GC_UNBIND; POP_SIGNAL;}
+
+void  create_makefile_unix_any1(OID v52329,char *v27722,list *v52331)
+{ GC_BIND;
+  { char * v52322 = ((INHERIT(OWNER(v52329),Kernel._module)) ?
+      string_I_symbol(OBJECT(thing,v52329)->name) :
+      v27722 );
+    buffer * v52332 = GC_OBJECT(buffer,fopen_string1(GC_STRING(append_string(v52322,".mk")),"w"));
+    if (should_trace_ask_module1(Generate.it,5) == CTRUE)
+     mtformat_module1(Generate.it,"=========== CREATE UNIX MAKEFILE ~A.mk (in progress) ======= \n",5,list::alloc(1,_string_(v52322)));
+    else ;use_as_output_port(v52332);
+    princ_string("# --- unix makefile --- version ");
+    (*Kernel.princ)(GC_OID(release_void()));
+    princ_string(" ----\n");
+    princ_string("T = ");
+    princ_string(Optimize.compiler->source);
+    princ_string("\n");
+    if (INHERIT(OWNER(v52329),Kernel._module))
+     { princ_string("U = ");
+      princ_string(string_v((*Kernel.source)(v52329)));
+      princ_string("\n\n");
+      }
+    princ_string("all: ");
+    if (equal_string(v27722,"") != CTRUE)
+     princ_string(v27722);
+    else { princ_string(_7_string(GC_STRING(Optimize.compiler->env),GC_STRING(string_v(Optimize.claire_lib->value))));
+        princ_string(string_v(Core._starfs_star->value));
+        print_any(v52329);
+        princ_string(".lib");
+        }
+      princ_string("\n\n");
+    princ_string("FILES = ");
+    files_I_any1(v52329,CFALSE,v27722);
+    princ_string("\n");
+    princ_string("CXX = @CXX@\n");
+    princ_string("LINK = ld @CL_X86_64_LD@ -r\n");
+    princ_string("CXXFLAGS = @CL_X86_64_CXX@ ");
+    headers_I_void1();
+    princ_string(string_v(Optimize.claire_options->value));
+    princ_string("\n\n");
+    if (INHERIT(OWNER(v52329),Kernel._module))
+     princ_string("$U%.o: $U%.cpp\n\t$(CXX) $(CXXFLAGS) -c $(@:.o=.cpp) -o $@\n\n");
+    princ_string("$U%.o: $U%.cc\n\t$(CXX) $(CXXFLAGS) -c $(@:.o=.cc) -o $@\n\n");
+    princ_string("$T%.o: $T%.cc\n\t$(CXX) $(CXXFLAGS) -c $(@:.o=.cc) -o $@\n\n");
+    if (INHERIT(OWNER(v52329),Kernel._module))
+     { princ_string(_7_string(GC_STRING(Optimize.compiler->env),GC_STRING(string_v(Optimize.claire_lib->value))));
+      princ_string(string_v(Core._starfs_star->value));
+      princ_string(external_I_module1(OBJECT(module,v52329)));
+      princ_string(".lib: $(FILES)\n");
+      princ_string("\t$(LINK) -o ");
+      princ_string(_7_string(GC_STRING(Optimize.compiler->env),GC_STRING(string_v(Optimize.claire_lib->value))));
+      princ_string(string_v(Core._starfs_star->value));
+      princ_string(external_I_module1(OBJECT(module,v52329)));
+      princ_string(".lib $(FILES)\n");
+      }
+    if (equal_string(v27722,"") != CTRUE)
+     { princ_string(v27722);
+      princ_string(": ");
+      if (INHERIT(OWNER(v52329),Kernel._module))
+       { princ_string(_7_string(GC_STRING(Optimize.compiler->env),GC_STRING(string_v(Optimize.claire_lib->value))));
+        princ_string(string_v(Core._starfs_star->value));
+        princ_string(external_I_module1(OBJECT(module,v52329)));
+        princ_string(".lib $T");
+        princ_string(string_v(Core._starfs_star->value));
+        princ_string(v27722);
+        princ_string("-s.o");
+        }
+      else princ_string("$(FILES)");
+        princ_string("\n");
+      princ_string("\t$(CXX) @CL_X86_64_CXX@ ");
+      if (INHERIT(OWNER(v52329),Kernel._module))
+       { princ_string("$T");
+        princ_string(string_v(Core._starfs_star->value));
+        princ_string(v27722);
+        princ_string("-s.o");
+        }
+      else princ_string("$(FILES)");
+        princ_string(" -o ");
+      princ_string(v27722);
+      princ_string(" ");
+      lib_I_any1(v52329,v52331);
+      princ_string(" ");
+      if (contain_ask_list(Optimize.compiler->libraries,_string_("Console")) == CTRUE)
+       princ_string("@LIBS@ ");
+      princ_string("@ETR_SOCKET_LIBS@\n\n");
+      }
+    fclose_filter1(v52332);
+    }
+  GC_UNBIND; POP_SIGNAL;}
+
+void  local_loader_nt_list1(list *v52331)
+{ GC_BIND;
+  if (should_trace_ask_module1(Generate.it,0) == CTRUE)
+   mtformat_module1(Generate.it,"==== Create local claire lclaire.exe for ~A ==== \n",0,list::alloc(1,GC_OID(_string_(Optimize.compiler->env))));
+  else ;if (should_trace_ask_module1(Generate.it,0) == CTRUE)
+   mtformat_module1(Generate.it,"---- note: uses ~A \n",0,list::alloc(1,_oid_(v52331)));
+  else ;{ blob * v52332 = GC_OBJECT(blob,blob_I_void1());
+    PortObject * v49509 = use_as_output_port(v52332);
+    char * v52335 = "";
+    princ_string(((equal_string(Optimize.compiler->env,"ntw") == CTRUE) ?
+      "wpp386" :
+      "cl" ));
+    princ_string(" ");
+    headers_I_void1();
+    princ_string(string_v(Optimize.claire_options->value));
+    princ_string(" -nologo /DCLPC ");
+    if (equal_string(Optimize.compiler->env,"ntw") != CTRUE)
+     princ_string("/Tp ");
+    princ_string(" ");
+    princ_string(Optimize.compiler->source);
+    princ_string("\\lclaire-s.cpp ");
+    princ_string(((equal_string(Optimize.compiler->env,"ntw") == CTRUE) ?
+      "/fo=" :
+      "/Fo" ));
+    princ_string(Optimize.compiler->source);
+    princ_string("\\lclaire-s.obj");
+    v52335= GC_STRING(string_I_blob1(v52332));
+    use_as_output_port(v49509);
+    fclose_device1(v52332);
+    if (should_trace_ask_module1(Generate.it,0) == CTRUE)
+     mtformat_module1(Generate.it,"~A \n",0,list::alloc(1,_string_(v52335)));
+    else ;if (claire_shell(v52335) != 0)
+     CL_exit(1);
+    v52332= GC_OBJECT(blob,blob_I_void1());
+    v49509= use_as_output_port(v52332);
+    if (equal_string(Optimize.compiler->env,"ntw") == CTRUE)
+     { princ_string("\twlink sys ");
+      princ_string(((equal_string(Optimize.compiler->env,"ntw") == CTRUE) ?
+        "nt" :
+        Optimize.compiler->env ));
+      princ_string(" N lclaire d all option ");
+      princ_string("q,d,ST=600K,c,mang");
+      princ_string(" P ");
+      princ_string(Optimize.compiler->source);
+      princ_string(" F lclaire-s.obj ");
+      lib_I_any1(_oid_(claire.it),v52331);
+      princ_string("\n\n");
+      }
+    else { princ_string("\tlink /subsystem:");
+        princ_string(((equal_string(Optimize.compiler->env,"win32v") == CTRUE) ?
+          "windows" :
+          "console" ));
+        princ_string(" /NOLOGO /STACK:1600000 user32.lib gdi32.lib shell32.lib comdlg32.lib ws2_32.lib ");
+        lib_I_any1(_oid_(claire.it),v52331);
+        princ_string(" /OUT:lclaire.exe ");
+        princ_string(Optimize.compiler->source);
+        princ_string("\\lclaire-s.obj\n\n");
+        }
+      v52335= GC_STRING(string_I_blob1(v52332));
+    use_as_output_port(v49509);
+    fclose_device1(v52332);
+    if (should_trace_ask_module1(Generate.it,0) == CTRUE)
+     mtformat_module1(Generate.it,"~A \n",0,list::alloc(1,_string_(v52335)));
+    else ;if (claire_shell(v52335) != 0)
+     CL_exit(1);
+    }
+  GC_UNBIND; POP_SIGNAL;}
+
+void  local_loader_unix_list1(list *v52331)
+{ GC_BIND;
+  if (should_trace_ask_module1(Generate.it,0) == CTRUE)
+   mtformat_module1(Generate.it,"==== Create local claire ./lclaire for ~A ==== \n",0,list::alloc(1,GC_OID(_string_(Optimize.compiler->env))));
+  else ;if (should_trace_ask_module1(Generate.it,0) == CTRUE)
+   mtformat_module1(Generate.it,"---- note: uses ~A \n",0,list::alloc(1,_oid_(v52331)));
+  else ;{ blob * v52332 = GC_OBJECT(blob,blob_I_void1());
+    PortObject * v49509 = use_as_output_port(v52332);
+    char * v52335 = "";
+    princ_string("@CXX@ @CL_X86_64_CXX@ ");
+    headers_I_void1();
+    princ_string(string_v(Optimize.claire_options->value));
+    princ_string(" -c ");
+    princ_string(Optimize.compiler->source);
+    princ_string("/lclaire-s.cc -o ");
+    princ_string(Optimize.compiler->source);
+    princ_string("/lclaire-s.o");
+    v52335= GC_STRING(string_I_blob1(v52332));
+    use_as_output_port(v49509);
+    fclose_device1(v52332);
+    if (should_trace_ask_module1(Generate.it,0) == CTRUE)
+     mtformat_module1(Generate.it,"~A \n",0,list::alloc(1,_string_(v52335)));
+    else ;if (claire_shell(v52335) != 0)
+     CL_exit(1);
+    v52332= GC_OBJECT(blob,blob_I_void1());
+    v49509= use_as_output_port(v52332);
+    princ_string("@CXX@ @CL_X86_64_CXX@ ");
+    princ_string(Optimize.compiler->source);
+    princ_string("/lclaire-s.o -o lclaire ");
+    lib_I_any1(_oid_(claire.it),v52331);
+    princ_string(" @ETR_SOCKET_LIBS@ @LIBS@");
+    v52335= GC_STRING(string_I_blob1(v52332));
+    use_as_output_port(v49509);
+    fclose_device1(v52332);
+    if (should_trace_ask_module1(Generate.it,0) == CTRUE)
+     mtformat_module1(Generate.it,"~A \n",0,list::alloc(1,_string_(v52335)));
+    else ;if (claire_shell(v52335) != 0)
+     CL_exit(1);
+    }
+  GC_UNBIND; POP_SIGNAL;}
+
+void  local_loader_module1(module *v52329)
+{ GC_BIND;
+  { list * v52331;
+    { { bag * v3903 = add_modules_list(GC_OBJECT(list,OBJECT(list,Optimize.claire_modules->value)));
+        list * v61556 = ((list *) empty_bag(v3903));
+        { CL_INT loop_handle = ClEnv->cHandle;
+          ITERATE(v52325);
+          for (START(v3903); NEXT(v52325);)
+          if (equal(v52325,_oid_(v52329)) != CTRUE)
+           v61556->addFast((OID)v52325);
+          }
+        v52331 = GC_OBJECT(list,v61556);
+        }
+      GC_OBJECT(list,v52331);}
+    char * v21957 = GC_STRING(Optimize.compiler->env);
+    eval_any(GC_OID(read_string("main(l:list[string]) : void -> none")));
+    generate_s_file_string("lclaire",v52331,_oid_(claire.it));
+    delete_bag(Optimize.compiler->libraries,_string_("noConsole"));
+    delete_bag(Optimize.compiler->libraries,_string_("wclConsole"));
+    GC_OBJECT(list,Optimize.compiler->libraries)->addFast((OID)_string_("Console"));
+    GC_OBJECT(list,Optimize.compiler->libraries)->addFast((OID)_string_("lmain"));
+    if ((equal_string(v21957,"win32v") == CTRUE) || 
+        ((equal_string(v21957,"ntw") == CTRUE) || 
+          (equal_string(v21957,"ntv") == CTRUE)))
+     local_loader_nt_list1(v52331);
+    else local_loader_unix_list1(v52331);
+      CL_exit(0);
+    }
+  GC_UNBIND; POP_SIGNAL;}
+
+void  ensure_module_directories_exist_void1()
+{ GC_BIND;
+  if (isdir_ask_string("include") != CTRUE)
+   { if (should_trace_ask_module1(Generate.it,0) == CTRUE)
+     mtformat_module1(Generate.it,"---- creating directory .~Ainclude \n",0,list::alloc(1,GC_OID(Core._starfs_star->value)));
+    else ;mkdir_string2("include");
+    }
+  if (isdir_ask_string(_7_string("include","release")) != CTRUE)
+   { if (should_trace_ask_module1(Generate.it,0) == CTRUE)
+     mtformat_module1(Generate.it,"---- creating directory ~A \n",0,list::alloc(1,GC_OID(_string_(_7_string("include","release")))));
+    else ;mkdir_string2(_7_string("include","release"));
+    }
+  if (isdir_ask_string(_7_string("include","debug")) != CTRUE)
+   { if (should_trace_ask_module1(Generate.it,0) == CTRUE)
+     mtformat_module1(Generate.it,"---- creating directory ~A \n",0,list::alloc(1,GC_OID(_string_(_7_string("include","debug")))));
+    else ;mkdir_string2(_7_string("include","debug"));
+    }
+  if (isdir_ask_string("csrc") != CTRUE)
+   { if (should_trace_ask_module1(Generate.it,0) == CTRUE)
+     mtformat_module1(Generate.it,"---- creating directory ~A \n",0,list::alloc(1,_string_("csrc")));
+    else ;mkdir_string2("csrc");
+    }
+  if (isdir_ask_string(Optimize.compiler->env) != CTRUE)
+   { if (should_trace_ask_module1(Generate.it,0) == CTRUE)
+     mtformat_module1(Generate.it,"---- creating directory ~A \n",0,list::alloc(1,GC_OID(_string_(Optimize.compiler->env))));
+    else ;mkdir_string2(Optimize.compiler->env);
+    }
+  if (isdir_ask_string(_7_string(GC_STRING(Optimize.compiler->env),"release")) != CTRUE)
+   { if (should_trace_ask_module1(Generate.it,0) == CTRUE)
+     mtformat_module1(Generate.it,"---- creating directory ~A \n",0,list::alloc(1,GC_OID(_string_(_7_string(GC_STRING(Optimize.compiler->env),"release")))));
+    else ;mkdir_string2(_7_string(GC_STRING(Optimize.compiler->env),"release"));
+    }
+  if (isdir_ask_string(_7_string(GC_STRING(Optimize.compiler->env),"debug")) != CTRUE)
+   { if (should_trace_ask_module1(Generate.it,0) == CTRUE)
+     mtformat_module1(Generate.it,"---- creating directory ~A \n",0,list::alloc(1,GC_OID(_string_(_7_string(GC_STRING(Optimize.compiler->env),"debug")))));
+    else ;mkdir_string2(_7_string(GC_STRING(Optimize.compiler->env),"debug"));
+    }
+  GC_UNBIND; POP_SIGNAL;}
+
+void  new_module_list1(list *v52331)
+{ GC_BIND;
+  { list * v52332 = GC_OBJECT(list,explode_string(string_v((*(v52331))[1]),"/"));
+    if ((CL_INT)v52332->length > 2)
+     close_exception(((general_error *) (*Core._general_error)(_string_("option -nm <[partof/[version/]]module> [m f.cl f.cpp ...]"),
+      _oid_(Kernel.nil))));
+    { ClaireHandler c_handle = ClaireHandler();
+      if ERROR_IN 
+      { { if (isdir_ask_string(string_v(last_list(v52332))) == CTRUE)
+           close_exception(((general_error *) (*Core._general_error)(_string_("The Directory ~A already exists"),
+            _oid_(list::alloc(1,last_list(v52332))))));
+          if (isfile_ask_string(_7_string(string_v(last_list(v52332)),"init.cl")) == CTRUE)
+           close_exception(((general_error *) (*Core._general_error)(_string_("~A already exists"),
+            _oid_(list::alloc(1,GC_OID(_string_(_7_string(string_v(last_list(v52332)),"init.cl"))))))));
+          if (should_trace_ask_module1(Generate.it,0) == CTRUE)
+           mtformat_module1(Generate.it,"==== Creating new module ~A ==== \n",0,list::alloc(1,last_list(v52332)));
+          else ;mkdir_string2(string_v(last_list(v52332)));
+          mkdir_string2(_7_string(string_v(last_list(v52332)),"include"));
+          mkdir_string2(_7_string(GC_STRING(_7_string(string_v(last_list(v52332)),"include")),"release"));
+          mkdir_string2(_7_string(GC_STRING(_7_string(string_v(last_list(v52332)),"include")),"debug"));
+          mkdir_string2(_7_string(string_v(last_list(v52332)),"source"));
+          mkdir_string2(_7_string(string_v(last_list(v52332)),"csrc"));
+          mkdir_string2(_7_string(string_v(last_list(v52332)),GC_STRING(Optimize.compiler->env)));
+          mkdir_string2(_7_string(GC_STRING(_7_string(string_v(last_list(v52332)),GC_STRING(Optimize.compiler->env))),"release"));
+          mkdir_string2(_7_string(GC_STRING(_7_string(string_v(last_list(v52332)),GC_STRING(Optimize.compiler->env))),"debug"));
+          { buffer * v18324 = GC_OBJECT(buffer,fopen_string1(GC_STRING(_7_string(string_v(last_list(v52332)),"init.cl")),"w"));
+            use_as_output_port(v18324);
+            princ_string("\n// init file for module ");
+            princ_string(string_v(last_list(v52332)));
+            princ_string("\n// created ");
+            princ_string(strftime_string("%c",now_void()));
+            princ_string(" by claire v");
+            (*Kernel.princ)(GC_OID(release_void()));
+            princ_string("\n\n");
+            if (v52332->length == 2)
+             ((*(v52331))[1]=(*(v52332))[1]);
+            else if (v52332->length == 3)
+             ((*(v52331))[1]=GC_OID(_string_(_7_string(string_v((*(v52332))[1]),string_v((*(v52332))[2])))));
+            else v52331= skip_list(v52331,1);
+              { list * v1552 = list::empty(Kernel._string);
+              { CL_INT loop_handle = ClEnv->cHandle;
+                OID gc_local;
+                ITERATE(v52326);
+                for (START(v52331); NEXT(v52326);)
+                if ((match_wildcard_ask_string(string_v(v52326),"*.*") != CTRUE) || 
+                    (match_wildcard_ask_string(string_v(v52326),"*/*") == CTRUE))
+                 { if (contain_ask_list(v1552,v52326) != CTRUE)
+                   { v1552= v1552->addFast((OID)v52326);
+                    use_module_string(string_v(v52326));
+                    use_as_output_port(v18324);
+                    princ_string("(use_module(\"");
+                    princ_string(string_v(v52326));
+                    princ_string("\"))\n");
+                    }
+                  }
+                }
+              }
+            princ_string("\n\n");
+            princ_string(string_v(last_list(v52332)));
+            princ_string(" :: module(\n");
+            if (v52332->length == 2)
+             { princ_string("\tpart_of = ");
+              princ_string(string_v((*(v52332))[1]));
+              princ_string(",\n");
+              }
+            princ_string("\tuses = list(");
+            { ClaireBoolean * v54547 = CTRUE;
+              if (v52332->length == 2)
+               { princ_string(string_v((*(v52332))[1]));
+                v54547= CFALSE;
+                }
+              { CL_INT loop_handle = ClEnv->cHandle;
+                OID gc_local;
+                ITERATE(v52326);
+                for (START(v52331); NEXT(v52326);)
+                if ((match_wildcard_ask_string(string_v(v52326),"*.*") != CTRUE) || 
+                    (match_wildcard_ask_string(string_v(v52326),"*/*") == CTRUE))
+                 { if (v54547 == CTRUE)
+                   v54547= CFALSE;
+                  else princ_string(", ");
+                    princ_string(string_v((*(explode_string(string_v(v52326),"/")))[1]));
+                  }
+                }
+              if (v54547 == CTRUE)
+               princ_string("Core");
+              }
+            princ_string("),\n");
+            princ_string("\tmade_of = list(");
+            { ClaireBoolean * v54547 = CTRUE;
+              { CL_INT loop_handle = ClEnv->cHandle;
+                OID gc_local;
+                ITERATE(v52326);
+                for (START(v52331); NEXT(v52326);)
+                { GC_LOOP;
+                  if ((match_wildcard_ask_string(string_v(v52326),"*.*") == CTRUE) && 
+                      (match_wildcard_ask_string(string_v(v52326),"*/*") != CTRUE))
+                   { if (v54547 == CTRUE)
+                     v54547= CFALSE;
+                    else princ_string(", ");
+                      if (match_wildcard_ask_string(string_v(v52326),"*.h*") == CTRUE)
+                     fclose_filter1(GC_OBJECT(buffer,fopen_string1(GC_STRING(_7_string(GC_STRING(_7_string(string_v(last_list(v52332)),"include")),string_v(v52326))),"w")));
+                    else fclose_filter1(GC_OBJECT(buffer,fopen_string1(GC_STRING(_7_string(GC_STRING(_7_string(string_v(last_list(v52332)),"source")),string_v(v52326))),"w")));
+                      princ_string("\"");
+                    princ_string(string_v(v52326));
+                    princ_string("\"");
+                    }
+                  GC_UNLOOP; POP_SIGNAL;}
+                }
+              }
+            princ_string("),\n");
+            princ_string("\tsource = \"source\",\n");
+            princ_string("\tversion = \"v1.0.0\") // put your version here\n\n\n");
+            if (v52332->length == 2)
+             { princ_string("(begin(");
+              princ_string(string_v((*(v52332))[1]));
+              princ_string("))\n");
+              }
+            princ_string("(load(");
+            princ_string(string_v(last_list(v52332)));
+            princ_string("))\n");
+            if (v52332->length == 2)
+             { princ_string("(end(");
+              princ_string(string_v((*(v52332))[1]));
+              princ_string("))\n");
+              }
+            princ_string("\n\n// Here you can customize the C++ compiler.\n// You can uncomment and set any of the following option :\n\n");
+            princ_string("// ==== external libraries needed at link time ====\n");
+            princ_string(";(compiler.libraries :add \"-lsome_lib\")\n\n");
+            princ_string("// ==== C++ compiler options ====\n");
+            princ_string(";(compiler.options[1] :/+ \"-a_cpp_option\") // Optimize mode (-O)\n");
+            princ_string(";(compiler.options[2] :/+ \"-a_cpp_option\") // Debug mode (-D)\n");
+            princ_string(";(compiler.options[3] :/+ \"-a_cpp_option\") // Release mode\n\n");
+            princ_string("\n// Here you can customize the CLAIRE compiler.\n// You can uncomment and set any of the following option :\n\n");
+            princ_string("// ==== compiler safety ====\n// 0 -> super safe\n// 1 -> safe\n// 2 -> trust explicit types & super\n// 3 -> no overflow checking\n// 4 -> assumes no selector or range error\n// 5 -> assume no type errors of any kind\n");
+            princ_string(";(compiler.safety := 1)\n\n");
+            princ_string("// ==== compiler naming convention ====\n// 0 -> long & explicit names\n// 1 -> shorter names\n// 2 -> protected names\n");
+            princ_string(";(compiler.naming := 0)\n\n");
+            princ_string("// ==== compiler inline flag ====\n// set it to true if you want to include inline definitions in the generated library\n");
+            princ_string(";(compiler.inline? := false)\n\n");
+            princ_string("// ==== compiler overflow flag ====\n// set it to true to produce safe code with respect to owerflow\n");
+            princ_string(";(compiler.overflow? := false)\n\n");
+            princ_string("// ==== fast dispatch flag ====\n");
+            princ_string(";(FCALLSTINKS := false)\n\n");
+            princ_string("\n// Here you can customize the CLAIRE code generator.\n");
+            princ_string("// Some symbol may be reserved in the target language,\n");
+            princ_string("// for such symbol you have to define a translation :\n\n");
+            princ_string(";(Generate/C++PRODUCER.Generate/bad_names :add some_symbol)\n");
+            princ_string(";(Generate/C++PRODUCER.Generate/good_names :add symbol!(\"some_symbol_translated\"))\n\n");
+            fclose_filter1(v18324);
+            }
+          }
+        ERROR_FREE;}
+      else if (belong_to(_oid_(ClEnv->exception_I),_oid_(Kernel._any)) == CTRUE)
+      { c_handle.catchIt();{ use_as_output_port(OBJECT(PortObject,Core.cl_stdout->value));
+          print_any(GC_OID(_oid_(ClEnv->exception_I)));
+          princ_string("\n");
+          CL_exit(1);
+          }
+        }
+      else PREVIOUS_HANDLER;}
+    CL_exit(0);
+    }
+  GC_UNBIND; POP_SIGNAL;}
+
+void  generate_moduleinfo_module1(module *v52329,char *v18089)
+{ GC_BIND;
+  { buffer * v36115 = GC_OBJECT(buffer,fopen_string1(GC_STRING(_7_string(v18089,"moduleinfo.xml")),"w"));
+    use_as_output_port(v36115);
+    princ_string("<moduleDescription>\n");
+    princ_string("\t<name>");
+    princ_string(v52329->name->name);
+    princ_string("</name>\n");
+    princ_string("\t<sources>true</sources>\n");
+    princ_string("\t<headerPath>");
+    princ_string("release");
+    princ_string("</headerPath>\n");
+    princ_string("\t<headerDebugPath>");
+    princ_string("debug");
+    princ_string("</headerDebugPath>\n");
+    princ_string("\t<libPath>");
+    princ_string(append_string(GC_STRING(_7_string("release",external_I_module1(v52329))),".lib"));
+    princ_string("</libPath>\n");
+    princ_string("\t<libDebugPath>");
+    princ_string(append_string(GC_STRING(_7_string("debug",external_I_module1(v52329))),".lib"));
+    princ_string("</libDebugPath>\n");
+    princ_string("\t<version>");
+    princ_string(v52329->version);
+    princ_string("</version>\n");
+    princ_string("\t<claireVersion>v");
+    (*Kernel.princ)(GC_OID(release_void()));
+    princ_string("</claireVersion>\n");
+    princ_string("\t<cppCompiler>");
+    princ_string(Optimize.compiler->external);
+    princ_string("</cppCompiler>\n");
+    princ_string("\t<partof>");
+    princ_string(((((v52329->part_of == (NULL)) ? CTRUE : CFALSE) != CTRUE) ?
+      v52329->part_of->name->name :
+      "claire" ));
+    princ_string("</partof>\n");
+    { CL_INT loop_handle = ClEnv->cHandle;
+      OID gc_local;
+      ITERATE(v52337);
+      bag *v52337_support;
+      v52337_support = GC_OBJECT(list,v52329->uses);
+      for (START(v52337_support); NEXT(v52337);)
+      if (INHERIT(OWNER(v52337),Kernel._module))
+       { princ_string("\t<uses>");
+        princ_string(OBJECT(symbol,(*Kernel.name)(v52337))->name);
+        princ_string("</uses>\n");
+        }
+      }
+    { CL_INT loop_handle = ClEnv->cHandle;
+      OID gc_local;
+      ITERATE(v52344);
+      bag *v52344_support;
+      v52344_support = GC_OBJECT(list,v52329->made_of);
+      for (START(v52344_support); NEXT(v52344);)
+      if (Kernel._string == OWNER(v52344))
+       { princ_string("\t<madeof>");
+        princ_string(url_encode_string(string_v(v52344)));
+        princ_string("</madeof>\n");
+        }
+      }
+    { CL_INT loop_handle = ClEnv->cHandle;
+      OID gc_local;
+      ITERATE(v49195);
+      bag *v49195_support;
+      v49195_support = GC_OBJECT(list,Optimize.compiler->libraries);
+      for (START(v49195_support); NEXT(v49195);)
+      if (((equal(v49195,_string_("gui")) == CTRUE) ? CTRUE : 
+      ((equal(v49195,_string_("wclConsole")) == CTRUE) ? CTRUE : 
+      ((equal(v49195,_string_("noConsole")) == CTRUE) ? CTRUE : 
+      ((equal(v49195,_string_("lmain")) == CTRUE) ? CTRUE : 
+      ((equal(v49195,_string_("Console")) == CTRUE) ? CTRUE : 
+      ((equal(v49195,_string_("Kernel")) == CTRUE) ? CTRUE : 
+      CFALSE)))))) != CTRUE)
+       { princ_string("\t<externalLib>");
+        princ_string(string_v(v49195));
+        princ_string("</externalLib>\n");
+        }
+      }
+    princ_string("</moduleDescription>\n");
+    fclose_filter1(v36115);
+    }
+  GC_UNBIND; POP_SIGNAL;}
+
+void  rcopy_string1(char *v49232,char *v49663)
+{ GC_RESERVE(1);  // HOHO v3.0.55 optim !
+  { list * v52329 = GC_OBJECT(list,explode_string(v49663,GC_STRING(string_v(Core._starfs_star->value))));
+    char * v32275 = GC_STRING((((equal_string(Optimize.compiler->env,"win32v") == CTRUE) || 
+        ((equal_string(Optimize.compiler->env,"ntw") == CTRUE) || 
+          (equal_string(Optimize.compiler->env,"ntv") == CTRUE))) ?
+      left_string(v49663,2) :
+      ((((CL_INT)LENGTH_STRING(v49663) > 0) && 
+          (v49663[1 - 1] == ((unsigned char)47 /* '/' */))) ?
+        "/" :
+        "." ) ));
+    { CL_INT loop_handle = ClEnv->cHandle;
+      OID gc_local;
+      ITERATE(v52325);
+      for (START(v52329); NEXT(v52325);)
+      { GC_LOOP;
+        if (((CL_INT)LENGTH_STRING(string_v(v52325)) > 0) && 
+            ((((equal_string(Optimize.compiler->env,"win32v") == CTRUE) || 
+                ((equal_string(Optimize.compiler->env,"ntw") == CTRUE) || 
+                  (equal_string(Optimize.compiler->env,"ntv") == CTRUE))) ? ((equal(v52325,_string_(left_string(v49663,2))) == CTRUE) ? CTRUE: CFALSE): CFALSE) != CTRUE))
+         { GC__STRING(v32275 = _7_string(v32275,string_v(v52325)), 1);
+          if (isdir_ask_string(v32275) != CTRUE)
+           mkdir_string2(v32275);
+          }
+        GC_UNLOOP; POP_SIGNAL;}
+      }
+    }
+  { CL_INT loop_handle = ClEnv->cHandle;
+    OID gc_local;
+    ITERATE(v52325);
+    bag *v52325_support;
+    v52325_support = GC_OBJECT(list,entries_string2(v49232));
+    for (START(v52325_support); NEXT(v52325);)
+    { GC_LOOP;
+      if (isfile_ask_string(_7_string(v49232,string_v(v52325))) == CTRUE)
+       { fcopy_string(GC_STRING(_7_string(v49232,string_v(v52325))),GC_STRING(_7_string(v49663,string_v(v52325))));
+        chmod_string(_7_string(v49663,string_v(v52325)),33188);
+        }
+      else rcopy_string1(GC_STRING(_7_string(v49232,string_v(v52325))),GC_STRING(_7_string(v49663,string_v(v52325))));
+        GC_UNLOOP; POP_SIGNAL;}
+    }
+  GC_UNBIND; POP_SIGNAL;}
+
+void  export_module_boolean1(ClaireBoolean *v40006)
+{ GC_BIND;
+  { ClaireHandler c_handle = ClaireHandler();
+    if ERROR_IN 
+    { { if (isfile_ask_string("init.cl") != CTRUE)
+         close_exception(((general_error *) (*Core._general_error)(_string_("This directory doesn't seem to be a module (no init.cl)"),
+          _oid_(Kernel.nil))));
+        { char * v49450 = GC_STRING(string_v(last_list(explode_string(GC_STRING(pwd_void()),GC_STRING(string_v(Core._starfs_star->value))))));
+          if ((isfile_ask_string(append_string(GC_STRING(_7_string(GC_STRING(_7_string(GC_STRING(Optimize.compiler->env),"release")),v49450)),".lib")) != CTRUE) && 
+              (isfile_ask_string(append_string(GC_STRING(_7_string(GC_STRING(_7_string(GC_STRING(Optimize.compiler->env),"debug")),v49450)),".lib")) != CTRUE))
+           { general_error * v24624;
+            { OID  v25585;
+              { list * v6693;{ OID v_bag;
+                  GC_ANY(v6693= list::empty(Kernel.emptySet));
+                  if (v40006 == CTRUE)
+                   v_bag = _string_("export");
+                  else v_bag = _string_("publish");
+                    ((list *) v6693)->addFast((OID)v_bag);
+                  ((list *) v6693)->addFast((OID)_string_(v49450));
+                  ((list *) v6693)->addFast((OID)_string_(v49450));}
+                
+                v25585=_oid_(v6693);}
+              v24624 = ((general_error *) (*Core._general_error)(_string_("Attempt to ~A the module ~A that does not have any lib yet, compile the module ~A first"),
+                v25585));
+              }
+            close_exception(v24624);
+            }
+          if (isfile_ask_string(append_string(GC_STRING(_7_string(GC_STRING(_7_string(GC_STRING(Optimize.compiler->env),"release")),v49450)),".lib")) != CTRUE)
+           { if (should_trace_ask_module1(Generate.it,0) == CTRUE)
+             mtformat_module1(Generate.it,"---- warning: the release library of ~A doesn't exists yet \n",0,list::alloc(1,_string_(v49450)));
+            else ;}
+          if (isfile_ask_string(append_string(GC_STRING(_7_string(GC_STRING(_7_string(GC_STRING(Optimize.compiler->env),"debug")),v49450)),".lib")) != CTRUE)
+           { if (should_trace_ask_module1(Generate.it,0) == CTRUE)
+             mtformat_module1(Generate.it,"---- warning: the debug library of ~A doesn't exists yet \n",0,list::alloc(1,_string_(v49450)));
+            else ;}
+          }
+        { char * v20802 = GC_STRING(((isenv_ask_string("CLAIRE_PUBLISH_HOME") == CTRUE) ?
+            getenv_string("CLAIRE_PUBLISH_HOME") :
+            realpath_string(GC_STRING(_7_string(GC_STRING(_7_string(GC_STRING(home_path_void1()),"..")),".."))) ));
+          if ((v40006 != CTRUE) && 
+              ((OBJECT(ClaireBoolean,Generate._Zsudo->value)) == CTRUE))
+           { if (should_trace_ask_module1(Generate.it,0) == CTRUE)
+             mtformat_module1(Generate.it,"---- note: attempt to publish ~A at ~A \n",0,list::alloc(2,GC_OID(last_list(explode_string(GC_STRING(pwd_void()),GC_STRING(string_v(Core._starfs_star->value))))),_string_(v20802)));
+            else ;if (should_trace_ask_module1(Generate.it,0) == CTRUE)
+             mtformat_module1(Generate.it,"==== Require permission for publication ====\n",0,list::empty());
+            else ;setenv_string(append_string("CLAIRE_PUBLISH_HOME=",v20802));
+            print_in_string_void();
+            princ_string("sudo ");
+            (*Kernel.princ)((*(ClEnv->params))[1]);
+            princ_string(" -nologo");
+            if ((OBJECT(ClaireBoolean,Generate._Zov->value)) == CTRUE)
+             princ_string(" -ov");
+            princ_string(" -publish\n");
+            if (claire_shell(end_of_string_void()) != 0)
+             CL_exit(1);
+            CL_exit(0);
+            }
+          load_string("init");
+          { char * v52329 = GC_STRING(string_v(last_list(explode_string(GC_STRING(pwd_void()),GC_STRING(string_v(Core._starfs_star->value))))));
+            OID  v63614 = value_string(v52329);
+            char * v49227;
+            { { char * v27507;
+                { OID  v52338 = GC_OID(get_property(Kernel.version,OBJECT(ClaireObject,v63614)));
+                  if (v52338 != CNULL)
+                   v27507 = string_v(v52338);
+                  else { if (should_trace_ask_module1(Generate.it,0) == CTRUE)
+                       mtformat_module1(Generate.it,"---- note: ~S.version undefined, default is [v0.0.0] \n",0,list::alloc(1,v63614));
+                      else ;v27507 = "v0.0.0";
+                      }
+                    }
+                v49227 = _7_string(v52329,v27507);
+                }
+              GC_STRING(v49227);}
+            list * v37138 = GC_OBJECT(list,explode_string(getenv_string("CLAIRE_LIBS"),GC_STRING(string_v(Core._starps_star->value))));
+            char * v52332;
+            { if (v40006 != CTRUE)
+               v52332 = _7_string(v20802,"lib");
+              else if (INHERIT(OWNER(Generate._Zexport->value),Kernel._integer))
+               { if (((OBJECT(ClaireBoolean,(*Kernel._inf)(GC_OID(Generate._Zexport->value),
+                    ((OID)1)))) == CTRUE) || 
+                    ((OBJECT(ClaireBoolean,(*Kernel._sup)(GC_OID(Generate._Zexport->value),
+                      ((OID)v37138->length)))) == CTRUE))
+                 close_exception(((general_error *) (*Core._general_error)(_string_("-export ~A, ~A is a invalid index for CLAIRE_LIBS [~A]"),
+                  _oid_(list::alloc(3,GC_OID(Generate._Zexport->value),
+                    GC_OID(Generate._Zexport->value),
+                    _oid_(v37138))))));
+                v52332 = string_v((*(v37138))[Generate._Zexport->value]);
+                }
+              else if (Kernel._string == OWNER(Generate._Zexport->value))
+               { if (contain_ask_list(v37138,Generate._Zexport->value) != CTRUE)
+                 { if (should_trace_ask_module1(Generate.it,0) == CTRUE)
+                   mtformat_module1(Generate.it,"---- warning: ~A not found in CLAIRE_LIBS environment variable \n",0,list::alloc(1,GC_OID(Generate._Zexport->value)));
+                  else ;}
+                v52332 = string_v(Generate._Zexport->value);
+                }
+              else { if (boolean_I_any(_oid_(v37138)) != CTRUE)
+                   close_exception(((general_error *) (*Core._general_error)(_string_("export path ommited, can't guess it since environment variable CLAIRE_LIBS is undefined"),
+                    _oid_(Kernel.nil))));
+                  v52332 = string_v((*(v37138))[1]);
+                  }
+                GC_STRING(v52332);}
+            char * v6272 = GC_STRING(_7_string(GC_STRING(_7_string(v52332,v49227)),GC_STRING(append_string(GC_STRING(append_string(GC_STRING(append_string("v",GC_STRING(string_v(release_void())))),"-")),GC_STRING(Optimize.compiler->env)))));
+            if (should_trace_ask_module1(Generate.it,0) == CTRUE)
+             { list * v28468;
+              { OID v_bag;
+                GC_ANY(v28468= list::empty(Kernel.emptySet));
+                if (v40006 == CTRUE)
+                 v_bag = _string_("Export");
+                else v_bag = _string_("Publish");
+                  ((list *) v28468)->addFast((OID)v_bag);
+                ((list *) v28468)->addFast((OID)_string_(v49227));}
+              mtformat_module1(Generate.it,"==== ~A ~A ==== \n",0,v28468);
+              }
+            else ;if ((Generate._Zov->value != Kernel.ctrue) && 
+                (isdir_ask_string(_7_string(v52332,v49227)) == CTRUE))
+             close_exception(((general_error *) (*Core._general_error)(_string_("Sorry, directory ~S already exists (try with -ov to overwrite)"),
+              _oid_(list::alloc(1,GC_OID(_string_(_7_string(v52332,v49227))))))));
+            if (isdir_ask_string(_7_string(v52332,v49227)) != CTRUE)
+             { if (should_trace_ask_module1(Generate.it,0) == CTRUE)
+               mtformat_module1(Generate.it,"     creating ~A \n",0,list::alloc(1,GC_OID(_string_(_7_string(v52332,v49227)))));
+              else ;}
+            if (isdir_ask_string(_7_string(v52332,v52329)) != CTRUE)
+             mkdir_string2(_7_string(v52332,v52329));
+            if (isdir_ask_string(_7_string(v52332,v49227)) != CTRUE)
+             mkdir_string2(_7_string(v52332,v49227));
+            if (should_trace_ask_module1(Generate.it,3) == CTRUE)
+             mtformat_module1(Generate.it,"     copying files in ~A \n",3,list::alloc(1,GC_OID(_string_(_7_string(v52332,v49227)))));
+            else ;if (should_trace_ask_module1(Generate.it,3) == CTRUE)
+             mtformat_module1(Generate.it,"     init.cl, include, source and lib\n",3,list::empty());
+            else ;fcopy_string("init.cl",_7_string(GC_STRING(_7_string(v52332,v49227)),"init.cl"));
+            chmod_string(_7_string(GC_STRING(_7_string(v52332,v49227)),"init.cl"),33188);
+            rcopy_string1(GC_STRING(_7_string(GC_STRING(Optimize.compiler->env),"release")),GC_STRING(_7_string(v6272,"release")));
+            rcopy_string1(GC_STRING(_7_string(GC_STRING(Optimize.compiler->env),"debug")),GC_STRING(_7_string(v6272,"debug")));
+            { CL_INT loop_handle = ClEnv->cHandle;
+              OID gc_local;
+              ITERATE(v52325);
+              bag *v52325_support;
+              v52325_support = GC_OBJECT(list,entries_string1("include","*.h*"));
+              for (START(v52325_support); NEXT(v52325);)
+              { GC_LOOP;
+                { fcopy_string(GC_STRING(_7_string("include",string_v(v52325))),GC_STRING(_7_string(GC_STRING(_7_string(v6272,"release")),string_v(v52325))));
+                  chmod_string(_7_string(GC_STRING(_7_string(v6272,"release")),string_v(v52325)),33188);
+                  fcopy_string(GC_STRING(_7_string("include",string_v(v52325))),GC_STRING(_7_string(GC_STRING(_7_string(v6272,"debug")),string_v(v52325))));
+                  chmod_string(_7_string(GC_STRING(_7_string(v6272,"debug")),string_v(v52325)),33188);
+                  }
+                GC_UNLOOP; POP_SIGNAL;}
+              }
+            rcopy_string1(GC_STRING(_7_string("include","release")),GC_STRING(_7_string(v6272,"release")));
+            rcopy_string1(GC_STRING(_7_string("include","debug")),GC_STRING(_7_string(v6272,"debug")));
+            rcopy_string1(GC_STRING(string_v((*Kernel.source)(v63614))),GC_STRING(_7_string(GC_STRING(_7_string(v52332,v49227)),GC_STRING(string_v((*Kernel.source)(v63614))))));
+            if (should_trace_ask_module1(Generate.it,3) == CTRUE)
+             mtformat_module1(Generate.it,"     generating moduleinfo.xml\n",3,GC_OBJECT(list,list::empty()));
+            else ;generate_moduleinfo_module1(OBJECT(module,v63614),v6272);
+            if (should_trace_ask_module1(Generate.it,3) == CTRUE)
+             mtformat_module1(Generate.it,"== Call exported callback\n",3,GC_OBJECT(list,list::empty()));
+            else ;{ ClaireHandler c_handle = ClaireHandler();
+              if ERROR_IN 
+              { (*Core.apply)(value_module(OBJECT(module,v63614),"exported"),
+                  GC_OID(_oid_(list::alloc(4,_oid_(v40006),
+                    Generate._Zov->value,
+                    GC_OID(_string_(_7_string(v52332,v49227))),
+                    GC_OID(_string_(home_path_void1()))))));
+                ERROR_FREE;}
+              else if (belong_to(_oid_(ClEnv->exception_I),_oid_(Kernel._any)) == CTRUE)
+              { c_handle.catchIt();;}
+              else PREVIOUS_HANDLER;}
+            if (should_trace_ask_module1(Generate.it,0) == CTRUE)
+             mtformat_module1(Generate.it,"Time : ~A \n",0,GC_OBJECT(list,list::alloc(1,GC_OID(_string_(strftime_string("%c",now_void()))))));
+            else ;if (should_trace_ask_module1(Generate.it,0) == CTRUE)
+             { list * v49610;
+              { { OID v_bag;
+                  GC_ANY(v49610= list::empty(Kernel.emptySet));
+                  ((list *) v49610)->addFast((OID)_string_(v49227));
+                  if (v40006 == CTRUE)
+                   v_bag = _string_("exported");
+                  else v_bag = _string_("published");
+                    ((list *) v49610)->addFast((OID)v_bag);}
+                GC_OBJECT(list,v49610);}
+              mtformat_module1(Generate.it,"==== ~A ~A ==== \n",0,v49610);
+              }
+            else ;}
+          }
+        }
+      ERROR_FREE;}
+    else if (belong_to(_oid_(ClEnv->exception_I),_oid_(Kernel._any)) == CTRUE)
+    { c_handle.catchIt();{ print_any(GC_OID(_oid_(ClEnv->exception_I)));
+        princ_string("\n");
+        CL_exit(1);
+        }
+      }
+    else PREVIOUS_HANDLER;}
+  CL_exit(0);
+  GC_UNBIND; POP_SIGNAL;}
+
+char * relayed_params_void1()
+{ GC_RESERVE(1);  // HOHO v3.0.55 optim !
+  { char *Result ;
+    { char * v30108 = " -qonerror";
+      CL_INT  v24337 = length_bag(ClEnv->params);
+      { CL_INT  v52325 = 1;
+        CL_INT  v31147 = v24337;
+        { CL_INT loop_handle = ClEnv->cHandle;
+          OID gc_local;
+          while (((CL_INT)v52325 <= (CL_INT)v31147))
+          { GC_LOOP;
+            if ((equal((*(ClEnv->params))[v52325],_string_("-s")) == CTRUE) && 
+                ((CL_INT)((CL_INT)v52325+(CL_INT)3) <= (CL_INT)v24337))
+             GC__STRING(v30108 = append_string(v30108,GC_STRING(append_string(GC_STRING(append_string(GC_STRING(append_string(" -s ",string_v((*(ClEnv->params))[((CL_INT)v52325+(CL_INT)1)])))," ")),string_v((*(ClEnv->params))[((CL_INT)v52325+(CL_INT)1)])))), 1);
+            else if ((equal((*(ClEnv->params))[v52325],_string_("-cpp")) == CTRUE) && 
+                ((CL_INT)((CL_INT)v52325+(CL_INT)2) <= (CL_INT)v24337))
+             GC__STRING(v30108 = append_string(v30108,GC_STRING(append_string(GC_STRING(append_string(" -cpp '",string_v((*(ClEnv->params))[((CL_INT)v52325+(CL_INT)1)]))),"'"))), 1);
+            else if ((equal((*(ClEnv->params))[v52325],_string_("-make")) == CTRUE) && 
+                ((CL_INT)((CL_INT)v52325+(CL_INT)2) <= (CL_INT)v24337))
+             GC__STRING(v30108 = append_string(v30108,GC_STRING(append_string(GC_STRING(append_string(" -make '",string_v((*(ClEnv->params))[((CL_INT)v52325+(CL_INT)1)]))),"'"))), 1);
+            else if ((equal((*(ClEnv->params))[v52325],_string_("-link")) == CTRUE) && 
+                ((CL_INT)((CL_INT)v52325+(CL_INT)2) <= (CL_INT)v24337))
+             GC__STRING(v30108 = append_string(v30108,GC_STRING(append_string(GC_STRING(append_string(" -link '",string_v((*(ClEnv->params))[((CL_INT)v52325+(CL_INT)1)]))),"'"))), 1);
+            else if ((equal((*(ClEnv->params))[v52325],_string_("-os")) == CTRUE) && 
+                ((CL_INT)((CL_INT)v52325+(CL_INT)2) <= (CL_INT)v24337))
+             GC__STRING(v30108 = append_string(v30108,GC_STRING(append_string(" -os ",string_v((*(ClEnv->params))[((CL_INT)v52325+(CL_INT)1)])))), 1);
+            else if ((equal((*(ClEnv->params))[v52325],_string_("-color")) == CTRUE) || 
+                ((equal((*(ClEnv->params))[v52325],_string_("-noel")) == CTRUE) || 
+                  ((equal((*(ClEnv->params))[v52325],_string_("-zerobuffer")) == CTRUE) || 
+                    ((equal((*(ClEnv->params))[v52325],_string_("-nologo")) == CTRUE) || 
+                      ((equal((*(ClEnv->params))[v52325],_string_("-safe")) == CTRUE) || 
+                        ((equal((*(ClEnv->params))[v52325],_string_("-p")) == CTRUE) || 
+                          ((equal((*(ClEnv->params))[v52325],_string_("-auto")) == CTRUE) || 
+                            (equal((*(ClEnv->params))[v52325],_string_("-relink")) == CTRUE))))))))
+             GC__STRING(v30108 = append_string(v30108,GC_STRING(append_string(" ",string_v((*(ClEnv->params))[v52325])))), 1);
+            ++v52325;
+            GC_UNLOOP;POP_SIGNAL;}
+          }
+        }
+      if (ClEnv->verbose != 0)
+       v30108= GC_STRING(append_string(v30108,GC_STRING(append_string(" -v ",GC_STRING(string_I_integer (ClEnv->verbose))))));
+      Result = append_string(GC_STRING(append_string(" ",GC_STRING(job_option_void1()))),v30108);
+      }
+    GC_UNBIND; POP_SIGNAL; return (Result);}
+  }
+
+void  compile_module_libs_void1()
+{ GC_RESERVE(1);  // HOHO v3.0.55 optim !
+  { OID  v52329 = GC_OID(last_list(explode_string(GC_STRING(pwd_void()),GC_STRING(string_v(Core._starfs_star->value)))));
+    ClaireBoolean * v28260 = CFALSE;
+    ClaireBoolean * v28601 = CFALSE;
+    char * v2724 = "";
+    { CL_INT loop_handle = ClEnv->cHandle;
+      OID gc_local;
+      ITERATE(v52332);
+      bag *v52332_support;
+      v52332_support = ClEnv->params;
+      for (START(v52332_support); NEXT(v52332);)
+      { GC_LOOP;
+        if (equal(v52332,_string_("-D")) == CTRUE)
+         v28260= CTRUE;
+        else if ((equal(v52332,_string_("-O1")) == CTRUE) || 
+            (equal(v52332,_string_("-O")) == CTRUE))
+         v28601= CTRUE;
+        else if ((equal(v52332,_string_("-export")) == CTRUE) || 
+            ((equal(v52332,_string_("-publish")) == CTRUE) || 
+              ((equal(v52332,_string_("-ov")) == CTRUE) || 
+                ((equal(v52332,_string_("-both")) == CTRUE) || 
+                  ((equal(v52332,_string_("-cls")) == CTRUE) || 
+                    (equal(v52332,_string_("-call")) == CTRUE))))))
+         ;else GC__STRING(v2724 = append_string(v2724,GC_STRING(append_string(" ",string_v(v52332)))), 1);
+          GC_UNLOOP; POP_SIGNAL;}
+      }
+    v2724= GC_STRING(append_string(v2724," -nologo"));
+    if (((OBJECT(ClaireBoolean,Generate._Zboth->value)) == CTRUE) || 
+        (v28260 == CTRUE))
+     { if (should_trace_ask_module1(Generate.it,0) == CTRUE)
+       mtformat_module1(Generate.it,"==== Compile ~A's debug library ==== \n",0,GC_OBJECT(list,list::alloc(1,v52329)));
+      else ;if (claire_shell(append_string(v2724," -D -cl")) != 0)
+       CL_exit(1);
+      }
+    if (((OBJECT(ClaireBoolean,Generate._Zboth->value)) == CTRUE) || 
+        ((v28260 != CTRUE) || 
+          (v28601 == CTRUE)))
+     { if (contain_ask_list(ClEnv->params,_string_("-O1")) == CTRUE)
+       { if (should_trace_ask_module1(Generate.it,0) == CTRUE)
+         mtformat_module1(Generate.it,"\n\n==== Compile ~A's release library (optimized) ==== \n",0,GC_OBJECT(list,list::alloc(1,v52329)));
+        else ;if (claire_shell(append_string(v2724," -O1 -cl")) != 0)
+         CL_exit(1);
+        }
+      else if (Optimize.compiler->optimize_ask == CTRUE)
+       { if (should_trace_ask_module1(Generate.it,0) == CTRUE)
+         mtformat_module1(Generate.it,"\n\n==== Compile ~A's release library (optimized) ==== \n",0,GC_OBJECT(list,list::alloc(1,v52329)));
+        else ;if (claire_shell(append_string(v2724," -O -cl")) != 0)
+         CL_exit(1);
+        }
+      else { if (should_trace_ask_module1(Generate.it,0) == CTRUE)
+           mtformat_module1(Generate.it,"\n\n==== Compile ~A's release library ==== \n",0,GC_OBJECT(list,list::alloc(1,v52329)));
+          else ;if (claire_shell(append_string(v2724," -cl")) != 0)
+           CL_exit(1);
+          }
+        }
+    }
+  GC_UNBIND; POP_SIGNAL;}
+
+void  compile_all_module_libs_void1()
+{ GC_RESERVE(11);  // v3.0.55 optim !
+  if (LENGTH_STRING(getenv_string("CLAIRE_LIBS")) == 0)
+   setenv_string("CLAIRE_LIBS=..");
+  else setenv_string(append_string(GC_STRING(append_string("CLAIRE_LIBS=..",GC_STRING(string_v(Core._starps_star->value)))),getenv_string("CLAIRE_LIBS")));
+    { list * v25520;
+    { { bag * v3903 = entries_string2(".");
+        list * v61556 = ((list *) empty_bag(v3903));
+        { CL_INT loop_handle = ClEnv->cHandle;
+          OID gc_local;
+          ITERATE(v52325);
+          for (START(v3903); NEXT(v52325);)
+          if ((isdir_ask_string(string_v(v52325)) == CTRUE) && 
+              (isfile_ask_string(_7_string(string_v(v52325),"init.cl")) == CTRUE))
+           v61556->addFast((OID)v52325);
+          }
+        v25520 = GC_OBJECT(list,v61556);
+        }
+      GC_OBJECT(list,v25520);}
+    list * v7221 = list::empty(Kernel._module);
+    char * v2724 = "";
+    if (boolean_I_any(_oid_(v25520)) != CTRUE)
+     { if (should_trace_ask_module1(Generate.it,0) == CTRUE)
+       mtformat_module1(Generate.it,"---- warning: there is no module folder in ~A \n",0,list::alloc(1,GC_OID(_string_(pwd_void()))));
+      else ;CL_exit(1);
+      }
+    if (should_trace_ask_module1(Generate.it,0) == CTRUE)
+     mtformat_module1(Generate.it,"==== Compile all modules from ~A ==== \n",0,list::alloc(1,GC_OID(_string_(pwd_void()))));
+    else ;{ CL_INT  v52325 = 1;
+      { CL_INT loop_handle = ClEnv->cHandle;
+        OID gc_local;
+        while (((CL_INT)v52325 <= (CL_INT)length_bag(ClEnv->params)))
+        { GC_LOOP;
+          { OID  v52332 = (*(ClEnv->params))[v52325];
+            if (equal(v52332,_string_("-call")) == CTRUE)
+             ;else if (equal(v52332,_string_("-chdir")) == CTRUE)
+             ++v52325;
+            else GC__STRING(v2724 = append_string(v2724,GC_STRING(append_string(" ",string_v(v52332)))), 5);
+              ++v52325;
+            }
+          GC_UNLOOP;POP_SIGNAL;}
+        }
+      }
+    v2724= GC_STRING(append_string(v2724," -nologo"));
+    set_load_module_boolean(CFALSE);
+    { CL_INT loop_handle = ClEnv->cHandle;
+      OID gc_local;
+      ITERATE(v52325);
+      for (START(v25520); NEXT(v52325);)
+      { GC_LOOP;
+        { OID  v52329 = value_string(string_v(v52325));
+          if ((v52329 == CNULL) || 
+              (inherit_ask_class(OWNER(v52329),Kernel._module) != CTRUE))
+           { if (should_trace_ask_module1(Generate.it,3) == CTRUE)
+             mtformat_module1(Generate.it,"==== note: load module ~A ==== \n",3,GC_OBJECT(list,list::alloc(1,v52325)));
+            else ;read_string("begin(claire)");
+            setcwd_string(string_v(v52325));
+            load_string("init.cl");
+            setcwd_string("..");
+            { OID  v49444 = value_string(string_v(v52325));
+              if (v49444 != CNULL)
+               { v7221= v7221->addFast((OID)v49444);
+                GC__ANY(v7221 = add_modules_list(v7221), 4);
+                }
+              else ;}
+            }
+          }
+        GC_UNLOOP; POP_SIGNAL;}
+      }
+    if ((CL_INT)LENGTH_STRING(string_v(Generate._Zem->value)) > 0)
+     { OID  v49444 = value_string(string_v(Generate._Zem->value));
+      if (INHERIT(OWNER(v49444),Kernel._module))
+       { list * v38669 = GC_OBJECT(list,list::alloc(Kernel._module,1,v49444));
+        v7221= GC_OBJECT(list,add_modules_list(v38669));
+        }
+      else close_exception(((general_error *) (*Core._general_error)(_string_("Unknown module specified in option -call -em ~A"),
+          _oid_(list::alloc(1,GC_OID(Generate._Zem->value))))));
+        }
+    if ((CL_INT)LENGTH_STRING(string_v(Generate._Zsm->value)) > 0)
+     { OID  v49444 = value_string(string_v(Generate._Zsm->value));
+      if (INHERIT(OWNER(v49444),Kernel._module))
+       { list * v49435 = ((list *) copy_bag(v7221));
+        { CL_INT loop_handle = ClEnv->cHandle;
+          OID gc_local;
+          ITERATE(v52329);
+          for (START(v7221); NEXT(v52329);)
+          { GC_LOOP;
+            { list * v16651 = GC_OBJECT(list,add_modules_list(GC_OBJECT(list,list::alloc(Kernel._module,1,v52329))));
+              if (contain_ask_list(v16651,v49444) != CTRUE)
+               { CL_INT loop_handle = ClEnv->cHandle;
+                OID gc_local;
+                ITERATE(v62218);
+                for (START(v16651); NEXT(v62218);)
+                v49435= ((list *) delete_bag(v49435,v62218));
+                }
+              }
+            GC_UNLOOP; POP_SIGNAL;}
+          }
+        v7221= v49435;
+        }
+      else close_exception(((general_error *) (*Core._general_error)(_string_("Unknown module specified in option -call -sm ~A"),
+          _oid_(list::alloc(1,GC_OID(Generate._Zsm->value))))));
+        }
+    if (should_trace_ask_module1(Generate.it,0) == CTRUE)
+     { list * v51532;
+      { { OID v_bag;
+          GC_ANY(v51532= list::empty(Kernel.emptySet));
+          { list * v6720;{ bag * v57531 = v7221;
+              list * v20088 = ((list *) empty_bag(v57531));
+              { CL_INT loop_handle = ClEnv->cHandle;
+                OID gc_local;
+                ITERATE(v52329);
+                for (START(v57531); NEXT(v52329);)
+                if (isdir_ask_string(external_I_module1(OBJECT(module,v52329))) == CTRUE)
+                 v20088->addFast((OID)v52329);
+                }
+              v6720 = GC_OBJECT(list,v20088);
+              }
+            
+            v_bag=_oid_(v6720);}
+          ((list *) v51532)->addFast((OID)v_bag);}
+        GC_OBJECT(list,v51532);}
+      mtformat_module1(Generate.it,"==== Recompile ~A ==== \n",0,v51532);
+      }
+    else ;{ CL_INT loop_handle = ClEnv->cHandle;
+      OID gc_local;
+      ITERATE(v49444);
+      for (START(v7221); NEXT(v49444);)
+      { GC_LOOP;
+        if (contain_ask_list(v25520,_string_(external_I_module1(OBJECT(module,v49444)))) == CTRUE)
+         { if (should_trace_ask_module1(Generate.it,0) == CTRUE)
+           mtformat_module1(Generate.it,"\n\n\n\n=============================================\n",0,GC_OBJECT(list,list::empty()));
+          else ;if (should_trace_ask_module1(Generate.it,0) == CTRUE)
+           mtformat_module1(Generate.it,"== Module ~S \n",0,GC_OBJECT(list,list::alloc(1,v49444)));
+          else ;if (should_trace_ask_module1(Generate.it,0) == CTRUE)
+           mtformat_module1(Generate.it,"=============================================\n",0,GC_OBJECT(list,list::empty()));
+          else ;if (should_trace_ask_module1(Generate.it,3) == CTRUE)
+           mtformat_module1(Generate.it,"---- note: enter directory ~A \n",3,GC_OBJECT(list,list::alloc(1,_string_(external_I_module1(OBJECT(module,v49444))))));
+          else ;setcwd_string(external_I_module1(OBJECT(module,v49444)));
+          if (claire_shell(append_string(v2724," -qonerror -cls")) != 0)
+           CL_exit(1);
+          if (should_trace_ask_module1(Generate.it,3) == CTRUE)
+           mtformat_module1(Generate.it,"---- note: leave directory ~A \n",3,GC_OBJECT(list,list::alloc(1,_string_(external_I_module1(OBJECT(module,v49444))))));
+          else ;setcwd_string("..");
+          }
+        GC_UNLOOP; POP_SIGNAL;}
+      }
+    if (should_trace_ask_module1(Generate.it,0) == CTRUE)
+     { list * v53454;
+      { { OID v_bag;
+          GC_ANY(v53454= list::empty(Kernel.emptySet));
+          { list * v6722;{ bag * v57531 = v7221;
+              list * v20088 = ((list *) empty_bag(v57531));
+              { CL_INT loop_handle = ClEnv->cHandle;
+                OID gc_local;
+                ITERATE(v52329);
+                for (START(v57531); NEXT(v52329);)
+                if (isdir_ask_string(external_I_module1(OBJECT(module,v52329))) == CTRUE)
+                 v20088->addFast((OID)v52329);
+                }
+              v6722 = GC_OBJECT(list,v20088);
+              }
+            
+            v_bag=_oid_(v6722);}
+          ((list *) v53454)->addFast((OID)v_bag);}
+        GC_OBJECT(list,v53454);}
+      mtformat_module1(Generate.it,"==== ~A recompiled ==== \n",0,v53454);
+      }
+    else ;CL_exit(0);
+    }
+  GC_UNBIND; POP_SIGNAL;}
+
+void  module_list_list1(list *v52331)
+{ GC_RESERVE(16);  // v3.0.55 optim !
+  { char * v52322 = GC_STRING(realpath_string(getenv_string("_")));
+    char * v20802 = GC_STRING(_7_string(GC_STRING(realpath_string(GC_STRING(_7_string(GC_STRING(_7_string(GC_STRING(_7_string(GC_STRING(substring_string(v52322,1,((CL_INT)rfind_string2(v52322,string_v(Core._starfs_star->value))-(CL_INT)1))),"..")),"..")),"..")))),"lib"));
+    list * v49447;
+    { { bag * v15811 = entries_string2(v20802);
+        list * v37488 = ((list *) empty_bag(v15811));
+        { CL_INT loop_handle = ClEnv->cHandle;
+          OID gc_local;
+          ITERATE(v52321);
+          for (START(v15811); NEXT(v52321);)
+          if (isdir_ask_string(_7_string(v20802,string_v(v52321))) == CTRUE)
+           v37488->addFast((OID)v52321);
+          }
+        v49447 = GC_OBJECT(list,v37488);
+        }
+      GC_OBJECT(list,v49447);}
+    list * v37138 = GC_OBJECT(list,explode_string(getenv_string("CLAIRE_LIBS"),GC_STRING(string_v(Core._starps_star->value))));
+    list * v49443;
+    { { CL_INT loop_handle = ClEnv->cHandle;
+        bag *v_list; OID v_val;
+        OID v52325,CLcount;
+        v_list = v37138;
+         v49443 = v_list->clone();
+        for (CLcount= 1; CLcount <= v_list->length; CLcount++)
+        { v52325 = (*(v_list))[CLcount];
+          { tuple * v6723;{ OID v_bag;
+              GC_ANY(v6723= tuple::empty());
+              ((tuple *) v6723)->addFast((OID)v52325);
+              { list * v6724;{ bag * v57531 = entries_string2(string_v(v52325));
+                  list * v20088 = ((list *) empty_bag(v57531));
+                  { CL_INT loop_handle = ClEnv->cHandle;
+                    OID gc_local;
+                    ITERATE(v52329);
+                    for (START(v57531); NEXT(v52329);)
+                    if (isdir_ask_string(_7_string(string_v(v52325),string_v(v52329))) == CTRUE)
+                     v20088->addFast((OID)v52329);
+                    }
+                  v6724 = GC_OBJECT(list,v20088);
+                  }
+                
+                v_bag=_oid_(v6724);}
+              ((tuple *) v6723)->addFast((OID)v_bag);}
+            
+            v_val=_oid_(v6723);}
+          
+          (*((list *) v49443))[CLcount] = v_val;}
+        }
+      GC_OBJECT(list,v49443);}
+    char * v31548;
+    { { char * v57298;
+        { { v52331= skip_list(v52331,1);
+            v57298 = ((v52331->length != 0) ?
+              string_v((*(v52331))[1]) :
+              Optimize.compiler->env );
+            }
+          GC_STRING(v57298);}
+        v31548 = append_string(GC_STRING(append_string(GC_STRING(((v52331->length != 0) ?
+          string_v((*(v52331))[1]) :
+          append_string("v",GC_STRING(string_v(release_void()))) )),"-")),v57298);
+        }
+      GC_STRING(v31548);}
+    if (should_trace_ask_module1(Generate.it,0) == CTRUE)
+     mtformat_module1(Generate.it,"==== Query available modules for ~A ==== \n",0,list::alloc(1,_string_(v31548)));
+    else ;if (v49447->length != 0)
+     { if (should_trace_ask_module1(Generate.it,0) == CTRUE)
+       mtformat_module1(Generate.it,"==== Published modules [~A] ==== \n",0,list::alloc(1,_string_(v20802)));
+      else ;{ CL_INT loop_handle = ClEnv->cHandle;
+        OID gc_local;
+        ITERATE(v52329);
+        for (START(v49447); NEXT(v52329);)
+        { GC_LOOP;
+          { princ_string("   ");
+            princ_string(string_v(v52329));
+            princ_string(": ");
+            { ClaireBoolean * v54547 = CTRUE;
+              list * v49723;
+              { { bag * v63506 = entries_string2(GC_STRING(_7_string(v20802,string_v(v52329))));
+                  list * v8705 = ((list *) empty_bag(v63506));
+                  { CL_INT loop_handle = ClEnv->cHandle;
+                    OID gc_local;
+                    ITERATE(v52338);
+                    for (START(v63506); NEXT(v52338);)
+                    { GC_LOOP;
+                      if ((isdir_ask_string(_7_string(GC_STRING(_7_string(v20802,string_v(v52329))),string_v(v52338))) == CTRUE) && 
+                          ((isfile_ask_string(_7_string(GC_STRING(_7_string(GC_STRING(_7_string(v20802,string_v(v52329))),string_v(v52338))),"init.cl")) == CTRUE) && 
+                            (isdir_ask_string(_7_string(GC_STRING(_7_string(GC_STRING(_7_string(v20802,string_v(v52329))),string_v(v52338))),v31548)) == CTRUE)))
+                       v8705->addFast((OID)v52338);
+                      GC_UNLOOP; POP_SIGNAL;}
+                    }
+                  v49723 = GC_OBJECT(list,v8705);
+                  }
+                GC_OBJECT(list,v49723);}
+              if (boolean_I_any(_oid_(v49723)) != CTRUE)
+               { princ_string("unavailable for ");
+                princ_string(v31548);
+                }
+              else { CL_INT loop_handle = ClEnv->cHandle;
+                  OID gc_local;
+                  ITERATE(v52338);
+                  for (START(v49723); NEXT(v52338);)
+                  { GC_LOOP;
+                    { if (v54547 == CTRUE)
+                       v54547= CFALSE;
+                      else princ_string(", ");
+                        princ_string(string_v(v52338));
+                      princ_string("[");
+                      if (isfile_ask_string(append_string(GC_STRING(_7_string(GC_STRING(_7_string(GC_STRING(_7_string(GC_STRING(_7_string(GC_STRING(_7_string(v20802,string_v(v52329))),string_v(v52338))),v31548)),"release")),string_v(v52329))),".lib")) == CTRUE)
+                       princ_string("r");
+                      if (isfile_ask_string(append_string(GC_STRING(_7_string(GC_STRING(_7_string(GC_STRING(_7_string(GC_STRING(_7_string(GC_STRING(_7_string(v20802,string_v(v52329))),string_v(v52338))),v31548)),"debug")),string_v(v52329))),".lib")) == CTRUE)
+                       princ_string("d");
+                      princ_string("]");
+                      }
+                    GC_UNLOOP; POP_SIGNAL;}
+                  }
+                }
+            princ_string("\n");
+            }
+          GC_UNLOOP; POP_SIGNAL;}
+        }
+      }
+    { CL_INT loop_handle = ClEnv->cHandle;
+      OID gc_local;
+      ITERATE(v52331);
+      for (START(v49443); NEXT(v52331);)
+      { GC_LOOP;
+        { if (boolean_I_any((*(OBJECT(bag,v52331)))[2]) == CTRUE)
+           { if (should_trace_ask_module1(Generate.it,0) == CTRUE)
+             mtformat_module1(Generate.it,"==== Exported modules [~A] ==== \n",0,GC_OBJECT(list,list::alloc(1,(*(OBJECT(bag,v52331)))[1])));
+            else ;}
+          { CL_INT loop_handle = ClEnv->cHandle;
+            OID gc_local;
+            ITERATE(v52329);
+            for (START(OBJECT(bag,(*(OBJECT(bag,v52331)))[2])); NEXT(v52329);)
+            { GC_LOOP;
+              { princ_string("   ");
+                princ_string(string_v(v52329));
+                princ_string(": ");
+                { ClaireBoolean * v54547 = CTRUE;
+                  list * v49723;
+                  { { bag * v63506 = entries_string2(GC_STRING(_7_string(string_v((*(OBJECT(bag,v52331)))[1]),string_v(v52329))));
+                      list * v8705 = ((list *) empty_bag(v63506));
+                      { CL_INT loop_handle = ClEnv->cHandle;
+                        OID gc_local;
+                        ITERATE(v52338);
+                        for (START(v63506); NEXT(v52338);)
+                        { GC_LOOP;
+                          if ((isdir_ask_string(_7_string(GC_STRING(_7_string(string_v((*(OBJECT(bag,v52331)))[1]),string_v(v52329))),string_v(v52338))) == CTRUE) && 
+                              ((isfile_ask_string(_7_string(GC_STRING(_7_string(GC_STRING(_7_string(string_v((*(OBJECT(bag,v52331)))[1]),string_v(v52329))),string_v(v52338))),"init.cl")) == CTRUE) && 
+                                (isdir_ask_string(_7_string(GC_STRING(_7_string(GC_STRING(_7_string(string_v((*(OBJECT(bag,v52331)))[1]),string_v(v52329))),string_v(v52338))),v31548)) == CTRUE)))
+                           v8705->addFast((OID)v52338);
+                          GC_UNLOOP; POP_SIGNAL;}
+                        }
+                      v49723 = GC_OBJECT(list,v8705);
+                      }
+                    GC_OBJECT(list,v49723);}
+                  if (boolean_I_any(_oid_(v49723)) != CTRUE)
+                   { princ_string("unavailable for ");
+                    princ_string(v31548);
+                    }
+                  else { CL_INT loop_handle = ClEnv->cHandle;
+                      OID gc_local;
+                      ITERATE(v52338);
+                      for (START(v49723); NEXT(v52338);)
+                      { GC_LOOP;
+                        { if (v54547 == CTRUE)
+                           v54547= CFALSE;
+                          else princ_string(", ");
+                            princ_string(string_v(v52338));
+                          princ_string("[");
+                          if (isfile_ask_string(append_string(GC_STRING(_7_string(GC_STRING(_7_string(GC_STRING(_7_string(GC_STRING(_7_string(GC_STRING(_7_string(string_v((*(OBJECT(bag,v52331)))[1]),string_v(v52329))),string_v(v52338))),v31548)),"release")),string_v(v52329))),".lib")) == CTRUE)
+                           princ_string("r");
+                          if (isfile_ask_string(append_string(GC_STRING(_7_string(GC_STRING(_7_string(GC_STRING(_7_string(GC_STRING(_7_string(GC_STRING(_7_string(string_v((*(OBJECT(bag,v52331)))[1]),string_v(v52329))),string_v(v52338))),v31548)),"debug")),string_v(v52329))),".lib")) == CTRUE)
+                           princ_string("d");
+                          princ_string("]");
+                          }
+                        GC_UNLOOP; POP_SIGNAL;}
+                      }
+                    }
+                princ_string("\n");
+                }
+              GC_UNLOOP; POP_SIGNAL;}
+            }
+          }
+        GC_UNLOOP; POP_SIGNAL;}
+      }
+    CL_exit(0);
+    }
+  GC_UNBIND; POP_SIGNAL;}
+
+void  module_info_list1(list *v52331)
+{ GC_RESERVE(1);  // HOHO v3.0.55 optim !
+  if (boolean_I_any(_oid_(v52331)) != CTRUE)
+   close_exception((ClaireException *) new_object_class(Core._invalid_option_argument));
+  { OID  v52329 = (*(v52331))[1];
+    v52331= skip_list(v52331,1);
+    if (boolean_I_any(_oid_(v52331)) != CTRUE)
+     { char * v52322 = GC_STRING(realpath_string(getenv_string("_")));
+      char * v20802 = GC_STRING(_7_string(GC_STRING(realpath_string(GC_STRING(_7_string(GC_STRING(_7_string(GC_STRING(_7_string(GC_STRING(substring_string(v52322,1,((CL_INT)rfind_string2(v52322,string_v(Core._starfs_star->value))-(CL_INT)1))),"..")),"..")),"..")))),"lib"));
+      list * v37138 = GC_OBJECT(list,explode_string(getenv_string("CLAIRE_LIBS"),GC_STRING(string_v(Core._starps_star->value))));
+      ClaireBoolean * v1406 = CFALSE;
+      if (isdir_ask_string(_7_string(v20802,string_v(v52329))) == CTRUE)
+       { CL_INT loop_handle = ClEnv->cHandle;
+        OID gc_local;
+        ITERATE(v52338);
+        bag *v52338_support;
+        v52338_support = GC_OBJECT(list,entries_string2(GC_STRING(_7_string(v20802,string_v(v52329)))));
+        for (START(v52338_support); NEXT(v52338);)
+        { GC_LOOP;
+          if (isdir_ask_string(_7_string(GC_STRING(_7_string(v20802,string_v(v52329))),string_v(v52338))) == CTRUE)
+           { v1406= CTRUE;
+            if (claire_shell(string_v((*Kernel._7_plus)(GC_OID((*Kernel._7_plus)(GC_OID((*Kernel._7_plus)(GC_OID((*Kernel._7_plus)(GC_OID((*Kernel._7_plus)((*(ClEnv->params))[1],
+                      GC_OID(_string_(relayed_params_void1())))),
+                    _string_(" -nologo -mi "))),
+                  v52329)),
+                _string_(" "))),
+              v52338))) != 0)
+             CL_exit(1);
+            }
+          GC_UNLOOP; POP_SIGNAL;}
+        }
+      { CL_INT loop_handle = ClEnv->cHandle;
+        OID gc_local;
+        ITERATE(v49403);
+        for (START(v37138); NEXT(v49403);)
+        { GC_LOOP;
+          if (isdir_ask_string(_7_string(string_v(v49403),string_v(v52329))) == CTRUE)
+           { CL_INT loop_handle = ClEnv->cHandle;
+            OID gc_local;
+            ITERATE(v52338);
+            bag *v52338_support;
+            v52338_support = GC_OBJECT(list,entries_string2(GC_STRING(_7_string(string_v(v49403),string_v(v52329)))));
+            for (START(v52338_support); NEXT(v52338);)
+            { GC_LOOP;
+              if (isdir_ask_string(_7_string(GC_STRING(_7_string(string_v(v49403),string_v(v52329))),string_v(v52338))) == CTRUE)
+               { v1406= CTRUE;
+                if (claire_shell(string_v((*Kernel._7_plus)(GC_OID((*Kernel._7_plus)(GC_OID((*Kernel._7_plus)(GC_OID((*Kernel._7_plus)(GC_OID((*Kernel._7_plus)((*(ClEnv->params))[1],
+                          GC_OID(_string_(relayed_params_void1())))),
+                        _string_(" -nologo -mi "))),
+                      v52329)),
+                    _string_(" "))),
+                  v52338))) != 0)
+                 CL_exit(1);
+                }
+              GC_UNLOOP; POP_SIGNAL;}
+            }
+          GC_UNLOOP; POP_SIGNAL;}
+        }
+      if (v1406 != CTRUE)
+       { princ_string("There is no module module ");
+        princ_string(string_v(v52329));
+        princ_string(".\n");
+        CL_exit(1);
+        }
+      }
+    else { char * v52322 = GC_STRING(realpath_string(getenv_string("_")));
+        char * v20802 = GC_STRING(_7_string(GC_STRING(realpath_string(GC_STRING(_7_string(GC_STRING(_7_string(GC_STRING(_7_string(GC_STRING(substring_string(v52322,1,((CL_INT)rfind_string2(v52322,string_v(Core._starfs_star->value))-(CL_INT)1))),"..")),"..")),"..")))),"lib"));
+        list * v37138 = GC_OBJECT(list,explode_string(getenv_string("CLAIRE_LIBS"),GC_STRING(string_v(Core._starps_star->value))));
+        char * v52338 = string_v((*(v52331))[1]);
+        ClaireBoolean * v36710 = isdir_ask_string(_7_string(GC_STRING(_7_string(v20802,string_v(v52329))),v52338));
+        char * v31548 = GC_STRING(append_string(GC_STRING(append_string(GC_STRING(append_string("v",GC_STRING(string_v(release_void())))),"-")),GC_STRING(Optimize.compiler->env)));
+        char * v49447 = "";
+        if (v36710 == CTRUE)
+         v49447= GC_STRING(_7_string(GC_STRING(_7_string(v20802,string_v(v52329))),v52338));
+        else { CL_INT loop_handle = ClEnv->cHandle;
+            OID gc_local;
+            ITERATE(v52332);
+            for (START(v37138); NEXT(v52332);)
+            { GC_LOOP;
+              if (isdir_ask_string(_7_string(GC_STRING(_7_string(string_v(v52332),string_v(v52329))),v52338)) == CTRUE)
+               { GC__STRING(v49447 = _7_string(GC_STRING(_7_string(string_v(v52332),string_v(v52329))),v52338), 1);
+                { ;ClEnv->cHandle = loop_handle; break;}
+                }
+              GC_UNLOOP; POP_SIGNAL;}
+            }
+          if (isdir_ask_string(v49447) != CTRUE)
+         { princ_string("The module ");
+          princ_string(string_v(v52329));
+          princ_string(" with version ");
+          princ_string(v52338);
+          princ_string(" doesn't exists.\n");
+          CL_exit(1);
+          }
+        princ_string("==== module ");
+        princ_string(string_v(v52329));
+        princ_string(" version ");
+        princ_string(v52338);
+        princ_string(" ====\n");
+        princ_string("- ");
+        princ_string(((v36710 == CTRUE) ?
+          "Published" :
+          "Exported" ));
+        princ_string(" at ");
+        princ_string(v49447);
+        princ_string("\n");
+        princ_string("- ");
+        princ_string(((isfile_ask_string(append_string(GC_STRING(_7_string(GC_STRING(_7_string(GC_STRING(_7_string(v49447,v31548)),"release")),string_v(v52329))),".lib")) == CTRUE) ?
+          "Have" :
+          "Don't have" ));
+        princ_string(" release library\n");
+        princ_string("- ");
+        princ_string(((isfile_ask_string(append_string(GC_STRING(_7_string(GC_STRING(_7_string(GC_STRING(_7_string(v49447,v31548)),"debug")),string_v(v52329))),".lib")) == CTRUE) ?
+          "Have" :
+          "Don't have" ));
+        princ_string(" debug library\n");
+        (ClEnv->verbose = -1);
+        set_load_module_boolean(CFALSE);
+        load_string(GC_STRING(_7_string(v49447,"init.cl")));
+        (ClEnv->verbose = 0);
+        { OID  v63614 = value_string(string_v(v52329));
+          if (v63614 != CNULL)
+           { princ_string("- Uses ");
+            princ_bag(GC_OBJECT(list,OBJECT(module,v63614)->uses));
+            princ_string("\n");
+            { CL_INT loop_handle = ClEnv->cHandle;
+              OID gc_local;
+              ITERATE(v49072);
+              bag *v49072_support;
+              v49072_support = delete_bag(add_modules_list(GC_OBJECT(list,list::alloc(Kernel._module,1,v63614))),v63614);
+              for (START(v49072_support); NEXT(v49072);)
+              { GC_LOOP;
+                if (get_property(Kernel.version,OBJECT(ClaireObject,v49072)) != CNULL)
+                 { princ_string("- Depends on ");
+                  print_any(v49072);
+                  princ_string(" ");
+                  (*Kernel.princ)(GC_OID((*Kernel.version)(v49072)));
+                  princ_string("\n");
+                  }
+                else { princ_string("- Depends on ");
+                    print_any(v49072);
+                    princ_string("\n");
+                    }
+                  GC_UNLOOP; POP_SIGNAL;}
+              }
+            }
+          else { princ_string(_7_string(v49447,"init.cl"));
+              princ_string(" doesn't defines the module ");
+              princ_string(v52338);
+              princ_string(", please fix this init file.\n");
+              CL_exit(1);
+              }
+            }
+        }
+      CL_exit(0);
+    }
+  GC_UNBIND; POP_SIGNAL;}
+
+void  list_fcall_void1()
+{ GC_BIND;
+  load_string("init");
+  (Generate._Zcm->value= value_string(string_v(last_list(explode_string(GC_STRING(pwd_void()),GC_STRING(string_v(Core._starfs_star->value)))))));
+  princ_string("==== list of uniform property for ");
+  print_any(GC_OID(Generate._Zcm->value));
+  princ_string(" ====\n");
+  { CL_INT loop_handle = ClEnv->cHandle;
+    ITERATE(v31155);
+    bag *v31155_support;
+    v31155_support = Kernel._property->descendents;
+    for (START(v31155_support); NEXT(v31155);)
+    { ClaireBoolean * v31177;
+      { OID v40982;{ CL_INT loop_handle = ClEnv->cHandle;
+          ITERATE(v52332);
+          v40982= Kernel.cfalse;
+          for (START(OBJECT(ClaireClass,v31155)->instances); NEXT(v52332);)
+          if ((((OBJECT(thing,v52332)->name->definition == (NULL)) && 
+                  (equal(get_property(Kernel.module_I,OBJECT(thing,v52332)->name),Generate._Zcm->value) == CTRUE)) || 
+                (_oid_(OBJECT(thing,v52332)->name->definition) == Generate._Zcm->value)) && 
+              (((CL_INT)OBJECT(property,v52332)->restrictions->length > 1) && 
+                (uniform_property(OBJECT(property,v52332)) == CTRUE)))
+           { CL_INT  v31178 = (int )(current_color);
+            CL_INT  v31179 = (int )(current_bold);
+            CL_INT  v31180 = v31178;
+            CL_INT  v31181 = v31179;
+            color(v31178,v31179);
+            color_princ_string1("``BLACK");
+            v31178= (int )(current_color);
+            v31179= (int )(current_bold);
+            color(v31180,v31181);
+            print_any(v52332);
+            color(v31178,v31179);
+            color(v31178,v31179);
+            color_princ_string1(" ");
+            v31178= (int )(current_color);
+            v31179= (int )(current_bold);
+            color(v31180,v31181);
+            if ((CL_INT)OBJECT(property,v52332)->dispatcher > 0)
+             princ_string("`REDinterface");
+            color(v31178,v31179);
+            color(v31178,v31179);
+            color_princ_string1("`BLACK\n");
+            v31178= (int )(current_color);
+            v31179= (int )(current_bold);
+            color(v31180,v31181);
+            { CL_INT loop_handle = ClEnv->cHandle;
+              ITERATE(v52334);
+              for (START(OBJECT(property,v52332)->restrictions); NEXT(v52334);)
+              { princ_string("  ");
+                print_any(v52334);
+                princ_string("\n");
+                }
+              }
+            color(v31178,v31179);
+            color(v31180,v31181);
+            }
+          }
+        
+        v31177=OBJECT(ClaireBoolean,v40982);}
+      if (v31177 == CTRUE)
+       { ;ClEnv->cHandle = loop_handle; break;}
+      }
+    }
+  CL_exit(0);
+  GC_UNBIND; POP_SIGNAL;}
+
+void  enable_fast_dispatch_module1(module *v45520)
+{ GC_BIND;
+  (Generate.FCALLSTINKS->value= Kernel.ctrue);
+  { CL_INT loop_handle = ClEnv->cHandle;
+    OID gc_local;
+    ITERATE(v31182);
+    bag *v31182_support;
+    v31182_support = Kernel._property->descendents;
+    for (START(v31182_support); NEXT(v31182);)
+    { GC_LOOP;
+      { ClaireBoolean * v31183;
+        { OID v40982;{ CL_INT loop_handle = ClEnv->cHandle;
+            OID gc_local;
+            ITERATE(v52332);
+            v40982= Kernel.cfalse;
+            for (START(OBJECT(ClaireClass,v31182)->instances); NEXT(v52332);)
+            { GC_LOOP;
+              if ((OBJECT(property,v52332)->dispatcher == 0) && 
+                  ((((OBJECT(thing,v52332)->name->definition == (NULL)) && 
+                          (OBJECT(thing,v52332)->name->module_I == v45520)) || 
+                        (OBJECT(thing,v52332)->name->definition == v45520)) && 
+                      (((CL_INT)OBJECT(property,v52332)->restrictions->length > 1) && 
+                        (uniform_property(OBJECT(property,v52332)) == CTRUE))))
+               { format_string("`GREEN ---- note: enable fast dispatch on ~S (~S)\n",GC_OBJECT(list,list::alloc(2,v52332,((OID)OBJECT(property,v52332)->restrictions->length))));
+                ;}
+              GC_UNLOOP; POP_SIGNAL;}
+            }
+          
+          v31183=OBJECT(ClaireBoolean,v40982);}
+        if (v31183 == CTRUE)
+         { ;ClEnv->cHandle = loop_handle; break;}
+        }
+      GC_UNLOOP; POP_SIGNAL;}
+    }
+  GC_UNBIND; POP_SIGNAL;}
+
+tuple * option_usage_string16_Generate_(char *v31184)
+{ return option_usage_string16_Generate(v31184)->copyIfNeeded();}
+
+tuple * option_usage_string16_Generate(char *v27567)
+{ GC_BIND;
+  { tuple *Result ;
+    Result = tuple::allocStack(3,_string_("Compiler environment"),
+      _string_("-env <env:string>"),
+      GC_OID(_string_(append_string("Sets the compiler environment to <env>. This is an expert option ","used for cross-compilation."))));
+    GC_UNBIND; return (Result);}
+  }
+
+void  option_respond_string15_Generate(char *v27567,list *v52331)
+{ if (boolean_I_any(_oid_(v52331)) != CTRUE)
+   close_exception((ClaireException *) new_object_class(Core._invalid_option_argument));
+  (Optimize.compiler->env = string_v((*(v52331))[1]));
+  skip_list(v52331,1);
+  POP_SIGNAL;}
+
+tuple * option_usage_string17_Generate_(char *v31185)
+{ return option_usage_string17_Generate(v31185)->copyIfNeeded();}
+
+tuple * option_usage_string17_Generate(char *v27567)
+{ GC_BIND;
+  { tuple *Result ;
+    Result = tuple::allocStack(3,_string_("Link with module"),
+      _string_("-m <m:module>[/<version:string>] | -l <library:path>"),
+      GC_OID(_string_(append_string(GC_STRING(append_string("claire <-m> <m> loads the module <m> in the system and add it to the list of linked modules. ","You may specify a <version> to focus on particular version of the module.\n")),"You may additionnaly link with a particular library using the <-l> option."))));
+    GC_UNBIND; return (Result);}
+  }
+
+void  option_respond_string16_Generate(char *v27567,list *v52331)
+{ GC_BIND;
+  if (boolean_I_any(_oid_(v52331)) != CTRUE)
+   close_exception((ClaireException *) new_object_class(Core._invalid_option_argument));
+  { char * v63614 = string_v((*(v52331))[1]);
+    skip_list(v52331,1);
+    if (equal_string(v27567,"-m") == CTRUE)
+     { use_module_string(v63614);
+      { module * v52329 = string2module_string1(string_v((*(explode_string(v63614,"/")))[1]));
+        load_module(v52329);
+        (Optimize.claire_modules->value= _oid_(GC_OBJECT(list,OBJECT(list,Optimize.claire_modules->value))->addFast((OID)_oid_(v52329))));
+        }
+      }
+    else if (equal_string(v27567,"-l") == CTRUE)
+     GC_OBJECT(list,Optimize.compiler->libraries)->addFast((OID)_string_(v63614));
+    }
+  GC_UNBIND; POP_SIGNAL;}
+
+tuple * option_usage_string18_Generate_(char *v31208)
+{ return option_usage_string18_Generate(v31208)->copyIfNeeded();}
+
+tuple * option_usage_string18_Generate(char *v27567)
+{ { tuple *Result ;
+    Result = tuple::allocStack(3,_string_("Output directory"),
+      _string_("-od <directory:path>"),
+      _string_("Sets the output directory for generated C++ files."));
+    return (Result);}
+  }
+
+void  option_respond_string17_Generate(char *v27567,list *v52331)
+{ if (boolean_I_any(_oid_(v52331)) != CTRUE)
+   close_exception((ClaireException *) new_object_class(Core._invalid_option_argument));
+  (Optimize.compiler->source = string_v((*(v52331))[1]));
+  skip_list(v52331,1);
+  POP_SIGNAL;}
+
+tuple * option_usage_string19_Generate_(char *v31209)
+{ return option_usage_string19_Generate(v31209)->copyIfNeeded();}
+
+tuple * option_usage_string19_Generate(char *v27567)
+{ GC_BIND;
+  { tuple *Result ;
+    Result = tuple::allocStack(3,_string_("Safety"),
+      _string_("-safe | -os <safety:(0 .. 6)>"),
+      GC_OID(_string_(append_string(GC_STRING(append_string(GC_STRING(append_string(GC_STRING(append_string(GC_STRING(append_string(GC_STRING(append_string(GC_STRING(append_string(GC_STRING(append_string(GC_STRING(append_string(GC_STRING(append_string(GC_STRING(append_string(GC_STRING(append_string(GC_STRING(append_string("Controls compiler safety. <-safe> put the compiler in the safest mode ","and <-os> set the safety to a particular level :\n")),"0 : Super-safe, the type of each value returned by a method is checked against its ")),"range, and the size of the GC protection stack is minimized. All assertions are checked.\n")),"1 : Safe (default).\n")),"2 : We trust explicit types & super. The type information contained in local variable ")),"definition (inside a let) and in a super (f@c(...)) has priority over type inference ")),"and run-time checks are removed.\n")),"3 : No overflow checking (integer & arrays), in addition to level 2.\n")),"4 : We assume that there will be no selector errors or range errors at run-time. ")),"This allows the compiler to perform further static binding.\n")),"5 : We assume that there will be no type errors of any kind at run-time.\n")),"6 : Unsafe (level 5 + no GC protection). Assumes that garbage collection will ")),"never be used at run-time."))));
+    GC_UNBIND; return (Result);}
+  }
+
+void  option_respond_string18_Generate(char *v27567,list *v52331)
+{ (Optimize.compiler->safety = ((Generate.dblevel->value == ((OID)0)) ?
+    0 :
+    1 ));
+  (Optimize.claire_lib->value= (*(Optimize.compiler->libraries_dir))[2]);
+  (Optimize.claire_options->value= (*(Optimize.compiler->options))[2]);
+  POP_SIGNAL;}
+
+void  option_respond_string19_Generate(char *v27567,list *v52331)
+{ if (boolean_I_any(_oid_(v52331)) != CTRUE)
+   close_exception((ClaireException *) new_object_class(Core._invalid_option_argument));
+  (Generate.slevel->value= (*Kernel.integer_I)((*(v52331))[1]));
+  skip_list(v52331,1);
+  POP_SIGNAL;}
+
+tuple * option_usage_string20_Generate_(char *v31210)
+{ return option_usage_string20_Generate(v31210)->copyIfNeeded();}
+
+tuple * option_usage_string20_Generate(char *v27567)
+{ { tuple *Result ;
+    Result = tuple::allocStack(3,_string_("Output name"),
+      _string_("-o <name:string>"),
+      _string_("Sets the output executable file name."));
+    return (Result);}
+  }
+
+void  option_respond_string20_Generate(char *v27567,list *v52331)
+{ if (boolean_I_any(_oid_(v52331)) != CTRUE)
+   close_exception((ClaireException *) new_object_class(Core._invalid_option_argument));
+  (Generate._Zout->value= (*(v52331))[1]);
+  skip_list(v52331,1);
+  POP_SIGNAL;}
+
+tuple * option_usage_string21_Generate_(char *v31211)
+{ return option_usage_string21_Generate(v31211)->copyIfNeeded();}
+
+tuple * option_usage_string21_Generate(char *v27567)
+{ GC_BIND;
+  { tuple *Result ;
+    Result = tuple::allocStack(3,_string_("Optimization"),
+      _string_("-D | -O | -O1"),
+      GC_OID(_string_(append_string(GC_STRING(append_string(GC_STRING(append_string("Adjust the optimization level. <-D> generates a code instrumented for ","the CLAIRE debugger without any optimization. ")),"<-O> enable CLAIRE compiler optimization, and <-O1> optimizes yet ")),"more by enabling fast dispatch on uniform candidates."))));
+    GC_UNBIND; return (Result);}
+  }
+
+void  option_respond_string21_Generate(char *v27567,list *v52331)
+{ (Generate.dblevel->value= ((OID)0));
+  POP_SIGNAL;}
+
+void  option_respond_string22_Generate(char *v27567,list *v52331)
+{ (Optimize.compiler->optimize_ask = CTRUE);
+  (Generate.dblevel->value= ((OID)2));
+  POP_SIGNAL;}
+
+void  option_respond_string23_Generate(char *v27567,list *v52331)
+{ (Optimize.compiler->optimize_ask = CTRUE);
+  (Generate.dblevel->value= ((OID)2));
+  (Generate._ZO1->value= Kernel.ctrue);
+  POP_SIGNAL;}
+
+tuple * option_usage_string22_Generate_(char *v31212)
+{ return option_usage_string22_Generate(v31212)->copyIfNeeded();}
+
+tuple * option_usage_string22_Generate(char *v27567)
+{ { tuple *Result ;
+    Result = tuple::allocStack(3,_string_("Profiler"),
+      _string_("-p"),
+      _string_("Enables profiling. The generated code is instrumented for profiling."));
+    return (Result);}
+  }
+
+void  option_respond_string24_Generate(char *v27567,list *v52331)
+{ (Optimize.OPT->profile_ask = CTRUE);
+  { OID  truc;if (1 <= (CL_INT)Generate.dblevel->value)
+     truc = Generate.dblevel->value;
+    else truc = ((OID)1);
+      
+    (Generate.dblevel->value = truc);}
+  POP_SIGNAL;}
+
+tuple * option_usage_string23_Generate_(char *v31213)
+{ return option_usage_string23_Generate(v31213)->copyIfNeeded();}
+
+tuple * option_usage_string23_Generate(char *v27567)
+{ GC_BIND;
+  { tuple *Result ;
+    Result = tuple::allocStack(3,_string_("C++ compiler"),
+      _string_("-cpp <cxxoption:string> | -link <linkeroption:string> | -make <makeroption:string>"),
+      GC_OID(_string_(append_string("Customize the generated makefile by adding some options ","to the C++ compiler and linker command lines and additionaly some maker option."))));
+    GC_UNBIND; return (Result);}
+  }
+
+void  option_respond_string25_Generate(char *v27567,list *v52331)
+{ GC_BIND;
+  if (boolean_I_any(_oid_(v52331)) != CTRUE)
+   close_exception((ClaireException *) new_object_class(Core._invalid_option_argument));
+  (Generate.cppopts->value= _string_(append_string(GC_STRING(string_v(Generate.cppopts->value)),GC_STRING(append_string(" ",string_v((*(v52331))[1]))))));
+  skip_list(v52331,1);
+  GC_UNBIND; POP_SIGNAL;}
+
+void  option_respond_string43_Generate(char *v27567,list *v52331)
+{ if (boolean_I_any(_oid_(v52331)) != CTRUE)
+   close_exception((ClaireException *) new_object_class(Core._invalid_option_argument));
+  skip_list(v52331,1);
+  POP_SIGNAL;}
+
+void  option_respond_string26_Generate(char *v27567,list *v52331)
+{ GC_BIND;
+  if (boolean_I_any(_oid_(v52331)) != CTRUE)
+   close_exception((ClaireException *) new_object_class(Core._invalid_option_argument));
+  (Generate.linkopts->value= _string_(append_string(GC_STRING(string_v(Generate.linkopts->value)),GC_STRING(append_string(" ",string_v((*(v52331))[1]))))));
+  skip_list(v52331,1);
+  GC_UNBIND; POP_SIGNAL;}
+
+tuple * option_usage_string24_Generate_(char *v31214)
+{ return option_usage_string24_Generate(v31214)->copyIfNeeded();}
+
+tuple * option_usage_string24_Generate(char *v27567)
+{ GC_BIND;
+  { tuple *Result ;
+    Result = tuple::allocStack(3,_string_("Compile module"),
+      _string_("{-cc | -cl | -cm} [<m:module>]"),
+      GC_OID(_string_(append_string(GC_STRING(append_string(GC_STRING(append_string(GC_STRING(append_string(GC_STRING(append_string(GC_STRING(append_string(GC_STRING(append_string(GC_STRING(append_string(GC_STRING(append_string(GC_STRING(append_string(GC_STRING(append_string("Compile the module <m>. If <m> is unspecified the last module defined in the init.cl ","from the current directory is taken.\n")),"The <-cc> option is the lightest compiling strategy for a module: claire <-cc> will ")),"produce a C++ file for each claire file in <m>.made_of. It does not produce a makefile ")),"or system file, and assumes that the user want to keep a complete control over the generation ")),"of the executable.\n")),"A more friendly option is <-cl>, which adds a linking step so that all generated C++ files are ")),"compiled and linked into a library <m>.lib (the name of the library can be redefined with -o or ")),"by using the external slot of the module).\n")),"The easier way to use the compiler is the <-cm> option which produces an executable from a module. ")),"It is similar to <-cl>, but in addition it produces a system file for the module that is being ")),"compiled and a makefile which is executed by claire, producing an executable that includes the interpreter."))));
+    GC_UNBIND; return (Result);}
+  }
+
+void  option_respond_string27_Generate(char *v27567,list *v52331)
+{ GC_BIND;
+  if (isfile_ask_string("init.cl") != CTRUE)
+   close_exception(((general_error *) (*Core._general_error)(_string_("Option ~A used outside a module directory"),
+    _oid_(list::alloc(1,_string_(v27567))))));
+  ensure_module_directories_exist_void1();
+  (Generate._Zcm->value= last_list(explode_string(GC_STRING(pwd_void()),GC_STRING(string_v(Core._starfs_star->value)))));
+  if (equal_string(v27567,"-cc") == CTRUE)
+   (Generate.clevel->value= ((OID)0));
+  else if (equal_string(v27567,"-cm") == CTRUE)
+   (Generate.clevel->value= ((OID)2));
+  GC_UNBIND; POP_SIGNAL;}
+
+tuple * option_usage_string33_Generate_(char *v31215)
+{ return option_usage_string33_Generate(v31215)->copyIfNeeded();}
+
+tuple * option_usage_string33_Generate(char *v27567)
+{ GC_BIND;
+  { tuple *Result ;
+    Result = tuple::allocStack(3,_string_("Compile module library"),
+      _string_("[-both] {-cls | -call [-sm <m:module>] [-em <m:module>]}"),
+      GC_OID(_string_(append_string(GC_STRING(append_string(GC_STRING(append_string(GC_STRING(append_string("<-cls> compiles a release module library for the current module. ","When <-both> is specified a debug version is also generated.\n")),"<-call> attempts to do so for a set of module located in subdirectories. ")),"If <-sm> (resp. <-em>) is specified (and match a module located in a sub directory) "))," then any modules before (resp. after) this one are not recompiled."))));
+    GC_UNBIND; return (Result);}
+  }
+
+void  option_respond_string28_Generate(char *v27567,list *v52331)
+{ (Generate._Zboth->value= Kernel.ctrue);
+  POP_SIGNAL;}
+
+void  option_respond_string29_Generate(char *v27567,list *v52331)
+{ (Generate._Zcls->value= Kernel.ctrue);
+  POP_SIGNAL;}
+
+void  option_respond_string30_Generate(char *v27567,list *v52331)
+{ (Generate._Zcall->value= Kernel.ctrue);
+  POP_SIGNAL;}
+
+tuple * option_usage_string26_Generate_(char *v31216)
+{ return option_usage_string26_Generate(v31216)->copyIfNeeded();}
+
+tuple * option_usage_string26_Generate(char *v27567)
+{ GC_BIND;
+  { tuple *Result ;
+    Result = tuple::allocStack(3,_string_("Module publication"),
+      _string_("[-sudo] [-ov] {-publish | -export [<i:integer> | <directory:path>]}"),
+      GC_OID(_string_(append_string(GC_STRING(append_string(GC_STRING(append_string(GC_STRING(append_string(GC_STRING(append_string(GC_STRING(append_string(GC_STRING(append_string(GC_STRING(append_string(GC_STRING(append_string(GC_STRING(append_string(GC_STRING(append_string(GC_STRING(append_string(GC_STRING(append_string(GC_STRING(append_string(GC_STRING(append_string(GC_STRING(append_string(GC_STRING(append_string(GC_STRING(append_string("Perform a module publication. A published module can be used ","by other modules or linked with a program (see option <-m>). ")),"The publication consist of a copy of the module (i.e. headers, library, init file and sources).\n")),"With the <-publish> option, the copy is placed in the CLAIRE home folder. ")),"It is intended for general purpose modules that may be used by any program. ")),"According to the permission of the current user, the publication may fail. One, ")),"that have sudoer privileges may specify <-sudo> option such the copy is acheived ")),"from a sudoed process.\n")),"The <-export> option is an alternative that allow local publication. The user ")),"may define a CLAIRE_LIBS environment variable that tell CLAIRE where to find ")),"exported modules. CLAIRE_LIBS should contain a list of path separated by a ")),"'`GREEN")),GC_STRING(string_v(Core._starps_star->value)))),"`BLACK' (path separator). The path where the module is exported ")),"is determined as follow :\n")),"- The <i>th path of CLAIRE_LIBS list\n")),"- The given <directory>\n")),"- By default, the first path of CLAIRE_LIBS list\n")),"Last, one have to specify <-ov> to force the overwrite of an existing publication."))));
+    GC_UNBIND; return (Result);}
+  }
+
+void  option_respond_string31_Generate(char *v27567,list *v52331)
+{ (Generate._Zsudo->value= Kernel.ctrue);
+  POP_SIGNAL;}
+
+void  option_respond_string32_Generate(char *v27567,list *v52331)
+{ (Generate._Zov->value= Kernel.ctrue);
+  POP_SIGNAL;}
+
+void  option_respond_string33_Generate(char *v27567,list *v52331)
+{ (Generate._Zpublish->value= Kernel.ctrue);
+  POP_SIGNAL;}
+
+void  option_respond_string42_Generate(char *v27567,list *v52331)
+{ if (boolean_I_any(_oid_(v52331)) != CTRUE)
+   close_exception((ClaireException *) new_object_class(Core._invalid_option_argument));
+  (Generate._Zsm->value= (*(v52331))[1]);
+  skip_list(v52331,1);
+  POP_SIGNAL;}
+
+void  option_respond_string44_Generate(char *v27567,list *v52331)
+{ if (boolean_I_any(_oid_(v52331)) != CTRUE)
+   close_exception((ClaireException *) new_object_class(Core._invalid_option_argument));
+  (Generate._Zem->value= (*(v52331))[1]);
+  skip_list(v52331,1);
+  POP_SIGNAL;}
+
+void  option_respond_string34_Generate(char *v27567,list *v52331)
+{ (Generate._Zpublish->value= Kernel.ctrue);
+  (Generate._Zexport->value= Kernel.ctrue);
+  if (v52331->length != 0)
+   { OID  v27567 = (*(v52331))[1];
+    if ((CL_INT)(*Kernel.integer_I)(v27567) > 0)
+     { skip_list(v52331,1);
+      (Generate._Zexport->value= (*Kernel.integer_I)(v27567));
+      }
+    else if (isdir_ask_string(string_v(v27567)) == CTRUE)
+     { skip_list(v52331,1);
+      (Generate._Zexport->value= v27567);
+      }
+    }
+  POP_SIGNAL;}
+
+tuple * option_usage_string27_Generate_(char *v31219)
+{ return option_usage_string27_Generate(v31219)->copyIfNeeded();}
+
+tuple * option_usage_string27_Generate(char *v27567)
+{ GC_BIND;
+  { tuple *Result ;
+    Result = tuple::allocStack(3,_string_("New module"),
+      _string_("-nm [<partof:module>/]<name:string> +[<m:module> | <f:filename>{.cpp | .cl | .h}]"),
+      GC_OID(_string_(append_string(GC_STRING(append_string(GC_STRING(append_string(GC_STRING(append_string(GC_STRING(append_string(GC_STRING(append_string(GC_STRING(append_string("Create a new module with name <name>. If <partof> is specified the new module ","is created as a part of <partof>. You may specify a list of used module <m> and a ")),"list of source file <f> for this module.\n")),"A new directory is created with the name of the module, it contains an init.cl ")),"that defines the CLAIRE instance, when specified subdirectories containing emtpy source files ")),"are also created.\n")),"The option <-nm> is always the last command line option, following arguments have to ")),"be a module (<m>) or a source file (<f>)."))));
+    GC_UNBIND; return (Result);}
+  }
+
+void  option_respond_string35_Generate(char *v27567,list *v52331)
+{ new_module_list1(v52331);
+  POP_SIGNAL;}
+
+tuple * option_usage_string28_Generate_(char *v31239)
+{ return option_usage_string28_Generate(v31239)->copyIfNeeded();}
+
+tuple * option_usage_string28_Generate(char *v27567)
+{ GC_BIND;
+  { tuple *Result ;
+    Result = tuple::allocStack(3,_string_("Module info"),
+      _string_("-ml | {-mi <m:module>[/<version:string>]}"),
+      GC_OID(_string_(append_string(GC_STRING(append_string(GC_STRING(append_string("Provide a list of available module or with <-mi> informations ","relative to a partivular module.\n")),"These options are always the last command line option, following arguments are ")),"ignored."))));
+    GC_UNBIND; return (Result);}
+  }
+
+void  option_respond_string36_Generate(char *v27567,list *v52331)
+{ module_list_list1(v52331);
+  POP_SIGNAL;}
+
+void  option_respond_string37_Generate(char *v27567,list *v52331)
+{ module_info_list1(v52331);
+  POP_SIGNAL;}
+
+tuple * option_usage_string29_Generate_(char *v31240)
+{ return option_usage_string29_Generate(v31240)->copyIfNeeded();}
+
+tuple * option_usage_string29_Generate(char *v27567)
+{ GC_BIND;
+  { tuple *Result ;
+    Result = tuple::allocStack(3,_string_("Configuration file"),
+      _string_("-cx <test:path>"),
+      GC_OID(_string_(append_string(GC_STRING(append_string(GC_STRING(append_string(GC_STRING(append_string(GC_STRING(append_string(GC_STRING(append_string(GC_STRING(append_string("When claire <-cx> <test> is invoked, the compiler takes a claire configuration file <test>, ","produces an equivalent C++ file and another C++ file called the system file. The first ")),"file is named <test>.cpp and the second file is named <test>-s.cpp. They are both placed ")),"in the directory source(compiler). The output name may be is changed with the <-o> option. ")),"The generated files are compiled and linked directly by claire. This is done by producing a ")),"makefile <test>.mk that links the generated binaries with the necessary claire modules. The ")),"option <-cx> is used to generate multi-module executable and is aimed at serious claire developers. ")),"A configuration file is a file that contains only methods without any type-checking ambiguity."))));
+    GC_UNBIND; return (Result);}
+  }
+
+void  option_respond_string38_Generate(char *v27567,list *v52331)
+{ if (boolean_I_any(_oid_(v52331)) != CTRUE)
+   close_exception((ClaireException *) new_object_class(Core._invalid_option_argument));
+  (Generate._Zcf->value= (*(v52331))[1]);
+  skip_list(v52331,1);
+  (Generate.clevel->value= ((OID)2));
+  POP_SIGNAL;}
+
+tuple * option_usage_string30_Generate_(char *v31241)
+{ return option_usage_string30_Generate(v31241)->copyIfNeeded();}
+
+tuple * option_usage_string30_Generate(char *v27567)
+{ { tuple *Result ;
+    Result = tuple::allocStack(3,_string_("No init"),
+      _string_("-n"),
+      _string_("Prevent to load an init.cl file that is loaded by default."));
+    return (Result);}
+  }
+
+void  option_respond_string39_Generate(char *v27567,list *v52331)
+{ (Generate._Zinit_ask->value= Kernel.cfalse);
+  POP_SIGNAL;}
+
+tuple * option_usage_string31_Generate_(char *v31242)
+{ return option_usage_string31_Generate(v31242)->copyIfNeeded();}
+
+tuple * option_usage_string31_Generate(char *v27567)
+{ { tuple *Result ;
+    Result = tuple::allocStack(3,_string_("Fast dispatch"),
+      _string_("-fcall"),
+      _string_("Prints a list of uniform properties candidate for fast dispatch and exits."));
+    return (Result);}
+  }
+
+void  option_respond_string40_Generate(char *v27567,list *v52331)
+{ list_fcall_void1();
+  POP_SIGNAL;}
+
+tuple * option_usage_string32_Generate_(char *v31243)
+{ return option_usage_string32_Generate(v31243)->copyIfNeeded();}
+
+tuple * option_usage_string32_Generate(char *v27567)
+{ GC_BIND;
+  { tuple *Result ;
+    Result = tuple::allocStack(3,_string_("Console"),
+      _string_("-noConsole | -wclConsole"),
+      GC_OID(_string_(append_string("Do not build an interpreter. <-wclConsole> is used to generate a web ","agent that works behind an HTTP server (e.g. behind mod_wcl & Apache)."))));
+    GC_UNBIND; return (Result);}
+  }
+
+void  option_respond_string41_Generate(char *v27567,list *v52331)
+{ GC_BIND;
+  (Optimize.claire_modules->value= _oid_(delete_bag(OBJECT(bag,Optimize.claire_modules->value),_oid_(Language.it))));
+  (Optimize.claire_modules->value= _oid_(delete_bag(OBJECT(bag,Optimize.claire_modules->value),_oid_(Reader.it))));
+  if (equal_string(v27567,"-noConsole") == CTRUE)
+   GC_OBJECT(list,Optimize.compiler->libraries)->addFast((OID)_string_("noConsole"));
+  else if (equal_string(v27567,"-wclConsole") == CTRUE)
+   GC_OBJECT(list,Optimize.compiler->libraries)->addFast((OID)_string_("wclConsole"));
+  GC_UNBIND; POP_SIGNAL;}
+
+void  option_parsed_void1_Generate()
+{ GC_BIND;
+  if ((OBJECT(ClaireBoolean,Generate._Zcls->value)) == CTRUE)
+   compile_module_libs_void1();
+  else if ((OBJECT(ClaireBoolean,Generate._Zcall->value)) == CTRUE)
+   compile_all_module_libs_void1();
+  else if (((CL_INT)LENGTH_STRING(string_v(Generate._Zcf->value)) > 0) || 
+      (((CL_INT)LENGTH_STRING(string_v(Generate._Zcxf->value)) > 0) || 
+        ((CL_INT)LENGTH_STRING(string_v(Generate._Zcm->value)) > 0)))
+   { if (equal(Generate._Zout->value,_string_("")) == CTRUE)
+     { if (equal(Generate._Zcm->value,_string_("")) != CTRUE)
+       (Generate._Zout->value= Generate._Zcm->value);
+      else if (equal(Generate._Zcf->value,_string_("")) != CTRUE)
+       (Generate._Zout->value= _string_(replace_string(GC_STRING(string_v(Generate._Zcf->value)),".cl","")));
+      }
+    if ((OBJECT(ClaireBoolean,Generate._Zinit_ask->value)) == CTRUE)
+     load_string("init");
+    if ((CL_INT)LENGTH_STRING(string_v(Generate.cppopts->value)) > 0)
+     { ((*(GC_OBJECT(list,Optimize.compiler->options)))[1]=GC_OID((*Kernel._7_plus)(GC_OID((*(Optimize.compiler->options))[1]),
+        GC_OID(_string_(append_string(GC_STRING(append_string(" ",GC_STRING(string_v(Generate.cppopts->value))))," "))))));
+      ((*(GC_OBJECT(list,Optimize.compiler->options)))[2]=GC_OID((*Kernel._7_plus)(GC_OID((*(Optimize.compiler->options))[2]),
+        GC_OID(_string_(append_string(GC_STRING(append_string(" ",GC_STRING(string_v(Generate.cppopts->value))))," "))))));
+      ((*(GC_OBJECT(list,Optimize.compiler->options)))[3]=GC_OID((*Kernel._7_plus)(GC_OID((*(Optimize.compiler->options))[3]),
+        GC_OID(_string_(append_string(GC_STRING(append_string(" ",GC_STRING(string_v(Generate.cppopts->value))))," "))))));
+      }
+    if ((CL_INT)LENGTH_STRING(string_v(Generate.linkopts->value)) > 0)
+     GC_OBJECT(list,Optimize.compiler->libraries)->addFast((OID)GC_OID(_string_(append_string(" ",GC_STRING(string_v(Generate.linkopts->value))))));
+    (Optimize.claire_options->value= (*(Optimize.compiler->options))[((Generate.dblevel->value == ((OID)0)) ?
+      2 :
+      ((Generate.dblevel->value == ((OID)2)) ?
+        1 :
+        3 ) )]);
+    (Optimize.claire_lib->value= (*(Optimize.compiler->libraries_dir))[((Generate.dblevel->value == ((OID)0)) ?
+      2 :
+      ((Generate.dblevel->value == ((OID)2)) ?
+        1 :
+        3 ) )]);
+    if (isdir_ask_string(_7_string(GC_STRING(Optimize.compiler->headers_dir),GC_STRING(string_v(Optimize.claire_lib->value)))) == CTRUE)
+     (Optimize.compiler->headers_dir = _7_string(GC_STRING(Optimize.compiler->headers_dir),GC_STRING(string_v(Optimize.claire_lib->value))));
+    if ((CL_INT)Generate.slevel->value > 0)
+     (Optimize.compiler->safety = Generate.slevel->value);
+    if ((CL_INT)LENGTH_STRING(string_v(Generate.cppopts->value)) > 0)
+     { ((*(GC_OBJECT(list,Optimize.compiler->options)))[1]=GC_OID((*Kernel._7_plus)(GC_OID((*(Optimize.compiler->options))[1]),
+        GC_OID(_string_(append_string(GC_STRING(string_v(Generate.cppopts->value))," "))))));
+      ((*(GC_OBJECT(list,Optimize.compiler->options)))[2]=GC_OID((*Kernel._7_plus)(GC_OID((*(Optimize.compiler->options))[2]),
+        GC_OID(_string_(append_string(GC_STRING(string_v(Generate.cppopts->value))," "))))));
+      ((*(GC_OBJECT(list,Optimize.compiler->options)))[3]=GC_OID((*Kernel._7_plus)(GC_OID((*(Optimize.compiler->options))[3]),
+        GC_OID(_string_(append_string(GC_STRING(string_v(Generate.cppopts->value))," "))))));
+      }
+    if (equal(Generate._Zcm->value,_string_("")) != CTRUE)
+     { module * v52329 = string2module_string1(string_v(Generate._Zcm->value));
+      if ((OBJECT(ClaireBoolean,Generate.clcc_ask->value)) == CTRUE)
+       { (Optimize.compiler->active_ask = CTRUE);
+        if (equal(_oid_(v52329->uses),_oid_(list::alloc(1,GC_OID((*(OBJECT(bag,Optimize.claire_modules->value)))[2])))) == CTRUE)
+         { if (should_trace_ask_module1(Generate.it,0) == CTRUE)
+           mtformat_module1(Generate.it,"=== Light Module ~S uses ~A ===\n",0,list::alloc(2,_oid_(v52329),GC_OID(_oid_(v52329->uses))));
+          else ;}
+        (Optimize.claire_modules->value= _oid_(GC_OBJECT(list,OBJECT(list,Optimize.claire_modules->value))->addFast((OID)_oid_(v52329))));
+        (*Reader.load)(value_string("Compile"));
+        }
+      if (equal(Generate._Zout->value,_string_("")) != CTRUE)
+       (v52329->external = string_v(Generate._Zout->value));
+      if ((OBJECT(ClaireBoolean,Generate.clcc_ask->value)) == CTRUE)
+       { load_module(v52329);
+        if ((CL_INT)Generate.dblevel->value < 1)
+         { (Optimize.compiler->safety = (((CL_INT)Optimize.compiler->safety <= 4) ?
+            Optimize.compiler->safety :
+            4 ));
+          GC_OBJECT(list,Optimize.compiler->debug_ask)->addFast((OID)_oid_(v52329));
+          }
+        if ((OBJECT(ClaireBoolean,Generate._ZO1->value)) == CTRUE)
+         enable_fast_dispatch_module1(v52329);
+        compile_module(v52329);
+        }
+      if (Generate.clevel->value == ((OID)1))
+       { if (equal(Generate._Zout->value,_string_("")) != CTRUE)
+         (v52329->external = string_v(Generate._Zout->value));
+        cmakefile_any1(_oid_(v52329),"");
+        }
+      else if (Generate.clevel->value == ((OID)2))
+       cmakefile_any1(_oid_(v52329),GC_STRING(string_v(Generate._Zout->value)));
+      CL_exit(0);
+      }
+    else if (equal(Generate._Zll->value,_string_("")) != CTRUE)
+     { module * v52329 = string2module_string1(string_v(Generate._Zll->value));
+      (Optimize.claire_modules->value= _oid_(GC_OBJECT(list,OBJECT(list,Optimize.claire_modules->value))->addFast((OID)_oid_(v52329))));
+      local_loader_module1(v52329);
+      }
+    else if (equal(Generate._Zcj->value,_string_("")) != CTRUE)
+     apply_property(OBJECT(property,value_string("jcmakefile")),list::alloc(3,_oid_(string2module_string1(string_v(Generate._Zcj->value))),
+      GC_OID(Generate._Zout->value),
+      _oid_(equal(Generate.clevel->value,((OID)0)))));
+    else if (equal(Generate._Zcf->value,_string_("")) != CTRUE)
+     { (Optimize.compiler->active_ask = CTRUE);
+      (*Reader.load)(value_string("Compile"));
+      load_string(GC_STRING(string_v(Generate._Zcf->value)));
+      if ((match_wildcard_ask_string(string_v(Generate._Zcf->value),"*.cl") != CTRUE) && 
+          (isfile_ask_string(append_string(GC_STRING(string_v(Generate._Zcf->value)),".cl")) == CTRUE))
+       (Generate._Zcf->value= _string_(append_string(GC_STRING(string_v(Generate._Zcf->value)),".cl")));
+      function_compile_string1(GC_STRING(replace_string(GC_STRING(string_v(Generate._Zcf->value)),".cl","")),GC_STRING(string_v(Generate._Zcf->value)));
+      cmakefile_any1(GC_OID(_string_(replace_string(GC_STRING(string_v(Generate._Zcf->value)),".cl",""))),GC_STRING(string_v(Generate._Zout->value)));
+      CL_exit(0);
+      }
+    else if (equal(Generate._Zcxf->value,_string_("")) != CTRUE)
+     { (Optimize.compiler->active_ask = CTRUE);
+      (*Reader.load)(value_string("Compile"));
+      load_string(GC_STRING(string_v(Generate._Zcxf->value)));
+      if ((match_wildcard_ask_string(string_v(Generate._Zcxf->value),"*.cl") != CTRUE) && 
+          (isfile_ask_string(append_string(GC_STRING(string_v(Generate._Zcxf->value)),".cl")) == CTRUE))
+       (Generate._Zcxf->value= _string_(append_string(GC_STRING(string_v(Generate._Zcxf->value)),".cl")));
+      function_compile_string1(GC_STRING(replace_string(GC_STRING(string_v(Generate._Zcxf->value)),".cl","")),GC_STRING(string_v(Generate._Zcxf->value)));
+      CL_exit(0);
+      }
+    }
+  if ((OBJECT(ClaireBoolean,Generate._Zpublish->value)) == CTRUE)
+   export_module_boolean1(_I_equal_any(Generate._Zexport->value,Kernel.cfalse));
+  GC_UNBIND; POP_SIGNAL;}
+
+
+

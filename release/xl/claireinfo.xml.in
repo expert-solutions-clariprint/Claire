@@ -1,0 +1,136 @@
+<claireInfo>
+	<version>@@version@@</version>
+	<exe>bin\claire.exe</exe>
+	<author>YCS</author>
+	<company>YCS Corp</company>
+	<creationDate>01/02/2001</creationDate>
+	<lastUpdate>10/02/2001</lastUpdate>
+	<docPath>../doc/</docPath>
+	<cppCompiler>VC++</cppCompiler>
+	<headerPath>include</headerPath>
+	<libPath>lib</libPath>
+	<libDebugPath>lib</libDebugPath>
+	<specialLib loader="true">loader.lib</specialLib>
+	<specialLib loader="true">loader.exp</specialLib>
+	<specialLib compiler="true">console.lib</specialLib>
+	<specialLib compiler="true">ccmain.lib</specialLib>
+	<cppTemplate>cl -c /nologo /Zi /DCLNOCODE /DCLPC /DCLWIN /I$(HEADER_FOLDER) /Tp$(SOURCE) /Fo$(OUTPUT)</cppTemplate>
+	<linkExeTemplate>link /NOLOGO /DEBUG /SUBSYSTEM:CONSOLE /STACK:1600000 $(LIBS) user32.lib gdi32.lib shell32.lib comdlg32.lib ws2_32.lib $(OBJS) /OUT:$(TARGET).exe</linkExeTemplate>
+	<linkDllTemplate>link /DLL  /NOLOGO /SUBSYSTEM:CONSOLE /STACK:1600000 $(LIBS) user32.lib gdi32.lib shell32.lib comdlg32.lib ws2_32.lib $(OBJS) /OUT:$(TARGET).dll</linkDllTemplate>
+	<makerTemplate>nmake /f$(FILE)</makerTemplate>
+	<module>
+		<name>Kernel</name>
+		<partof>claire</partof>
+		<lib>Kernel.lib</lib>		
+		<comment>the kernel module</comment>
+		<docPath>../doc/kernel</docPath>
+		<microClaire/>
+		<compiler/>
+		<loader/>
+	</module>
+	<module>
+		<name>Core</name>
+		<partof>claire</partof>
+		<lib>Core.lib</lib>
+		<comment>the core module</comment>
+		<docPath>../doc/core</docPath>
+		<microClaire/>
+		<uses>Kernel</uses>
+		<compiler/>
+		<loader/>
+	</module>
+	<module>
+		<name>Language</name>
+		<partof>claire</partof>
+		<lib>Language.lib</lib>
+		<comment>the Language module</comment>
+		<docPath>../doc/Language</docPath>
+		<uses>Core</uses>
+		<uses>Kernel</uses>
+		<microClaire/>
+		<compiler/>
+		<loader/>
+	</module>
+	<module>
+		<name>Reader</name>
+		<partof>claire</partof>
+		<lib>Reader.lib</lib>
+		<comment>the Reader module</comment>
+		<docPath>../doc/Reader</docPath>
+		<uses>Core</uses>
+		<uses>Kernel</uses>
+		<uses>Language</uses>
+		<microClaire/>
+		<compiler/>
+		<loader/>
+	</module>
+	<module>
+		<name>Optimize</name>
+		<lib>Optimize.lib</lib>
+		<comment>the Optimize module</comment>
+		<docPath>../doc/Optimize</docPath>
+		<uses>Core</uses>
+		<uses>Kernel</uses>
+		<uses>Language</uses>
+		<uses>Reader</uses>
+		<microClaire/>
+		<compiler/>
+		<loader/>
+	</module>
+	<module>
+		<name>Generate</name>
+		<lib>Generate.lib</lib>
+		<comment>the Generate module</comment>
+		<docPath>../doc/Generate</docPath>
+		<uses>Core</uses>
+		<uses>Kernel</uses>
+		<uses>Language</uses>
+		<uses>Reader</uses>
+		<uses>Optimize</uses>
+		<microClaire/>
+		<compiler/>
+		<loader/>
+	</module>
+	<module>
+		<name>Serialize</name>
+		<lib>Serialize.lib</lib>
+		<comment>Serialize claire entity</comment>
+		<uses>Core</uses>
+		<uses>Kernel</uses>
+		<docPath>../doc/Generate</docPath>
+	</module>
+	<module>
+		<name>Share</name>
+		<lib>Share.lib</lib>
+		<comment>Module for easy IPC</comment>
+		<uses>Core</uses>
+		<uses>Kernel</uses>
+		<uses>Serialize</uses>
+		<docPath>../doc/Generate</docPath>
+	</module>
+	<module>
+		<name>Wcl</name>
+		<lib>Wcl.lib</lib>
+		<comment>the WebClaire module</comment>
+		<uses>Core</uses>
+		<uses>Kernel</uses>
+		<uses>Language</uses>
+		<uses>Reader</uses>
+		<uses>Serialize</uses>
+		<docPath>../doc/Generate</docPath>
+	</module>	
+	<namingTemplate>naming%28compiler%29+%3A%3D+%24%28NAMING%29</namingTemplate>
+	<profileTemplate>OPT.Compile%2Fprofile%3F+%3A%3D+%24%28PROFILE%29</profileTemplate>
+	<compSourceTemplate>source%28compiler%29+%3A%3D+%24%28SOURCE%29</compSourceTemplate>
+	<envTemplate>env%28compiler%29+%3A%3D+%24%28ENV%29</envTemplate>
+	<safetyTemplate>safety%28compiler%29+%3A%3D+%24%28SAFETY%29</safetyTemplate>
+	<verboseTemplate>verbose%28%29+%3A%3D+%24%28VERBOSE%29</verboseTemplate>
+	<H2AddTemplate>headers%28compiler%29+%3A%3D+list%3Cstring%3E%28%24%28HEADERS%29%29</H2AddTemplate>
+	<modCompileTemplate>compile%28%24%28MODULE%29%29</modCompileTemplate>
+	<sysFileTemplate>Generate%2Fgenerate_s_file%28%24%28NAME%29%2C+Reader%2Fadd_modules%28sysModules%29%2C+get_value%28%24%28NAME%29%29%29</sysFileTemplate>
+	<addSysModuleTemplate>for+m+in+list%28%24%28MODULES%29%29+%28if+not%28m+%25+sysModules%29+sysModules+%3Aadd+m%29</addSysModuleTemplate>
+	<sysModuleTemplate>sysModules%3Alist%5Bmodule%5D+%3A%3D+list%3Cmodule%3E%28%29</sysModuleTemplate>
+	<loadModule>load%28%24%28MODULE%29%29</loadModule>
+	<includeTemplate>headers_dir%28compiler%29+%3A%3D+%24%28PATH%29</includeTemplate>
+	<modDefTemplate>%24%28NAME%29+%3A%3A+module%28source++%3D+%24%28SOURCE%29%2C+made_of+%3D+list%3Cstring%3E%28%24%28MADEOFS%29%29%2C+uses+%3D+list%3Cmodule%3E%28%24%28USES%29%29%2C+part_of+%3D++%24%28PARTOF%29%29</modDefTemplate>
+</claireInfo>

@@ -1,0 +1,12 @@
+
+#b ClaireAllocation::newChunk
+#b ClaireAllocation::newChunk
+b Kernel.cpp:1543
+r
+w s e -s 8  --  &(Cmemory[26])
+w s e -s 8  --  &(Cmemory[48 + 4])
+w s e -s 8  --  &entryList[4]
+c
+
+#		 0x0000000101ce70e0
+# 		 0x0000000101ce71a0

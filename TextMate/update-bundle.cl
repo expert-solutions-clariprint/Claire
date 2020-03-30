@@ -1,0 +1,911 @@
+
+//<sb> generate syntax item & completion pref item using claire reflection (i.e. dynamically)
+
+// ******************************************************************
+// * syntax                                                         *
+// ******************************************************************
+
+(printf("Generate syntax file...\n"))
+lang_file :: fopen("TextMate/claire.tmLanguage", "w")
+(use_as_output(lang_file))
+(princ("<?xml version=\"1.0\" encoding=\"UTF-8\"?>"))
+
+
+ident_exp :: "(?![0-9])([0-9a-zA-Z\\+\\-%\\$\\*\\!\\?'&amp;_~=`]+)"
+ident_short_exp :: "[0-9a-zA-Z\\+\\-%\\$\\*\\!\\?'&amp;_~=`]+"
+delim_exp :: "(?&lt;=^|,|:|\\||\\(|\\)|\\s|@|\\[|\\]|{|}|\\.)"
+
+bad :: list(".","-","?","^","$","*","+","!")
+
+[escape(s:string) : void ->
+	s := replace(s,"<","&lt;"),
+	s := replace(s,">","&gt;"),
+	s := replace(s,"&","&amp;"),
+	for i in bad
+		s := replace(s,i,"\\" /+ i),
+	princ(s)]
+
+( ?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>fileTypes</key>
+	<array>
+		<string>cl</string>
+	</array>
+	<key>firstLineMatch</key>
+	<string>^#!.*/(claire)</string>
+	<key>name</key>
+	<string>claire</string>
+	<key>patterns</key>
+	<array>
+		<dict><key>include</key><string>#shebang</string></dict>
+		<dict><key>include</key><string>#definition</string></dict>
+		<dict><key>include</key><string>#wcl</string></dict>
+		<dict><key>include</key><string>#invalid</string></dict>
+		<dict><key>include</key><string>#in_variable</string></dict>
+		<dict><key>include</key><string>#in_variable</string></dict>
+		<dict><key>include</key><string>#keyword</string></dict>
+		<dict><key>include</key><string>#other_keyword</string></dict>
+		<dict><key>include</key><string>#trace</string></dict>
+		<dict><key>include</key><string>#comment</string></dict>
+		<dict><key>include</key><string>#constant</string></dict>
+		<dict><key>include</key><string>#printf</string></dict>
+		<dict><key>include</key><string>#scanf</string></dict>
+		<dict><key>include</key><string>#break</string></dict>
+		<dict><key>include</key><string>#support</string></dict>
+		<dict><key>include</key><string>#primitive</string></dict>
+		<dict><key>include</key><string>#delimiter</string></dict>
+		<dict><key>include</key><string>#ident</string></dict>
+	</array>
+	<key>repository</key>
+	<dict>
+		<key>break</key>
+		<dict>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>begin</key>
+					<string><?= delim_exp ?>(exists|forall|some)\(\s*<?= ident_exp ?>(\s+in\s|\s+in$|:)</string>
+					<key>beginCaptures</key>
+					<dict>
+						<key>1</key>
+						<dict>
+							<key>name</key>
+							<string>keyword.control.cl</string>
+						</dict>
+						<key>2</key>
+						<dict>
+							<key>name</key>
+							<string>variable.parameter.cl</string>
+						</dict>
+						<key>3</key>
+						<dict>
+							<key>name</key>
+							<string>keyword.control.cl</string>
+						</dict>
+					</dict>
+					<key>end</key>
+					<string>\)</string>
+					<key>name</key>
+					<string>entity.other.cl</string>
+					<key>patterns</key>
+					<array>
+						<dict><key>include</key><string>#trace</string></dict>
+						<dict><key>include</key><string>#wcl</string></dict>
+						<dict><key>include</key><string>#invalid</string></dict>
+						<dict><key>include</key><string>#in_variable</string></dict>
+						<dict><key>include</key><string>#keyword</string></dict>
+						<dict><key>include</key><string>#other_keyword</string></dict>
+						<dict><key>include</key><string>#comment</string></dict>
+						<dict><key>include</key><string>#constant</string></dict>
+						<dict><key>include</key><string>#printf</string></dict>
+						<dict><key>include</key><string>#scanf</string></dict>
+						<dict><key>include</key><string>#break</string></dict>
+						<dict><key>include</key><string>#support</string></dict>
+						<dict><key>include</key><string>#primitive</string></dict>
+						<dict><key>include</key><string>#delimiter</string></dict>
+						<dict><key>include</key><string>#ident</string></dict>
+					</array>
+				</dict>
+			</array>
+		</dict>
+		<key>shebang</key>
+		<dict>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>match</key>
+					<string>#!.*$</string>
+					<key>name</key>
+					<string>comment.block.cl</string>
+				</dict>
+			</array>
+		</dict>
+		<key>comment</key>
+		<dict>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>begin</key>
+					<string>/\*</string>
+					<key>end</key>
+					<string>\*/</string>
+					<key>name</key>
+					<string>comment.block.cl</string>
+				</dict>
+				<dict>
+					<key>begin</key>
+					<string>//</string>
+					<key>end</key>
+					<string>$</string>
+					<key>name</key>
+					<string>comment.block.double-slash.cl</string>
+				</dict>
+				<dict>
+					<key>begin</key>
+					<string>;</string>
+					<key>end</key>
+					<string>$</string>
+					<key>name</key>
+					<string>comment.block.semicolon.cl</string>
+				</dict>
+			</array>
+		</dict>
+		<key>constant</key>
+		<dict>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>match</key>
+					<string><?= delim_exp ?>(true|false|unknown|nil)(?=,|:|\||\(|\)|\s|@|\[|\]|{|}|\.|$)</string>
+					<key>name</key>
+					<string>constant.language.cl</string>
+				</dict>
+			</array>
+		</dict>
+		<key>parameter</key>
+		<dict>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>captures</key>
+					<dict>
+						<key>1</key>
+						<dict>
+							<key>name</key>
+							<string>delimiter.cl</string>
+						</dict>
+						<key>2</key>
+						<dict>
+							<key>name</key>
+							<string>keyword.control.cl</string>
+						</dict>
+					</dict>
+					<key>match</key>
+					<string>(,)\s*(?![0-9])<?= ident_short_exp ?>(:)</string>
+					<key>name</key>
+					<string>variable.parameter.cl</string>
+				</dict>
+			</array>
+		</dict>
+		<key>definition</key>
+		<dict>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>captures</key>
+					<dict>
+						<key>1</key>
+						<dict>
+							<key>name</key>
+							<string>entity.name.class.cl</string>
+						</dict>
+						<key>4</key>
+						<dict>
+							<key>name</key>
+							<string>variable.parameter.cl</string>
+						</dict>
+						<key>5</key>
+						<dict>
+							<key>name</key>
+							<string>delimiter.cl</string>
+						</dict>
+						<key>6</key>
+						<dict>
+							<key>name</key>
+							<string>variable.parameter.cl</string>
+						</dict>
+						<key>7</key>
+						<dict>
+							<key>name</key>
+							<string>keyword.control.cl</string>
+						</dict>
+						<key>8</key>
+						<dict>
+							<key>name</key>
+							<string>entity.other.inherited-class.cl</string>
+						</dict>
+					</dict>
+					<key>match</key>
+					<string>(?![0-9])((<?= ident_short_exp ?>/)*<?= ident_short_exp ?>)(\[\s*<?= ident_exp ?>(\s*,\s*<?= ident_exp ?>)+\s*\])?\s+(&lt;:)\s+(?![0-9])((<?= ident_short_exp ?>/)*<?= ident_short_exp ?>)</string>
+					<key>name</key>
+					<string>meta.class.cl</string>
+				</dict>
+				<dict>
+					<key>captures</key>
+					<dict>
+						<key>1</key>
+						<dict>
+							<key>name</key>
+							<string>entity.name.constant.cl</string>
+						</dict>
+						<key>3</key>
+						<dict>
+							<key>name</key>
+							<string>keyword.control.cl</string>
+						</dict>
+					</dict>
+					<key>match</key>
+					<string>^(?![0-9])((<?= ident_short_exp ?>/)*<?= ident_short_exp ?>)\s+(::)(\s|$)</string>
+					<key>name</key>
+					<string>meta.constant.cl</string>
+				</dict>
+				<dict>
+					<key>beginCaptures</key>
+					<dict>
+						<key>1</key>
+						<dict>
+							<key>name</key>
+							<string>entity.name.table.cl</string>
+						</dict>
+						<key>3</key>
+						<dict>
+							<key>name</key>
+							<string>variable.parameter.cl</string>
+						</dict>
+						<key>4</key>
+						<dict>
+							<key>name</key>
+							<string>keyword.control.cl</string>
+						</dict>
+					</dict>
+					<key>endCaptures</key>
+					<dict>
+						<key>1</key>
+						<dict>
+							<key>name</key>
+							<string>keyword.control.cl</string>
+						</dict>
+					</dict>
+					<key>begin</key>
+					<string>(?![0-9])((<?= ident_short_exp ?>/)*<?= ident_short_exp ?>)\[\s*<?= ident_exp ?>(:)</string>
+					<key>end</key>
+					<string>\]\s+(:)</string>
+					<key>name</key>
+					<string>meta.table.cl</string>
+					<key>patterns</key>
+					<array>
+						<dict><key>include</key><string>#comment</string></dict>
+						<dict><key>include</key><string>#invalid</string></dict>
+						<dict><key>include</key><string>#in_variable</string></dict>
+						<dict><key>include</key><string>#keyword</string></dict>
+						<dict><key>include</key><string>#other_keyword</string></dict>
+						<dict><key>include</key><string>#parameter</string></dict>
+						<dict><key>include</key><string>#support</string></dict>
+						<dict><key>include</key><string>#primitive</string></dict>
+						<dict><key>include</key><string>#delimiter</string></dict>
+						<dict><key>include</key><string>#ident</string></dict>
+					</array>
+				</dict>
+				<dict>
+					<key>captures</key>
+					<dict>
+						<key>1</key>
+						<dict>
+							<key>name</key>
+							<string>entity.name.function.cl</string>
+						</dict>
+						<key>3</key>
+						<dict>
+							<key>name</key>
+							<string>keyword.control.cl</string>
+						</dict>
+					</dict>
+					<key>match</key>
+					<string>(?![0-9])((<?= ident_short_exp ?>/)*<?= ident_short_exp ?>)\(\s*\)\s+(:|(-|=)&gt;)(?!=)</string>
+					<key>name</key>
+					<string>meta.function.cl</string>
+				</dict>
+				<dict>
+					<key>begin</key>
+					<string>(?![0-9])((<?= ident_short_exp ?>/)*[0-9a-zA-Z\+\-%\$\*\!\?'&lt;&gt;&amp;_~=`]+)\(\s*<?= ident_exp ?>(:)</string>
+					<key>beginCaptures</key>
+					<dict>
+						<key>1</key>
+						<dict>
+							<key>name</key>
+							<string>entity.name.function.cl</string>
+						</dict>
+						<key>3</key>
+						<dict>
+							<key>name</key>
+							<string>variable.parameter.cl</string>
+						</dict>
+						<key>4</key>
+						<dict>
+							<key>name</key>
+							<string>keyword.control.cl</string>
+						</dict>
+					</dict>
+					<key>end</key>
+					<string>(^|\s+)((=|-)&gt;)(\s+|$)</string>
+					<key>endCaptures</key>
+					<dict>
+						<key>2</key>
+						<dict>
+							<key>name</key>
+							<string>keyword.control.cl</string>
+						</dict>
+					</dict>
+					<key>name</key>
+					<string>meta.function.cl</string>
+					<key>patterns</key>
+					<array>
+						<dict><key>include</key><string>#comment</string></dict>
+						<dict><key>include</key><string>#invalid</string></dict>
+						<dict><key>include</key><string>#in_variable</string></dict>
+						<dict><key>include</key><string>#keyword</string></dict>
+						<dict><key>include</key><string>#other_keyword</string></dict>
+						<dict><key>include</key><string>#parameter</string></dict>
+						<dict><key>include</key><string>#support</string></dict>
+						<dict><key>include</key><string>#primitive</string></dict>
+						<dict><key>include</key><string>#delimiter</string></dict>
+						<dict><key>include</key><string>#ident</string></dict>
+					</array>
+				</dict>
+			</array>
+		</dict>
+		<key>delimiter</key>
+		<dict>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>match</key>
+					<string>,|\||(\()|\)|\[|\]|{|}</string>
+					<key>name</key>
+					<string>delimiter.cl</string>
+					<key>beginCaptures</key>
+					<dict>
+						<key>1</key>
+						<dict>
+							<key>name</key>
+							<string>paren.delimiter.cl</string>
+						</dict>
+					</dict>
+				</dict>
+			</array>
+		</dict>
+		<key>tilda</key>
+		<dict>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>match</key>
+					<string>~(A|S|I)</string>
+					<key>name</key>
+					<string>constant.character.tilda.cl</string>
+				</dict>
+			</array>
+		</dict>
+		<key>formater</key>
+		<dict>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>begin</key>
+					<string>"</string>
+					<key>end</key>
+					<string>"</string>
+					<key>name</key>
+					<string>string.quoted.double.formater.cl</string>
+					<key>patterns</key>
+					<array>
+						<dict><key>include</key><string>#tilda</string></dict>
+						<dict><key>include</key><string>#string_escaped_char</string></dict>
+					</array>
+				</dict>
+			</array>
+		</dict>
+		<key>invalid</key>
+		<dict>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>match</key>
+					<string>[0-9]<?= ident_short_exp ?>[a-zA-Z\+\-%\$\*\!\?'&amp;_~=`]</string>
+					<key>name</key>
+					<string>invalid.ident.cl</string>
+				</dict>
+				<dict>
+					<key>match</key>
+					<string>\|\||&amp;&amp;</string>
+					<key>name</key>
+					<string>invalid.operator.cl</string>
+				</dict>
+				<dict>
+					<key>match</key>
+					<string>(,|\||&amp;)\s*(\)|\}|\]|,)</string>
+					<key>name</key>
+					<string>invalid.separation.cl</string>
+				</dict>
+				<dict>
+					<key>match</key>
+					<string>#(?!if|/)</string>
+					<key>name</key>
+					<string>invalid.sharp.cl</string>
+				</dict>
+			</array>
+		</dict>
+		<key>in_variable</key>
+		<dict>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>captures</key>
+					<dict>
+						<key>1</key>
+						<dict>
+							<key>name</key>
+							<string>delimiter.cl</string>
+						</dict>
+						<key>2</key>
+						<dict>
+							<key>name</key>
+							<string>variable.parameter.cl</string>
+						</dict>
+						<key>3</key>
+						<dict>
+							<key>name</key>
+							<string>keyword.control.cl</string>
+						</dict>
+					</dict>
+					<key>match</key>
+					<string>({)\s*<?= ident_exp ?>(\s+in\s|\s+in$|:)</string>
+					<key>name</key>
+					<string>variable.in.cl</string>
+				</dict>
+				<dict>
+					<key>captures</key>
+					<dict>
+						<key>1</key>
+						<dict>
+							<key>name</key>
+							<string>keyword.control.cl</string>
+						</dict>
+						<key>2</key>
+						<dict>
+							<key>name</key>
+							<string>variable.parameter.cl</string>
+						</dict>
+						<key>3</key>
+						<dict>
+							<key>name</key>
+							<string>keyword.control.cl</string>
+						</dict>
+					</dict>
+					<key>match</key>
+					<string>(\|\s*|<?= delim_exp ?>for\s+)<?= ident_exp ?>(\s+in\s|\s+in$|:)</string>
+					<key>name</key>
+					<string>variable.in.cl</string>
+				</dict>
+			</array>
+		</dict>
+		<key>ident</key>
+		<dict>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>match</key>
+					<string>(?![0-9])((<?= ident_short_exp ?>/)*<?= ident_short_exp ?>)</string>
+					<key>name</key>
+					<string>ident.cl</string>
+				</dict>
+			</array>
+		</dict>
+		<key>keyword</key>
+		<dict>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>match</key>
+					<string><?= delim_exp ?>(break|branch|by|ffor|in|for|while|if|else|let|when|try|catch|#if|:|::|&lt;:|case|as|(n|N)one|\-&gt;|=&gt;|&amp;|\|)(?=,|:|\||\(|\)|\s|@|\[|\]|{|}|\.|$)</string>
+					<key>name</key>
+					<string>keyword.control.cl</string>
+				</dict>
+			</array>
+		</dict>
+		<key>other_keyword</key>
+		<dict>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>match</key>
+					<string>:|\.</string>
+					<key>name</key>
+					<string>keyword.control.cl</string>
+				</dict>
+			</array>
+		</dict>
+		<key>primitive</key>
+		<dict>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>begin</key>
+					<string>"</string>
+					<key>end</key>
+					<string>"</string>
+					<key>name</key>
+					<string>string.quoted.double.cl</string>
+					<key>patterns</key>
+					<array>
+						<dict><key>include</key><string>#string_escaped_char</string></dict>
+					</array>
+				</dict>
+				<dict>
+					<key>begin</key>
+					<string>'</string>
+					<key>end</key>
+					<string>'</string>
+					<key>name</key>
+					<string>string.quoted.single.cl</string>
+					<key>patterns</key>
+					<array>
+						<dict><key>include</key><string>#string_escaped_char</string></dict>
+					</array>
+				</dict>
+				<dict>
+					<key>match</key>
+					<string>#/.</string>
+					<key>name</key>
+					<string>constant.character.escape.cl</string>
+				</dict>
+				<dict>
+					<key>match</key>
+					<string><?= delim_exp ?>((\\(x|X)[0-9a-fA-F]*)|((\+|-)?(([0-9]+\.?[0-9]*)|(\.[0-9]+))((e|E)(\+|-)?[0-9]+)?))(?=,|:|\||\(|\)|\s|@|\[|\]|{|}|\.|$)</string>
+					<key>name</key>
+					<string>constant.numeric.cl</string>
+				</dict>
+			</array>
+		</dict>
+		<key>printf</key>
+		<dict>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>begin</key>
+					<string><?= delim_exp ?>(printf|error|trace)\(</string>
+					<key>beginCaptures</key>
+					<dict>
+						<key>1</key>
+						<dict>
+							<key>name</key>
+							<string>keyword.control.printf.cl</string>
+						</dict>
+					</dict>
+					<key>end</key>
+					<string>\)</string>
+					<key>name</key>
+					<string>entity.other.printf.cl</string>
+					<key>patterns</key>
+					<array>
+						<dict><key>include</key><string>#formater</string></dict>
+						<dict><key>include</key><string>#trace</string></dict>
+						<dict><key>include</key><string>#wcl</string></dict>
+						<dict><key>include</key><string>#invalid</string></dict>
+						<dict><key>include</key><string>#in_variable</string></dict>
+						<dict><key>include</key><string>#keyword</string></dict>
+						<dict><key>include</key><string>#other_keyword</string></dict>
+						<dict><key>include</key><string>#comment</string></dict>
+						<dict><key>include</key><string>#constant</string></dict>
+						<dict><key>include</key><string>#printf</string></dict>
+						<dict><key>include</key><string>#scanf</string></dict>
+						<dict><key>include</key><string>#break</string></dict>
+						<dict><key>include</key><string>#support</string></dict>
+						<dict><key>include</key><string>#primitive</string></dict>
+						<dict><key>include</key><string>#delimiter</string></dict>
+						<dict><key>include</key><string>#ident</string></dict>
+					</array>
+				</dict>
+			</array>
+		</dict>
+		<key>scanf</key>
+		<dict>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>begin</key>
+					<string><?= delim_exp ?>(scanf)\(</string>
+					<key>beginCaptures</key>
+					<dict>
+						<key>1</key>
+						<dict>
+							<key>name</key>
+							<string>keyword.control.printf.cl</string>
+						</dict>
+					</dict>
+					<key>end</key>
+					<string>\)</string>
+					<key>name</key>
+					<string>entity.other.scanf.cl</string>
+					<key>patterns</key>
+					<array>
+						<dict><key>include</key><string>#scanf_formater</string></dict>
+						<dict><key>include</key><string>#wcl</string></dict>
+						<dict><key>include</key><string>#invalid</string></dict>
+						<dict><key>include</key><string>#in_variable</string></dict>
+						<dict><key>include</key><string>#keyword</string></dict>
+						<dict><key>include</key><string>#other_keyword</string></dict>
+						<dict><key>include</key><string>#trace</string></dict>
+						<dict><key>include</key><string>#comment</string></dict>
+						<dict><key>include</key><string>#constant</string></dict>
+						<dict><key>include</key><string>#printf</string></dict>
+						<dict><key>include</key><string>#scanf</string></dict>
+						<dict><key>include</key><string>#break</string></dict>
+						<dict><key>include</key><string>#support</string></dict>
+						<dict><key>include</key><string>#primitive</string></dict>
+						<dict><key>include</key><string>#delimiter</string></dict>
+						<dict><key>include</key><string>#ident</string></dict>
+					</array>
+				</dict>
+			</array>
+		</dict>
+		<key>scanf_escape</key>
+		<dict>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>match</key>
+					<string>%.</string>
+					<key>name</key>
+					<string>constant.character.scanf_espace.cl</string>
+				</dict>
+			</array>
+		</dict>
+		<key>scanf_formater</key>
+		<dict>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>begin</key>
+					<string>(^\s*|,\s*)"</string>
+					<key>end</key>
+					<string>"</string>
+					<key>name</key>
+					<string>string.quoted.double.formater.cl</string>
+					<key>patterns</key>
+					<array>
+						<dict><key>include</key><string>#scanf_tilda</string></dict>
+						<dict><key>include</key><string>#scanf_var</string></dict>
+						<dict><key>include</key><string>#scanf_escape</string></dict>
+						<dict><key>include</key><string>#scanf_operator</string></dict>
+						<dict><key>include</key><string>#string_escaped_char</string></dict>
+					</array>
+				</dict>
+			</array>
+		</dict>
+		<key>scanf_operator</key>
+		<dict>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>match</key>
+					<string>:\{.+,.*\}|:\(|\(|\)|\[|\]|\||\*|\+|\?</string>
+					<key>name</key>
+					<string>operator.scanf.cl</string>
+				</dict>
+			</array>
+		</dict>
+		<key>scanf_tilda</key>
+		<dict>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>match</key>
+					<string>~(A|S|I|B)</string>
+					<key>name</key>
+					<string>constant.character.tilda.cl</string>
+				</dict>
+			</array>
+		</dict>
+		<key>scanf_var</key>
+		<dict>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>match</key>
+					<string>(:?(\$(~|[0-9]*&gt;?)({|\[)[a-zA-Z~+\-%$*!?&amp;_][0-9a-zA-Z~+\-%$*!?'&amp;_]*(}|\])|\$(~|[0-9]*&gt;?).))|(@({|\[)[a-zA-Z~+\-%$*!?&amp;_][0-9a-zA-Z~+\-%$*!?'&amp;_]*(}|\])|@.)</string>
+					<key>name</key>
+					<string>variable.name.scanf.cl</string>
+				</dict>
+			</array>
+		</dict>
+		<key>string_escaped_char</key>
+		<dict>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>match</key>
+					<string>\\(\\|[abefnrtv'"?]|[0-3]\d{,2}|[4-7]\d?|x[a-zA-Z~0-9]+)</string>
+					<key>name</key>
+					<string>constant.character.escape.cl</string>
+				</dict>
+				<dict>
+					<key>match</key>
+					<string>\\.</string>
+					<key>name</key>
+					<string>invalid.illegal.unknown-escape.cl</string>
+				</dict>
+			</array>
+		</dict>
+		<key>support</key>
+		<dict>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>match</key>
+					<string>&lt;|&gt;</string>
+					<key>name</key>
+					<string>support.function.cl</string>
+				</dict>
+				<dict>
+					<key>match</key>
+					<string>(?&lt;=^|,|:|\||\(|\)|\s|@|\[|\]|{|}|\.|&gt;|&lt;)(<?
+			                    (let f := true
+			                    in (for c in {c in class|c.name.module! = claire}
+			                        (if f f := false else princ("|"),
+			                        escape(c.name.name))))
+			                ?>)(?=,|:|\||\(|\)|\s|@|\[|\]|{|}|\.|$|&gt;|&lt;)</string>
+					<key>name</key>
+					<string>support.class.cl</string>
+				</dict>
+				<dict>
+					<key>match</key>
+					<string>(?&lt;=^|,|:|\||\(|\)|\s|@|\[|\]|{|}|\.|&gt;|&lt;)(<?
+			                    (let f := true
+			                    in (for c in {c in property|c.name.module! = claire}
+			                        (if f f := false else princ("|"),
+			                        escape(c.name.name))))
+			                ?>)(?=,|:|\||\(|\)|\s|@|\[|\]|{|}|\.|$|&gt;|&lt;)</string>
+					<key>name</key>
+					<string>support.function.cl</string>
+				</dict>
+			</array>
+		</dict>
+		<key>trace</key>
+		<dict>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>begin</key>
+					<string>//\[</string>
+					<key>end</key>
+					<string>//|($)</string>
+					<key>name</key>
+					<string>comment.line.trace.cl</string>
+					<key>patterns</key>
+					<array>
+						<dict>
+							<key>match</key>
+							<string>~(S|A)</string>
+							<key>name</key>
+							<string>constant.character.trace.formater.cl</string>
+						</dict>
+					</array>
+				</dict>
+			</array>
+		</dict>
+		<key>wcl</key>
+		<dict>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>begin</key>
+					<string>(\?&gt;)</string>
+					<key>beginCaptures</key>
+					<dict>
+						<key>1</key>
+						<dict>
+							<key>name</key>
+							<string>keyword.control.wcl.cl</string>
+						</dict>
+					</dict>
+					<key>end</key>
+					<string>(&lt;\?(?![0-9])((<?= ident_short_exp ?>/)*<?= ident_short_exp ?>))</string>
+					<key>endCaptures</key>
+					<dict>
+						<key>1</key>
+						<dict>
+							<key>name</key>
+							<string>keyword.control.wcl.cl</string>
+						</dict>
+					</dict>
+					<key>name</key>
+					<string>entity.other.wcl.cl</string>
+					<key>patterns</key>
+					<array>
+						<dict>
+							<key>include</key>
+							<string>text.html.basic</string>
+						</dict>
+					</array>
+				</dict>
+			</array>
+		</dict>
+	</dict>
+	<key>scopeName</key>
+	<string>source.cl</string>
+	<key>uuid</key>
+	<string>DDE6A323-8C90-43DD-B881-D1652950375D</string>
+</dict>
+</plist>
+<? )
+
+(fclose(lang_file))
+(use_as_output(stdout))
+(shell("touch ~/Library/Application\\ Support/TextMate/Bundles/Claire.tmbundle/Syntaxes"))
+
+// ******************************************************************
+// * completions                                                    *
+// ******************************************************************
+
+(printf("Generate completion file...\n"))
+compl_file :: fopen("TextMate/completions.tmPreferences", "w")
+(use_as_output(compl_file))
+(princ("<?xml version=\"1.0\" encoding=\"UTF-8\"?>"))
+
+[htescape(s:string) : void ->
+	s := replace(s,"<","&lt;"),
+	s := replace(s,">","&gt;"),
+	s := replace(s,"&","&amp;"),
+	princ(s)]
+
+
+( ?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>name</key>
+	<string>completions</string>
+	<key>settings</key>
+	<dict>
+		<key>completions</key>
+		<array>
+<?
+
+	for c in {c in class|c.name.module! = claire}
+		(if (length(c.name.name) > 2)
+			printf("			<string>~I</string>\n", htescape(c.name.name))),
+
+	for c in {c in property|c.name.module! = claire}
+		(if (length(c.name.name) > 2)
+			printf("			<string>~I</string>\n", htescape(c.name.name))),
+
+	for c in {c in module|c.name.module! = claire}
+		(if (length(c.name.name) > 2)
+			printf("			<string>~I</string>\n", htescape(c.name.name)))
+
+?>		</array>
+	</dict>
+	<key>uuid</key>
+	<string>7EF6D056-D9C3-4D6F-9FA5-ED6E36DC9E9D</string>
+</dict>
+</plist>
+<? )
+
+(fclose(compl_file))
+(use_as_output(stdout))
+
+
+(exit(0))

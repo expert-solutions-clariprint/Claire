@@ -1,0 +1,3 @@
+
+(compiler.env := "@SYSARCH@",
+compiler.external := "@CXX@")

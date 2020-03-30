@@ -1,0 +1,100 @@
+# ************************************************************
+# *  Makefile for the CLAIRE system.                         *
+# *  UNIX version  - CLAIRE 3.3                              *
+# ************************************************************
+
+all: @SYSARCH@/cclaire
+
+# -------------------------------------------
+# |      1. directories                      |
+# -------------------------------------------
+
+# directories
+Dl = @SYSARCH@
+Ds = csrc
+Dh = include
+
+#utilities
+CXX = @CXX@
+
+# this line is system-dependent ! you may need to edit it ...
+CXXFLAGS = @CL_X86_64_CXX@ -g -I$(Dh)
+
+
+
+$(Dl)/Kernel.o:	$(Ds)/Kernel.cpp
+	$(CXX) $(CXXFLAGS) -c $(Ds)/Kernel.cpp -o $(Dl)/Kernel.o
+
+$(Dl)/Console.o:	$(Ds)/clConsole.cpp
+	$(CXX) $(CXXFLAGS) -c $(Ds)/clConsole.cpp -o $(Dl)/Console.o
+
+$(Dl)/noConsole.o:	$(Ds)/clNoConsole.cpp
+	$(CXX) $(CXXFLAGS) -c $(Ds)/clNoConsole.cpp -o $(Dl)/noConsole.o
+
+$(Dl)/wclConsole.o:	$(Ds)/wclConsole.cpp
+	$(CXX) $(CXXFLAGS) -c $(Ds)/wclConsole.cpp -o $(Dl)/wclConsole.o
+
+$(Dl)/Core.o:	$(Ds)/Core.cpp
+	$(CXX) $(CXXFLAGS) -c $(Ds)/Core.cpp -o $(Dl)/Core.o
+
+$(Dl)/Language.o:	$(Ds)/Language.cpp
+	$(CXX) $(CXXFLAGS) -c $(Ds)/Language.cpp -o $(Dl)/Language.o
+
+$(Dl)/Reader.o:	$(Ds)/Reader.cpp
+	$(CXX) $(CXXFLAGS) -c $(Ds)/Reader.cpp -o $(Dl)/Reader.o
+
+$(Dl)/Optimize.o:	$(Ds)/Optimize.cpp
+	$(CXX) $(CXXFLAGS) -c $(Ds)/Optimize.cpp -o $(Dl)/Optimize.o
+
+$(Dl)/Generate.o:	$(Ds)/Generate.cpp
+	$(CXX) $(CXXFLAGS) -c $(Ds)/Generate.cpp -o $(Dl)/Generate.o
+
+$(Dl)/Serialize.o:	$(Ds)/Serialize.cpp
+	$(CXX) $(CXXFLAGS) -c $(Ds)/Serialize.cpp -o $(Dl)/Serialize.o
+
+sclaire-s.o:	$(Ds)/sclaire-s.cpp
+	$(CXX) $(CXXFLAGS) -c $(Ds)/sclaire-s.cpp -o sclaire-s.o
+
+# +----------------------------------------------------------------+
+# |  How to create the wcl cgi                                     |
+# +----------------------------------------------------------------+
+
+mod_wcl: cgi/mod_wcl.c
+	apxs -a -i -c cgi/mod_wcl.c
+
+# +----------------------------------------------------------------+
+# |  How to create a claire compiler                               |
+# +----------------------------------------------------------------+
+
+LIBS_claire = $(Dl)/Kernel.o \
+  $(Dl)/Console.o \
+  $(Dl)/Core.o \
+  $(Dl)/Language.o \
+  $(Dl)/Reader.o \
+  $(Dl)/Optimize.o \
+  $(Dl)/Generate.o \
+  $(Dl)/Serialize.o
+
+@SYSARCH@/dummy:
+	mkdir @SYSARCH@
+	touch @SYSARCH@/dummy
+
+$(Dl)/sclaire: @SYSARCH@/dummy $(LIBS_claire) $(Dl)/noConsole.o $(Dl)/wclConsole.o sclaire-s.o
+	$(CXX) @LDFLAGS@ @CL_X86_64_CXX@ sclaire-s.o $(LIBS_claire) -o $(Dl)/sclaire @LIBS@ @ETR_SOCKET_LIBS@
+
+
+# +----------------------------------------------------------------+
+# |  How to create a proper version of claire                      |
+# +----------------------------------------------------------------+
+
+$(Dl)/cclaire: ccmain.cl $(Dl)/sclaire
+	./$(Dl)/sclaire -O -m Compile -m Serialize -cx ccmain -o cclaire
+	
+
+# +----------------------------------------------------------------+
+# |  How to install claire in /usr/local                           |
+# +----------------------------------------------------------------+
+
+install: $(Dl)/cclaire
+	./$(Dl)/sclaire -f init -v 0 -f install -q
+

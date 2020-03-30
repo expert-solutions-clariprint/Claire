@@ -1,0 +1,64 @@
+#####################################
+# How to build intermediates claire #
+#    UNIX version  - CLAIRE 3.3     #
+#####################################
+
+all: tmpclaire2
+
+CXXFLAGS = -Iinclude
+
+Dk = kernel
+Dc = console
+Ds1 = csrc1
+Ds2 = csrc
+
+.cpp.o:
+	@CXX@ $(CXXFLAGS) -Wno-write-strings  -g -c $(@:.o=.cpp) -o $@
+
+
+FILES_kernel1 = $(Dk)/Kernel.o
+FILES_kernel2 = $(Dk)/Kernel.o
+FILES_console = $(Dc)/clConsole.o
+
+FILES_core1 =  $(Ds1)/Core.o
+FILES_language1 =  $(Ds1)/Language.o
+FILES_reader1 =  $(Ds1)/Reader.o
+FILES_optimize1 =  $(Ds1)/Optimize.o
+FILES_generate1 =  $(Ds1)/Generate.o
+FILES_serialize1 = $(Ds1)/Serialize.o
+
+FILES_core2 =  $(Ds2)/Core.o
+FILES_language2 =  $(Ds2)/Language.o
+FILES_reader2 =  $(Ds2)/Reader.o
+FILES_optimize2 =  $(Ds2)/Optimize.o
+FILES_generate2 =  $(Ds2)/Generate.o
+FILES_serialize2 = $(Ds2)/Serialize.o
+
+
+FILES_claire1 = $(Ds1)/claire-s.o \
+					$(FILES_kernel1) \
+					$(FILES_core1) \
+					$(FILES_console) \
+					$(FILES_language1) \
+					$(FILES_reader1) \
+					$(FILES_optimize1) \
+					$(FILES_generate1) \
+					$(FILES_serialize1)
+					
+FILES_claire2 = $(Ds2)/claire-s.o \
+					$(FILES_kernel2) \
+					$(FILES_core2) \
+					$(FILES_console) \
+					$(FILES_language2) \
+					$(FILES_reader2) \
+					$(FILES_optimize2) \
+					$(FILES_generate2) \
+					$(FILES_serialize2)
+					
+
+tmpclaire1: $(FILES_claire1)
+	@CXX@  $(FILES_claire1)  -o tmpclaire1 @LIBS@ @ETR_SOCKET_LIBS@
+
+
+tmpclaire2: $(FILES_claire2)
+	@CXX@ $(FILES_claire2)  -o tmpclaire2 @LIBS@ @ETR_SOCKET_LIBS@

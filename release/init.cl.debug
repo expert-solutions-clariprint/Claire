@@ -1,0 +1,65 @@
+// +----------------------------------------------------------------------+
+// | init.cl                                                              |
+// +----------------------------------------------------------------------+
+
+// note the environment must be set-up through the -env declaration
+// this file works for most UNIX and NT setups, you may need to edit it
+// though
+
+(compiler.inline? := true,       // do not change
+OPT.Optimize/recompute := false,
+compiler.naming := 1,
+verbose() := 2,                  // not significant
+compiler.safety := 5,            // do not change
+if (compiler.env = "ntv")
+  (PRODUCER.Generate/extension := ".cpp",
+  // compiler options: optimized, debug, default
+  compiler.options := list("-c /O2", "-c /Zi", "-c"))
+else
+  (PRODUCER.Generate/extension := ".cc",
+  // compiler options: optimized, debug, default
+  compiler.options := list("-g", "-g", "-g"),
+  compiler.libraries_dir := list("release", "debug", "release"),
+  compiler.headers_dir := "include",
+  compiler.source := "csrc"))
+
+//<sb> handle installation prefix
+(if (not(have_prefix?))
+     (if (compiler.env = "ntv")
+       claire_prefix := "C:\\dev" //<sb> change it manualy
+     else claire_prefix := "/usr/local")) //<sb> use --prefix=<claire_prefix> with configure
+
+(if (lower(sys_name()) % {"darwin"} & sys_compiler() = "g++")
+  (ld_options := " -rdynamic",
+  cxx_options := " -fPIC -DPIC",
+  so_options := " -dynamiclib -undefined dynamic_lookup"))
+
+(if (lower(sys_name()) % {"linux", "sun", "solaris"} & sys_compiler() = "g++")
+  (ld_options := " -rdynamic",
+  cxx_options := " -fPIC -DPIC",
+  so_options := " -dynamiclib -undefined dynamic_lookup"))
+
+(if (lower(sys_name()) = "aix" & sys_compiler() = "g++")
+  (ld_options := " -Wl,-bmaxdata:0x80000000 -Wl,-brtl -Wl,-bdynamic -Wl,-bexpfull",
+  cxx_options := "",
+  so_options := " -shared -Wl,-G")
+else if (sys_name() = "aix")
+  (ld_options := " -bmaxdata:0x80000000 -brtl -bdynamic -bexpfull",
+  cxx_options := "",
+  so_options := " -G -bM:SRE -bnoentry"))
+
+
+// --------------------------------------------------------------------------
+// when changing to a platform that requires a new makefile generator,
+// one cannot use the existing old file to compile the new one. The following
+// method may be used to cross-compile the new (revised) file once it is
+// loaded
+// THIS METHOD IS RESERVED FOR EXPERT USE ...
+[ccmain() : void
+  -> compiler.active? := true,
+     begin(claire),
+     Generate/*cf* := "ccmain",
+     compiler.headers_dir := home() / "include",
+     claire_lib := home() / "bin" / "debug" / compiler.env,
+     compile("ccmain"),
+     cmakefile("ccmain","cclaire")]

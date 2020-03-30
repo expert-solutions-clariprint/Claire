@@ -1,0 +1,127 @@
+# ************************************************************
+# *  Makefile for the CLAIRE system.                         *
+# *  UNIX version  - CLAIRE 3.3                              *
+# ************************************************************
+
+all: Darwin-i386-g++4.2.1/cclaire
+
+# -------------------------------------------
+# |      1. directories                      |
+# -------------------------------------------
+
+# directories
+Dl= Darwin-i386-g++4.2.1
+Ds= csrc
+Dh= include
+
+#utilities
+CXX = c++
+
+# this line is system-dependent ! you may need to edit it ...
+CXXFLAGS = -W'c,xplink,exportall,langlvl(extended),target(zOSV1R9)' -I$(Dh)
+SOFLAGS= -W'l,xplink,dll,compat=ZOSV1R9'
+LDFLAGS= -W'l,xplink,compat=ZOSV1R9'
+
+
+$(Dl)/Core.o:	$(Ds)/Core.cpp
+	$(CXX) $(CXXFLAGS) -o $(Dl)/Core.o -c $(Ds)/Core.cpp
+
+$(Dl)/Kernel.o:	$(Ds)/Kernel.cpp
+	$(CXX) $(CXXFLAGS) -o $(Dl)/Kernel.o -c $(Ds)/Kernel.cpp
+
+$(Dl)/boot.x:	$(Dl)/Kernel.o $(Dl)/Core.o
+	$(CXX) $(SOFLAGS) -o $(Dl)/boot.so $(Dl)/Kernel.o $(Dl)/Core.o
+	mv *.x $(Dl)
+
+
+$(Dl)/Console.o:	$(Ds)/clConsole.cpp
+	$(CXX) $(CXXFLAGS) -o $(Dl)/Console.o -c $(Ds)/clConsole.cpp
+
+$(Dl)/noConsole.o:	$(Ds)/clNoConsole.cpp
+	$(CXX) $(CXXFLAGS) -o $(Dl)/noConsole.o -c $(Ds)/clNoConsole.cpp
+
+$(Dl)/wclConsole.o:	$(Ds)/wclConsole.cpp
+	$(CXX) $(CXXFLAGS) -o $(Dl)/wclConsole.o -c $(Ds)/wclConsole.cpp
+
+
+$(Dl)/Language.o:	$(Ds)/Language.cpp
+	$(CXX) $(CXXFLAGS) -o $(Dl)/Language.o -c $(Ds)/Language.cpp
+
+$(Dl)/Language.x:	$(Dl)/Language.o $(Dl)/boot.x $(Dl)/Serialize.x
+	$(CXX) $(SOFLAGS) -o $(Dl)/Language.so $(Dl)/Language.o $(Dl)/boot.x $(Dl)/Serialize.x
+	mv *.x $(Dl)
+
+$(Dl)/Reader.o:	$(Ds)/Reader.cpp
+	$(CXX) $(CXXFLAGS) -o $(Dl)/Reader.o -c $(Ds)/Reader.cpp
+
+$(Dl)/Reader.x:	$(Dl)/Reader.o $(Dl)/Language.x
+	$(CXX) $(SOFLAGS) -o $(Dl)/Reader.so $(Dl)/Reader.o $(Dl)/boot.x $(Dl)/Serialize.x $(Dl)/Language.x
+	mv *.x $(Dl)
+
+$(Dl)/Optimize.o:	$(Ds)/Optimize.cpp
+	$(CXX) $(CXXFLAGS) -o $(Dl)/Optimize.o -c $(Ds)/Optimize.cpp
+
+$(Dl)/Optimize.x:	$(Dl)/Optimize.o $(Dl)/Reader.x
+	$(CXX) $(SOFLAGS) -o $(Dl)/Optimize.so $(Dl)/Optimize.o $(Dl)/boot.x $(Dl)/Serialize.x $(Dl)/Language.x $(Dl)/Reader.x
+	mv *.x $(Dl)
+
+$(Dl)/Generate.o:	$(Ds)/Generate.cpp
+	$(CXX) $(CXXFLAGS) -o $(Dl)/Generate.o -c $(Ds)/Generate.cpp
+
+$(Dl)/Generate.x:	$(Dl)/Generate.o
+	$(CXX) $(SOFLAGS) -o $(Dl)/Generate.so $(Dl)/Generate.o $(Dl)/boot.x $(Dl)/Serialize.x $(Dl)/Language.x $(Dl)/Reader.x $(Dl)/Optimize.x
+	mv *.x $(Dl)
+
+$(Dl)/Serialize.o:	$(Ds)/Serialize.cpp
+	$(CXX) $(CXXFLAGS) -o $(Dl)/Serialize.o -c $(Ds)/Serialize.cpp
+
+$(Dl)/Serialize.x:	$(Dl)/Serialize.o $(Dl)/boot.x
+	$(CXX) $(SOFLAGS) -o $(Dl)/Serialize.so $(Dl)/Serialize.o $(Dl)/boot.x
+	mv *.x $(Dl)
+
+
+sclaire-s.o:	$(Ds)/sclaire-s.cpp
+	$(CXX) $(CXXFLAGS) -o sclaire-s.o -c $(Ds)/sclaire-s.cpp
+
+# +----------------------------------------------------------------+
+# |  How to create the wcl cgi                                     |
+# +----------------------------------------------------------------+
+
+mod_wcl: cgi/mod_wcl.c
+	apxs -a -i -c cgi/mod_wcl.c
+
+# +----------------------------------------------------------------+
+# |  How to create a claire compiler                               |
+# +----------------------------------------------------------------+
+
+X_FILES = $(Dl)/boot.x \
+  $(Dl)/Console.o \
+  $(Dl)/Language.x \
+  $(Dl)/Reader.x \
+  $(Dl)/Optimize.x \
+  $(Dl)/Generate.x \
+  $(Dl)/Serialize.x
+
+Darwin-i386-g++4.2.1/dummy:
+	mkdir Darwin-i386-g++4.2.1
+	touch Darwin-i386-g++4.2.1/dummy
+
+$(Dl)/sclaire: Darwin-i386-g++4.2.1/dummy $(X_FILES) $(Dl)/noConsole.o $(Dl)/wclConsole.o sclaire-s.o
+	$(CXX) $(LDFLAGS) -o $(Dl)/sclaire sclaire-s.o $(X_FILES)
+
+
+# +----------------------------------------------------------------+
+# |  How to create a proper version of claire                      |
+# +----------------------------------------------------------------+
+
+$(Dl)/cclaire: ccmain.cl $(Dl)/sclaire
+	LIBPATH=./Darwin-i386-g++4.2.1:$(LIBPATH) ./$(Dl)/sclaire -O -m Compile -m Serialize -cx ccmain -o cclaire
+	
+
+# +----------------------------------------------------------------+
+# |  How to install claire in /usr/local                           |
+# +----------------------------------------------------------------+
+
+install: $(Dl)/cclaire
+	LIBPATH=./Darwin-i386-g++4.2.1:$(LIBPATH) ./$(Dl)/sclaire -f init -v 0 -f install -q
+
