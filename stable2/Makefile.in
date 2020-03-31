@@ -80,7 +80,7 @@ LIBS_claire = $(Dl)/Kernel.o \
 	touch @SYSARCH@/dummy
 
 $(Dl)/sclaire: @SYSARCH@/dummy $(LIBS_claire) $(Dl)/noConsole.o $(Dl)/wclConsole.o sclaire-s.o
-	$(CXX) @LDFLAGS@ @CL_X86_64_CXX@ -o $(Dl)/sclaire @LIBS@ @ETR_SOCKET_LIBS@ sclaire-s.o $(LIBS_claire)
+	$(CXX) @LDFLAGS@ @CL_X86_64_CXX@ -o $(Dl)/sclaire  @ETR_SOCKET_LIBS@ sclaire-s.o $(LIBS_claire) @LIBS@
 
 
 # +----------------------------------------------------------------+
