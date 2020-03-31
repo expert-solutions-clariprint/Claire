@@ -2668,10 +2668,10 @@ void ClaireAllocation::memStat()
   Ctracef("World stack: %d used cells out of %d\n", (*l)[4], maxHist);
   CL_INT i, useList[logList];                         // start the chunk zone analysis
   CL_INT useString = 0, useObject = 0, useOther = 0, maxFree = 0, totalList = 0;
-   for (i = 1; i < logList; i++)
+   for (i = 0; i < logList; i++)
       {useList[i] = 0;
        if (entryList[i] != NOTHING) maxFree = i;}
-   for (i = 1; i < maxList; i += Cmemory[i])
+   for (i = 0; i < maxList; i += Cmemory[i])
       {CL_INT p = (CL_INT)Cmemory[i], x = (CL_INT)Cmemory[i + 1];
        if (x != NOTHING)                       // the chunk is used
           {if (x == (CL_INT) Kernel._primitive)              // used for a string
@@ -6243,6 +6243,19 @@ slot *ClaireClass::addSlot(property *p,ClaireType *t,OID def,CL_INT ix)
                OBJECT(ClaireClass,(*(OBJECT(slot,(*slots)[i])->domain))[1]) != this))
          ix++;
     }
+#else
+    if (ix % 2 == 0) {     // some architecture requires even float indexes
+      if (ALIGN_FIELD ||
+            (ALIGN_STRUCT &&
+               //<sb> test that the new slot is the first slot of its domain
+               // note : i is always positive due to isa @ object !
+               OBJECT(ClaireClass,(*(OBJECT(slot,(*slots)[i])->domain))[1]) != this))
+	  {
+		  printf("Align float \n");
+         ix++;	  	
+	  }
+
+    }
 #endif
     // change the default representation that will be stored in the prototype
     //  copied_default = object (for object) + float (for float) + integer (for all) + NULL for objects
@@ -6255,13 +6268,19 @@ slot *ClaireClass::addSlot(property *p,ClaireType *t,OID def,CL_INT ix)
     if (i <= 1) 
         {slots->addFast(soid);     // a new slot
          // compute the index for slot s (needed for the interpreter :-( )
-#ifndef __LP64__
          if (ix > 1) 
             {slot * sprev = OBJECT(slot,slots->content[slots->length - 1]);
+#ifndef __LP64__
              CL_INT i = sprev->index + ((sprev->srange == Kernel._float) ? 2 : 1);
-             if (i != ix)                 // alignment constraint: ix was add +1 !
-                prototype->addFast(0);}   // maintain length(proto) = size(object)
+#else
+             CL_INT i = sprev->index + 1;
 #endif
+             if (i != ix)
+				                  // alignment constraint: ix was add +1 !
+			 {
+			 	 prototype->addFast(0);}   // maintain length(proto) = size(object)
+			 }
+               // maintain length(proto) = size(object)
           s->index = ix;}                 // ix is given by the interpreter or the C++ compiler !
     else {s->index = OBJECT(slot,(*slots)[i])->index;
           (*slots)[i] = soid;

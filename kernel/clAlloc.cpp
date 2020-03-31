@@ -1149,7 +1149,7 @@ void ClaireAllocation::memStat()
    for (i = 1; i < logList; i++)
       {useList[i] = 0;
        if (entryList[i] != NOTHING) maxFree = i;}
-   for (i = 1; i < maxList; i += Cmemory[i])
+   for (i = 0; i < maxList; i += Cmemory[i])
       {CL_INT p = (CL_INT)Cmemory[i], x = (CL_INT)Cmemory[i + 1];
        if (x != NOTHING)                       // the chunk is used
           {if (x == (CL_INT) Kernel._primitive)              // used for a string
