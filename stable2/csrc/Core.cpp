@@ -3,6 +3,7 @@
 
 #include <claire.h>
 #include <Kernel.h>
+#include <dlfcn.h>
 
 #if defined(CLPC) && !defined(CLPCNODLL)
   #undef CL_EXPORT

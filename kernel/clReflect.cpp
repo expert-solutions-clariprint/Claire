@@ -219,20 +219,20 @@ ClaireObject *ClaireClass::instantiate()
      ClaireClass *c = OWNER(v);                        // owner(v)
      if (c == Kernel._float)                           // implies a range float !
          { // <debug for alignment> printf("rep = %d, i = %d, & = %x v = %g\n",rep,i,&Cmemory[rep],float_v(v));
-           *((double *)(rep << 2)) = float_v(v);
-#ifdef __LP64__
-           rep += 2; i += 1;
+           *((double *)(rep++ << ADDRTRANS)) = float_v(v);
+#ifndef __LP64__
+           rep += 1; i += 1;
 #else
-           rep++;
+//           rep++;
 #endif
 	 }                      // v3.0.68 ! i changes => v changes
      else if ((c == Kernel._set) || (c == Kernel._list))
              {// printf("--- put a copy of %x into C[%d]\n",v,rep + 1);
-             *((CL_INT*)(rep++ << 2)) = (CL_INT) copy_bag(OBJECT(bag,v)); }       // copy may cause GC!
+             *((CL_INT*)(rep++ << ADDRTRANS)) = (CL_INT) copy_bag(OBJECT(bag,v)); }       // copy may cause GC!
      else if (CTAG(v) == OBJ_CODE && v != CNULL)
-         {if (v == _oid_(Kernel.NoDefault)) *((CL_INT*)(rep++ << 2)) = CNULL;  // NEW in V3.0.41
-          else  *((CL_INT*)(rep++ << 2)) = (CL_INT) OBJECT(ClaireAny,v);}
-     else *((CL_INT*)(rep++ << 2)) = v; }
+         {if (v == _oid_(Kernel.NoDefault)) *((CL_INT*)(rep++ << ADDRTRANS)) = CNULL;  // NEW in V3.0.41
+          else  *((CL_INT*)(rep++ << ADDRTRANS)) = (CL_INT) OBJECT(ClaireAny,v);}
+     else *((CL_INT*)(rep++ << ADDRTRANS)) = v; }
 #ifdef CLDEBUG
  if (ClEnv->verbose > 11) printf("<<< instantiate returns %x at adress %d [-> %d]\n",o,getADR(o),rep - 1);
  checkOID(u); // debug !
@@ -334,14 +334,16 @@ slot *ClaireClass::addSlot(property *p,ClaireType *t,OID def,CL_INT ix)
     if (i <= 1) 
         {slots->addFast(soid);     // a new slot
          // compute the index for slot s (needed for the interpreter :-( )
-#ifndef __LP64__
          if (ix > 1) 
             {slot * sprev = OBJECT(slot,slots->content[slots->length - 1]);
+#ifdef __LP64__
+			CL_INT i = sprev->index + 1;
+#else				
              CL_INT i = sprev->index + ((sprev->srange == Kernel._float) ? 2 : 1);
+#endif
              if (i != ix)                 // alignment constraint: ix was add +1 !
                 prototype->addFast(0);}   // maintain length(proto) = size(object)
           s->index = ix;
-#endif
 	    };                 // ix is given by the interpreter or the C++ compiler !
     else {s->index = OBJECT(slot,(*slots)[i])->index;
           (*slots)[i] = soid;

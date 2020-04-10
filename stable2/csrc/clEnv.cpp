@@ -68,9 +68,14 @@ void ClaireHandler::catchIt()
   ClEnv->cout = ecout;           //<sb> restore output on error
   ClAlloc->currentNew = NULL; } //<sb> ensure no tmp alloc if an alloc error occur!
 
+ClaireHandler::~ClaireHandler()
+{
+  	if(COLOR > 0) color(30,0);
+}
+
 
 // system error handling - C++ API ---------------------------------
-int Cerror(int n, OID a, OID b)
+CL_INT Cerror(CL_INT n, OID a, OID b)
 { if (n == -2) {ClEnv->cout = OBJECT(PortObject,Core.Clib_stderr->value);             // v3.3
                 princ_string("Assertion violation in file "); princ_string((char *) a);
                 princ_string(" [line "); princ_integer(b); princ_string("]\n");
@@ -83,7 +88,7 @@ int Cerror(int n, OID a, OID b)
   return 0;}
 
 //<sb>
-int Cerrorno(int n, OID a, OID b) {
+CL_INT Cerrorno(CL_INT n, OID a, OID b) {
 	#ifdef CLPC
 	close_exception((ClaireException *) system_error::make(n,GetLastError(),a,b));
 	#else
@@ -93,13 +98,13 @@ int Cerrorno(int n, OID a, OID b) {
 }
 
 //<sb>
-int Cerror(int n, ClaireClass* c, OID a, OID b) {
+CL_INT Cerror(CL_INT n, ClaireClass* c, OID a, OID b) {
 	close_exception((ClaireException *) system_error::make(n,c,a,b));
 	return 0;
 }
 
 //<sb>
-int Cerrorno(int n, ClaireClass* c, OID a, OID b) {
+CL_INT Cerrorno(CL_INT n, ClaireClass* c, OID a, OID b) {
 	#ifdef CLPC
 	close_exception((ClaireException *) system_error::make(n,GetLastError(),c,a,b));
 	#else
@@ -110,7 +115,7 @@ int Cerrorno(int n, ClaireClass* c, OID a, OID b) {
 
 
 // create a system_error
-system_error *system_error::make(int n, OID x, OID y)
+system_error *system_error::make(CL_INT n, OID x, OID y)
 {system_error *o = (system_error *) ClAlloc->makeAny(4);
   o->isa = Kernel._system_error;
   o->index = n;
@@ -119,7 +124,7 @@ system_error *system_error::make(int n, OID x, OID y)
   o->arg = y;
   return o;}
 
-system_error *system_error::make(int n, CL_INT cerrcode, OID x, OID y)
+system_error *system_error::make(CL_INT n, CL_INT cerrcode, OID x, OID y)
 {system_error *o = (system_error *) ClAlloc->makeAny(4);
   o->isa = Kernel._system_error;
   o->cerr = cerrcode;
@@ -128,7 +133,7 @@ system_error *system_error::make(int n, CL_INT cerrcode, OID x, OID y)
   o->arg = y;
   return o;}
 
-system_error *system_error::make(int n, ClaireClass* c, OID x, OID y)
+system_error *system_error::make(CL_INT n, ClaireClass* c, OID x, OID y)
 {system_error *o = (system_error *) ClAlloc->makeAny(4);
   o->isa = c;
   o->cerr = 0;
@@ -137,7 +142,7 @@ system_error *system_error::make(int n, ClaireClass* c, OID x, OID y)
   o->arg = y;
   return o;}
 
-system_error *system_error::make(int n, CL_INT cerrcode, ClaireClass* c, OID x, OID y)
+system_error *system_error::make(CL_INT n, CL_INT cerrcode, ClaireClass* c, OID x, OID y)
 {system_error *o = (system_error *) ClAlloc->makeAny(4);
   o->isa = c;
   o->cerr = cerrcode;
@@ -211,7 +216,7 @@ void ClaireResource::init()
 
 // generic hashing function: this is the heart of powerfull alists !
 // The mask is supposed to be 0x001...1 and the result is between 0 and mask
-int ClaireResource::hashOid(CL_INT mask, OID x)
+CL_INT ClaireResource::hashOid(CL_INT mask, OID x)
 {if IDENTIFIED(x)                    // v3.1.10 -> there was a strange bug with CTAG
     return (x & mask);
  else {ClairePrimitive *z = OBJECT(ClairePrimitive,x);
@@ -332,11 +337,15 @@ void ClaireEnvironment::bufferStart() {
 	bLength = 0;
 	*buffer = 0;}
 
-int ClaireEnvironment::pushAttempt(int n) {
-	if (bLength + n + 1 >= allocLength) {
-		char *buf = (char*)realloc(buffer, allocLength + 256);
-		if (buf == NULL) Cerror(16,0,0);
-		allocLength += 256;
+CL_INT ClaireEnvironment::pushAttempt(CL_INT n) {
+	if (bLength + n >= allocLength) {
+		CL_INT newlen = allocLength;
+		while (bLength + n >= newlen)
+			newlen += 256;
+		char *buf = (char*)realloc(buffer, newlen);
+		if (buf == NULL)
+			Cerror(16,0,0);
+		allocLength = newlen;
 		buffer = buf;
 		return 1;
 	}
@@ -360,10 +369,10 @@ char *ClaireEnvironment::bufferCopy()
  return buf;}
 
 // prints an integer in the string buffer
-void ClaireEnvironment::pushInteger(int n) {
+void ClaireEnvironment::pushInteger(CL_INT n) {
 	char sprintfbuf[32];
 	sprintf(sprintfbuf, "%d", n);
-	int len = strlen(sprintfbuf);
+	CL_INT len = strlen(sprintfbuf);
 	pushAttempt(len);
   	memcpy(buffer + bLength, sprintfbuf, len + 1); //<sb> including trailing \0
   	bLength += len;
@@ -382,26 +391,29 @@ static inline CL_INT Cpointer(OID x, ClaireClass *c) {return CPOINTER(x,c);}
 
 
 // moves the stack pointer up by x units */
-void stack_add(int x)
-{int z = ClEnv->base + x;
- if (z + 100 >= ClAlloc->maxStack)
+void stack_add(CL_INT x)
+{CL_INT z = ClEnv->base + x;
+ if (z + 100 >= ClAlloc->maxStack) // take a range so that the error handler can execute
    error_execution_stack_full();
+ OID fill = _oid_(Core.undefined_debug);
+ while(ClEnv->index <= z)
+	ClEnv->stack[ClEnv->index++] = fill;
  ClEnv->index = z;}
 
 // apply a function on an argument, two arguments or more
 OID fcall1(ClaireFunction *f,ClaireClass *s1,OID a1,ClaireClass *s)
-{int x;
+{CL_INT x;
    x = ((fptr1) f->value)((CL_INT) CPOINTER(a1,s1));
    return CLAIREOID(x,s);}
 
 OID fcall2(ClaireFunction *f,ClaireClass *s1, OID a1,ClaireClass *s2, OID a2,ClaireClass *s)
-{int x;
+{CL_INT x;
    x = ((fptr2) f->value)((CL_INT)CPOINTER(a1,s1), (CL_INT) CPOINTER(a2,s2));
    return CLAIREOID(x,s);}
 
 OID fcall3(ClaireFunction *f,ClaireClass *s1, OID a1,ClaireClass *s2,
            OID a2, ClaireClass *s3, OID a3, ClaireClass *s)
-{int x;
+{CL_INT x;
    x = ((fptr3) f->value)((CL_INT)CPOINTER(a1,s1), (CL_INT) CPOINTER(a2,s2),
                           (CL_INT) CPOINTER(a3,s3));
    return CLAIREOID(x,s);}
@@ -423,7 +435,7 @@ void error_execution_stack_full() {
 // apply a function to a list of arguments placed into the stack (m to n)
 //<sb> unrolled for message with 3 or less arguments
 OID stack_apply_function(ClaireFunction *f, list *l, CL_INT n, CL_INT m)
-{int x;
+{CL_INT x;
  if (ClEnv->index + 100 >= ClAlloc->maxStack)
  	error_execution_stack_full();
  m = m - n;
@@ -539,8 +551,8 @@ list *store_add(list *l,OID y)
         return l->addFast(y); //
 }
 
-int worldCongestion() {
-	int good = 1;
+CL_INT worldCongestion() {
+	CL_INT good = 1;
 	if (ClRes->iIndex >= ClAlloc->maxHist ||
 		ClRes->oIndex >= ClAlloc->maxHist ||
 		ClRes->fIndex >= ClAlloc->maxHist) {
@@ -588,7 +600,7 @@ void world_push ()
 void world_pop ()
 {ClRes->cWorldId++;                       // v3.2.04
  if (ClRes->cWorld-- == 0) ClRes->cWorld++;
- else {int x = ClRes->iIndex + 1, y = ClRes->iBase;
+ else {CL_INT x = ClRes->iIndex + 1, y = ClRes->iBase;
        while (--x != y) {*(ClRes->haiStack[x]) = ClRes->hviStack[x];}
        ClRes->iIndex = y - 1;
        ClRes->iBase = (CL_INT) ClRes->haiStack[y];
@@ -624,7 +636,7 @@ void world_slaughter (void)
     {ClRes->cWorld++; ClRes->iBase = 0; ClRes->iIndex = 0;  // yc: crude ... may be wrong
      ClRes->oBase = 0; ClRes->oIndex = 0;
      ClRes->fBase = 0; ClRes->fIndex = 0;}
- else  {int y = ClRes->iBase;
+ else  {CL_INT y = ClRes->iBase;
         ClRes->iIndex = y - 1;
         ClRes->iBase = (CL_INT) ClRes->haiStack[y];
         y = ClRes->oBase;
@@ -635,39 +647,39 @@ void world_slaughter (void)
         ClRes->fBase = (CL_INT) ClRes->hafStack[y];}}
 
 // give the current world
-int world_number (void)  {return ClRes->cWorld;}
+CL_INT world_number (void)  {return ClRes->cWorld;}
 
 // give the current world
-int world_get_id (void)  {return ClRes->cWorldId;}
+CL_INT world_get_id (void)  {return ClRes->cWorldId;}
 
 /**********************************************************************/
 /**    7: signal handling base (xl)                                   */
 /**********************************************************************/
 
-int claire_runs = 0;
+CL_INT claire_runs = 0;
 
 #define SIG_STACK_SIZE 32
-int pending_signals[SIG_STACK_SIZE];
-int n_pending_signal = 0;
-int avoid_signal_handling = 0;
-int avoid_signal_caching = 0;
+CL_INT pending_signals[SIG_STACK_SIZE];
+CL_INT n_pending_signal = 0;
+CL_INT avoid_signal_handling = 0;
+CL_INT avoid_signal_caching = 0;
 //<sb> in claire we have a generic kernel sig handler
 // at the meta level we have a table that maps signals to
 // properties (see meta/signal.cl)...
-extern ClaireBoolean* meta_sighandler_integer(int sig);
+extern ClaireBoolean* meta_sighandler_integer(CL_INT sig);
 
 
-int kernel_pop_signal() {
+CL_INT kernel_pop_signal() {
 	if(claire_runs && avoid_signal_handling == 0) {
 		avoid_signal_handling = 1;
 		#ifdef HAVE_SIGPROCMASK
 		sigset_t prev_sigset;
 		sigprocmask(SIG_SETMASK,&allsigs,&prev_sigset);
 		#endif
-		int isig = 0;
-		int thrown = 0;
+		CL_INT isig = 0;
+		CL_INT thrown = 0;
 		while(isig < n_pending_signal) {
-			int sig = pending_signals[isig++];
+			CL_INT sig = pending_signals[isig++];
 			if (sig == SIGINT)
 				while(isig + 1 < n_pending_signal && sig == pending_signals[isig+1])
 					isig++;
@@ -679,7 +691,7 @@ int kernel_pop_signal() {
 			}
 		}
 		if (isig < n_pending_signal) {
-			int i = 0;
+			CL_INT i = 0;
 			while(isig < n_pending_signal)
 				pending_signals[i++] = pending_signals[isig++];
 			n_pending_signal = i;
@@ -697,7 +709,7 @@ int kernel_pop_signal() {
 }
 
 
-void kernel_sighandler_integer(int sig) {
+void kernel_sighandler_integer(CL_INT sig) {
 	#ifdef HAVE_SIGPROCMASK
 	sigset_t nset, oset;
 	sigemptyset(&nset);
@@ -725,7 +737,7 @@ void kernel_sighandler_integer(int sig) {
 /**********************************************************************/
 
 //<sb> From glib/msdn
-char* cerror_integer(int errnum)
+char* cerror_integer(CL_INT errnum)
 {
 
 #ifdef HAVE_STRERROR

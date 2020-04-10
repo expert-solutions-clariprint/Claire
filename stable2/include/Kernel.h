@@ -133,13 +133,8 @@ class CL_EXPORT property;
 
 // definitions from <marie.h> that are needed for inline methods
 //<sb> moved from end of file -> inline operator []
-#ifdef __LP64__
-//#define getADR(A) (((CCAST(A) - CCAST(&Cmemory[0])) >> 3) - 1)  // gets the ADR from the object -
-#define getADR(A) ((CL_INT)A >> ADDRTRANS)  // gets the ADR from the object
-#else
-#define getADR(A) ((CL_INT)A >> 2)  // gets the ADR from the object
 
-#endif
+#define getADR(A) ((CL_INT)A >> ADDRTRANS)  // gets the ADR from the object
 
 extern CL_EXPORT void (*callback_refine_append_of)(bag*,bag*,bag*);
 

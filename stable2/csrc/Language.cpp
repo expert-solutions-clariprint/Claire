@@ -4924,8 +4924,9 @@ CL_EXPORT OID  self_eval_Defclass(Defclass *self) {
                       if (g0562I == CTRUE) close_exception(((general_error *) (*Core._general_error)(_string_(((char*)"[181] cannot overide a slot for a closed property ~S")),
                           _oid_(list::alloc(1,_oid_(p))))));
                         }
-                    if (ps->range == Kernel._float)
-                     ++ix;
+#ifndef __LP64__
+                    if (ps->range == Kernel._float) ++ix;
+#endif
                     _void_(p->reified = OBJECT(ClaireObject,(*Language.reified_ask)(_oid_(rt))));
                     add_slot_class(_Zo,
                       p,

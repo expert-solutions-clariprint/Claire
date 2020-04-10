@@ -70,7 +70,7 @@ execution_context <: ephemeral_object(
 [save_context(debug?:boolean) : execution_context ->
 	let exe := execution_context(debug_context? = debug?)
 	in (exe.saved_system := externC("ClAlloc->makeAny(debug_ask == CTRUE ? 38 : 27)", environment),
-		externC("memcpy(exe->saved_system, ClEnv, debug_ask == CTRUE ? 4*38 : 4*27)"),
+		externC("memcpy(exe->saved_system, ClEnv, sizeof(CL_INT) * (debug_ask == CTRUE ? 38 : 27))"),
 		exe.saved_reader := copy(reader),
 		if debug?
 			exe.module_stack := copy(externC("ClEnv->moduleStack", list)),
@@ -78,7 +78,7 @@ execution_context <: ephemeral_object(
 		exe)]
 
 [restore_context(self:execution_context) : void ->
-	externC("memcpy(ClEnv, self->saved_system, self->debug_context_ask == CTRUE ? 4*38 : 4*27)"),
+	externC("memcpy(ClEnv, self->saved_system, sizeof(CL_INT) * (self->debug_context_ask == CTRUE ? 38 : 27))"),
 	if self.debug_context?
 		externC("ClEnv->moduleStack = self->module_stack"),
 	let r := reader

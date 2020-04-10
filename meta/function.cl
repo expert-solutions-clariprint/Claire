@@ -123,7 +123,7 @@ print :: property()
 // here we assume that self_print is always defined as a function
 [apply_self_print(self:any) : void
  -> (if (externC("(INTEGERP(self) ? CFALSE : CTRUE)", boolean) &
-			externC("((self << 2) ? CFALSE : CTRUE)", boolean)) princ("<NULL>")
+			externC("((self << ADDRTRANS) ? CFALSE : CTRUE)", boolean)) princ("<NULL>")
 	else case self
       (table self_print(self), //<sb> add a special print@table
        thing princ(self.name),

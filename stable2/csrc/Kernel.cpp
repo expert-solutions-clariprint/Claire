@@ -1472,10 +1472,10 @@ CL_EXPORT OID CmemoryAdr;                  // memory zone
 
 #ifdef __LP64__
 #define ADDRTRANS 3
-#define POINTOADR(x) ((CL_UNSIGNED)x >> 3)
-#define ADRTOPOIN(x) ((CL_UNSIGNED*)((CL_UNSIGNED)x << 3))
-#define SIZE(n) (*((CL_INT*)((CL_UNSIGNED)n << 3) - 1))             // returns the size of the object
-#define CL_MAX_INT 0xFFFFFFFFFFFFFFFFLL >> 2
+#define POINTOADR(x) ((CL_UNSIGNED)x >> ADDRTRANS)
+#define ADRTOPOIN(x) ((CL_UNSIGNED*)((CL_UNSIGNED)x << ADDRTRANS))
+#define SIZE(n) (*((CL_INT*)((CL_UNSIGNED)n << ADDRTRANS) - 1))             // returns the size of the object
+#define CL_MAX_INT 0xFFFFFFFFFFFFFFFFLL >> ADDRTRANS
 #else
 #define ADDRTRANS 2
 #define POINTOADR(x) ((CL_UNSIGNED)x >> 2)
@@ -2054,7 +2054,7 @@ ClaireAny *ClaireAllocation::makeStatic(CL_INT n)
 //<sb> now take the string length as arg (not the cell size)
 char *ClaireAllocation::makeString(CL_INT n)
 {CL_INT m;
-  CL_INT cells = n / sizeof(CL_INT) + sizeof(CL_INT); //<sb> convert length to cells (+ 1 (4 bytes) for null char)
+  CL_INT cells = n / sizeof(CL_INT) + 4; //<sb> convert length to cells (+ 1 (4 bytes) for null char)
   if(cells < OPTIMIZE) cells = OPTIMIZE;
   m = newChunk(cells);
   CL_UNSIGNED *a = ADRTOPOIN(m);
@@ -2991,7 +2991,7 @@ CL_EXPORT bag *copy_bag(bag *l)
  if (Kernel.nil == l) return list::empty();
  else if (l == Kernel.emptySet) return set::empty();
  else {
- bag *obj = (bag *) ClAlloc->makeAny(5);
+ bag *obj = (bag *) ClAlloc->makeAny(sizeof(bag) / sizeof(CL_INT));
  obj->isa = l->isa;
  obj->content = NULL;
  obj->of = l->of;                           // v3.1.08
@@ -3010,7 +3010,7 @@ CL_EXPORT bag *copy_bag(bag *l)
 // new in v3.1.16: create an empty copy  
 CL_EXPORT bag *empty_bag(bag *l)
 {CL_INT i;
- bag *obj = (bag *) ClAlloc->makeAny(5);
+ bag *obj = (bag *) ClAlloc->makeAny(sizeof(bag) / sizeof(CL_INT));
  obj->isa = l->isa;
  obj->content = NULL;
  obj->of = l->of;                           // v3.1.08
@@ -6120,12 +6120,13 @@ ClaireObject *ClaireClass::instantiate()
      ClaireClass *c = OWNER(v);                        // owner(v)
      if (c == Kernel._float)                        	   // implies a range float !
          { // <debug for alignment> printf("rep = %d, i = %d, & = %x v = %g\n",rep,i,&Cmemory[rep],float_v(v));
-           *((double *)(rep << ADDRTRANS)) = float_v(v);
+           *((double *)(rep++ << ADDRTRANS)) = float_v(v);
 #ifdef __LP64__
-         rep ++; }
+//         rep ++; 
 #else
-         rep += 2; i += 1;  }                      // v3.0.68 ! i changes => v changes
+         rep ++; i += 1;                        // v3.0.68 ! i changes => v changes
 #endif 
+	 }
      else if ((c == Kernel._set) || (c == Kernel._list))
              {// printf("--- put a copy of %x into C[%d]\n",v,rep + 1);
              *((CL_INT*)(rep++ << ADDRTRANS)) = (CL_INT) copy_bag(OBJECT(bag,v)); }       // copy may cause GC!
@@ -6258,7 +6259,6 @@ slot *ClaireClass::addSlot(property *p,ClaireType *t,OID def,CL_INT ix)
     if (i <= 1) 
         {slots->addFast(soid);     // a new slot
          // compute the index for slot s (needed for the interpreter :-( )
-#ifndef __LP64__
          if (ix > 1) 
             {slot * sprev = OBJECT(slot,slots->content[slots->length - 1]);
 #ifndef __LP64__

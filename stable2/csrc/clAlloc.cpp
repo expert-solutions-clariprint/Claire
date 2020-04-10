@@ -51,8 +51,11 @@ OID CmemoryAdr;                  // memory zone
 #define PREVIOUS 3
 // x is a pointer, returns the ADR (faster than ADR(_oid_(x))
 
-#ifdef __LP64__
-
+#ifdef _LP64_
+#define POINTOADR(x) ((CL_INSIGNED)x >> 3)
+#define ADRTOPOIN(x) ((CL_INSIGNED*)((CL_INSIGNED)x << 3))
+#define SIZE(n) (*((CL_INT*)((CL_INSIGNED)n << 3) - 1))             // returns the size of the object
+#else
 #define ADDRTRANS 3
 
 #define POINTOADR(x) ((CL_UNSIGNED)x >> ADDRTRANS)
@@ -120,9 +123,9 @@ void ClaireAllocation::init() {
 	CHECKED_ALLOC(ClRes, ClaireResource, 1)
 	CHECKED_ALLOC(ClRes->sTable, symbol*, maxHash + 1)
 	CHECKED_ALLOC(ClRes->ascii, ClaireChar*, 256)
-	CHECKED_ALLOC(ClRes->haiStack, OID*, maxHist) // address part of the stack
-	CHECKED_ALLOC(ClRes->hviStack, CL_INT, maxHist) // value part of the stack
-	CHECKED_ALLOC(ClRes->haoStack, OID*, maxHist) // address part of the stack
+	CHECKED_ALLOC(ClRes->haiStack, CL_INT*, maxHist) // address part of the stack
+	CHECKED_ALLOC(ClRes->hviStack, int, maxHist) // value part of the stack
+	CHECKED_ALLOC(ClRes->haoStack, CL_INT*, maxHist) // address part of the stack
 	CHECKED_ALLOC(ClRes->hvoStack, ClaireObject*, maxHist) // value part of the stack
 	CHECKED_ALLOC(ClRes->hafStack, OID*, maxHist) // address part of the stack
 	CHECKED_ALLOC(ClRes->hvfStack, double, maxHist) // value part of the stack

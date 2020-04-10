@@ -93,7 +93,7 @@ Reader_execution_context * save_context_boolean1(ClaireBoolean *debug_ask)
           }
         GC_OBJECT(Reader_execution_context,exe);}
       (exe->saved_system = ((ClaireEnvironment *) (ClaireEnvironment *)(ClAlloc->makeAny(debug_ask == CTRUE ? 38 : 27))));
-      memcpy(exe->saved_system, ClEnv, debug_ask == CTRUE ? 4*38 : 4*27);
+      memcpy(exe->saved_system, ClEnv, sizeof(CL_INT) * (debug_ask == CTRUE ? 38 : 27));
       (exe->saved_reader = ((meta_reader *) copy_object(Reader.reader)));
       if (debug_ask == CTRUE)
        (exe->module_stack = ((list *) copy_bag(((bag *) (list *)(ClEnv->moduleStack)))));
@@ -109,7 +109,7 @@ Reader_execution_context * save_context_boolean1(ClaireBoolean *debug_ask)
 
 // The c++ function for: restore_context(self:execution_context) [0]
 void  restore_context_execution_context1(Reader_execution_context *self)
-{ memcpy(ClEnv, self->saved_system, self->debug_context_ask == CTRUE ? 4*38 : 4*27);
+{ memcpy(ClEnv, self->saved_system, sizeof(CL_INT) * (self->debug_context_ask == CTRUE ? 38 : 27));
   if (self->debug_context_ask == CTRUE)
    ClEnv->moduleStack = self->module_stack;
   (Reader._starindex_star->value= ((OID)self->store__starindex_star));

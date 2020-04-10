@@ -518,6 +518,7 @@ CL_EXPORT void  add_ident_string1(char *s) {
       list * loc = list::alloc(Kernel._any,3,_string_(s),
         f,
         ((OID)l));
+		GC_ANY(loc)
       if ((equal_string(s,((char*)".")) == CTRUE) || 
           (equal_string(s,((char*)"[")) == CTRUE))
        loc->addFast((OID)((OID)((CL_INT)((CL_INT)o-(CL_INT)1)-(CL_INT)LENGTH_STRING(s))));
@@ -6649,7 +6650,7 @@ CL_EXPORT Reader_execution_context * save_context_boolean1(ClaireBoolean *debug_
             }
           GC_OBJECT(Reader_execution_context,exe);}
         _void_(exe->saved_system = ((ClaireEnvironment *) (ClaireEnvironment *)(ClAlloc->makeAny(debug_ask == CTRUE ? 38 : 27))));
-        memcpy(exe->saved_system, ClEnv, debug_ask == CTRUE ? 4*38 : 4*27);
+        memcpy(exe->saved_system, ClEnv, sizeof(CL_INT) * (debug_ask == CTRUE ? 38 : 27));
         _void_(exe->saved_reader = ((meta_reader *) copy_object(Reader.reader)));
         if (debug_ask == CTRUE)
          _void_(exe->module_stack = ((list *) copy_bag(((bag *) (list *)(ClEnv->moduleStack)))));
@@ -6663,7 +6664,7 @@ CL_EXPORT Reader_execution_context * save_context_boolean1(ClaireBoolean *debug_
 
 // The c++ function for: restore_context(self:execution_context) [0]
 CL_EXPORT void  restore_context_execution_context1(Reader_execution_context *self) { 
-    memcpy(ClEnv, self->saved_system, self->debug_context_ask == CTRUE ? 4*38 : 4*27);
+    memcpy(ClEnv, self->saved_system, sizeof(CL_INT) * (self->debug_context_ask == CTRUE ? 38 : 27));
     if (self->debug_context_ask == CTRUE)
      ClEnv->moduleStack = self->module_stack;
     { meta_reader * r = Reader.reader;

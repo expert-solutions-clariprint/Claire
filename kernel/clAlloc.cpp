@@ -51,10 +51,17 @@ OID CmemoryAdr;                  // memory zone
 #define FOLLOW 2
 #define PREVIOUS 3
 // x is a pointer, returns the ADR (faster than ADR(_oid_(x))
-#define POINTOADR(x) ((CL_INSIGNED)x >> 2)
-#define ADRTOPOIN(x) ((CL_INSIGNED*)((CL_INSIGNED)x << 2))
-#define SIZE(n) (*((CL_INT*)((CL_INSIGNED)n << 2) - 1))             // returns the size of the object
-
+#ifdef _LP64_
+#define ADDRTRANS 3
+#define POINTOADR(x) ((CL_INSIGNED)x >> ADDRTRANS)
+#define ADRTOPOIN(x) ((CL_INSIGNED*)((CL_INSIGNED)x << ADDRTRANS))
+#define SIZE(n) (*((CL_INT*)((CL_INSIGNED)n << ADDRTRANS) - 1))             // returns the size of the object
+#else
+#define ADDRTRANS 2
+#define POINTOADR(x) ((CL_INSIGNED)x >> ADDRTRANS)
+#define ADRTOPOIN(x) ((CL_INSIGNED*)((CL_INSIGNED)x << ADDRTRANS))
+#define SIZE(n) (*((CL_INT*)((CL_INSIGNED)n << ADDRTRANS) - 1))             // returns the size of the object
+#endif
 
 
 //#define CLDEBUG
@@ -120,7 +127,7 @@ void ClaireAllocation::init() {
 	CHECKED_ALLOC(Cmemory, OID, maxSize0+1) // GC stack  (v 3.2.38)
 	//<sb> mem upper bound for CLMEM check
 	CmemoryMax = Cmemory + maxSize0;
-	CmemoryAdr = ((CL_UNSIGNED)Cmemory >> 2);
+	CmemoryAdr = ((CL_UNSIGNED)Cmemory >> ADDRTRANS);
 	//<sb> flag that tell if claire exits -> can we free stdio (cf clPort) ?
 	freeingAll = 0;
 	nextFree = NOTHING;
@@ -176,7 +183,7 @@ CL_INT allocateClaire(CL_INT i, CL_INT j, CL_INT memauto) {
 	} else {
 		ClAlloc->maxList0 = (1ul << (18 + i));
 		ClAlloc->maxSize0 = (2ul << (18 + i));
-		ClAlloc->maxStack = 8000 * (one << j);
+		ClAlloc->maxStack = 8000 * (1ul << j);
 	}
 	ClAlloc->maxGC = 20000 * (1ul << j);
 	
@@ -527,7 +534,7 @@ CL_INT ClaireAllocation::newLong(CL_INT n)
 
 // allocation of a long object is pure stacking
 ClaireAny *ClaireAllocation::makeStatic(CL_INT n)
-{return (ClaireAny *)((newLong(((n < OPTIMIZE) ? OPTIMIZE : n)) + 1) << 2);}
+{return (ClaireAny *)((newLong(((n < OPTIMIZE) ? OPTIMIZE : n)) + 1) << ADDRTRANS);}
 
 
 // we allocate the string so that it looks like an imported but is is really special
@@ -568,7 +575,7 @@ OID *ClaireAllocation::makeArray(CL_INT n, ClaireType *t)
 OID ClaireAllocation::import(ClaireClass *c, CL_INT *x)
 { if (c == Kernel._string) GC_STRING((char *) x);               // v3.2.01 -> protect the content
  OID adr = 1 + newShort(3);
- ClaireImport *obj = (ClaireImport *)(adr << 2);
+ ClaireImport *obj = (ClaireImport *)(adr << ADDRTRANS);
    if (ClAlloc->statusGC != 2)  GC_PUSH(obj);                   // v3.1.06 -> protect the container, v3.2.30 check stack
    obj->isa = c;
    obj->value = (CL_INT) x;
@@ -578,7 +585,7 @@ OID ClaireAllocation::import(ClaireClass *c, CL_INT *x)
 // method 
 ClaireFunction *ClaireAllocation::makeFunction(fptr f,char* s)
 {  GC_STRING((char *) s);
-	ClaireFunction *obj = (ClaireFunction *)((newShort(4) + 1) << 2);
+	ClaireFunction *obj = (ClaireFunction *)((newShort(4) + 1) << ADDRTRANS);
    if (ClAlloc->statusGC != 2)  GC_PUSH(obj);                   // v3.1.06 -> protect the container, v3.2.30 check stack
     obj->isa = Kernel._function;
     obj->value = (CL_INT) f;
@@ -614,7 +621,7 @@ CL_INT ClaireAllocation::freeChunk(CL_INT n) {
   #endif
   usedCells -= l;
   #ifdef CLDEBUG
-   	for(j=3; j < l; j++) *((unsigned*)((n+j) << 2)) = (from_kill_I ? 0xDDDD : 0xFFFF);
+   	for(j=3; j < l; j++) *((unsigned*)((n+j) << ADDRTRANS)) = (from_kill_I ? 0xDDDD : 0xFFFF);
   #endif
   return freeLoop(n);}
 
@@ -711,7 +718,7 @@ void ClaireAllocation::freeString(char *s)
 
 // mark a cell ! [v3.1.04 use a macro => easier to read + debug]
 //<sb> made it inline -> save some double call to ADR 
-static inline void MARKCELL(CL_INT n) {int* x = (CL_INT*))((CL_UNSIGNED)n << 2); x--; *x = -*x;}
+static inline void MARKCELL(CL_INT n) {int* x = (CL_INT*))((CL_UNSIGNED)n << ADDRTRANS); x--; *x = -*x;}
 
 
 // call the garbage collector
@@ -873,7 +880,7 @@ void ClaireAllocation::markStack() {
 // printf("MARK stack index is = %d\n", ClEnv->index);
  for (i=0; i < ClEnv->index; i++)
  	{unsigned oid = ClEnv->stack[i];
-	if CLMEM((oid << 2)) MARK(oid)}
+	if CLMEM((oid << ADDRTRANS)) MARK(oid)}
  for (i=1; i < index; i++)
     {ClaireAny *x = gcStack[i];
     if CLMEM(x) MARK(_oid_(x))} //<sb> use CLMEM to check that the address is OK
@@ -1057,7 +1064,7 @@ void ClaireAllocation::sweepObject()
 void checkOID(OID n)
 {if (INTEGERP(n)) return;
  CL_INT u = ADR(n);
- unsigned *mem_u = (unsigned*)(n << 2) - 1;
+ unsigned *mem_u = (unsigned*)(n << ADDRTRANS) - 1;
  if (ClAlloc->numGC > 0)
    { if (mem_u[0] == 0)
        {Ctracef("OID %d has size 0!\n", n);
@@ -1167,7 +1174,7 @@ void ClaireAllocation::memStat()
                  totalList += p;
                  if (ClEnv->verbose > 4)
                   Ctracef("bag(%d)\n", p);}}}
-   Ctracef("Bag: %d, Max free bag size: %ld\n", totalList, 1ul << maxFree);
+   Ctracef("Bag: %d, Max free bag size: %d\n", totalList, 1ul << maxFree);
    Ctracef("List usage: ");
    for (i = 4; i < logList; i++) Ctracef("%d=%d ", i, useList[i]);
    Ctracef("\nString: %d, Object: %d, Array: %d\n",useString,useObject,useOther); }

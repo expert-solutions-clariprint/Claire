@@ -57,7 +57,7 @@ char *CommandLoopVoid(char* s) {
 void default_main() {}  
 
 // for debug
-#define getADR(A) (((CL_INT) A - (CL_INT) &Cmemory[0]) >> 2)  // gets the ADR from the object
+#define getADR(A) (((CL_INT) A - (CL_INT) &Cmemory[0]) >> ADDRTRANS)  // gets the ADR from the object
 #define ADR(A) (A & ADR_MASK)         /* the address                   */
 
 // printf an object with nested level of detail dp

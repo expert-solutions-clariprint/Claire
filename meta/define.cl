@@ -180,7 +180,7 @@ self_eval(self:Defclass) : any
                 if (p.open <= 0 &
                      exists(sx in self.arg.slots | sx.selector = p))
                    error("[181] cannot overide a slot for a closed property ~S",p),
-                if (ps.range = float) ix :+ 1,
+//                if (ps.range = float) ix :+ 1,
 				p.reified := reified?(rt),
                 add_slot(%o, p,rt, v, ix + 1))),             // v3.2 add ix
         close(%o),

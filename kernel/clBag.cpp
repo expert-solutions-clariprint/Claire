@@ -70,7 +70,7 @@ void bag::quickSort(OID *a, CL_INT n, CL_INT m)
 
 // remove duplicates and return cardinal (assumed that a[] was sorted)
 // note that equal(x,y) => hash(x) = hash(y)
-// at any poCL_INT a[1 .. j] is cleaned and we have examined a[1 .. i]
+// at any point a[1 .. j] is cleaned and we have examined a[1 .. i]
 // u is the index of the last strict increase in hash_order
 CL_INT bag::quickClean(OID *a, CL_INT m)
 { CL_INT i = 1, j = 1, x = a[1], u = 1, y = hash_order(x);
@@ -582,7 +582,7 @@ set *set::addFast(OID val)
 { if (IDENTIFIED(val) || (contain_ask_set(this,val) == CFALSE))    // otherwise nothing to do !
   {OID *x = content;                // array= chunk
    CL_INT m = length, i = 1, j = m,NEW;
-   while ((i + 1) < j)              // dichotomic research for the insertion poCL_INT [i,j]
+   while ((i + 1) < j)              // dichotomic research for the insertion point [i,j]
      {NEW = ((i + j) >> 1);         // NEW is neither l or j
       if (x[NEW] == val) return this;
        else if (x[NEW] < val) i = NEW;

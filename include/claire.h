@@ -41,7 +41,7 @@
 #ifdef __LP64__
 	#define CL_INT long
 	#define CL_UNSIGNED unsigned long
-	#define CL_MAX_INT 0xFFFFFFFFFFFFFFFF >> 2
+	#define CL_MAX_INT 0xFFFFFFFFFFFFFFFF >> 3
 #else
 	#define CL_INT int
 	#define CL_UNSIGNED unsigned

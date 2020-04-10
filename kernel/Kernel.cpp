@@ -1472,15 +1472,15 @@ CL_EXPORT OID CmemoryAdr;                  // memory zone
 
 #ifdef __LP64__
 #define ADDRTRANS 3
-#define POINTOADR(x) ((CL_UNSIGNED)x >> 3)
-#define ADRTOPOIN(x) ((CL_UNSIGNED*)((CL_UNSIGNED)x << 3))
-#define SIZE(n) (*((CL_INT*)((CL_UNSIGNED)n << 3) - 1))             // returns the size of the object
+#define POINTOADR(x) ((CL_UNSIGNED)x >> ADDRTRANS)
+#define ADRTOPOIN(x) ((CL_UNSIGNED*)((CL_UNSIGNED)x << ADDRTRANS))
+#define SIZE(n) (*((CL_INT*)((CL_UNSIGNED)n << ADDRTRANS) - 1))             // returns the size of the object
 // #define CL_MAX_INT 0xFFFFFFFFFFFFFFFFLL >> 2
 #else
 #define ADDRTRANS 2
-#define POINTOADR(x) ((CL_UNSIGNED)x >> 2)
-#define ADRTOPOIN(x) ((CL_UNSIGNED*)((CL_UNSIGNED)x << 2))
-#define SIZE(n) (*((CL_INT*)((CL_UNSIGNED)n << 2) - 1))             // returns the size of the object
+#define POINTOADR(x) ((CL_UNSIGNED)x >> ADDRTRANS)
+#define ADRTOPOIN(x) ((CL_UNSIGNED*)((CL_UNSIGNED)x << ADDRTRANS))
+#define SIZE(n) (*((CL_INT*)((CL_UNSIGNED)n << ADDRTRANS) - 1))             // returns the size of the object
 // #define CL_MAX_INT 0xFFFFFFFF >> 2
 #endif
 
@@ -2054,7 +2054,7 @@ ClaireAny *ClaireAllocation::makeStatic(CL_INT n)
 //<sb> now take the string length as arg (not the cell size)
 char *ClaireAllocation::makeString(CL_INT n)
 {CL_INT m;
-  CL_INT cells = n / sizeof(CL_INT) + sizeof(CL_INT); //<sb> convert length to cells (+ 1 (4 bytes) for null char)
+  CL_INT cells = n / sizeof(CL_INT) + 4; //<sb> convert length to cells (+ 1 (4 bytes) for null char)
   if(cells < OPTIMIZE) cells = OPTIMIZE;
   m = newChunk(cells);
   CL_UNSIGNED *a = ADRTOPOIN(m);
@@ -2996,7 +2996,7 @@ CL_EXPORT bag *copy_bag(bag *l)
  if (Kernel.nil == l) return list::empty();
  else if (l == Kernel.emptySet) return set::empty();
  else {
- bag *obj = (bag *) ClAlloc->makeAny(5);
+ bag *obj = (bag *) ClAlloc->makeAny(sizeof(bag) / sizeof(CL_INT));
  obj->isa = l->isa;
  obj->content = NULL;
  obj->of = l->of;                           // v3.1.08
@@ -3015,7 +3015,7 @@ CL_EXPORT bag *copy_bag(bag *l)
 // new in v3.1.16: create an empty copy  
 CL_EXPORT bag *empty_bag(bag *l)
 {CL_INT i;
- bag *obj = (bag *) ClAlloc->makeAny(5);
+ bag *obj = (bag *) ClAlloc->makeAny(sizeof(bag) / sizeof(CL_INT));
  obj->isa = l->isa;
  obj->content = NULL;
  obj->of = l->of;                           // v3.1.08
@@ -3186,9 +3186,10 @@ list *list::domain(CL_INT n, ...)
 list *list::addFastAlloc(OID x)
 { OID *y = ClAlloc->makeContent(length + 1);
   upcpy(y+1, content+1, length); //<sb> v3.3.33
-  ClAlloc->freeContent(content); //<sb> v3.3.33 force desallocation of the old content
+  OID *old = content;
   content = y;
   content[++length] = x;        // add the element
+  ClAlloc->freeContent(old); //<sb> v3.3.33 force desallocation of the old content <xp> switch before free ...
   return this;}
 
 
@@ -5934,13 +5935,16 @@ ClaireBoolean *ClaireCollection::contains(OID oself)
 CL_EXPORT ClaireObject *copy_object(ClaireObject *x)
 {CL_INT i,m = *SLOTADR(x,0);
  ClaireObject *y = (ClaireObject *) ClAlloc->makeAny(m);
- GC_PUSH(y);
+ ClAlloc->currentNew = y;
+
  if (Kernel._freeable_object && INHERIT(x->isa, Kernel._freeable_object))
   Kernel._freeable_object->instances->addFast(_oid_(y));
  else if (x->isa->open != 4)
   x->isa->instances->addFast(_oid_(y));
  for (i = 1; i<= m; i++) *SLOTADR(y,i) = *SLOTADR(x,i);
- return y;}
+ ClAlloc->currentNew = NULL;
+ return y;
+}
 
 // logical equality
 CL_EXPORT ClaireBoolean *equal(OID n, OID m)
@@ -6129,11 +6133,11 @@ ClaireObject *ClaireClass::instantiate()
      ClaireClass *c = OWNER(v);                        // owner(v)
      if (c == Kernel._float)                           // implies a range float !
          { // <debug for alignment> printf("rep = %d, i = %d, & = %x v = %g\n",rep,i,&Cmemory[rep],float_v(v));
-           *((double *)(rep << ADDRTRANS)) = float_v(v);
+           *((double *)(rep++ << ADDRTRANS)) = float_v(v);
 #ifdef __LP64__
-         rep ++;
+//         rep ++;
 #else
-         rep += 2; i += 1;
+         rep += 1; i += 1;
 #endif
  }                      // v3.0.68 ! i changes => v changes
      else if ((c == Kernel._set) || (c == Kernel._list))
@@ -6569,7 +6573,7 @@ CL_EXPORT method *add_method_property(property *p, list *dom, ClaireType *r,
 CL_INT table::expand(OID x)
 {list *old = (list *) graph;
  CL_INT i, j = old->content[0];             // j = chunk size
- list *NEW = make_list_integer(2 * (*old)[0] - 4,CNULL);
+ list *NEW = GC_OBJECT(list,make_list_integer(2 * (*old)[0] - 4,CNULL));
    for (i=1; i < j - 4; i = i+2)
        if ((*old)[i] != CNULL) insertHash(NEW,(*old)[i],(*old)[i + 1]);
    graph = NEW;

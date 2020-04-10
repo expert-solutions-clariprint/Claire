@@ -265,11 +265,11 @@ ClaireObject *ClaireClass::instantiate()
      ClaireClass *c = OWNER(v);                        // owner(v)
      if (c == Kernel._float)                           // implies a range float !
          { // <debug for alignment> printf("rep = %d, i = %d, & = %x v = %g\n",rep,i,&Cmemory[rep],float_v(v));
-           *((double *)(rep << ADDRTRANS)) = float_v(v);
+           *((double *)(rep++ << ADDRTRANS)) = float_v(v);
 #ifdef __LP64__
-		   rep++;
+//		   rep++;
 #else
-		 rep += 2;
+		 rep ++;
 		 i += 1;                      // v3.0.68 ! i changes => v changes
 #endif
 		}
@@ -384,13 +384,15 @@ slot *ClaireClass::addSlot(property *p,ClaireType *t,OID def,CL_INT ix)
     if (i <= 1) 
         {slots->addFast(soid);     // a new slot
          // compute the index for slot s (needed for the interpreter :-( )
-#ifndef __LP64__
          if (ix > 1) 
             {slot * sprev = OBJECT(slot,slots->content[slots->length - 1]);
+#ifdef __LP64__
+			CL_INT i = sprev->index + 1;
+#else				
              CL_INT i = sprev->index + ((sprev->srange == Kernel._float) ? 2 : 1);
+#endif
              if (i != ix)                 // alignment constraint: ix was add +1 !
                 prototype->addFast(0);}   // maintain length(proto) = size(object)
-#endif
           s->index = ix;}                 // ix is given by the interpreter or the C++ compiler !
     else {s->index = OBJECT(slot,(*slots)[i])->index;
           (*slots)[i] = soid;
