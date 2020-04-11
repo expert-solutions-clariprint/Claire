@@ -2,6 +2,8 @@
 
 CLAIRE is a fork of the ​Claire 3 language (from Yves Caseau) which is a high-level functional object-oriented language originally aimed at solving complex problem (see ​Claire 3 description and the Papers page). The CLAIRE language with the WebClaire framework is a more general purpose language while being fully compliant with the original Claire 3 language, either used as a scripting language or as a dynamic web application framework. Claire is written in C++ and comes with an interpreter and a compiler that generates efficient C++. 
 
+Orginal Claire from Yves Caseau : https://github.com/ycaseau/CLAIRE3.4
+
 ## Key aspects
 
 ### Inherited from ​Claire 3 :
@@ -16,6 +18,8 @@ CLAIRE is a fork of the ​Claire 3 language (from Yves Caseau) which is a high-
  * simple-minded object-oriented programming
  * truly polymorphic and parametric functional programming
  * an entity-relation approach with explicit relations, inverses and unknown values 
+ 
+
 
 ### Starting with XL Claire :
 
@@ -31,7 +35,7 @@ CLAIRE is a fork of the ​Claire 3 language (from Yves Caseau) which is a high-
  * GDB like debugger for both interpreted and compiled code
  * parametric regular expression like engine (scanf) 
 
-### Starting with Claire :
+### New  :
 
  * Apache 2.0 bridge (through the apache module mod_wcl)
  * HTTP/CGI handling (Http/Wcl? modules)
@@ -48,5 +52,4 @@ CLAIRE is a fork of the ​Claire 3 language (from Yves Caseau) which is a high-
 To build a new Claire installation package :
 
 `./make`
-
 
