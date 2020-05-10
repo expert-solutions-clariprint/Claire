@@ -1,0 +1,658 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+	<head>
+		<title>
+			claire documentation
+		</title>
+		<style>
+body {
+        font-size: 14px;
+        font-family: arial, Helvetica;
+}
+
+h1 { font-size: 25px; }
+h2 { font-size: 20px; }
+
+a[href] {
+	border-bottom: 1px dotted grey;
+	text-decoration: none
+}
+
+.doc_paragraph
+{
+        font-size: 14px;
+        font-family: arial, helvetica;
+}
+
+.item_header { font-size: 10px; page-break-before: avoid; page-break-inside: avoid; page-break-after: avoid }
+
+.item_index {
+		white-space: pre;
+        font-size: 11px;
+        font-family: monaco, courier, mono-space;
+}
+
+.table_code {
+		margin: 10px auto;
+}
+
+.doc_code {
+    white-space: pre;
+		padding-top: .1em;
+		padding-bottom: .5em;
+		background-color: #EEE;
+		border: #AAA solid 1px;
+        font-size: 11px;
+        font-family: monaco, courier, mono-space;
+}
+
+.opt_usage {
+		margin-left: 1em;
+		margin-right: 1em;
+		padding: .2em;
+		background-color: #EEE;
+		border: #AAA solid 1px;
+        font-family: monaco, courier, mono-space;
+	
+}
+
+.class_proto {
+	vertical-align: top;
+	text-align: right;
+}
+
+.class_proto_super {
+	vertical-align: top;
+	text-align: right;
+}
+
+.class_proto_slot {
+	vertical-align: top;
+	text-align: left;
+}
+
+</style>
+		<link rel="stylesheet" type="text/css" href="doc.css" media="all">
+	</head>
+	<body>
+	<h1><span class=pretitle>&nbsp;</span>&nbsp;claire v3.7.0 user manual</h1><p><i>Last updated : Sat, 09 May 2020</i></p><ul>
+				<li><b>Author :</b> Yves CASEAU</li>
+						<li><b>Author :</b> Sylvain BENILAN</li>
+						</ul>
+				<h1><span class=pretitle>&nbsp;</span>&nbsp;Copyright</h1>
+				<ul>
+				<li>Copyright (C) 1994-2006 Yves Caseau. All Rights Reserved.</li>
+						<li>Copyright (C) 2000-2006 XL. All Rights Reserved.</li>
+						</ul>
+				<h1><span class=pretitle>&nbsp;</span>&nbsp;Preamble</h1>
+				<p align='justify' class='doc_paragraph'> This documentation is mainly issued from the document by Yves Caseau
+ "Introduction to the CLAIRE Programming Language version 3.3". It has
+ been included in the source <a href='Communication ports.html#4611686018982053954'><font color='#'>files</font></a> of XL CLAIRE such to be used with the XL
+ code documentation generator.
+ In this documentation XL specific stuffs are denoted by an <font color='red'>[XL]</font> mark.</p><h1><span class=pretitle>&nbsp;</span>&nbsp;<a name='__category_index__'>Category index</a></h1>
+		<ol>
+			<li class='section'><a name='4611686018980609762'>Introduction</a>
+				<ol><li>
+						<a href='What is CLAIRE _ask.html#4611686018980609746'>What is CLAIRE ?</a></li>
+					<li>
+						<a href='Design.html#4611686018980609890'>Design</a></li>
+					<li>
+						<a href='Features.html#4611686018980619538'>Features</a></li>
+					<li>
+						<a href='Inspirations.html#4611686018980619698'>Inspirations</a></li>
+					</ol>
+			</li>
+			
+			<li class='section'><a name='4611686018980647938'>Primitives</a>
+				<ol><li>
+						<a href='Integers and Floats.html#4611686018980621538'>Integers and Floats</a></li>
+					<li>
+						<a href='Dates and Times.html#4611686018980648178'>Dates and Times</a> <font color='red'>[XL]</font></li>
+					<li>
+						<a href='Chars.html#4611686018980650754'>Chars</a></li>
+					<li>
+						<a href='Strings.html#4611686018980650978'>Strings</a></li>
+					</ol>
+			</li>
+			
+			<li class='section'><a name='4611686018980663314'>Objects, Classes and Slots</a>
+				<ol><li>
+						<a href='Objects and Entities.html#4611686018980663298'>Objects and Entities</a></li>
+					<li>
+						<a href='Classes.html#4611686018980663538'>Classes</a></li>
+					<li>
+						<a href='Free_dashable objects.html#4611686018980676162'>Free-able objects</a> <font color='red'>[XL]</font></li>
+					<li>
+						<a href='parametric class.html#4611686018980835010'>parametric class</a></li>
+					<li>
+						<a href='Calls and Slot Access.html#4611686018980843634'>Calls and Slot Access</a></li>
+					<li>
+						<a href='Updates.html#4611686018980881922'>Updates</a></li>
+					</ol>
+			</li>
+			
+			<li class='section'><a name='4611686018980885642'>Lists, Sets and Instructions</a>
+				<ol><li>
+						<a href='Lists_comma Sets and Tuples.html#4611686018980882226'>Lists, Sets and Tuples</a></li>
+					<li>
+						<a href='Blocks.html#4611686018980886002'>Blocks</a></li>
+					<li>
+						<a href='Conditionals.html#4611686018980941106'>Conditionals</a></li>
+					<li>
+						<a href='Loops.html#4611686018981174994'>Loops</a></li>
+					<li>
+						<a href='Instantiation.html#4611686018981183906'>Instantiation</a></li>
+					<li>
+						<a href='Exception Handling.html#4611686018981214402'>Exception Handling</a></li>
+					<li>
+						<a href='array.html#4611686018981226466'>array</a></li>
+					</ol>
+			</li>
+			
+			<li class='section'><a name='4611686018981262674'>Methods and Types</a>
+				<ol><li>
+						<a href='Methods.html#4611686018981237682'>Methods</a></li>
+					<li>
+						<a href='Types.html#4611686018981274898'>Types</a></li>
+					<li>
+						<a href='Polymorphism.html#4611686018981275106'>Polymorphism</a></li>
+					<li>
+						<a href='Escaping Types.html#4611686018981641298'>Escaping Types</a></li>
+					<li>
+						<a href='Selectors_comma Properties and Operations.html#4611686018981725154'>Selectors, Properties and Operations</a></li>
+					<li>
+						<a href='Iterations.html#4611686018981747650'>Iterations</a></li>
+					</ol>
+			</li>
+			
+			<li class='section'><a name='4611686018981820842'>Tables, Rules and Hypothetical Reasoning</a>
+				<ol><li>
+						<a href='Tables.html#4611686018981820818'>Tables</a></li>
+					<li>
+						<a href='Rules.html#4611686018981960530'>Rules</a></li>
+					<li>
+						<a href='Hypothetical Reasoning.html#4611686018981974818'>Hypothetical Reasoning</a></li>
+					</ol>
+			</li>
+			
+			<li class='section'><a name='4611686018982053986'>I/O, Modules and System Interface</a>
+				<ol><li>
+						<a href='Communication ports.html#4611686018982053954'>Communication ports</a> <font color='red'>[XL]</font></li>
+					<li>
+						<a href='Printing.html#4611686018982244306'>Printing</a></li>
+					<li>
+						<a href='WCL syntax.html#4611686018982279058'>WCL syntax</a> <font color='red'>[XL]</font></li>
+					<li>
+						<a href='Reading.html#4611686018982343426'>Reading</a></li>
+					<li>
+						<a href='Symbols.html#4611686018982343586'>Symbols</a></li>
+					<li>
+						<a href='Modules.html#4611686018982367538'>Modules</a></li>
+					<li>
+						<a href='Global Variables and Constants.html#4611686018982469138'>Global Variables and Constants</a></li>
+					<li>
+						<a href='Command line handling.html#4611686018983068434'>Command line handling</a> <font color='red'>[XL]</font></li>
+					<li>
+						<a href='Serialization.html#4611686018983146626'>Serialization</a> <font color='red'>[XL]</font></li>
+					</ol>
+			</li>
+			
+			<li class='section'><a name='4611686018982472850'>Platform</a>
+				<ol><li>
+						<a href='Miscellaneous.html#4611686018982469618'>Miscellaneous</a></li>
+					<li>
+						<a href='Environment variables.html#4611686018982472882'>Environment variables</a> <font color='red'>[XL]</font></li>
+					<li>
+						<a href='Process handling.html#4611686018982472946'>Process handling</a> <font color='red'>[XL]</font></li>
+					<li>
+						<a href='File system.html#4611686018982489826'>File system</a> <font color='red'>[XL]</font></li>
+					<li>
+						<a href='Signal Handling.html#4611686018982887346'>Signal Handling</a> <font color='red'>[XL]</font></li>
+					</ol>
+			</li>
+			
+			<li class='section'><a name='4611686018982664186'>Using XL Claire</a>
+				<ol><li>
+						<a href='Debugging.html#4611686018982490146'>Debugging</a> <font color='red'>[XL]</font></li>
+					</ol>
+			</li>
+			<li><a href='driving optimizations.html#4611686018982532018'>driving optimizations</a></li>
+			</ol>
+		<h1><span class=pretitle>&nbsp;</span>&nbsp;<a name='__global_index__'>Global Variable index</a></h1>
+		<ul><li><font font-face='Courier' class='item_index'><a href='File system.html#4611686018982667458'>*fs*</a><font color='blue'> : </font>string<font color='blue'> := </font>(if externC(&quot;\n#ifdef CLPC\nCTRUE\n#else\nCFALSE\n#endif\n&quot;, boolean) &quot;\\&quot; else &quot;/&quot;)</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='File system.html#4611686018982667618'>*ps*</a><font color='blue'> : </font>string<font color='blue'> := </font>(if externC(&quot;\n#ifdef CLPC\nCTRUE\n#else\nCFALSE\n#endif\n&quot;, boolean) &quot;;&quot; else &quot;:&quot;)</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Integers and Floats.html#4611686018983235538'>MAX_INTEGER</a><font color='blue'> :: </font>1073741822</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Lists_comma Sets and Tuples.html#4611686018982667282'>nil</a><font color='blue'> :: </font>Id(nil)</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Communication ports.html#4611686018983018226'>port!</a><font color='blue'> :: </font>blob! <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Communication ports.html#4611686018983019986'>stderr</a><font color='blue'> : </font>port<font color='blue'> := </font>Clib_stderr <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Communication ports.html#4611686018983019890'>stdin</a><font color='blue'> : </font>port<font color='blue'> := </font>Clib_stdin <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Communication ports.html#4611686018983019938'>stdout</a><font color='blue'> : </font>port<font color='blue'> := </font>Clib_stdout <font color='red'>[XL]</font></font></li>
+			</ul>
+		<h1><span class=pretitle>&nbsp;</span>&nbsp;<a name='__interface_index__'>Interface index</a></h1>
+		<ul><li><font font-face='Courier' class='item_index'><a href='Classes.html#4611686018982494882'>close</a><font color='blue'> :: </font>property(open = 3)</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Communication ports.html#4611686018983016050'>close_port</a><font color='blue'> :: </font>property(open = 3, range = void) <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Communication ports.html#4611686018983014626'>eof_port?</a><font color='blue'> :: </font>property(open = 3, range = boolean) <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Communication ports.html#4611686018983015874'>flush_port</a><font color='blue'> :: </font>property(open = 3, range = void) <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Free_dashable objects.html#4611686018982547810'>free!</a><font color='blue'> :: </font>property(open = 3) <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Lists_comma Sets and Tuples.html#4611686018982503986'>nth</a><font color='blue'> :: </font>property(open = 3)</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Lists_comma Sets and Tuples.html#4611686018982504818'>nth=</a><font color='blue'> :: </font>property(open = 3)</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Process handling.html#4611686018982748226'>on_fork</a><font color='blue'> :: </font>property(open = 3) <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Process handling.html#4611686018982748306'>on_forked</a><font color='blue'> :: </font>property(open = 3) <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Command line handling.html#4611686018983094594'>option_parsed</a><font color='blue'> :: </font>property(open = 3) <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Command line handling.html#4611686018983093698'>option_respond</a><font color='blue'> :: </font>property(open = 3) <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Command line handling.html#4611686018983095874'>option_usage</a><font color='blue'> :: </font>property(open = 3) <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Free_dashable objects.html#4611686018982547282'>prefree!</a><font color='blue'> :: </font>property(open = 3) <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Communication ports.html#4611686018983014738'>read_port</a><font color='blue'> :: </font>property(open = 3, range = integer) <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Printing.html#4611686018982503330'>self_print</a><font color='blue'> :: </font>property(open = 3)</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Communication ports.html#4611686018983015122'>unget_port</a><font color='blue'> :: </font>property(open = 3, range = void) <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Communication ports.html#4611686018983015682'>write_port</a><font color='blue'> :: </font>property(open = 3, range = integer) <font color='red'>[XL]</font></font></li>
+			</ul>
+		<h1><span class=pretitle>&nbsp;</span>&nbsp;<a name='__class_index__'>Class index</a></h1>
+		<ul><li><font font-face='Courier' class='item_index'><a href='Communication ports.html#4611686018983017826'>blob</a><font color='blue'> &lt;: </font><a href='Communication ports.html#4611686018983013922'>device</a> <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Communication ports.html#4611686018983018946'>buffer</a><font color='blue'> &lt;: </font><a href='Communication ports.html#4611686018983014114'>filter</a> <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Communication ports.html#4611686018983019586'>byte_counter</a><font color='blue'> &lt;: </font><a href='Communication ports.html#4611686018983014114'>filter</a> <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Communication ports.html#4611686018983013362'>char*</a><font color='blue'> &lt;: </font>import <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Communication ports.html#4611686018983019842'>descriptor</a><font color='blue'> &lt;: </font><a href='Communication ports.html#4611686018983013922'>device</a> <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Communication ports.html#4611686018983013922'>device</a><font color='blue'> &lt;: </font><a href='Communication ports.html#4611686018982053954'>Communication ports</a> <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Communication ports.html#4611686018983024098'>disk_file</a><font color='blue'> &lt;: </font><a href='Communication ports.html#4611686018983019842'>descriptor</a> <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Communication ports.html#4611686018983014114'>filter</a><font color='blue'> &lt;: </font><a href='Communication ports.html#4611686018982053954'>Communication ports</a> <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Signal Handling.html#4611686018982902626'>itimer</a><font color='blue'> &lt;: </font>thing <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Communication ports.html#4611686018983019122'>line_buffer</a><font color='blue'> &lt;: </font><a href='Communication ports.html#4611686018983014114'>filter</a> <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Communication ports.html#4611686018983019666'>line_counter</a><font color='blue'> &lt;: </font><a href='Communication ports.html#4611686018983014114'>filter</a> <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Communication ports.html#4611686018983026482'>listener</a><font color='blue'> &lt;: </font><a href='Communication ports.html#4611686018983026386'>socket</a> <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Communication ports.html#4611686018983025762'>pipe</a><font color='blue'> &lt;: </font><a href='Communication ports.html#4611686018983019842'>descriptor</a> <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Process handling.html#4611686018982907906'>process_status</a><font color='blue'> &lt;: </font>thing <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Signal Handling.html#4611686018982899330'>signal_handler</a><font color='blue'> &lt;: </font>thing <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Communication ports.html#4611686018983026386'>socket</a><font color='blue'> &lt;: </font><a href='Communication ports.html#4611686018983019842'>descriptor</a> <font color='red'>[XL]</font></font></li>
+			</ul>
+		<h1><span class=pretitle>&nbsp;</span>&nbsp;<a name='__method_index__'>Method index</a></h1>
+		<ul><li><font font-face='Courier' class='item_index'><a href='Objects and Entities.html#4611686018982739890'>!=</a>(<font color='green'>x</font><font color='blue'>:</font>any, <font color='green'>y</font><font color='blue'>:</font>any)<font color='blue'> -&gt; </font>boolean</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Types.html#4611686018982545266'>%</a>(<font color='green'>x</font><font color='blue'>:</font>any, <font color='green'>y</font><font color='blue'>:</font>any)<font color='blue'> -&gt; </font>boolean</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Integers and Floats.html#4611686018982545362'>*</a>(<font color='green'>x</font><font color='blue'>:</font>integer, <font color='green'>y</font><font color='blue'>:</font>integer)<font color='blue'> =&gt; </font>integer</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Integers and Floats.html#4611686018982744418'>*</a>(<font color='green'>self</font><font color='blue'>:</font>float, <font color='green'>x</font><font color='blue'>:</font>float)<font color='blue'> -&gt; </font>float</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Integers and Floats.html#4611686018982530850'>+</a>(<font color='green'>self</font><font color='blue'>:</font>integer, <font color='green'>x</font><font color='blue'>:</font>integer)<font color='blue'> -&gt; </font>type[abstract_type(+, self, x)]</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Integers and Floats.html#4611686018982743922'>+</a>(<font color='green'>self</font><font color='blue'>:</font>float, <font color='green'>x</font><font color='blue'>:</font>float)<font color='blue'> -&gt; </font>float</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Communication ports.html#4611686018983013506'>+</a>(<font color='green'>self</font><font color='blue'>:</font>char*, <font color='green'>n</font><font color='blue'>:</font>integer)<font color='blue'> -&gt; </font>char* <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Integers and Floats.html#4611686018982545410'>-</a>(<font color='green'>x</font><font color='blue'>:</font>integer)<font color='blue'> =&gt; </font>integer</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Integers and Floats.html#4611686018982744530'>-</a>(<font color='green'>x</font><font color='blue'>:</font>float)<font color='blue'> -&gt; </font>float</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Integers and Floats.html#4611686018982744354'>-</a>(<font color='green'>self</font><font color='blue'>:</font>float, <font color='green'>x</font><font color='blue'>:</font>float)<font color='blue'> -&gt; </font>float</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Integers and Floats.html#4611686018982530898'>-</a>(<font color='green'>self</font><font color='blue'>:</font>integer, <font color='green'>x</font><font color='blue'>:</font>integer)<font color='blue'> -&gt; </font>type[Core/abstract_type(-, Core/self, Core/x)]</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Types.html#4611686018982546082'>..</a>(<font color='green'>x</font><font color='blue'>:</font>integer, <font color='green'>y</font><font color='blue'>:</font>integer)<font color='blue'> -&gt; </font>Interval</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Strings.html#4611686018982667698'>/</a>(<font color='green'>s</font><font color='blue'>:</font>string, <font color='green'>s2</font><font color='blue'>:</font>string)<font color='blue'> -&gt; </font>string</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Integers and Floats.html#4611686018982545458'>/</a>(<font color='green'>x</font><font color='blue'>:</font>integer, <font color='green'>y</font><font color='blue'>:</font>integer)<font color='blue'> =&gt; </font>integer</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Integers and Floats.html#4611686018982744466'>/</a>(<font color='green'>self</font><font color='blue'>:</font>float, <font color='green'>x</font><font color='blue'>:</font>float)<font color='blue'> -&gt; </font>float</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Lists_comma Sets and Tuples.html#4611686018982546018'>/+</a>(<font color='green'>l1</font><font color='blue'>:</font>list, <font color='green'>l2</font><font color='blue'>:</font>list)<font color='blue'> -&gt; </font>list</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Strings.html#4611686018982545954'>/+</a>(<font color='green'>s1</font><font color='blue'>:</font>string, <font color='green'>s2</font><font color='blue'>:</font>string)<font color='blue'> -&gt; </font>string</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Lists_comma Sets and Tuples.html#4611686018982746242'>/+</a>(<font color='green'>x</font><font color='blue'>:</font>bag, <font color='green'>y</font><font color='blue'>:</font>bag)<font color='blue'> -&gt; </font>list</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Strings.html#4611686018982668050'>/-</a>(<font color='green'>s1</font><font color='blue'>:</font>string, <font color='green'>s2</font><font color='blue'>:</font>string)<font color='blue'> -&gt; </font>string <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Strings.html#4611686018982546514'>&lt;</a>(<font color='green'>x</font><font color='blue'>:</font>string, <font color='green'>y</font><font color='blue'>:</font>string)<font color='blue'> -&gt; </font>boolean</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Integers and Floats.html#4611686018982743090'>&lt;</a>(<font color='green'>x</font><font color='blue'>:</font>integer, <font color='green'>y</font><font color='blue'>:</font>integer)<font color='blue'> -&gt; </font>boolean</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Chars.html#4611686018982546866'>&lt;</a>(<font color='green'>x</font><font color='blue'>:</font>char, <font color='green'>y</font><font color='blue'>:</font>char)<font color='blue'> -&gt; </font>boolean</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Integers and Floats.html#4611686018982545698'>&lt;</a>(<font color='green'>x</font><font color='blue'>:</font>float, <font color='green'>y</font><font color='blue'>:</font>float)<font color='blue'> =&gt; </font>boolean</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Integers and Floats.html#4611686018982742306'>&lt;&lt;</a>(<font color='green'>x</font><font color='blue'>:</font>integer, <font color='green'>n</font><font color='blue'>:</font>integer)<font color='blue'> -&gt; </font>integer</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Lists_comma Sets and Tuples.html#4611686018982547202'>&lt;&lt;</a>(<font color='green'>l</font><font color='blue'>:</font>list, <font color='green'>n</font><font color='blue'>:</font>integer)<font color='blue'> -&gt; </font>list</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Types.html#4611686018982547042'>&lt;=</a>(<font color='green'>x</font><font color='blue'>:</font>type, <font color='green'>y</font><font color='blue'>:</font>type)<font color='blue'> -&gt; </font>boolean</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Strings.html#4611686018982546754'>&lt;=</a>(<font color='green'>x</font><font color='blue'>:</font>string, <font color='green'>y</font><font color='blue'>:</font>string)<font color='blue'> -&gt; </font>boolean</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Integers and Floats.html#4611686018982545762'>&lt;=</a>(<font color='green'>x</font><font color='blue'>:</font>float, <font color='green'>y</font><font color='blue'>:</font>float)<font color='blue'> =&gt; </font>boolean</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Integers and Floats.html#4611686018982545522'>&lt;=</a>(<font color='green'>x</font><font color='blue'>:</font>integer, <font color='green'>y</font><font color='blue'>:</font>integer)<font color='blue'> -&gt; </font>boolean</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Chars.html#4611686018982747122'>&lt;=</a>(<font color='green'>c1</font><font color='blue'>:</font>char, <font color='green'>c2</font><font color='blue'>:</font>char)<font color='blue'> -&gt; </font>boolean</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Objects and Entities.html#4611686018982546274'>=</a>(<font color='green'>x</font><font color='blue'>:</font>any, <font color='green'>y</font><font color='blue'>:</font>any)<font color='blue'> -&gt; </font>boolean</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Types.html#4611686018982846930'>=type?</a>(<font color='green'>self</font><font color='blue'>:</font>type, <font color='green'>ens</font><font color='blue'>:</font>type)<font color='blue'> -&gt; </font>boolean</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Strings.html#4611686018982546418'>&gt;</a>(<font color='green'>x</font><font color='blue'>:</font>string, <font color='green'>y</font><font color='blue'>:</font>string)<font color='blue'> -&gt; </font>boolean</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Chars.html#4611686018982546818'>&gt;</a>(<font color='green'>x</font><font color='blue'>:</font>char, <font color='green'>y</font><font color='blue'>:</font>char)<font color='blue'> -&gt; </font>boolean</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Integers and Floats.html#4611686018982545538'>&gt;</a>(<font color='green'>x</font><font color='blue'>:</font>float, <font color='green'>y</font><font color='blue'>:</font>float)<font color='blue'> =&gt; </font>boolean</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Integers and Floats.html#4611686018982743234'>&gt;</a>(<font color='green'>x</font><font color='blue'>:</font>integer, <font color='green'>y</font><font color='blue'>:</font>integer)<font color='blue'> -&gt; </font>boolean</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Strings.html#4611686018982546658'>&gt;=</a>(<font color='green'>x</font><font color='blue'>:</font>string, <font color='green'>y</font><font color='blue'>:</font>string)<font color='blue'> -&gt; </font>boolean</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Chars.html#4611686018982546930'>&gt;=</a>(<font color='green'>x</font><font color='blue'>:</font>char, <font color='green'>y</font><font color='blue'>:</font>char)<font color='blue'> -&gt; </font>boolean</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Integers and Floats.html#4611686018982545650'>&gt;=</a>(<font color='green'>x</font><font color='blue'>:</font>float, <font color='green'>y</font><font color='blue'>:</font>float)<font color='blue'> =&gt; </font>boolean</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Integers and Floats.html#4611686018982545586'>&gt;=</a>(<font color='green'>x</font><font color='blue'>:</font>integer, <font color='green'>y</font><font color='blue'>:</font>integer)<font color='blue'> =&gt; </font>boolean</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Integers and Floats.html#4611686018982742386'>&gt;&gt;</a>(<font color='green'>x</font><font color='blue'>:</font>integer, <font color='green'>n</font><font color='blue'>:</font>integer)<font color='blue'> -&gt; </font>integer</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Integers and Floats.html#4611686018982544642'>^</a>(<font color='green'>x</font><font color='blue'>:</font>integer, <font color='green'>y</font><font color='blue'>:</font>integer)<font color='blue'> =&gt; </font>integer</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Integers and Floats.html#4611686018982744642'>^</a>(<font color='green'>self</font><font color='blue'>:</font>float, <font color='green'>x</font><font color='blue'>:</font>float)<font color='blue'> -&gt; </font>float</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Lists_comma Sets and Tuples.html#4611686018982544722'>^</a>(<font color='green'>l</font><font color='blue'>:</font>list, <font color='green'>y</font><font color='blue'>:</font>integer)<font color='blue'> -&gt; </font>list</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Lists_comma Sets and Tuples.html#4611686018982544946'>^</a>(<font color='green'>s1</font><font color='blue'>:</font>set, <font color='green'>s2</font><font color='blue'>:</font>set)<font color='blue'> -&gt; </font>set</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Integers and Floats.html#4611686018982545202'>^2</a>(<font color='green'>x</font><font color='blue'>:</font>integer)<font color='blue'> =&gt; </font>void</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Classes.html#4611686018982740930'>abstract</a>(<font color='green'>c</font><font color='blue'>:</font>class)<font color='blue'> -&gt; </font>any</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Integers and Floats.html#4611686018982744946'>acos</a>(<font color='green'>self</font><font color='blue'>:</font>float)<font color='blue'> -&gt; </font>float</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Lists_comma Sets and Tuples.html#4611686018982505746'>add</a>(<font color='green'>l</font><font color='blue'>:</font>list, <font color='green'>x</font><font color='blue'>:</font>any)<font color='blue'> -&gt; </font>list</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Lists_comma Sets and Tuples.html#4611686018982505698'>add</a>(<font color='green'>s</font><font color='blue'>:</font>set, <font color='green'>x</font><font color='blue'>:</font>any)<font color='blue'> -&gt; </font>set</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Classes.html#4611686018982602578'>add</a>(<font color='green'>self</font><font color='blue'>:</font>property, <font color='green'>x</font><font color='blue'>:</font>object, <font color='green'>y</font><font color='blue'>:</font>any)<font color='blue'> -&gt; </font>void</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Lists_comma Sets and Tuples.html#4611686018982505890'>add*</a>(<font color='green'>l1</font><font color='blue'>:</font>list, <font color='green'>l2</font><font color='blue'>:</font>list)<font color='blue'> -&gt; </font>list</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Chars.html#4611686018982506018'>alpha?</a>(<font color='green'>c</font><font color='blue'>:</font>char)<font color='blue'> -&gt; </font>boolean <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Strings.html#4611686018982506066'>alpha?</a>(<font color='green'>s</font><font color='blue'>:</font>string)<font color='blue'> -&gt; </font>boolean <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Integers and Floats.html#4611686018982742466'>and</a>(<font color='green'>x</font><font color='blue'>:</font>integer, <font color='green'>y</font><font color='blue'>:</font>integer)<font color='blue'> -&gt; </font>integer</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Calls and Slot Access.html#4611686018983236690'>apply</a>(<font color='green'>self</font><font color='blue'>:</font>lambda, <font color='green'>%l</font><font color='blue'>:</font>list)<font color='blue'> -&gt; </font>any</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Calls and Slot Access.html#4611686018982666370'>apply</a>(<font color='green'>m</font><font color='blue'>:</font>method, <font color='green'>l</font><font color='blue'>:</font>list)<font color='blue'> -&gt; </font>any</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Calls and Slot Access.html#4611686018982663570'>apply</a>(<font color='green'>p</font><font color='blue'>:</font>property, <font color='green'>l</font><font color='blue'>:</font>list)<font color='blue'> -&gt; </font>any</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Calls and Slot Access.html#4611686018982662930'>apply</a>(<font color='green'>self</font><font color='blue'>:</font>function, <font color='green'>ls</font><font color='blue'>:</font>list, <font color='green'>l</font><font color='blue'>:</font>list)<font color='blue'> -&gt; </font>any</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='array.html#4611686018982506242'>array!</a>(<font color='green'>x</font><font color='blue'>:</font>bag, <font color='green'>t</font><font color='blue'>:</font>type)<font color='blue'> -&gt; </font>type[t[]]</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Integers and Floats.html#4611686018982745042'>asin</a>(<font color='green'>self</font><font color='blue'>:</font>float)<font color='blue'> -&gt; </font>float</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Integers and Floats.html#4611686018982745106'>atan</a>(<font color='green'>self</font><font color='blue'>:</font>float)<font color='blue'> -&gt; </font>float</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Hypothetical Reasoning.html#4611686018982544226'>backtrack</a>()<font color='blue'> -&gt; </font>void</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Hypothetical Reasoning.html#4611686018982544274'>backtrack</a>(<font color='green'>n</font><font color='blue'>:</font>integer)<font color='blue'> -&gt; </font>void</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Modules.html#4611686018982506306'>begin</a>(<font color='green'>m</font><font color='blue'>:</font>module)<font color='blue'> -&gt; </font>void</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Integers and Floats.html#4611686018982506482'>bin!</a>(<font color='green'>i</font><font color='blue'>:</font>integer)<font color='blue'> -&gt; </font>string <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Communication ports.html#4611686018983017874'>blob!</a>()<font color='blue'> -&gt; </font>blob <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Communication ports.html#4611686018983017922'>blob!</a>(<font color='green'>p</font><font color='blue'>:</font>blob)<font color='blue'> -&gt; </font>blob <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Communication ports.html#4611686018983018066'>blob!</a>(<font color='green'>self</font><font color='blue'>:</font>string)<font color='blue'> -&gt; </font>blob <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Communication ports.html#4611686018983018178'>blob!</a>(<font color='green'>n</font><font color='blue'>:</font>integer)<font color='blue'> -&gt; </font>blob <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Communication ports.html#4611686018983018018'>blob!</a>(<font color='green'>p</font><font color='blue'>:</font>port)<font color='blue'> -&gt; </font>blob <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Communication ports.html#4611686018983030722'>bqexpand</a>(<font color='green'>s</font><font color='blue'>:</font>string)<font color='blue'> -&gt; </font>string <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Communication ports.html#4611686018983019042'>buffer!</a>(<font color='green'>self</font><font color='blue'>:</font>port, <font color='green'>bufsize</font><font color='blue'>:</font>integer)<font color='blue'> -&gt; </font>buffer <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Calls and Slot Access.html#4611686018982663506'>call</a>(<font color='green'>p</font><font color='blue'>:</font>property, <font color='green'>l</font><font color='blue'>:</font>listargs)<font color='blue'> -&gt; </font>any</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Lists_comma Sets and Tuples.html#4611686018982746546'>car</a>(<font color='green'>self</font><font color='blue'>:</font>list)<font color='blue'> -&gt; </font>any</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Lists_comma Sets and Tuples.html#4611686018982508434'>cast!</a>(<font color='green'>s</font><font color='blue'>:</font>bag, <font color='green'>t</font><font color='blue'>:</font>type)<font color='blue'> -&gt; </font>bag</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Lists_comma Sets and Tuples.html#4611686018982508354'>cdr</a>(<font color='green'>l</font><font color='blue'>:</font>list)<font color='blue'> -&gt; </font>type[l]</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Integers and Floats.html#4611686018982508962'>char!</a>(<font color='green'>n</font><font color='blue'>:</font>integer)<font color='blue'> -&gt; </font>char</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Communication ports.html#4611686018983013826'>char*!</a>(<font color='green'>self</font><font color='blue'>:</font>string)<font color='blue'> -&gt; </font>char* <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='File system.html#4611686018982509026'>chmod</a>(<font color='green'>s</font><font color='blue'>:</font>string, <font color='green'>m</font><font color='blue'>:</font>integer)<font color='blue'> -&gt; </font>void <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Hypothetical Reasoning.html#4611686018982544162'>choice</a>()<font color='blue'> -&gt; </font>void</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Miscellaneous.html#4611686018982747634'>chroot</a>(<font color='green'>dir</font><font color='blue'>:</font>string)<font color='blue'> -&gt; </font>void <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Classes.html#4611686018982847378'>class!</a>(<font color='green'>x</font><font color='blue'>:</font>type)<font color='blue'> -&gt; </font>class</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Communication ports.html#4611686018983027794'>client!</a>(<font color='green'>addr</font><font color='blue'>:</font>string)<font color='blue'> -&gt; </font>socket <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Communication ports.html#4611686018983027714'>client!</a>(<font color='green'>addr</font><font color='blue'>:</font>string, <font color='green'>p</font><font color='blue'>:</font>integer)<font color='blue'> -&gt; </font>socket <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Communication ports.html#4611686018983014370'>close_target!</a>(<font color='green'>self</font><font color='blue'>:</font>filter)<font color='blue'> -&gt; </font>type[self] <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Miscellaneous.html#4611686018982509314'>color</a>()<font color='blue'> -&gt; </font>integer <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Miscellaneous.html#4611686018982509378'>color</a>(<font color='green'>c</font><font color='blue'>:</font>integer)<font color='blue'> -&gt; </font>integer <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Miscellaneous.html#4611686018982509458'>color_princ</a>(<font color='green'>s</font><font color='blue'>:</font>string)<font color='blue'> -&gt; </font>void <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Hypothetical Reasoning.html#4611686018982544450'>commit</a>()<font color='blue'> -&gt; </font>void</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Hypothetical Reasoning.html#4611686018982544546'>commit</a>(<font color='green'>n</font><font color='blue'>:</font>integer)<font color='blue'> -&gt; </font>void</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Lists_comma Sets and Tuples.html#4611686018982509794'>cons</a>(<font color='green'>x</font><font color='blue'>:</font>any, <font color='green'>l</font><font color='blue'>:</font>list)<font color='blue'> -&gt; </font>list</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Hypothetical Reasoning.html#4611686018982667234'>contradiction!</a>()<font color='blue'> -&gt; </font>void</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='array.html#4611686018982510018'>copy</a>(<font color='green'>a</font><font color='blue'>:</font>array)<font color='blue'> -&gt; </font>array</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Classes.html#4611686018982509874'>copy</a>(<font color='green'>x</font><font color='blue'>:</font>object)<font color='blue'> -&gt; </font>object</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Lists_comma Sets and Tuples.html#4611686018982509954'>copy</a>(<font color='green'>s</font><font color='blue'>:</font>bag)<font color='blue'> -&gt; </font>bag</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Strings.html#4611686018982510066'>copy</a>(<font color='green'>s</font><font color='blue'>:</font>string)<font color='blue'> -&gt; </font>string</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Integers and Floats.html#4611686018982744802'>cos</a>(<font color='green'>self</font><font color='blue'>:</font>float)<font color='blue'> -&gt; </font>float</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Integers and Floats.html#4611686018982745250'>cosh</a>(<font color='green'>self</font><font color='blue'>:</font>float)<font color='blue'> -&gt; </font>float</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Dates and Times.html#4611686018982510914'>date_add</a>(<font color='green'>d</font><font color='blue'>:</font>float, <font color='green'>c</font><font color='blue'>:</font>char, <font color='green'>i</font><font color='blue'>:</font>integer)<font color='blue'> -&gt; </font>float <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Communication ports.html#4611686018982511794'>decode64</a>(<font color='green'>pr</font><font color='blue'>:</font>port, <font color='green'>pw</font><font color='blue'>:</font>port)<font color='blue'> -&gt; </font>void <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Lists_comma Sets and Tuples.html#4611686018982511234'>delete</a>(<font color='green'>s</font><font color='blue'>:</font>bag, <font color='green'>x</font><font color='blue'>:</font>any)<font color='blue'> -&gt; </font>bag</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Classes.html#4611686018982602770'>delete</a>(<font color='green'>self</font><font color='blue'>:</font>property, <font color='green'>x</font><font color='blue'>:</font>object, <font color='green'>y</font><font color='blue'>:</font>any)<font color='blue'> -&gt; </font>any</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Dates and Times.html#4611686018982511298'>diff_time</a>(<font color='green'>d1</font><font color='blue'>:</font>float, <font color='green'>d2</font><font color='blue'>:</font>float)<font color='blue'> -&gt; </font>float <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Lists_comma Sets and Tuples.html#4611686018982746946'>difference</a>(<font color='green'>self</font><font color='blue'>:</font>set, <font color='green'>x</font><font color='blue'>:</font>set)<font color='blue'> -&gt; </font>set</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Strings.html#4611686018982511410'>digit?</a>(<font color='green'>s</font><font color='blue'>:</font>string)<font color='blue'> -&gt; </font>boolean <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Chars.html#4611686018982511346'>digit?</a>(<font color='green'>c</font><font color='blue'>:</font>char)<font color='blue'> -&gt; </font>boolean <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Miscellaneous.html#4611686018982511458'>ding</a>()<font color='blue'> -&gt; </font>void <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Integers and Floats.html#4611686018982743346'>divide?</a>(<font color='green'>x</font><font color='blue'>:</font>integer, <font color='green'>y</font><font color='blue'>:</font>integer)<font color='blue'> -&gt; </font>boolean</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Dates and Times.html#4611686018982540706'>elapsed</a>(<font color='green'>t</font><font color='blue'>:</font>float)<font color='blue'> -&gt; </font>integer <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Communication ports.html#4611686018982511538'>encode64</a>(<font color='green'>pr</font><font color='blue'>:</font>port, <font color='green'>pw</font><font color='blue'>:</font>port, <font color='green'>line_length</font><font color='blue'>:</font>integer)<font color='blue'> -&gt; </font>void <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Modules.html#4611686018982506402'>end</a>(<font color='green'>m</font><font color='blue'>:</font>module)<font color='blue'> -&gt; </font>void</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Printing.html#4611686018982739634'>end_of_string</a>()<font color='blue'> -&gt; </font>string</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='File system.html#4611686018982511938'>entries</a>(<font color='green'>s</font><font color='blue'>:</font>string)<font color='blue'> -&gt; </font>list[string] <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='File system.html#4611686018982512098'>entries</a>(<font color='green'>s</font><font color='blue'>:</font>string, <font color='green'>w</font><font color='blue'>:</font>string)<font color='blue'> -&gt; </font>list[string] <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Environment variables.html#4611686018982509426'>environ</a>(<font color='green'>i</font><font color='blue'>:</font>integer)<font color='blue'> -&gt; </font>string <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Communication ports.html#4611686018983016098'>eof?</a>(<font color='green'>self</font><font color='blue'>:</font>port)<font color='blue'> -&gt; </font>boolean <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Classes.html#4611686018982740882'>ephemeral</a>(<font color='green'>self</font><font color='blue'>:</font>class)<font color='blue'> -&gt; </font>any</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Tables.html#4611686018982666626'>erase</a>(<font color='green'>a</font><font color='blue'>:</font>table)<font color='blue'> -&gt; </font>void</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Classes.html#4611686018982602946'>erase</a>(<font color='green'>self</font><font color='blue'>:</font>property, <font color='green'>x</font><font color='blue'>:</font>object)<font color='blue'> -&gt; </font>any</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Strings.html#4611686018982512610'>escape</a>(<font color='green'>s</font><font color='blue'>:</font>string)<font color='blue'> -&gt; </font>string <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Classes.html#4611686018982512738'>exception!</a>()<font color='blue'> -&gt; </font>exception</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Miscellaneous.html#4611686018982531010'>exit</a>(<font color='green'>self</font><font color='blue'>:</font>integer)<font color='blue'> -&gt; </font>void</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Dates and Times.html#4611686018982514386'>explode</a>(<font color='green'>t</font><font color='blue'>:</font>float)<font color='blue'> -&gt; </font>tuple(integer, 1 .. 12, 1 .. 365, 1 .. 31, 1 .. 7, 0 .. 23, 0 .. 59, 0 .. 59, boolean) <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Strings.html#4611686018982512866'>explode</a>(<font color='green'>s</font><font color='blue'>:</font>string, <font color='green'>sep</font><font color='blue'>:</font>string)<font color='blue'> -&gt; </font>list[string] <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Strings.html#4611686018982527666'>explode_wildcard</a>(<font color='green'>s</font><font color='blue'>:</font>string, <font color='green'>w</font><font color='blue'>:</font>string)<font color='blue'> -&gt; </font>list[string] <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='File system.html#4611686018982516002'>faccessed</a>(<font color='green'>s</font><font color='blue'>:</font>string)<font color='blue'> -&gt; </font>float <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Integers and Floats.html#4611686018982743298'>factor?</a>(<font color='green'>x</font><font color='blue'>:</font>integer, <font color='green'>y</font><font color='blue'>:</font>integer)<font color='blue'> -&gt; </font>boolean</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='File system.html#4611686018982515778'>fchanged</a>(<font color='green'>s</font><font color='blue'>:</font>string)<font color='blue'> -&gt; </font>float <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='File system.html#4611686018982515410'>fcopy</a>(<font color='green'>s1</font><font color='blue'>:</font>string, <font color='green'>s2</font><font color='blue'>:</font>string)<font color='blue'> -&gt; </font>void <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Communication ports.html#4611686018983014274'>filter!</a>(<font color='green'>self</font><font color='blue'>:</font>filter, <font color='green'>p</font><font color='blue'>:</font>port)<font color='blue'> -&gt; </font>type[self] <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Classes.html#4611686018982741010'>final</a>(<font color='green'>c</font><font color='blue'>:</font>class)<font color='blue'> -&gt; </font>any</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Types.html#4611686018982516098'>final</a>(<font color='green'>c</font><font color='blue'>:</font>class)<font color='blue'> -&gt; </font>void</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Strings.html#4611686018982516178'>find</a>(<font color='green'>s</font><font color='blue'>:</font>string, <font color='green'>x</font><font color='blue'>:</font>string)<font color='blue'> -&gt; </font>integer <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Strings.html#4611686018982516530'>find</a>(<font color='green'>s</font><font color='blue'>:</font>string, <font color='green'>x</font><font color='blue'>:</font>string, <font color='green'>from</font><font color='blue'>:</font>integer)<font color='blue'> -&gt; </font>integer <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Types.html#4611686018982846850'>finite?</a>(<font color='green'>self</font><font color='blue'>:</font>type)<font color='blue'> -&gt; </font>boolean</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Strings.html#4611686018982747506'>float!</a>(<font color='green'>self</font><font color='blue'>:</font>string)<font color='blue'> -&gt; </font>float</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Integers and Floats.html#4611686018982517890'>float!</a>(<font color='green'>x</font><font color='blue'>:</font>integer)<font color='blue'> -&gt; </font>float</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Communication ports.html#4611686018983017026'>flush</a>(<font color='green'>self</font><font color='blue'>:</font>port)<font color='blue'> -&gt; </font>void</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Communication ports.html#4611686018983017074'>flush</a>(<font color='green'>self</font><font color='blue'>:</font>port, <font color='green'>n</font><font color='blue'>:</font>integer)<font color='blue'> -&gt; </font>void</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='File system.html#4611686018982515506'>fmode</a>(<font color='green'>s</font><font color='blue'>:</font>string)<font color='blue'> -&gt; </font>integer <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='File system.html#4611686018982515858'>fmodified</a>(<font color='green'>s</font><font color='blue'>:</font>string)<font color='blue'> -&gt; </font>float <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Communication ports.html#4611686018983024370'>fopen</a>(<font color='green'>self</font><font color='blue'>:</font>string, <font color='green'>mode</font><font color='blue'>:</font>OPEN_MODE)<font color='blue'> -&gt; </font>buffer <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Process handling.html#4611686018982749474'>fork</a>()<font color='blue'> -&gt; </font>integer <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Printing.html#4611686018982666706'>format</a>(<font color='green'>self</font><font color='blue'>:</font>string, <font color='green'>larg</font><font color='blue'>:</font>list)<font color='blue'> -&gt; </font>void</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Communication ports.html#4611686018983016594'>fread</a>(<font color='green'>self</font><font color='blue'>:</font>port)<font color='blue'> -&gt; </font>string <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Communication ports.html#4611686018983016210'>fread</a>(<font color='green'>self</font><font color='blue'>:</font>port, <font color='green'>n</font><font color='blue'>:</font>integer)<font color='blue'> -&gt; </font>string <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Communication ports.html#4611686018983016370'>fread</a>(<font color='green'>self</font><font color='blue'>:</font>port, <font color='green'>s</font><font color='blue'>:</font>string)<font color='blue'> -&gt; </font>integer <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Communication ports.html#4611686018982518866'>freadline</a>(<font color='green'>p</font><font color='blue'>:</font>port)<font color='blue'> -&gt; </font>string <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Communication ports.html#4611686018982520786'>freadline</a>(<font color='green'>p</font><font color='blue'>:</font>port, <font color='green'>seps</font><font color='blue'>:</font>bag)<font color='blue'> -&gt; </font>tuple(string, string U char) <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Communication ports.html#4611686018982520530'>freadline</a>(<font color='green'>p</font><font color='blue'>:</font>port, <font color='green'>sep</font><font color='blue'>:</font>string)<font color='blue'> -&gt; </font>string <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Communication ports.html#4611686018982520466'>freadline</a>(<font color='green'>p</font><font color='blue'>:</font>port, <font color='green'>seps</font><font color='blue'>:</font>bag, <font color='green'>sensitive?</font><font color='blue'>:</font>boolean)<font color='blue'> -&gt; </font>tuple(string, string U char) <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Communication ports.html#4611686018982512146'>freadline</a>(<font color='green'>p</font><font color='blue'>:</font>port, <font color='green'>sep</font><font color='blue'>:</font>string, <font color='green'>sensitive?</font><font color='blue'>:</font>boolean, <font color='green'>esc</font><font color='blue'>:</font>char)<font color='blue'> -&gt; </font>string <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Communication ports.html#4611686018982519874'>freadline</a>(<font color='green'>p</font><font color='blue'>:</font>port, <font color='green'>seps</font><font color='blue'>:</font>bag, <font color='green'>sensitive?</font><font color='blue'>:</font>boolean, <font color='green'>esc</font><font color='blue'>:</font>char)<font color='blue'> -&gt; </font>tuple(string, string U char) <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Communication ports.html#4611686018983017346'>freadwrite</a>(<font color='green'>src</font><font color='blue'>:</font>port, <font color='green'>trgt</font><font color='blue'>:</font>port)<font color='blue'> -&gt; </font>integer <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Communication ports.html#4611686018983017458'>freadwrite</a>(<font color='green'>src</font><font color='blue'>:</font>port, <font color='green'>trgt</font><font color='blue'>:</font>port, <font color='green'>len</font><font color='blue'>:</font>integer)<font color='blue'> -&gt; </font>integer <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='File system.html#4611686018982515618'>fsize</a>(<font color='green'>s</font><font color='blue'>:</font>string)<font color='blue'> -&gt; </font>float <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Communication ports.html#4611686018983017618'>fskip</a>(<font color='green'>self</font><font color='blue'>:</font>port, <font color='green'>len</font><font color='blue'>:</font>integer)<font color='blue'> -&gt; </font>integer <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Calls and Slot Access.html#4611686018982518674'>funcall</a>(<font color='green'>l</font><font color='blue'>:</font>lambda, <font color='green'>x</font><font color='blue'>:</font>any)<font color='blue'> -&gt; </font>void</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Calls and Slot Access.html#4611686018982518498'>funcall</a>(<font color='green'>m</font><font color='blue'>:</font>method, <font color='green'>x</font><font color='blue'>:</font>any)<font color='blue'> -&gt; </font>void</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Calls and Slot Access.html#4611686018982518738'>funcall</a>(<font color='green'>l</font><font color='blue'>:</font>lambda, <font color='green'>x</font><font color='blue'>:</font>any, <font color='green'>y</font><font color='blue'>:</font>any)<font color='blue'> -&gt; </font>void</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Calls and Slot Access.html#4611686018982518562'>funcall</a>(<font color='green'>m</font><font color='blue'>:</font>method, <font color='green'>x</font><font color='blue'>:</font>any, <font color='green'>y</font><font color='blue'>:</font>any)<font color='blue'> -&gt; </font>void</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Calls and Slot Access.html#4611686018982518626'>funcall</a>(<font color='green'>m</font><font color='blue'>:</font>method, <font color='green'>x</font><font color='blue'>:</font>any, <font color='green'>y</font><font color='blue'>:</font>any, <font color='green'>z</font><font color='blue'>:</font>any)<font color='blue'> -&gt; </font>void</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Calls and Slot Access.html#4611686018982517970'>funcall</a>(<font color='green'>f</font><font color='blue'>:</font>function, <font color='green'>s1</font><font color='blue'>:</font>class, <font color='green'>x</font><font color='blue'>:</font>any, <font color='green'>s</font><font color='blue'>:</font>class)<font color='blue'> -&gt; </font>void</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Calls and Slot Access.html#4611686018982518802'>funcall</a>(<font color='green'>l</font><font color='blue'>:</font>lambda, <font color='green'>x</font><font color='blue'>:</font>any, <font color='green'>y</font><font color='blue'>:</font>any, <font color='green'>z</font><font color='blue'>:</font>any)<font color='blue'> -&gt; </font>void</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Calls and Slot Access.html#4611686018982518338'>funcall</a>(<font color='green'>f</font><font color='blue'>:</font>function, <font color='green'>s1</font><font color='blue'>:</font>class, <font color='green'>x</font><font color='blue'>:</font>any, <font color='green'>s2</font><font color='blue'>:</font>class, <font color='green'>y</font><font color='blue'>:</font>any, <font color='green'>s</font><font color='blue'>:</font>class)<font color='blue'> -&gt; </font>void</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Calls and Slot Access.html#4611686018982518418'>funcall</a>(<font color='green'>f</font><font color='blue'>:</font>function, <font color='green'>s1</font><font color='blue'>:</font>class, <font color='green'>x</font><font color='blue'>:</font>any, <font color='green'>s2</font><font color='blue'>:</font>class, <font color='green'>y</font><font color='blue'>:</font>any, <font color='green'>s3</font><font color='blue'>:</font>class, <font color='green'>z</font><font color='blue'>:</font>class, <font color='green'>s</font><font color='blue'>:</font>class)<font color='blue'> -&gt; </font>void</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Communication ports.html#4611686018983017138'>fwrite</a>(<font color='green'>self</font><font color='blue'>:</font>string, <font color='green'>p</font><font color='blue'>:</font>port)<font color='blue'> -&gt; </font>integer <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Miscellaneous.html#4611686018982741282'>gc</a>()<font color='blue'> -&gt; </font>void</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Symbols.html#4611686018982521426'>gensym</a>(<font color='green'>s</font><font color='blue'>:</font>string)<font color='blue'> -&gt; </font>symbol</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Symbols.html#4611686018982741522'>gensym</a>(<font color='green'>self</font><font color='blue'>:</font>void)<font color='blue'> -&gt; </font>symbol</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Strings.html#4611686018982521602'>get</a>(<font color='green'>s</font><font color='blue'>:</font>string, <font color='green'>c</font><font color='blue'>:</font>char)<font color='blue'> -&gt; </font>integer</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Classes.html#4611686018982602290'>get</a>(<font color='green'>self</font><font color='blue'>:</font>property, <font color='green'>x</font><font color='blue'>:</font>object)<font color='blue'> -&gt; </font>any</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Classes.html#4611686018982602226'>get</a>(<font color='green'>s</font><font color='blue'>:</font>slot, <font color='green'>x</font><font color='blue'>:</font>object)<font color='blue'> -&gt; </font>any</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='array.html#4611686018982521490'>get</a>(<font color='green'>a</font><font color='blue'>:</font>array, <font color='green'>x</font><font color='blue'>:</font>any)<font color='blue'> -&gt; </font>integer</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Lists_comma Sets and Tuples.html#4611686018982521538'>get</a>(<font color='green'>l</font><font color='blue'>:</font>list, <font color='green'>x</font><font color='blue'>:</font>any)<font color='blue'> -&gt; </font>integer</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Communication ports.html#4611686018983018738'>get_index</a>(<font color='green'>self</font><font color='blue'>:</font>blob)<font color='blue'> -&gt; </font>integer <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Symbols.html#4611686018982741986'>get_value</a>(<font color='green'>self</font><font color='blue'>:</font>string)<font color='blue'> -&gt; </font>any</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Symbols.html#4611686018982742082'>get_value</a>(<font color='green'>self</font><font color='blue'>:</font>module, <font color='green'>s</font><font color='blue'>:</font>string)<font color='blue'> -&gt; </font>any</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Communication ports.html#4611686018983016770'>getc</a>(<font color='green'>self</font><font color='blue'>:</font>port)<font color='blue'> -&gt; </font>char <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Environment variables.html#4611686018982741890'>getenv</a>(<font color='green'>self</font><font color='blue'>:</font>string)<font color='blue'> -&gt; </font>string</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Communication ports.html#4611686018983026674'>gethostname</a>()<font color='blue'> -&gt; </font>string <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Signal Handling.html#4611686018982907202'>getitimer</a>(<font color='green'>it</font><font color='blue'>:</font>itimer)<font color='blue'> -&gt; </font>tuple(integer, integer) <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Miscellaneous.html#4611686018982535538'>getlocale</a>(<font color='green'>cat</font><font color='blue'>:</font>integer)<font color='blue'> -&gt; </font>string <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Process handling.html#4611686018982521714'>getpid</a>()<font color='blue'> -&gt; </font>integer <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Process handling.html#4611686018982521762'>getppid</a>()<font color='blue'> -&gt; </font>integer <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Process handling.html#4611686018982521842'>getuid</a>()<font color='blue'> -&gt; </font>integer <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Lists_comma Sets and Tuples.html#4611686018982521906'>hash</a>(<font color='green'>l</font><font color='blue'>:</font>list, <font color='green'>x</font><font color='blue'>:</font>any)<font color='blue'> -&gt; </font>integer</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Integers and Floats.html#4611686018982508034'>hex!</a>(<font color='green'>i</font><font color='blue'>:</font>integer)<font color='blue'> -&gt; </font>string <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='driving optimizations.html#4611686018982743874'>Id</a>(<font color='green'>x</font><font color='blue'>:</font>any)<font color='blue'> -&gt; </font>type[x]</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Types.html#4611686018982741218'>inherit?</a>(<font color='green'>self</font><font color='blue'>:</font>class, <font color='green'>ens</font><font color='blue'>:</font>class)<font color='blue'> -&gt; </font>boolean</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Strings.html#4611686018982522210'>integer!</a>(<font color='green'>s</font><font color='blue'>:</font>string)<font color='blue'> -&gt; </font>integer</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Integers and Floats.html#4611686018982522258'>integer!</a>(<font color='green'>f</font><font color='blue'>:</font>float)<font color='blue'> -&gt; </font>integer</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Chars.html#4611686018982522322'>integer!</a>(<font color='green'>c</font><font color='blue'>:</font>char)<font color='blue'> -&gt; </font>integer</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Integers and Floats.html#4611686018982663858'>integer!</a>(<font color='green'>s</font><font color='blue'>:</font>set[integer])<font color='blue'> -&gt; </font>integer</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Symbols.html#4611686018982522386'>integer!</a>(<font color='green'>s</font><font color='blue'>:</font>symbol)<font color='blue'> -&gt; </font>integer</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Methods.html#4611686018982522450'>interface</a>(<font color='green'>p</font><font color='blue'>:</font>property)<font color='blue'> -&gt; </font>void</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Methods.html#4611686018982523266'>interface</a>(<font color='green'>c</font><font color='blue'>:</font>class U Union, <font color='green'>pi</font><font color='blue'>:</font>listargs)<font color='blue'> -&gt; </font>void</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Selectors_comma Properties and Operations.html#4611686018982523586'>inverse</a>(<font color='green'>r</font><font color='blue'>:</font>relation)<font color='blue'> -&gt; </font>relation</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='File system.html#4611686018982523650'>isdir?</a>(<font color='green'>s</font><font color='blue'>:</font>string)<font color='blue'> -&gt; </font>boolean <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Environment variables.html#4611686018982512562'>isenv?</a>(<font color='green'>v</font><font color='blue'>:</font>string)<font color='blue'> -&gt; </font>boolean <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='File system.html#4611686018982523698'>isfile?</a>(<font color='green'>s</font><font color='blue'>:</font>string)<font color='blue'> -&gt; </font>boolean <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Classes.html#4611686018982747458'>kill</a>(<font color='green'>self</font><font color='blue'>:</font>class)<font color='blue'> -&gt; </font>any</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Process handling.html#4611686018982524098'>kill</a>(<font color='green'>p</font><font color='blue'>:</font>integer)<font color='blue'> -&gt; </font>void <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Classes.html#4611686018982747186'>kill</a>(<font color='green'>self</font><font color='blue'>:</font>object)<font color='blue'> -&gt; </font>any</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Signal Handling.html#4611686018982901554'>kill</a>(<font color='green'>p</font><font color='blue'>:</font>integer, <font color='green'>sig</font><font color='blue'>:</font>signal_handler)<font color='blue'> -&gt; </font>void <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Classes.html#4611686018982739778'>kill!</a>(<font color='green'>self</font><font color='blue'>:</font>any)<font color='blue'> -&gt; </font>any</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Objects and Entities.html#4611686018982740706'>known?</a>(<font color='green'>self</font><font color='blue'>:</font>any)<font color='blue'> -&gt; </font>boolean</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Classes.html#4611686018982602658'>known?</a>(<font color='green'>self</font><font color='blue'>:</font>property, <font color='green'>x</font><font color='blue'>:</font>object)<font color='blue'> -&gt; </font>boolean</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Lists_comma Sets and Tuples.html#4611686018982746290'>last</a>(<font color='green'>self</font><font color='blue'>:</font>list)<font color='blue'> -&gt; </font>type[member(self)]</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Strings.html#4611686018982524322'>left</a>(<font color='green'>s</font><font color='blue'>:</font>string, <font color='green'>i</font><font color='blue'>:</font>integer)<font color='blue'> -&gt; </font>string <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='array.html#4611686018982524642'>length</a>(<font color='green'>a</font><font color='blue'>:</font>array)<font color='blue'> -&gt; </font>integer</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Communication ports.html#4611686018983018450'>length</a>(<font color='green'>self</font><font color='blue'>:</font>blob)<font color='blue'> -&gt; </font>integer <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Lists_comma Sets and Tuples.html#4611686018982745586'>length</a>(<font color='green'>self</font><font color='blue'>:</font>bag)<font color='blue'> -&gt; </font>integer</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Strings.html#4611686018982741570'>length</a>(<font color='green'>self</font><font color='blue'>:</font>string)<font color='blue'> -&gt; </font>integer</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Communication ports.html#4611686018983019490'>line_buffer!</a>(<font color='green'>self</font><font color='blue'>:</font>port)<font color='blue'> -&gt; </font>line_buffer <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Communication ports.html#4611686018983029522'>linger</a>(<font color='green'>self</font><font color='blue'>:</font>socket)<font color='blue'> -&gt; </font>void <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='File system.html#4611686018982524690'>link</a>(<font color='green'>s1</font><font color='blue'>:</font>string, <font color='green'>s2</font><font color='blue'>:</font>string)<font color='blue'> -&gt; </font>void <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='array.html#4611686018982524802'>list!</a>(<font color='green'>a</font><font color='blue'>:</font>array)<font color='blue'> -&gt; </font>type[list[member(a)]]</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Lists_comma Sets and Tuples.html#4611686018982524866'>list!</a>(<font color='green'>s</font><font color='blue'>:</font>set)<font color='blue'> -&gt; </font>type[list[member(s)]]</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Integers and Floats.html#4611686018982744690'>log</a>(<font color='green'>x</font><font color='blue'>:</font>float)<font color='blue'> -&gt; </font>float</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Strings.html#4611686018982525042'>lower</a>(<font color='green'>s</font><font color='blue'>:</font>string)<font color='blue'> -&gt; </font>string <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Strings.html#4611686018982524978'>lower?</a>(<font color='green'>s</font><font color='blue'>:</font>string)<font color='blue'> -&gt; </font>boolean <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Chars.html#4611686018982524930'>lower?</a>(<font color='green'>c</font><font color='blue'>:</font>char)<font color='blue'> -&gt; </font>boolean <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Strings.html#4611686018982541458'>ltrim</a>(<font color='green'>s</font><font color='blue'>:</font>string)<font color='blue'> -&gt; </font>void <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='array.html#4611686018982664050'>make_array</a>(<font color='green'>i</font><font color='blue'>:</font>integer, <font color='green'>t</font><font color='blue'>:</font>type, <font color='green'>v</font><font color='blue'>:</font>any)<font color='blue'> -&gt; </font>type[(if unique?(t) the(t)[] else array)]</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Dates and Times.html#4611686018982525266'>make_date</a>(<font color='green'>s</font><font color='blue'>:</font>string)<font color='blue'> -&gt; </font>float <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Dates and Times.html#4611686018982525154'>make_date</a>(<font color='green'>D</font><font color='blue'>:</font>integer, <font color='green'>M</font><font color='blue'>:</font>integer, <font color='green'>Y</font><font color='blue'>:</font>integer, <font color='green'>h</font><font color='blue'>:</font>integer, <font color='green'>m</font><font color='blue'>:</font>integer, <font color='green'>s</font><font color='blue'>:</font>integer)<font color='blue'> -&gt; </font>float <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Lists_comma Sets and Tuples.html#4611686018982525442'>make_list</a>(<font color='green'>n</font><font color='blue'>:</font>integer, <font color='green'>x</font><font color='blue'>:</font>any)<font color='blue'> -&gt; </font>type[list[list&lt;any&gt;(x),list({})]]</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Lists_comma Sets and Tuples.html#4611686018982525538'>make_list</a>(<font color='green'>t</font><font color='blue'>:</font>type, <font color='green'>n</font><font color='blue'>:</font>integer)<font color='blue'> -&gt; </font>list <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Integers and Floats.html#4611686018982663970'>make_set</a>(<font color='green'>x</font><font color='blue'>:</font>integer)<font color='blue'> -&gt; </font>set</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Symbols.html#4611686018982742242'>make_string</a>(<font color='green'>self</font><font color='blue'>:</font>symbol)<font color='blue'> -&gt; </font>string</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Strings.html#4611686018982525602'>make_string</a>(<font color='green'>i</font><font color='blue'>:</font>integer, <font color='green'>c</font><font color='blue'>:</font>char)<font color='blue'> -&gt; </font>string</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Tables.html#4611686018982525794'>make_table</a>(<font color='green'>d</font><font color='blue'>:</font>type, <font color='green'>t</font><font color='blue'>:</font>type, <font color='green'>x</font><font color='blue'>:</font>any)<font color='blue'> -&gt; </font>table</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Dates and Times.html#4611686018982525330'>make_time</a>(<font color='green'>s</font><font color='blue'>:</font>string)<font color='blue'> -&gt; </font>float <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Dates and Times.html#4611686018982525378'>make_time</a>(<font color='green'>h</font><font color='blue'>:</font>integer, <font color='green'>m</font><font color='blue'>:</font>integer, <font color='green'>s</font><font color='blue'>:</font>integer)<font color='blue'> -&gt; </font>float <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Strings.html#4611686018982526066'>match_wildcard?</a>(<font color='green'>s</font><font color='blue'>:</font>string, <font color='green'>w</font><font color='blue'>:</font>string)<font color='blue'> -&gt; </font>boolean <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Lists_comma Sets and Tuples.html#4611686018982746178'>max</a>(<font color='green'>f</font><font color='blue'>:</font>method, <font color='green'>self</font><font color='blue'>:</font>bag)<font color='blue'> -&gt; </font>type[member(self)]</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Integers and Floats.html#4611686018982739266'>max</a>(<font color='green'>x</font><font color='blue'>:</font>integer, <font color='green'>y</font><font color='blue'>:</font>integer)<font color='blue'> -&gt; </font>integer</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Integers and Floats.html#4611686018982739362'>max</a>(<font color='green'>x</font><font color='blue'>:</font>float, <font color='green'>y</font><font color='blue'>:</font>float)<font color='blue'> -&gt; </font>float</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Environment variables.html#4611686018982512338'>maxenv</a>()<font color='blue'> -&gt; </font>integer <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Types.html#4611686018982847778'>member</a>(<font color='green'>x</font><font color='blue'>:</font>type)<font color='blue'> -&gt; </font>type</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='array.html#4611686018982528738'>member_type</a>(<font color='green'>x</font><font color='blue'>:</font>array)<font color='blue'> -&gt; </font>type</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Strings.html#4611686018982528850'>mime_decode</a>(<font color='green'>s</font><font color='blue'>:</font>string)<font color='blue'> -&gt; </font>string <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Strings.html#4611686018982528786'>mime_encode</a>(<font color='green'>s</font><font color='blue'>:</font>string)<font color='blue'> -&gt; </font>string <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Lists_comma Sets and Tuples.html#4611686018982745890'>min</a>(<font color='green'>f</font><font color='blue'>:</font>method, <font color='green'>self</font><font color='blue'>:</font>bag)<font color='blue'> -&gt; </font>type[member(self)]</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Integers and Floats.html#4611686018982739314'>min</a>(<font color='green'>x</font><font color='blue'>:</font>float, <font color='green'>y</font><font color='blue'>:</font>float)<font color='blue'> -&gt; </font>float</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Integers and Floats.html#4611686018982739218'>min</a>(<font color='green'>x</font><font color='blue'>:</font>integer, <font color='green'>y</font><font color='blue'>:</font>integer)<font color='blue'> -&gt; </font>integer</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='File system.html#4611686018982528962'>mkdir</a>(<font color='green'>s</font><font color='blue'>:</font>string)<font color='blue'> -&gt; </font>void <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='File system.html#4611686018982528898'>mkdir</a>(<font color='green'>s</font><font color='blue'>:</font>string, <font color='green'>m</font><font color='blue'>:</font>integer)<font color='blue'> -&gt; </font>void <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Integers and Floats.html#4611686018982529010'>mod</a>(<font color='green'>x</font><font color='blue'>:</font>integer, <font color='green'>y</font><font color='blue'>:</font>integer)<font color='blue'> -&gt; </font>integer</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Modules.html#4611686018982529074'>module!</a>()<font color='blue'> -&gt; </font>module</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Modules.html#4611686018982529122'>module!</a>(<font color='green'>r</font><font color='blue'>:</font>restriction)<font color='blue'> -&gt; </font>module</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Classes.html#4611686018982741058'>new</a>(<font color='green'>self</font><font color='blue'>:</font>class)<font color='blue'> -&gt; </font>type[object glb member(self)]</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Classes.html#4611686018982741138'>new</a>(<font color='green'>self</font><font color='blue'>:</font>class, <font color='green'>%nom</font><font color='blue'>:</font>symbol)<font color='blue'> -&gt; </font>type[thing glb member(self)]</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Objects and Entities.html#4611686018982739842'>not</a>(<font color='green'>self</font><font color='blue'>:</font>any)<font color='blue'> -&gt; </font>boolean</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Tables.html#4611686018982529314'>nth</a>(<font color='green'>t</font><font color='blue'>:</font>table, <font color='green'>x</font><font color='blue'>:</font>any)<font color='blue'> -&gt; </font>any</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Communication ports.html#4611686018983013586'>nth</a>(<font color='green'>self</font><font color='blue'>:</font>char*, <font color='green'>n</font><font color='blue'>:</font>integer)<font color='blue'> -&gt; </font>char <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Communication ports.html#4611686018983018338'>nth</a>(<font color='green'>self</font><font color='blue'>:</font>blob, <font color='green'>n</font><font color='blue'>:</font>integer)<font color='blue'> -&gt; </font>char <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Strings.html#4611686018982529602'>nth</a>(<font color='green'>s</font><font color='blue'>:</font>string, <font color='green'>i</font><font color='blue'>:</font>integer)<font color='blue'> =&gt; </font>any</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='array.html#4611686018982529506'>nth</a>(<font color='green'>a</font><font color='blue'>:</font>array, <font color='green'>i</font><font color='blue'>:</font>integer)<font color='blue'> =&gt; </font>any</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Integers and Floats.html#4611686018982529698'>nth</a>(<font color='green'>n</font><font color='blue'>:</font>integer, <font color='green'>i</font><font color='blue'>:</font>integer)<font color='blue'> =&gt; </font>any</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Lists_comma Sets and Tuples.html#4611686018982529218'>nth</a>(<font color='green'>l</font><font color='blue'>:</font>bag, <font color='green'>i</font><font color='blue'>:</font>integer)<font color='blue'> -&gt; </font>any</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Tables.html#4611686018982529394'>nth</a>(<font color='green'>t</font><font color='blue'>:</font>table, <font color='green'>x</font><font color='blue'>:</font>any, <font color='green'>y</font><font color='blue'>:</font>any)<font color='blue'> -&gt; </font>any</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Lists_comma Sets and Tuples.html#4611686018982529778'>nth+</a>(<font color='green'>l</font><font color='blue'>:</font>list, <font color='green'>i</font><font color='blue'>:</font>integer, <font color='green'>x</font><font color='blue'>:</font>any)<font color='blue'> -&gt; </font>bag</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Lists_comma Sets and Tuples.html#4611686018982529938'>nth-</a>(<font color='green'>l</font><font color='blue'>:</font>list, <font color='green'>i</font><font color='blue'>:</font>integer)<font color='blue'> -&gt; </font>bag</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Communication ports.html#4611686018983018386'>nth=</a>(<font color='green'>self</font><font color='blue'>:</font>blob, <font color='green'>n</font><font color='blue'>:</font>integer, <font color='green'>c</font><font color='blue'>:</font>char)<font color='blue'> -&gt; </font>void <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Communication ports.html#4611686018983013682'>nth=</a>(<font color='green'>self</font><font color='blue'>:</font>char*, <font color='green'>n</font><font color='blue'>:</font>integer, <font color='green'>c</font><font color='blue'>:</font>char)<font color='blue'> -&gt; </font>void <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Lists_comma Sets and Tuples.html#4611686018982746418'>nth=</a>(<font color='green'>self</font><font color='blue'>:</font>list, <font color='green'>x</font><font color='blue'>:</font>integer, <font color='green'>y</font><font color='blue'>:</font>any)<font color='blue'> -&gt; </font>any</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Strings.html#4611686018982530146'>nth=</a>(<font color='green'>s</font><font color='blue'>:</font>string, <font color='green'>i</font><font color='blue'>:</font>integer, <font color='green'>c</font><font color='blue'>:</font>char)<font color='blue'> =&gt; </font>any</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='array.html#4611686018982747026'>nth=</a>(<font color='green'>self</font><font color='blue'>:</font>array, <font color='green'>x</font><font color='blue'>:</font>integer, <font color='green'>y</font><font color='blue'>:</font>any)<font color='blue'> -&gt; </font>void</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Tables.html#4611686018982530226'>nth=</a>(<font color='green'>t</font><font color='blue'>:</font>table, <font color='green'>x</font><font color='blue'>:</font>any, <font color='green'>y</font><font color='blue'>:</font>any)<font color='blue'> -&gt; </font>any</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Tables.html#4611686018982530338'>nth=</a>(<font color='green'>t</font><font color='blue'>:</font>table, <font color='green'>x1</font><font color='blue'>:</font>any, <font color='green'>x2</font><font color='blue'>:</font>any, <font color='green'>y</font><font color='blue'>:</font>any)<font color='blue'> -&gt; </font>any</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Strings.html#4611686018982530450'>occurrence</a>(<font color='green'>s</font><font color='blue'>:</font>string, <font color='green'>z</font><font color='blue'>:</font>string)<font color='blue'> -&gt; </font>integer <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Integers and Floats.html#4611686018982743042'>or</a>(<font color='green'>x</font><font color='blue'>:</font>integer, <font color='green'>y</font><font color='blue'>:</font>integer)<font color='blue'> -&gt; </font>integer</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Objects and Entities.html#4611686018982740610'>owner</a>(<font color='green'>self</font><font color='blue'>:</font>any)<font color='blue'> -&gt; </font>class</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Communication ports.html#4611686018983026306'>pipe!</a>()<font color='blue'> -&gt; </font>tuple(pipe, pipe) <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Communication ports.html#4611686018983030386'>popen</a>(<font color='green'>file</font><font color='blue'>:</font>string, <font color='green'>mod</font><font color='blue'>:</font>{&quot;r&quot;, &quot;w&quot;, &quot;rw&quot;})<font color='blue'> -&gt; </font>popen_device <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Hypothetical Reasoning.html#4611686018982548834'>prealloc_list</a>(<font color='green'>t</font><font color='blue'>:</font>type, <font color='green'>n</font><font color='blue'>:</font>integer)<font color='blue'> -&gt; </font>list <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Hypothetical Reasoning.html#4611686018982551202'>prealloc_set</a>(<font color='green'>t</font><font color='blue'>:</font>type, <font color='green'>n</font><font color='blue'>:</font>integer)<font color='blue'> -&gt; </font>set <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Printing.html#4611686018982667026'>princ</a>(<font color='green'>s</font><font color='blue'>:</font>bag)<font color='blue'> -&gt; </font>void</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Printing.html#4611686018982530722'>princ</a>(<font color='green'>n</font><font color='blue'>:</font>integer)<font color='blue'> -&gt; </font>void</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Printing.html#4611686018982530770'>princ</a>(<font color='green'>s</font><font color='blue'>:</font>string)<font color='blue'> -&gt; </font>void</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Printing.html#4611686018982520690'>princ</a>(<font color='green'>c</font><font color='blue'>:</font>char)<font color='blue'> -&gt; </font>void</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Printing.html#4611686018982520642'>princ</a>(<font color='green'>s</font><font color='blue'>:</font>string, <font color='green'>i</font><font color='blue'>:</font>integer, <font color='green'>j</font><font color='blue'>:</font>integer)<font color='blue'> -&gt; </font>void <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Printing.html#4611686018982739730'>print</a>(<font color='green'>x</font><font color='blue'>:</font>any)<font color='blue'> -&gt; </font>void</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Printing.html#4611686018982739490'>print_in_string</a>()<font color='blue'> -&gt; </font>void</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Symbols.html#4611686018982531426'>put</a>(<font color='green'>s</font><font color='blue'>:</font>symbol, <font color='green'>x</font><font color='blue'>:</font>any)<font color='blue'> -&gt; </font>any</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Classes.html#4611686018982531234'>put</a>(<font color='green'>p</font><font color='blue'>:</font>property U slot, <font color='green'>x</font><font color='blue'>:</font>object, <font color='green'>y</font><font color='blue'>:</font>any)<font color='blue'> -&gt; </font>any</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Tables.html#4611686018982531346'>put</a>(<font color='green'>t</font><font color='blue'>:</font>table, <font color='green'>x</font><font color='blue'>:</font>object, <font color='green'>y</font><font color='blue'>:</font>any)<font color='blue'> -&gt; </font>any</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Hypothetical Reasoning.html#4611686018982603202'>put_store</a>(<font color='green'>self</font><font color='blue'>:</font>property, <font color='green'>x</font><font color='blue'>:</font>object, <font color='green'>y</font><font color='blue'>:</font>any, <font color='green'>b</font><font color='blue'>:</font>boolean)<font color='blue'> -&gt; </font>void</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Communication ports.html#4611686018983017186'>putc</a>(<font color='green'>self</font><font color='blue'>:</font>char, <font color='green'>p</font><font color='blue'>:</font>port)<font color='blue'> -&gt; </font>void</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Miscellaneous.html#4611686018982533586'>pwd</a>()<font color='blue'> -&gt; </font>string <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Signal Handling.html#4611686018982901506'>raise</a>(<font color='green'>sig</font><font color='blue'>:</font>signal_handler)<font color='blue'> -&gt; </font>void <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Integers and Floats.html#4611686018982531490'>random</a>(<font color='green'>n</font><font color='blue'>:</font>integer)<font color='blue'> -&gt; </font>integer</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Integers and Floats.html#4611686018982531650'>random!</a>()<font color='blue'> -&gt; </font>void <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Integers and Floats.html#4611686018982531554'>random!</a>(<font color='green'>n</font><font color='blue'>:</font>integer)<font color='blue'> -&gt; </font>void</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Classes.html#4611686018982602354'>read</a>(<font color='green'>self</font><font color='blue'>:</font>property, <font color='green'>x</font><font color='blue'>:</font>object)<font color='blue'> -&gt; </font>any</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Communication ports.html#4611686018983023954'>read!</a>(<font color='green'>self</font><font color='blue'>:</font>port)<font color='blue'> -&gt; </font>void <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Communication ports.html#4611686018983021810'>readable?</a>(<font color='green'>self</font><font color='blue'>:</font>port)<font color='blue'> -&gt; </font>boolean <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Miscellaneous.html#4611686018982662866'>release</a>()<font color='blue'> -&gt; </font>string</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Communication ports.html#4611686018983024290'>reopen</a>(<font color='green'>self</font><font color='blue'>:</font>port)<font color='blue'> -&gt; </font>port <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Strings.html#4611686018982531762'>replace</a>(<font color='green'>src</font><font color='blue'>:</font>string, <font color='green'>s</font><font color='blue'>:</font>string, <font color='green'>rep</font><font color='blue'>:</font>string)<font color='blue'> -&gt; </font>string <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Strings.html#4611686018982517250'>rfind</a>(<font color='green'>s</font><font color='blue'>:</font>string, <font color='green'>x</font><font color='blue'>:</font>string)<font color='blue'> -&gt; </font>integer <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Strings.html#4611686018982517330'>rfind</a>(<font color='green'>s</font><font color='blue'>:</font>string, <font color='green'>x</font><font color='blue'>:</font>string, <font color='green'>from</font><font color='blue'>:</font>integer)<font color='blue'> -&gt; </font>integer <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Strings.html#4611686018982524434'>right</a>(<font color='green'>s</font><font color='blue'>:</font>string, <font color='green'>i</font><font color='blue'>:</font>integer)<font color='blue'> -&gt; </font>string <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='File system.html#4611686018982506706'>rmdir</a>(<font color='green'>s</font><font color='blue'>:</font>string)<font color='blue'> -&gt; </font>void <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Lists_comma Sets and Tuples.html#4611686018982746338'>rmlast</a>(<font color='green'>self</font><font color='blue'>:</font>list)<font color='blue'> -&gt; </font>list</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Strings.html#4611686018982542338'>rtrim</a>(<font color='green'>s</font><font color='blue'>:</font>string)<font color='blue'> -&gt; </font>void <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='driving optimizations.html#4611686018982531922'>safe</a>(<font color='green'>x</font><font color='blue'>:</font>any)<font color='blue'> -&gt; </font>any</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Communication ports.html#4611686018982532322'>select?</a>()<font color='blue'> -&gt; </font>boolean <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Communication ports.html#4611686018983021218'>select?</a>(<font color='green'>ms</font><font color='blue'>:</font>integer)<font color='blue'> -&gt; </font>boolean <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Serialization.html#4611686018983165362'>serialize</a>(<font color='green'>p</font><font color='blue'>:</font>port, <font color='green'>self</font><font color='blue'>:</font>any)<font color='blue'> -&gt; </font>serialize_context <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Serialization.html#4611686018983146866'>serialize</a>(<font color='green'>p</font><font color='blue'>:</font>port, <font color='green'>top?</font><font color='blue'>:</font>boolean, <font color='green'>self</font><font color='blue'>:</font>any)<font color='blue'> -&gt; </font>serialize_context <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Communication ports.html#4611686018983027938'>server!</a>(<font color='green'>addr</font><font color='blue'>:</font>string)<font color='blue'> -&gt; </font>listener <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Communication ports.html#4611686018983028386'>server!</a>(<font color='green'>p</font><font color='blue'>:</font>integer)<font color='blue'> -&gt; </font>listener <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Communication ports.html#4611686018983029426'>server!</a>(<font color='green'>addr</font><font color='blue'>:</font>string, <font color='green'>p</font><font color='blue'>:</font>integer, <font color='green'>qlen</font><font color='blue'>:</font>integer)<font color='blue'> -&gt; </font>listener <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Communication ports.html#4611686018983018786'>set_index</a>(<font color='green'>self</font><font color='blue'>:</font>blob, <font color='green'>n</font><font color='blue'>:</font>integer)<font color='blue'> -&gt; </font>void <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Communication ports.html#4611686018983018594'>set_length</a>(<font color='green'>self</font><font color='blue'>:</font>blob, <font color='green'>n</font><font color='blue'>:</font>integer)<font color='blue'> -&gt; </font>void <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Miscellaneous.html#4611686018982533506'>setcwd</a>(<font color='green'>s</font><font color='blue'>:</font>string)<font color='blue'> -&gt; </font>void <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Environment variables.html#4611686018982521650'>setenv</a>(<font color='green'>s</font><font color='blue'>:</font>string)<font color='blue'> -&gt; </font>void <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Signal Handling.html#4611686018982907138'>setitimer</a>(<font color='green'>it</font><font color='blue'>:</font>itimer, <font color='green'>interval</font><font color='blue'>:</font>integer, <font color='green'>value</font><font color='blue'>:</font>integer)<font color='blue'> -&gt; </font>tuple(integer, integer) <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Miscellaneous.html#4611686018982535490'>setlocale</a>(<font color='green'>cat</font><font color='blue'>:</font>integer, <font color='green'>s</font><font color='blue'>:</font>string)<font color='blue'> -&gt; </font>string <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Miscellaneous.html#4611686018982741746'>shell</a>(<font color='green'>self</font><font color='blue'>:</font>string)<font color='blue'> -&gt; </font>integer</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Lists_comma Sets and Tuples.html#4611686018982537154'>shrink</a>(<font color='green'>l</font><font color='blue'>:</font>list, <font color='green'>n</font><font color='blue'>:</font>integer)<font color='blue'> -&gt; </font>list</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Strings.html#4611686018982537234'>shrink</a>(<font color='green'>s</font><font color='blue'>:</font>string, <font color='green'>n</font><font color='blue'>:</font>integer)<font color='blue'> -&gt; </font>string</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Signal Handling.html#4611686018982902002'>sigblock</a>(<font color='green'>self</font><font color='blue'>:</font>subtype[signal_handler])<font color='blue'> -&gt; </font>set[signal_handler] <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Signal Handling.html#4611686018982900290'>signal</a>(<font color='green'>sig</font><font color='blue'>:</font>signal_handler, <font color='green'>p</font><font color='blue'>:</font>property)<font color='blue'> -&gt; </font>property <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Signal Handling.html#4611686018982901842'>sigpending</a>()<font color='blue'> -&gt; </font>set[signal_handler] <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Signal Handling.html#4611686018982901666'>sigprocmask</a>()<font color='blue'> -&gt; </font>set[signal_handler] <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Signal Handling.html#4611686018982901746'>sigsetmask</a>(<font color='green'>self</font><font color='blue'>:</font>subtype[signal_handler])<font color='blue'> -&gt; </font>set[signal_handler] <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Signal Handling.html#4611686018982902130'>sigsuspend</a>(<font color='green'>self</font><font color='blue'>:</font>subtype[signal_handler])<font color='blue'> -&gt; </font>void <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Signal Handling.html#4611686018982902066'>sigunblock</a>(<font color='green'>self</font><font color='blue'>:</font>subtype[signal_handler])<font color='blue'> -&gt; </font>set[signal_handler] <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Integers and Floats.html#4611686018982744866'>sin</a>(<font color='green'>self</font><font color='blue'>:</font>float)<font color='blue'> -&gt; </font>float</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Integers and Floats.html#4611686018982745314'>sinh</a>(<font color='green'>self</font><font color='blue'>:</font>float)<font color='blue'> -&gt; </font>float</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Miscellaneous.html#4611686018982537666'>sleep</a>(<font color='green'>t</font><font color='blue'>:</font>integer)<font color='blue'> -&gt; </font>void <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Communication ports.html#4611686018983030290'>socketpair</a>()<font color='blue'> -&gt; </font>tuple(socket, socket) <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Lists_comma Sets and Tuples.html#4611686018982529266'>sort</a>(<font color='green'>f</font><font color='blue'>:</font>method, <font color='green'>self</font><font color='blue'>:</font>list)<font color='blue'> -&gt; </font>list</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Strings.html#4611686018982538210'>space?</a>(<font color='green'>s</font><font color='blue'>:</font>string)<font color='blue'> -&gt; </font>boolean <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Chars.html#4611686018982537810'>space?</a>(<font color='green'>c</font><font color='blue'>:</font>char)<font color='blue'> -&gt; </font>boolean <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Integers and Floats.html#4611686018982744578'>sqrt</a>(<font color='green'>self</font><font color='blue'>:</font>float)<font color='blue'> -&gt; </font>float</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Hypothetical Reasoning.html#4611686018982538306'>store</a>(<font color='green'>rels</font><font color='blue'>:</font>listargs)<font color='blue'> -&gt; </font>void</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Hypothetical Reasoning.html#4611686018982538402'>store</a>(<font color='green'>v</font><font color='blue'>:</font>global_variable)<font color='blue'> -&gt; </font>void</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Hypothetical Reasoning.html#4611686018982538594'>store</a>(<font color='green'>a</font><font color='blue'>:</font>array, <font color='green'>n</font><font color='blue'>:</font>integer, <font color='green'>v</font><font color='blue'>:</font>any, <font color='green'>b</font><font color='blue'>:</font>boolean)<font color='blue'> -&gt; </font>void</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Hypothetical Reasoning.html#4611686018982538738'>store</a>(<font color='green'>l</font><font color='blue'>:</font>list, <font color='green'>n</font><font color='blue'>:</font>integer, <font color='green'>v</font><font color='blue'>:</font>any, <font color='green'>b</font><font color='blue'>:</font>boolean)<font color='blue'> -&gt; </font>void</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Dates and Times.html#4611686018982538994'>strftime</a>(<font color='green'>f</font><font color='blue'>:</font>string, <font color='green'>d</font><font color='blue'>:</font>float)<font color='blue'> -&gt; </font>string <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Integers and Floats.html#4611686018982745362'>string!</a>(<font color='green'>self</font><font color='blue'>:</font>float)<font color='blue'> -&gt; </font>string</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Chars.html#4611686018982745538'>string!</a>(<font color='green'>self</font><font color='blue'>:</font>char)<font color='blue'> -&gt; </font>string <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Integers and Floats.html#4611686018982539554'>string!</a>(<font color='green'>n</font><font color='blue'>:</font>integer)<font color='blue'> -&gt; </font>string</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Communication ports.html#4611686018983018290'>string!</a>(<font color='green'>self</font><font color='blue'>:</font>blob)<font color='blue'> -&gt; </font>string <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Symbols.html#4611686018982539298'>string!</a>(<font color='green'>s</font><font color='blue'>:</font>symbol)<font color='blue'> -&gt; </font>string</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Communication ports.html#4611686018983013778'>string!</a>(<font color='green'>self</font><font color='blue'>:</font>char*, <font color='green'>len</font><font color='blue'>:</font>integer)<font color='blue'> -&gt; </font>string <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Strings.html#4611686018982539602'>substring</a>(<font color='green'>s</font><font color='blue'>:</font>string, <font color='green'>i</font><font color='blue'>:</font>integer, <font color='green'>j</font><font color='blue'>:</font>integer)<font color='blue'> -&gt; </font>string</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Strings.html#4611686018982540258'>substring</a>(<font color='green'>s1</font><font color='blue'>:</font>string, <font color='green'>s2</font><font color='blue'>:</font>string, <font color='green'>b</font><font color='blue'>:</font>boolean)<font color='blue'> -&gt; </font>integer</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Communication ports.html#4611686018983018674'>substring</a>(<font color='green'>self</font><font color='blue'>:</font>blob, <font color='green'>i</font><font color='blue'>:</font>integer, <font color='green'>j</font><font color='blue'>:</font>integer)<font color='blue'> -&gt; </font>string <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Symbols.html#4611686018982741650'>symbol!</a>(<font color='green'>self</font><font color='blue'>:</font>string)<font color='blue'> -&gt; </font>symbol</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Symbols.html#4611686018982540418'>symbol!</a>(<font color='green'>s</font><font color='blue'>:</font>string, <font color='green'>m</font><font color='blue'>:</font>module)<font color='blue'> -&gt; </font>symbol</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='File system.html#4611686018982524754'>symlink</a>(<font color='green'>s1</font><font color='blue'>:</font>string, <font color='green'>s2</font><font color='blue'>:</font>string)<font color='blue'> -&gt; </font>void <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Integers and Floats.html#4611686018982744754'>tan</a>(<font color='green'>self</font><font color='blue'>:</font>float)<font color='blue'> -&gt; </font>float</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Integers and Floats.html#4611686018982745202'>tanh</a>(<font color='green'>self</font><font color='blue'>:</font>float)<font color='blue'> -&gt; </font>float</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Dates and Times.html#4611686018982741330'>time_get</a>()<font color='blue'> -&gt; </font>integer</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Dates and Times.html#4611686018982741410'>time_set</a>()<font color='blue'> -&gt; </font>void</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Dates and Times.html#4611686018982741474'>time_show</a>()<font color='blue'> -&gt; </font>void</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Dates and Times.html#4611686018982540498'>timer!</a>()<font color='blue'> -&gt; </font>float <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Strings.html#4611686018982540850'>trim</a>(<font color='green'>s</font><font color='blue'>:</font>string)<font color='blue'> -&gt; </font>void <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Lists_comma Sets and Tuples.html#4611686018982746850'>tuple!</a>(<font color='green'>x</font><font color='blue'>:</font>list)<font color='blue'> -&gt; </font>tuple</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Strings.html#4611686018982512674'>unescape</a>(<font color='green'>s</font><font color='blue'>:</font>string)<font color='blue'> -&gt; </font>string <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Communication ports.html#4611686018983016882'>unget</a>(<font color='green'>self</font><font color='blue'>:</font>port, <font color='green'>c</font><font color='blue'>:</font>char)<font color='blue'> -&gt; </font>void <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Communication ports.html#4611686018983016834'>unget</a>(<font color='green'>self</font><font color='blue'>:</font>port, <font color='green'>s</font><font color='blue'>:</font>string)<font color='blue'> -&gt; </font>void <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Miscellaneous.html#4611686018982747570'>unix?</a>()<font color='blue'> -&gt; </font>boolean <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Objects and Entities.html#4611686018982740786'>unknown?</a>(<font color='green'>self</font><font color='blue'>:</font>any)<font color='blue'> -&gt; </font>boolean</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Classes.html#4611686018982602722'>unknown?</a>(<font color='green'>self</font><font color='blue'>:</font>property, <font color='green'>x</font><font color='blue'>:</font>object)<font color='blue'> -&gt; </font>boolean</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='File system.html#4611686018982542466'>unlink</a>(<font color='green'>s</font><font color='blue'>:</font>string)<font color='blue'> -&gt; </font>void <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Communication ports.html#4611686018983026626'>unlink</a>(<font color='green'>self</font><font color='blue'>:</font>listener)<font color='blue'> -&gt; </font>void <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Serialization.html#4611686018983165426'>unserialize</a>(<font color='green'>p</font><font color='blue'>:</font>port)<font color='blue'> -&gt; </font>any <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Strings.html#4611686018982542930'>upper</a>(<font color='green'>s</font><font color='blue'>:</font>string)<font color='blue'> -&gt; </font>string <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Strings.html#4611686018982542610'>upper?</a>(<font color='green'>s</font><font color='blue'>:</font>string)<font color='blue'> -&gt; </font>boolean <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Dates and Times.html#4611686018982540802'>uptime</a>(<font color='green'>t</font><font color='blue'>:</font>float)<font color='blue'> -&gt; </font>void <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Strings.html#4611686018982543842'>url_decode</a>(<font color='green'>s</font><font color='blue'>:</font>string)<font color='blue'> -&gt; </font>string <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Strings.html#4611686018982543522'>url_encode</a>(<font color='green'>s</font><font color='blue'>:</font>string)<font color='blue'> -&gt; </font>string <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Communication ports.html#4611686018982543922'>use_as_output</a>(<font color='green'>p</font><font color='blue'>:</font>port)<font color='blue'> -&gt; </font>port</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Process handling.html#4611686018982908754'>waitpid</a>(<font color='green'>p</font><font color='blue'>:</font>integer)<font color='blue'> -&gt; </font>tuple(process_status, integer, any) <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Process handling.html#4611686018982907986'>waitpid</a>(<font color='green'>p</font><font color='blue'>:</font>integer, <font color='green'>block?</font><font color='blue'>:</font>boolean)<font color='blue'> -&gt; </font>tuple(process_status, integer, any) <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Hypothetical Reasoning.html#4611686018982544098'>world?</a>()<font color='blue'> -&gt; </font>integer</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Communication ports.html#4611686018983023826'>writable?</a>(<font color='green'>self</font><font color='blue'>:</font>port)<font color='blue'> -&gt; </font>boolean <font color='red'>[XL]</font></font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Classes.html#4611686018982602498'>write</a>(<font color='green'>self</font><font color='blue'>:</font>property, <font color='green'>x</font><font color='blue'>:</font>object, <font color='green'>y</font><font color='blue'>:</font>any)<font color='blue'> -&gt; </font>void</font></li>
+			<li><font font-face='Courier' class='item_index'><a href='Communication ports.html#4611686018983024034'>write!</a>(<font color='green'>self</font><font color='blue'>:</font>port)<font color='blue'> -&gt; </font>void <font color='red'>[XL]</font></font></li>
+			</ul>
+		</body>
+	</html>

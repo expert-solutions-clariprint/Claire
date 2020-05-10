@@ -1,0 +1,116 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+	<head>
+		<link rel="stylesheet" type="text/css" href="doc.css" media="all">
+		<title>
+			claire : driving optimizations
+		</title>
+		<style>
+body {
+        font-size: 14px;
+        font-family: arial, Helvetica;
+}
+
+h1 { font-size: 25px; }
+h2 { font-size: 20px; }
+
+a[href] {
+	border-bottom: 1px dotted grey;
+	text-decoration: none
+}
+
+.doc_paragraph
+{
+        font-size: 14px;
+        font-family: arial, helvetica;
+}
+
+.item_header { font-size: 10px; page-break-before: avoid; page-break-inside: avoid; page-break-after: avoid }
+
+.item_index {
+		white-space: pre;
+        font-size: 11px;
+        font-family: monaco, courier, mono-space;
+}
+
+.table_code {
+		margin: 10px auto;
+}
+
+.doc_code {
+    white-space: pre;
+		padding-top: .1em;
+		padding-bottom: .5em;
+		background-color: #EEE;
+		border: #AAA solid 1px;
+        font-size: 11px;
+        font-family: monaco, courier, mono-space;
+}
+
+.opt_usage {
+		margin-left: 1em;
+		margin-right: 1em;
+		padding: .2em;
+		background-color: #EEE;
+		border: #AAA solid 1px;
+        font-family: monaco, courier, mono-space;
+	
+}
+
+.class_proto {
+	vertical-align: top;
+	text-align: right;
+}
+
+.class_proto_super {
+	vertical-align: top;
+	text-align: right;
+}
+
+.class_proto_slot {
+	vertical-align: top;
+	text-align: left;
+}
+
+</style>
+	</head>
+	<body><table width='100%' class='item_header'>
+		<tr>
+			<td width='33%' align='left' valign='bottom'><i></i></td>
+			<td width='33%' align='center' valign='top'><i><a href='claire.index.html#__category_index__'>categories</a><br/><b>driving optimizations</b>
+				</i></td>
+			<td width='33%' align='right' valign='bottom'><i></i></td>
+		</tr>
+	</table>
+	<h2><span class=pretitle>&nbsp;</span>&nbsp;<a name='4611686018982532018'>driving optimizations</a>
+			</h2>
+	<ul></ul><ul><li><font font-face='Courier' class='item_index'><a href='driving optimizations.html#4611686018982743874'>Id</a>(<font color='green'>x</font><font color='blue'>:</font>any)<font color='blue'> -&gt; </font>type[x]</font></li><li><font font-face='Courier' class='item_index'><a href='driving optimizations.html#4611686018982531922'>safe</a>(<font color='green'>x</font><font color='blue'>:</font>any)<font color='blue'> -&gt; </font>any</font></li></ul><p align='justify' class='doc_paragraph'></p><a name='4611686018982743874'><hr size=0 style='page-break-after: avoid' /></a>
+	<a name='Id'><hr size=0 /></a>
+	<table width='100%' class='item_header'>
+		<tr>
+			<td width='20%' align='left'><i><a href='claire.index.html#__category_index__'>categories</a></i></td>
+			<td width='20%' align='center'><i><a href='driving optimizations.html#4611686018982532018'>driving optimizations</a></i></td><td width='20%' align='center'><i>normal dispatch</i></td>
+	<td width='20%' align='center'><i></i></td><td width='20%' align='right'><i>Core method</i></td>
+	</tr></table><h3>Id(<font color='green'>x</font><font color='blue'>:</font>any)<font color='blue'> -&gt; </font>type[x]</h3><p align='justify' class='doc_paragraph'> <a href='driving optimizations.html#4611686018982743874'><font color='#'>Id</font></a>(<b>x</b>) returns <b>x</b>. <a href='driving optimizations.html#4611686018982743874'><font color='#'>Id</font></a> has a special behavior when compiled which makes it useful.
+ The argument is evaluated before being compiled. The intended use is with <a href='Global Variables and Constants.html#4611686018982469138'><font color='#'>global</font></a>
+ variables: the compiler uses the actual value of the variable instead of a reference
+ to the <a href='Global Variables and Constants.html#4611686018982469138'><font color='#'>global</font></a> variable. This is very convenient to introduce parameters that are defined
+ outside the <a href='Modules.html#4611686018982367538'><font color='#'>module</font></a> that is being compiled. This is also used to tell compiler that an
+ iteration should make explicit use of all <a href='Iterations.html#4611686018981747650'><font color='#'>iterations</font></a> <a href='Rules.html#4611686018981960530'><font color='#'>rule</font></a> that may <a href='Calls and Slot Access.html#4611686018983236690'><font color='#'>apply</font></a> to some subclasses
+ of the <a href='Lists_comma Sets and Tuples.html#4611686018980882226'><font color='#'>set</font></a> expression being iterated.</p><a name='4611686018982531922'><hr size=0 style='page-break-after: avoid' /></a>
+	<a name='safe'><hr size=0 /></a>
+	<table width='100%' class='item_header'>
+		<tr>
+			<td width='20%' align='left'><i><a href='claire.index.html#__category_index__'>categories</a></i></td>
+			<td width='20%' align='center'><i><a href='driving optimizations.html#4611686018982532018'>driving optimizations</a></i></td><td width='20%' align='center'><i>normal dispatch</i></td>
+	<td width='20%' align='center'><i></i></td><td width='20%' align='right'><i>Optimize method</i></td>
+	</tr></table><h3>safe(<font color='green'>x</font><font color='blue'>:</font>any)<font color='blue'> -&gt; </font>any</h3><p align='justify' class='doc_paragraph'> safe(<b>x</b>) is semantically equivalent to <b>x</b> and is ignored by the interpreter (<b>x</b> = safe(<b>x</b>)).
+ On the other hand, this tells the compiler that the expression <b>x</b> must be compiled with
+ the safe setting of the optimizing options. This is useful when a complete program requires
+ high optimization settings for performance reasons but you still want to ensure that (say)
+ overflow <a href='Exception Handling.html#4611686018981214402'><font color='#'>errors</font></a> will be detected. A typical use would be&nbsp;:
+ </p><table class='table_code' align=center border=0 width='85%'>
+										<tr><td class='doc_code'> try safe(<b>x</b> * y) catch <a href='Exception Handling.html#4611686018981214402'><font color='#'>error</font></a> <a href='Integers and Floats.html#4611686018983235538'><font color='#'>MAX_INTEGER</font></a>
+</td></tr></table>
+							  <p align='justify' class='doc_paragraph'> to implement a bounded multiplication that can be placed in an optimize <a href='Modules.html#4611686018982367538'><font color='#'>module</font></a>.</p></body>
+	</html>

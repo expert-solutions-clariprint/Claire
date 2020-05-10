@@ -1,0 +1,206 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+	<head>
+		<link rel="stylesheet" type="text/css" href="doc.css" media="all">
+		<title>
+			claire : Iterations
+		</title>
+		<style>
+body {
+        font-size: 14px;
+        font-family: arial, Helvetica;
+}
+
+h1 { font-size: 25px; }
+h2 { font-size: 20px; }
+
+a[href] {
+	border-bottom: 1px dotted grey;
+	text-decoration: none
+}
+
+.doc_paragraph
+{
+        font-size: 14px;
+        font-family: arial, helvetica;
+}
+
+.item_header { font-size: 10px; page-break-before: avoid; page-break-inside: avoid; page-break-after: avoid }
+
+.item_index {
+		white-space: pre;
+        font-size: 11px;
+        font-family: monaco, courier, mono-space;
+}
+
+.table_code {
+		margin: 10px auto;
+}
+
+.doc_code {
+    white-space: pre;
+		padding-top: .1em;
+		padding-bottom: .5em;
+		background-color: #EEE;
+		border: #AAA solid 1px;
+        font-size: 11px;
+        font-family: monaco, courier, mono-space;
+}
+
+.opt_usage {
+		margin-left: 1em;
+		margin-right: 1em;
+		padding: .2em;
+		background-color: #EEE;
+		border: #AAA solid 1px;
+        font-family: monaco, courier, mono-space;
+	
+}
+
+.class_proto {
+	vertical-align: top;
+	text-align: right;
+}
+
+.class_proto_super {
+	vertical-align: top;
+	text-align: right;
+}
+
+.class_proto_slot {
+	vertical-align: top;
+	text-align: left;
+}
+
+</style>
+	</head>
+	<body><table width='100%' class='item_header'>
+		<tr>
+			<td width='33%' align='left' valign='bottom'><i><a href='Selectors_comma Properties and Operations.html#4611686018981725154'>Selectors, Properties and Operations</a></i></td>
+			<td width='33%' align='center' valign='top'><i><a href='claire.index.html#__category_index__'>categories</a><br/><a href='claire.index.html#4611686018981262674'>Methods and Types</a><br/><b>Iterations</b>
+				</i></td>
+			<td width='33%' align='right' valign='bottom'><i>Tables, Rules and Hypothetical Reasoning<br/><a href='Tables.html#4611686018981820818'>Tables</a></i></td>
+		</tr>
+	</table>
+	<h2><span class=pretitle>&nbsp;</span>&nbsp;<a name='4611686018981747650'>Iterations</a>
+			</h2>
+	<ul></ul><ul></ul><p align='justify' class='doc_paragraph'> We just saw that CLAIRE will produce in-line substitution for some <a href='Methods.html#4611686018981237682'><font color='#'>methods</font></a>. This is
+ especially powerful when combined with <a href='parametric class.html#4611686018980835010'><font color='#'>parametric</font></a> function <a href='Calls and Slot Access.html#4611686018980843634'><font color='#'>calls</font></a> (using <a href='Calls and Slot Access.html#4611686018982663506'><font color='#'>call</font></a>(...))
+ taking advantage of the fact that CLAIRE is a functional language. There is another
+ form of code substitution supported by CLAIRE that is also extremely useful, namely
+ the iteration of <a href='Lists_comma Sets and Tuples.html#4611686018980882226'><font color='#'>set</font></a> data structure.</p><p align='justify' class='doc_paragraph'> Any <a href='Objects and Entities.html#4611686018980663298'><font color='#'>object</font></a> s that understands the set! <a href='Methods.html#4611686018981237682'><font color='#'>method</font></a> can be iterated over. That means that
+ the construction for x in s e(x) can be used. The actual iteration over the <a href='Lists_comma Sets and Tuples.html#4611686018980882226'><font color='#'>set</font></a>
+ represented by s is done by constructing explicitly the <a href='Lists_comma Sets and Tuples.html#4611686018980882226'><font color='#'>set</font></a> extension. However,
+ there often exists a way to iterate the <a href='Lists_comma Sets and Tuples.html#4611686018980882226'><font color='#'>set</font></a> structure without constructing the <a href='Lists_comma Sets and Tuples.html#4611686018980882226'><font color='#'>set</font></a>
+ extension. The simplest example is the <a href='Integers and Floats.html#4611686018980621538'><font color='#'>integer</font></a> interval structure that is iterated
+ with a while loop and a counter.</p><p align='justify' class='doc_paragraph'> It is possible to define iteration in CLAIRE through code substitution. This is done
+ by defining a <a href='Classes.html#4611686018982741138'><font color='#'>new</font></a> inline restriction of the <a href='Selectors_comma Properties and Operations.html#4611686018981725154'><font color='#'>property</font></a> iterate, with signature
+ (x:X,v:Variable,e:any). The principle is that CLAIRE will <a href='Strings.html#4611686018982531762'><font color='#'>replace</font></a> any <a href='Strings.html#4611686018982530450'><font color='#'>occurrence</font></a> of
+ (for v in x e) by the body of the inline <a href='Methods.html#4611686018981237682'><font color='#'>method</font></a> as soon as the <a href='Types.html#4611686018981274898'><font color='#'>type</font></a> of the expression
+ x matches with X (v is assumed to be a free variable in the expression e). For instance,
+ here is the definition of iterate over <a href='Integers and Floats.html#4611686018980621538'><font color='#'>integer</font></a> intervals&nbsp;:
+ </p><table class='table_code' align=center border=0 width='85%'>
+										<tr><td class='doc_code'> iterate(x:interval[<a href='Lists_comma Sets and Tuples.html#4611686018982745890'><font color='#'>min</font></a>:<a href='Integers and Floats.html#4611686018980621538'><font color='#'>integer</font></a>,<a href='Lists_comma Sets and Tuples.html#4611686018982746178'><font color='#'>max</font></a>:<a href='Integers and Floats.html#4611686018980621538'><font color='#'>integer</font></a>],v:Variable,e:any) =&gt;
+ 	let v&nbsp;:= <a href='Lists_comma Sets and Tuples.html#4611686018982745890'><font color='#'>min</font></a>(x), %max&nbsp;:= <a href='Lists_comma Sets and Tuples.html#4611686018982746178'><font color='#'>max</font></a>(x)
+ 	in (while (v &lt;= %max) (e, v&nbsp;:+ 1))
+</td></tr></table>
+							  <p align='justify' class='doc_paragraph'> Here is a more interesting example. We can define <a href='Lists_comma Sets and Tuples.html#4611686018982521906'><font color='#'>hash</font></a> <a href='Tables.html#4611686018981820818'><font color='#'>tables</font></a> as follows. A <a href='Tables.html#4611686018981820818'><font color='#'>table</font></a> is
+ defined with a <a href='Lists_comma Sets and Tuples.html#4611686018980882226'><font color='#'>list</font></a> (of size 2n - 3, which is the largest size for which a chunk of size
+ 2n is allocated), which is full of "unknown" except for these <a href='Objects and Entities.html#4611686018980663298'><font color='#'>objects</font></a> that belong to the
+ <a href='Lists_comma Sets and Tuples.html#4611686018980882226'><font color='#'>set</font></a>. Each <a href='Objects and Entities.html#4611686018980663298'><font color='#'>object</font></a> is inserted at the next available place in the <a href='Tables.html#4611686018981820818'><font color='#'>table</font></a>, starting at a point
+ given by the hashing function (a generic hashing function provided by CLAIRE: <a href='Lists_comma Sets and Tuples.html#4611686018982521906'><font color='#'>hash</font></a>)&nbsp;:
+ </p><table class='table_code' align=center border=0 width='85%'>
+										<tr><td class='doc_code'> htable &lt;: <a href='Objects and Entities.html#4611686018980663298'><font color='#'>object</font></a>(count:<a href='Integers and Floats.html#4611686018980621538'><font color='#'>integer</font></a> = 0,
+ 				index:<a href='Integers and Floats.html#4611686018980621538'><font color='#'>integer</font></a> = 4,
+ 				arg:list&lt;any&gt; = list&lt;any&gt;())
+
+ set!(x:htable)&nbsp;: <a href='Lists_comma Sets and Tuples.html#4611686018980882226'><font color='#'>set</font></a> -&gt; {y in x.arg | <a href='Objects and Entities.html#4611686018982740706'><font color='#'>known?</font></a>(y)}
+
+ insert(x:htable, y:any) -&gt;
+ 	let l&nbsp;:= x.arg
+ 	in (if (x.count &gt;= <a href='Communication ports.html#4611686018983018450'><font color='#'>length</font></a>(l) / 2)
+ 		(x.arg&nbsp;:= <a href='Lists_comma Sets and Tuples.html#4611686018982525538'><font color='#'>make_list</font></a>(<a href='Integers and Floats.html#4611686018982545202'><font color='#'>^2</font></a>(x.index - 3), unknown),
+ 		x.index&nbsp;:+ 1, x.count&nbsp;:= 0,
+ 		for z in {y in l | <a href='Objects and Entities.html#4611686018982740706'><font color='#'>known?</font></a>(y)} insert(x,z),
+ 			insert(x,y))
+ 	else let i&nbsp;:= <a href='Lists_comma Sets and Tuples.html#4611686018982521906'><font color='#'>hash</font></a>(l,y)
+ 		in (until (l[i] = unknown | l[i] = y)
+ 				(if (i = <a href='Communication ports.html#4611686018983018450'><font color='#'>length</font></a>(l)) i&nbsp;:= 1 else i&nbsp;:+ 1),
+ 				if (l[i] = unknown)
+ 					(x.count&nbsp;:+ 1, l[i]&nbsp;:= y)))
+</td></tr></table>
+							  <p align='justify' class='doc_paragraph'> Note that CLAIRE provides a few other functions for hashing that would allow an even
+ simpler, though less self-contained, solution. To iterate over such <a href='Lists_comma Sets and Tuples.html#4611686018982521906'><font color='#'>hash</font></a> <a href='Tables.html#4611686018981820818'><font color='#'>tables</font></a> without
+ computing set!(x) we define&nbsp;:
+ </p><table class='table_code' align=center border=0 width='85%'>
+										<tr><td class='doc_code'> iterate(s:htable, v:Variable, e:any)
+ 	=&gt; (for v in s.arg (if <a href='Objects and Entities.html#4611686018982740706'><font color='#'>known?</font></a>(v) e))
+</td></tr></table>
+							  <p align='justify' class='doc_paragraph'> Thus, CLAIRE will <a href='Strings.html#4611686018982531762'><font color='#'>replace</font></a>&nbsp;:
+ </p><table class='table_code' align=center border=0 width='85%'>
+										<tr><td class='doc_code'> let s:htable&nbsp;:= ... in sum(s)
+</td></tr></table>
+							  <p align='justify' class='doc_paragraph'> by&nbsp;:
+ </p><table class='table_code' align=center border=0 width='85%'>
+										<tr><td class='doc_code'> let s:htable&nbsp;:= ... in
+ 	(let x&nbsp;:= 0
+ 	in (for v in s.arg
+ 		(if <a href='Objects and Entities.html#4611686018982740706'><font color='#'>known?</font></a>(v) x&nbsp;:+ v),
+ 		x))
+</td></tr></table>
+							  <p align='justify' class='doc_paragraph'> The use of iterate will only be taken into account in the compiled code unless one uses
+ oload, which <a href='Calls and Slot Access.html#4611686018980843634'><font color='#'>calls</font></a> the optimizer for each <a href='Classes.html#4611686018982741138'><font color='#'>new</font></a> <a href='Methods.html#4611686018981237682'><font color='#'>method</font></a>. iterate is a convenient way to
+ extend the <a href='Lists_comma Sets and Tuples.html#4611686018980882226'><font color='#'>set</font></a> of CLAIRE data structure that represent <a href='Lists_comma Sets and Tuples.html#4611686018980882226'><font color='#'>sets</font></a> with the optimal efficiency.
+ Notice that, for a compiled program, we could have defined set! as follows (this definition
+ would be valid for any <a href='Classes.html#4611686018982741138'><font color='#'>new</font></a> <a href='Types.html#4611686018981274898'><font color='#'>type</font></a> of <a href='Lists_comma Sets and Tuples.html#4611686018980882226'><font color='#'>set</font></a>)&nbsp;:
+ </p><table class='table_code' align=center border=0 width='85%'>
+										<tr><td class='doc_code'> set!(s:htable) -&gt; {x | x in s}
+</td></tr></table>
+							  <p align='justify' class='doc_paragraph'> When defining a restriction of iterate, one must <a href='Objects and Entities.html#4611686018982739842'><font color='#'>not</font></a> forget the handling of values
+ returned by a break statement. In most cases, the code produce by iterate is itself a loop
+ (a for or a while), thus this handling is implicit. However, there may be multiples <a href='Loops.html#4611686018981174994'><font color='#'>loops</font></a>,
+ or the <a href='Classes.html#4611686018982741010'><font color='#'>final</font></a> value may be distinct from the loop itself, in which case an explicit handling
+ is necessary. Here is an example taken from <a href='Classes.html#4611686018980663538'><font color='#'>class</font></a> iteration&nbsp;:
+ </p><table class='table_code' align=center border=0 width='85%'>
+										<tr><td class='doc_code'> iterate(x:<a href='Classes.html#4611686018980663538'><font color='#'>class</font></a>, v:Variable, e:any)&nbsp;: any
+ 	=&gt; (for %v_1 in x.descendents
+ 		let %v_2&nbsp;:= (for v in %v_1.instances e) // catch inner break
+ 		in (if %v_2 break(%v_2)))  // transmit the value
+</td></tr></table>
+							  <p align='justify' class='doc_paragraph'> Notice that it is always possible to introduce a loop to handle breaks if none are present;
+ we may <a href='Strings.html#4611686018982531762'><font color='#'>replace</font></a> the expression e by&nbsp;:
+ </p><table class='table_code' align=center border=0 width='85%'>
+										<tr><td class='doc_code'> while true (e, break(<a href='Lists_comma Sets and Tuples.html#4611686018982667282'><font color='#'>nil</font></a>))
+</td></tr></table>
+							  <p align='justify' class='doc_paragraph'> <a href='Lists_comma Sets and Tuples.html#4611686018982746290'><font color='#'>Last</font></a>, we need to address the issue of <a href='parametric class.html#4611686018980835010'><font color='#'>parametric</font></a> <a href='Polymorphism.html#4611686018981275106'><font color='#'>polymorphism</font></a>, or how to define <a href='Classes.html#4611686018982741138'><font color='#'>new</font></a> kinds
+ of <a href='Types.html#4611686018981274898'><font color='#'>type</font></a> <a href='Lists_comma Sets and Tuples.html#4611686018980882226'><font color='#'>sets</font></a>. The previous example of hash-sets is incomplete, because it only describes
+ generic hash-sets that may contain any element. If we want to introduce typed hash-sets,
+ we need to follow these three steps. First we <a href='Classes.html#4611686018982602578'><font color='#'>add</font></a> a <a href='Types.html#4611686018981274898'><font color='#'>type</font></a> parameter to the htable <a href='Classes.html#4611686018980663538'><font color='#'>class</font></a>&nbsp;:
+ </p><table class='table_code' align=center border=0 width='85%'>
+										<tr><td class='doc_code'> htable[of] &lt;: <a href='Objects and Entities.html#4611686018980663298'><font color='#'>object</font></a>(of:<a href='Types.html#4611686018981274898'><font color='#'>type</font></a> = any, count:<a href='Integers and Floats.html#4611686018980621538'><font color='#'>integer</font></a> = 0, ...)
+</td></tr></table>
+							  <p align='justify' class='doc_paragraph'> Second, we use a <a href='parametric class.html#4611686018980835010'><font color='#'>parametric</font></a> signature to use the <a href='Types.html#4611686018981274898'><font color='#'>type</font></a> parameter appropriately&nbsp;:
+ </p><table class='table_code' align=center border=0 width='85%'>
+										<tr><td class='doc_code'> insert(x:htable&lt;X&gt;, y:X) -&gt; ...
+</td></tr></table>
+							  <p align='justify' class='doc_paragraph'> <a href='Lists_comma Sets and Tuples.html#4611686018982746290'><font color='#'>Last</font></a>, we need to tell the compiler that an instance from htable[X] only contains
+ <a href='Objects and Entities.html#4611686018980663298'><font color='#'>objects</font></a> from X. This is accomplished by extending the <a href='Types.html#4611686018982847778'><font color='#'>member</font></a> function which is used by
+ the compiler to <a href='Strings.html#4611686018982516530'><font color='#'>find</font></a> a valid <a href='Types.html#4611686018981274898'><font color='#'>type</font></a> for all members of a given <a href='Lists_comma Sets and Tuples.html#4611686018980882226'><font color='#'>set</font></a>. If x is a <a href='Types.html#4611686018981274898'><font color='#'>type</font></a>,
+ <a href='Types.html#4611686018982847778'><font color='#'>member</font></a>(x) is a valid <a href='Types.html#4611686018981274898'><font color='#'>type</font></a> for any y that will belong to a <a href='Lists_comma Sets and Tuples.html#4611686018980882226'><font color='#'>set</font></a> s of <a href='Types.html#4611686018981274898'><font color='#'>type</font></a> x. If T is a
+ <a href='Classes.html#4611686018982741138'><font color='#'>new</font></a> <a href='Types.html#4611686018981274898'><font color='#'>type</font></a> of <a href='Lists_comma Sets and Tuples.html#4611686018980882226'><font color='#'>sets</font></a>, we may introduce a <a href='Methods.html#4611686018981237682'><font color='#'>method</font></a> <a href='Types.html#4611686018982847778'><font color='#'>member</font></a>(x&nbsp;:T, t&nbsp;:<a href='Types.html#4611686018981274898'><font color='#'>type</font></a>) that tells how to
+ compute <a href='Types.html#4611686018982847778'><font color='#'>member</font></a>(t) if t is included in T. For instance, here is a valid definition for
+ our htable example&nbsp;:
+ </p><table class='table_code' align=center border=0 width='85%'>
+										<tr><td class='doc_code'> <a href='Types.html#4611686018982847778'><font color='#'>member</font></a>(x:htable,t:<a href='Types.html#4611686018981274898'><font color='#'>type</font></a>) -&gt; <a href='Types.html#4611686018982847778'><font color='#'>member</font></a>(t @ of)
+</td></tr></table>
+							  <p align='justify' class='doc_paragraph'> This <a href='Lists_comma Sets and Tuples.html#4611686018982746290'><font color='#'>last</font></a> part may be difficult to grasp (do <a href='Objects and Entities.html#4611686018982739842'><font color='#'>not</font></a> worry, this is an advanced feature).
+ First, recall that if t is a <a href='Types.html#4611686018981274898'><font color='#'>type</font></a> and p a <a href='Selectors_comma Properties and Operations.html#4611686018981725154'><font color='#'>property</font></a>, (t @ p) is a valid <a href='Types.html#4611686018981274898'><font color='#'>type</font></a> for x.p
+ when x is of <a href='Types.html#4611686018981274898'><font color='#'>type</font></a> t. Suppose that we now have an expression e, with <a href='Types.html#4611686018981274898'><font color='#'>type</font></a> t1, that
+ represents a htable (thus t1 &lt;= htable). When the compiler <a href='Calls and Slot Access.html#4611686018980843634'><font color='#'>calls</font></a> <a href='Types.html#4611686018982847778'><font color='#'>member</font></a>(t1), the previous
+ <a href='Methods.html#4611686018981237682'><font color='#'>method</font></a> is invoked (x is bound to a system-dependent value that should <a href='Objects and Entities.html#4611686018982739842'><font color='#'>not</font></a> be used and t is
+ bound to t1). The first step is to compute (t1 @ of), which is a <a href='Types.html#4611686018981274898'><font color='#'>type</font></a> that contains all
+ possible values for y.of, where y is a possible result of evaluating e. Thus,
+ <a href='Types.html#4611686018982847778'><font color='#'>member</font></a>(t1 @ of) is a <a href='Types.html#4611686018981274898'><font color='#'>type</font></a> that contains all possible values of y, since they must belong
+ to y.of by construction. This <a href='Types.html#4611686018981274898'><font color='#'>type</font></a> is, therefore, used by the compiler as the <a href='Types.html#4611686018981274898'><font color='#'>type</font></a> of the
+ element variable v inside the loop generated by iterate.</p></body>
+	</html>

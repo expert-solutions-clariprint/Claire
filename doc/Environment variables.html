@@ -1,0 +1,138 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+	<head>
+		<link rel="stylesheet" type="text/css" href="doc.css" media="all">
+		<title>
+			claire : Environment variables
+		</title>
+		<style>
+body {
+        font-size: 14px;
+        font-family: arial, Helvetica;
+}
+
+h1 { font-size: 25px; }
+h2 { font-size: 20px; }
+
+a[href] {
+	border-bottom: 1px dotted grey;
+	text-decoration: none
+}
+
+.doc_paragraph
+{
+        font-size: 14px;
+        font-family: arial, helvetica;
+}
+
+.item_header { font-size: 10px; page-break-before: avoid; page-break-inside: avoid; page-break-after: avoid }
+
+.item_index {
+		white-space: pre;
+        font-size: 11px;
+        font-family: monaco, courier, mono-space;
+}
+
+.table_code {
+		margin: 10px auto;
+}
+
+.doc_code {
+    white-space: pre;
+		padding-top: .1em;
+		padding-bottom: .5em;
+		background-color: #EEE;
+		border: #AAA solid 1px;
+        font-size: 11px;
+        font-family: monaco, courier, mono-space;
+}
+
+.opt_usage {
+		margin-left: 1em;
+		margin-right: 1em;
+		padding: .2em;
+		background-color: #EEE;
+		border: #AAA solid 1px;
+        font-family: monaco, courier, mono-space;
+	
+}
+
+.class_proto {
+	vertical-align: top;
+	text-align: right;
+}
+
+.class_proto_super {
+	vertical-align: top;
+	text-align: right;
+}
+
+.class_proto_slot {
+	vertical-align: top;
+	text-align: left;
+}
+
+</style>
+	</head>
+	<body><table width='100%' class='item_header'>
+		<tr>
+			<td width='33%' align='left' valign='bottom'><i><a href='Miscellaneous.html#4611686018982469618'>Miscellaneous</a></i></td>
+			<td width='33%' align='center' valign='top'><i><a href='claire.index.html#__category_index__'>categories</a><br/><a href='claire.index.html#4611686018982472850'>Platform</a><br/><b>Environment variables</b>
+				</i></td>
+			<td width='33%' align='right' valign='bottom'><i><a href='Process handling.html#4611686018982472946'>Process handling</a></i></td>
+		</tr>
+	</table>
+	<h2><span class=pretitle>&nbsp;</span>&nbsp;<a name='4611686018982472882'>Environment variables</a>
+			 <font color='red'>[XL]</font></h2>
+	<ul></ul><ul><li><font font-face='Courier' class='item_index'><a href='Environment variables.html#4611686018982509426'>environ</a>(<font color='green'>i</font><font color='blue'>:</font>integer)<font color='blue'> -&gt; </font>string <font color='red'>[XL]</font></font></li><li><font font-face='Courier' class='item_index'><a href='Environment variables.html#4611686018982741890'>getenv</a>(<font color='green'>self</font><font color='blue'>:</font>string)<font color='blue'> -&gt; </font>string</font></li><li><font font-face='Courier' class='item_index'><a href='Environment variables.html#4611686018982512562'>isenv?</a>(<font color='green'>v</font><font color='blue'>:</font>string)<font color='blue'> -&gt; </font>boolean <font color='red'>[XL]</font></font></li><li><font font-face='Courier' class='item_index'><a href='Environment variables.html#4611686018982512338'>maxenv</a>()<font color='blue'> -&gt; </font>integer <font color='red'>[XL]</font></font></li><li><font font-face='Courier' class='item_index'><a href='Environment variables.html#4611686018982521650'>setenv</a>(<font color='green'>s</font><font color='blue'>:</font>string)<font color='blue'> -&gt; </font>void <font color='red'>[XL]</font></font></li></ul><p align='justify' class='doc_paragraph'> Additionally to the CLAIRE <a href='Environment variables.html#4611686018982741890'><font color='#'>getenv</font></a> <a href='Methods.html#4611686018981237682'><font color='#'>method</font></a>, XL CLAIRE provides
+ some tools that make possible to change an environment variable (<a href='Environment variables.html#4611686018982521650'><font color='#'>setenv</font></a>)
+ or <a href='Iterations.html#4611686018981747650'><font color='#'>iterate</font></a> over the whole environment of the process (<a href='Environment variables.html#4611686018982509426'><font color='#'>environ</font></a>/<a href='Environment variables.html#4611686018982512338'><font color='#'>maxenv</font></a>) as in&nbsp;:
+ </p><table class='table_code' align=center border=0 width='85%'>
+										<tr><td class='doc_code'> (for i in (1 .. <a href='Environment variables.html#4611686018982512338'><font color='#'>maxenv</font></a>())
+ 	let (v, val)&nbsp;:= <a href='Strings.html#4611686018982527666'><font color='#'>explode_wildcard</font></a>(<a href='Environment variables.html#4611686018982509426'><font color='#'>environ</font></a>(i), "*=*")
+ 	in (assert(<a href='Environment variables.html#4611686018982741890'><font color='#'>getenv</font></a>(v) = val),
+ 		printf("~A = ~S<n",>v, val)))
+</td></tr></table>
+							  <p align='justify' class='doc_paragraph'> Note that <a href='Environment variables.html#4611686018982521650'><font color='#'>setenv</font></a> and</p><a name='4611686018982509426'><hr size=0 style='page-break-after: avoid' /></a>
+	<a name='environ'><hr size=0 /></a>
+	<table width='100%' class='item_header'>
+		<tr>
+			<td width='20%' align='left'><i><a href='claire.index.html#__category_index__'>categories</a></i></td>
+			<td width='20%' align='center'><i><a href='Environment variables.html#4611686018982472882'>Environment variables</a></i></td><td width='20%' align='center'><i>normal dispatch</i></td>
+	<td width='20%' align='center'><i></i></td><td width='20%' align='right'><i><font color='red'>[XL]</font> Kernel method</i></td>
+	</tr></table><h3>environ(<font color='green'>i</font><font color='blue'>:</font>integer)<font color='blue'> -&gt; </font>string</h3><p align='justify' class='doc_paragraph'> environ(<b>i</b>) returns the <b>i</b><sup>th</sup>environment variable (1 based index) in the form "var=value".</p><a name='4611686018982741890'><hr size=0 style='page-break-after: avoid' /></a>
+	<a name='getenv'><hr size=0 /></a>
+	<table width='100%' class='item_header'>
+		<tr>
+			<td width='20%' align='left'><i><a href='claire.index.html#__category_index__'>categories</a></i></td>
+			<td width='20%' align='center'><i><a href='Environment variables.html#4611686018982472882'>Environment variables</a></i></td><td width='20%' align='center'><i>normal dispatch</i></td>
+	<td width='20%' align='center'><i></i></td><td width='20%' align='right'><i>Core method</i></td>
+	</tr></table><h3>getenv(<font color='green'>self</font><font color='blue'>:</font>string)<font color='blue'> -&gt; </font>string</h3><p align='justify' class='doc_paragraph'> getenv(s) returns the value of the environment variable s if it
+ exists and an empty <a href='Strings.html#4611686018980650978'><font color='#'>string</font></a> otherwise.</p><a name='4611686018982512562'><hr size=0 style='page-break-after: avoid' /></a>
+	<a name='isenv?'><hr size=0 /></a>
+	<table width='100%' class='item_header'>
+		<tr>
+			<td width='20%' align='left'><i><a href='claire.index.html#__category_index__'>categories</a></i></td>
+			<td width='20%' align='center'><i><a href='Environment variables.html#4611686018982472882'>Environment variables</a></i></td><td width='20%' align='center'><i>normal dispatch</i></td>
+	<td width='20%' align='center'><i></i></td><td width='20%' align='right'><i><font color='red'>[XL]</font> Kernel method</i></td>
+	</tr></table><h3>isenv?(<font color='green'>v</font><font color='blue'>:</font>string)<font color='blue'> -&gt; </font>boolean</h3><p align='justify' class='doc_paragraph'> isenv?(<b>v</b>) tests the existence of the environment variable <b>v</b>.</p><a name='4611686018982512338'><hr size=0 style='page-break-after: avoid' /></a>
+	<a name='maxenv'><hr size=0 /></a>
+	<table width='100%' class='item_header'>
+		<tr>
+			<td width='20%' align='left'><i><a href='claire.index.html#__category_index__'>categories</a></i></td>
+			<td width='20%' align='center'><i><a href='Environment variables.html#4611686018982472882'>Environment variables</a></i></td><td width='20%' align='center'><i>normal dispatch</i></td>
+	<td width='20%' align='center'><i></i></td><td width='20%' align='right'><i><font color='red'>[XL]</font> Kernel method</i></td>
+	</tr></table><h3>maxenv()<font color='blue'> -&gt; </font>integer</h3><p align='justify' class='doc_paragraph'> maxenv() returns the index of the <a href='Lists_comma Sets and Tuples.html#4611686018982746290'><font color='#'>last</font></a> environment variable.
+ For instance&nbsp;:
+ </p><table class='table_code' align=center border=0 width='85%'>
+										<tr><td class='doc_code'> for i in (1 .. maxenv()) printf("~A<n",><a href='Environment variables.html#4611686018982509426'><font color='#'>environ</font></a>(i))
+</td></tr></table>
+							  <p align='justify' class='doc_paragraph'> printf the process environment in the same way as the env <a href='Miscellaneous.html#4611686018982741746'><font color='#'>shell</font></a> command.</p><a name='4611686018982521650'><hr size=0 style='page-break-after: avoid' /></a>
+	<a name='setenv'><hr size=0 /></a>
+	<table width='100%' class='item_header'>
+		<tr>
+			<td width='20%' align='left'><i><a href='claire.index.html#__category_index__'>categories</a></i></td>
+			<td width='20%' align='center'><i><a href='Environment variables.html#4611686018982472882'>Environment variables</a></i></td><td width='20%' align='center'><i>normal dispatch</i></td>
+	<td width='20%' align='center'><i></i></td><td width='20%' align='right'><i><font color='red'>[XL]</font> Kernel method</i></td>
+	</tr></table><h3>setenv(<font color='green'>s</font><font color='blue'>:</font>string)<font color='blue'> -&gt; </font>void</h3><p align='justify' class='doc_paragraph'> setenv(<b>s</b>) adds or <a href='Updates.html#4611686018980881922'><font color='#'>updates</font></a> an environment variable defined by <b>s</b> = "var=value".</p></body>
+	</html>

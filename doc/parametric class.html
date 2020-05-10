@@ -1,0 +1,113 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+	<head>
+		<link rel="stylesheet" type="text/css" href="doc.css" media="all">
+		<title>
+			claire : parametric class
+		</title>
+		<style>
+body {
+        font-size: 14px;
+        font-family: arial, Helvetica;
+}
+
+h1 { font-size: 25px; }
+h2 { font-size: 20px; }
+
+a[href] {
+	border-bottom: 1px dotted grey;
+	text-decoration: none
+}
+
+.doc_paragraph
+{
+        font-size: 14px;
+        font-family: arial, helvetica;
+}
+
+.item_header { font-size: 10px; page-break-before: avoid; page-break-inside: avoid; page-break-after: avoid }
+
+.item_index {
+		white-space: pre;
+        font-size: 11px;
+        font-family: monaco, courier, mono-space;
+}
+
+.table_code {
+		margin: 10px auto;
+}
+
+.doc_code {
+    white-space: pre;
+		padding-top: .1em;
+		padding-bottom: .5em;
+		background-color: #EEE;
+		border: #AAA solid 1px;
+        font-size: 11px;
+        font-family: monaco, courier, mono-space;
+}
+
+.opt_usage {
+		margin-left: 1em;
+		margin-right: 1em;
+		padding: .2em;
+		background-color: #EEE;
+		border: #AAA solid 1px;
+        font-family: monaco, courier, mono-space;
+	
+}
+
+.class_proto {
+	vertical-align: top;
+	text-align: right;
+}
+
+.class_proto_super {
+	vertical-align: top;
+	text-align: right;
+}
+
+.class_proto_slot {
+	vertical-align: top;
+	text-align: left;
+}
+
+</style>
+	</head>
+	<body><table width='100%' class='item_header'>
+		<tr>
+			<td width='33%' align='left' valign='bottom'><i><a href='Free_dashable objects.html#4611686018980676162'>Free-able objects</a></i></td>
+			<td width='33%' align='center' valign='top'><i><a href='claire.index.html#__category_index__'>categories</a><br/><a href='claire.index.html#4611686018980663314'>Objects, Classes and Slots</a><br/><b>parametric class</b>
+				</i></td>
+			<td width='33%' align='right' valign='bottom'><i><a href='Calls and Slot Access.html#4611686018980843634'>Calls and Slot Access</a></i></td>
+		</tr>
+	</table>
+	<h2><span class=pretitle>&nbsp;</span>&nbsp;<a name='4611686018980835010'>parametric class</a>
+			</h2>
+	<ul></ul><ul></ul><p align='justify' class='doc_paragraph'> A <a href='Classes.html#4611686018980663538'><font color='#'>class</font></a> can be parameterized by a subset of its <a href='Calls and Slot Access.html#4611686018980843634'><font color='#'>slots</font></a>. This means that subsets of the <a href='Classes.html#4611686018980663538'><font color='#'>class</font></a>
+ that are defined by the value of their parameters can be used as <a href='Types.html#4611686018981274898'><font color='#'>types</font></a>. This feature is useful
+ to describe parallel structures that only differ by a few points: parametrization helps describing
+ the common kernel, provides a unified treatment and avoids redundancy.</p><p align='justify' class='doc_paragraph'> A parameterized <a href='Classes.html#4611686018980663538'><font color='#'>class</font></a> is defined by giving the <a href='Lists_comma Sets and Tuples.html#4611686018980882226'><font color='#'>list</font></a> of <a href='Calls and Slot Access.html#4611686018980843634'><font color='#'>slot</font></a> names into brackets. Parameters can
+ be inherited <a href='Calls and Slot Access.html#4611686018980843634'><font color='#'>slots</font></a>, and include necessarily inherited parameters.
+ </p><table class='table_code' align=center border=0 width='85%'>
+										<tr><td class='doc_code'> stack[of] &lt;: <a href='Objects and Entities.html#4611686018980663298'><font color='#'>object</font></a>(of:<a href='Types.html#4611686018981274898'><font color='#'>type</font></a>,
+ 					content:<a href='Lists_comma Sets and Tuples.html#4611686018980882226'><font color='#'>list</font></a>[any],
+ 					index:<a href='Integers and Floats.html#4611686018980621538'><font color='#'>integer</font></a> = 0)
+ complex[re,im] &lt;: <a href='Objects and Entities.html#4611686018980663298'><font color='#'>object</font></a>(re:<a href='Integers and Floats.html#4611686018980621538'><font color='#'>float</font></a> = 0.0, im:<a href='Integers and Floats.html#4611686018980621538'><font color='#'>float</font></a> = 0.0)
+</td></tr></table>
+							  <p align='justify' class='doc_paragraph'> CLAIRE includes a <a href='Types.html#4611686018981274898'><font color='#'>type</font></a> system that contains parametric <a href='Classes.html#4611686018980663538'><font color='#'>class</font></a> selections. For instance,
+ the <a href='Lists_comma Sets and Tuples.html#4611686018980882226'><font color='#'>set</font></a> of real <a href='Integers and Floats.html#4611686018980621538'><font color='#'>numbers</font></a> can be defined as a subset of complex with the additional constraint
+ that the imaginary part is 0.0. This is expressed in CLAIRE as follows&nbsp;:
+ </p><table class='table_code' align=center border=0 width='85%'>
+										<tr><td class='doc_code'> complex[re:<a href='Integers and Floats.html#4611686018980621538'><font color='#'>float</font></a>, im:{0.0}]
+</td></tr></table>
+							  <p align='justify' class='doc_paragraph'> In the previous example with stacks, parametric sub-types can be used to designate typed stacks.
+ We can either specify the precise range of the stack (i.e., the value of the of parameter) or say
+ that the range must be a sub-type of another <a href='Types.html#4611686018981274898'><font color='#'>type</font></a>. For instance, the <a href='Lists_comma Sets and Tuples.html#4611686018980882226'><font color='#'>set</font></a> of stacks with range
+ <a href='Integers and Floats.html#4611686018980621538'><font color='#'>integer</font></a> and the <a href='Lists_comma Sets and Tuples.html#4611686018980882226'><font color='#'>set</font></a> of stacks which contain <a href='Integers and Floats.html#4611686018980621538'><font color='#'>integers</font></a> are respectively&nbsp;:
+ </p><table class='table_code' align=center border=0 width='85%'>
+										<tr><td class='doc_code'> stack[of:{<a href='Integers and Floats.html#4611686018980621538'><font color='#'>integer</font></a>}]
+ stack[of:subtype[<a href='Integers and Floats.html#4611686018980621538'><font color='#'>integer</font></a>]]
+</td></tr></table>
+							  <p align='justify' class='doc_paragraph'></p></body>
+	</html>
