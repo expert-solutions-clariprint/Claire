@@ -59,5 +59,8 @@ Goto new intall package :
 Configure (option set home as root install wherase /usr/local/) : 
 `./configure --prefix=$HOME`
 
+build and install : 
+`make install`
+
 
 
