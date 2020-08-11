@@ -1,7 +1,7 @@
 
 *.log
 
-xlclaire-*
+*xlclaire-*
 *.cache
 *.o
 public*
@@ -33,3 +33,4 @@ configure
 .DS_Store
 config.status
 *.o
+*.tgz
