@@ -12,7 +12,7 @@ all: public/ccmain.cl
 # -------------------------------------------
 
 # directories
-Dl = Darwin-i386-g++13.0.0
+Dl = @SYSARCH@
 Dst = stable2
 Dh = include
 Ds = csrc

@@ -33,3 +33,9 @@ configure
 .DS_Store
 config.status
 *.o
+/Makefile
+stable2/Makefile
+stable2/csrc/Optimize.cpp
+stable2/csrc/Generate.cpp
+test.c
+testalign.c

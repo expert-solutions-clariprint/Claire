@@ -12,7 +12,7 @@ all: public/ccmain.cl
 # -------------------------------------------
 
 # directories
-Dl = Darwin-i386-g++13.0.0
+Dl = @SYSARCH@
 Dst = stable2
 Dh = include
 Ds = csrc
@@ -297,6 +297,7 @@ clean:
 	rm -rf xlclaire-*
 	rm -rf doc
 	rm -f $(Dr)/configure
+	rm -f Makefile
 	find . -name "*.o" -exec rm -f {} \;
 	@echo ------------
 	@echo - OK clean -
