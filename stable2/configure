@@ -4760,7 +4760,7 @@ main ()
 {
 
                         struct in_addr add;
-                        CL_INT sd = socket(AF_INET, SOCK_STREAM, 0);
+                        int sd = socket(AF_INET, SOCK_STREAM, 0);
                         inet_ntoa(add);
 
   ;

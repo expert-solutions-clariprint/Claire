@@ -29,7 +29,7 @@
 #define CLSYSCOMPILER "g++"
 
 /* c++ compiler version */
-#define CLSYSCOMPILERVERSION "4.2.1"
+#define CLSYSCOMPILERVERSION "13.0.0"
 
 /* Define to 1 if you have the <arpa/inet.h> header file. */
 #define HAVE_ARPA_INET_H 1
@@ -236,7 +236,7 @@
 #define PACKAGE_VERSION ""
 
 /* Define to 1 if you have the ANSI C header files. */
-#define STDC_HEADERS 1
+/* #undef STDC_HEADERS */
 
 /* Define to 1 if you can safely include both <sys/time.h> and <time.h>. */
 #define TIME_WITH_SYS_TIME 1
