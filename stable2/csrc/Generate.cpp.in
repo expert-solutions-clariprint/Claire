@@ -4171,7 +4171,7 @@ CL_EXPORT void  interface_I_c_producer(Generate_c_producer *v12187,ClaireClass *
     if (v46356 == Kernel._void)
      princ_string(((char*)"void "));
     else if (v46356 == Kernel._integer)
-     princ_string(((char*)"int "));
+     princ_string(((char*)"CL_INT "));
     else if ((v46356 == Kernel._function) || 
         ((v46356 == Kernel._char) || 
           (v46356 == Kernel._boolean)))
@@ -4254,7 +4254,7 @@ CL_EXPORT void  to_cl_c_producer(Generate_c_producer *v12187,OID v12208,ClaireCl
     else if (INHERIT(v12203,Kernel._cl_import))
      { princ_string(((char*)"ClAlloc->import("));
       expression_any(_oid_(v12203),_oid_(Kernel.emptySet));
-      princ_string(((char*)",(int *) "));
+      princ_string(((char*)",(OID *) "));
       (*Generate.expression)(v12208,
         v44140);
       princ_string(((char*)")"));
@@ -5936,7 +5936,7 @@ CL_EXPORT void  bitvector_I_c_producer(Generate_c_producer *v12187,OID v12208) {
       GC_UNBIND; POP_SIGNAL;}
   
 
-CL_EXPORT void  bitvectorSum_integer(int v12208) { 
+CL_EXPORT void  bitvectorSum_integer(CL_INT v12208) { 
     if (v12208 == 0)
      princ_string(((char*)"0"));
     else { ClaireBoolean * v12186 = CFALSE;
@@ -6442,7 +6442,7 @@ CL_EXPORT void  stat_while_c_producer(Generate_c_producer *v12187,While *v46356,
       char * v12206 = GC_STRING(check_var_string(((char*)"v_while"),v12203,v44140));
       ClaireBoolean * v45471 = Optimize.OPT->loop_gc;
       ClaireBoolean * v39230 = ((Optimize.OPT->loop_gc == CTRUE) ? ((gc_usage_any(GC_OID(v46356->arg),CTRUE) != Kernel.cfalse) ? CTRUE: CFALSE): CFALSE);
-      princ_string(((char*)"int loop_handle = ClEnv->cHandle;"));
+      princ_string(((char*)"CL_INT loop_handle = ClEnv->cHandle;"));
       breakline_void();
       _void_(Optimize.OPT->loop_gc = v39230);
       if (v39230 == CTRUE)
@@ -6541,7 +6541,7 @@ CL_EXPORT void  stat_for_c_producer(Generate_c_producer *v12187,For *v46356,OID 
       ClaireBoolean * v45471 = Optimize.OPT->loop_gc;
       ClaireBoolean * v39230 = ((Optimize.OPT->loop_gc == CTRUE) ? ((gc_usage_any(GC_OID(v46356->arg),CTRUE) != Kernel.cfalse) ? CTRUE: CFALSE): CFALSE);
       new_block_void();
-      princ_string(((char*)"int loop_handle = ClEnv->cHandle;"));
+      princ_string(((char*)"CL_INT loop_handle = ClEnv->cHandle;"));
       breakline_void();
       _void_(Optimize.OPT->loop_gc = v39230);
       if (v39230 == CTRUE)
@@ -6623,7 +6623,7 @@ CL_EXPORT void  stat_iteration_c_producer(Generate_c_producer *v12187,Iteration 
       ClaireBoolean * v45471 = Optimize.OPT->loop_gc;
       ClaireBoolean * v39230 = ((Optimize.OPT->loop_gc == CTRUE) ? ((gc_usage_any(GC_OID(v46356->arg),CTRUE) != Kernel.cfalse) ? CTRUE: CFALSE): CFALSE);
       new_block_void();
-      princ_string(((char*)"int loop_handle = ClEnv->cHandle;"));
+      princ_string(((char*)"CL_INT loop_handle = ClEnv->cHandle;"));
       breakline_void();
       _void_(Optimize.OPT->loop_gc = v39230);
       if (v39230 == CTRUE)
@@ -7461,7 +7461,7 @@ CL_EXPORT void  create_makefile_unix_any1(OID v12197,char *v61574,list *v12196) 
       princ_string(external_I_module1(OBJECT(module,v12197)));
       princ_string(((char*)".o "));
       if (equal_string(lower_string(sys_name_void()),((char*)"os/390")) == CTRUE)
-       glib_I_any1(v12197,v12196);
+       lib_I_any1(v12197,v12196);
       else ;{ char * v49778 = GC_STRING(end_of_string_void());
         princ_string(v49778);
         princ_string(((char*)"\n"));

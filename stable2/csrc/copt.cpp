@@ -1325,7 +1325,7 @@ void  stat_while_c_producer(Generate_c_producer *v52319,While *v45520,OID v52335
   new_block_void();
   { ClaireBoolean * v49181 = ((c_func_any(GC_OID(v45520->test)) == CTRUE) ? ((v45520->other != CTRUE) ? ((gc_usage_any(GC_OID(v45520->test),OBJECT(ClaireBoolean,v43304)) == Kernel.cfalse) ? CTRUE: CFALSE): CFALSE): CFALSE);
     char * v52338 = GC_STRING(check_var_string("v_while",v52335,v43304));
-    princ_string("int loop_handle = ClEnv->cHandle;");
+    princ_string("CL_INT loop_handle = ClEnv->cHandle;");
     breakline_void();
     if (Optimize.OPT->loop_gc == CTRUE)
      { princ_string("OID gc_local;");
@@ -1416,7 +1416,7 @@ void  stat_for_c_producer(Generate_c_producer *v52319,For *v45520,OID v52335,OID
 { GC_BIND;
   { char * v52338 = GC_STRING(c_string_c_producer1(v52319,GC_OBJECT(Variable,v45520->var)));
     new_block_void();
-    princ_string("int loop_handle = ClEnv->cHandle;");
+    princ_string("CL_INT loop_handle = ClEnv->cHandle;");
     breakline_void();
     if (Optimize.OPT->loop_gc == CTRUE)
      { princ_string("OID gc_local;");
@@ -1494,7 +1494,7 @@ void  stat_iteration_c_producer(Generate_c_producer *v52319,Iteration *v45520,OI
     char * v19815 = GC_STRING(check_var_string("v_val",v52335,v43304));
     char * v53635 = GC_STRING(check_var_string("v_list",v52335,v43304));
     new_block_void();
-    princ_string("int loop_handle = ClEnv->cHandle;");
+    princ_string("CL_INT loop_handle = ClEnv->cHandle;");
     breakline_void();
     princ_string("bag *");
     princ_string(v53635);

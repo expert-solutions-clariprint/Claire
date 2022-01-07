@@ -111,7 +111,7 @@ char *CL_Oid(OID x)
   return s;}
 
 OID CL_Oid_inv(char *s)
-{OID x; sscanf(s,"%u",&x); return x;}
+{OID x; sscanf(s,"%lu",&x); return x;}
 
 /*********************************************************************/
 /**    2. Class                                                      */

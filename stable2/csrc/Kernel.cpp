@@ -1475,13 +1475,13 @@ CL_EXPORT OID CmemoryAdr;                  // memory zone
 #define POINTOADR(x) ((CL_UNSIGNED)x >> ADDRTRANS)
 #define ADRTOPOIN(x) ((CL_UNSIGNED*)((CL_UNSIGNED)x << ADDRTRANS))
 #define SIZE(n) (*((CL_INT*)((CL_UNSIGNED)n << ADDRTRANS) - 1))             // returns the size of the object
-#define CL_MAX_INT 0xFFFFFFFFFFFFFFFFLL >> ADDRTRANS
+// #define CL_MAX_INT 0xFFFFFFFFFFFFFFFFLL >> ADDRTRANS
 #else
 #define ADDRTRANS 2
 #define POINTOADR(x) ((CL_UNSIGNED)x >> 2)
 #define ADRTOPOIN(x) ((CL_UNSIGNED*)((CL_UNSIGNED)x << 2))
 #define SIZE(n) (*((CL_INT*)((CL_UNSIGNED)n << 2) - 1))             // returns the size of the object
-#define CL_MAX_INT 0xFFFFFFFF >> 2
+// #define CL_MAX_INT 0xFFFFFFFF >> 2
 #endif
 
 
@@ -1864,7 +1864,7 @@ CL_INT ClaireAllocation::shortCongestion() {
 
 CL_INT ClaireAllocation::gcStackCongestion() {
   CL_INT good = 0;
-  if(mem_auto) {
+  if(true) {
     void *adr = realloc(gcStack, 2 * maxGC * sizeof(ClaireAny*));
     if(adr) {
       gcStack = (ClaireAny**)adr;
@@ -1944,7 +1944,6 @@ CL_INT ClaireAllocation::newChunk(CL_INT n)
        if ((i > logList) || (i < logList - 1 && j > logList))  // new anti-fragmentation device
            if (gcChunk(n, size, &value, &i))
 	   {
-		   printf("???????????????\n");
 			 return value;}
        value = entryList[i];
 	   CL_UNSIGNED _idx = (&(ADRTOPOIN(value)[FOLLOW])) - Cmemory;
@@ -2512,8 +2511,8 @@ themark:
           if (z != 0) {
             c = (ClaireClass*)sl->srange;
             // we need to go through mark to perform the MARKCELL routine ! (v3.1.04)
-            if (c == Kernel._object) MARK(_oid_(z))
-            else if (c == Kernel._any) MARK(z)
+            if (c == Kernel._object) GC_ANY((ClaireAny*)z);
+            else if (c == Kernel._any) GC_ANY(OBJECT(ClaireAny, z));
             else if (c == Kernel._string) {
               char* s = (char*)z;
               if CLMEM(s) { // a CLAIRE string
@@ -5993,7 +5992,7 @@ CL_EXPORT CL_INT CL_Address(OID x) {return ADR(x);}
 CL_EXPORT char *CL_Oid(OID x)
 {char *s = make_string_integer(15,ClRes->ascii[32]);
 #ifdef __LP64__
-  CL_INT n = sprintf(s,"%llu",x);
+  CL_INT n = sprintf(s,"%lu",x);
 #else
   CL_INT n = sprintf(s,"%u",x);
 #endif
@@ -7619,7 +7618,10 @@ int exp2_integer(int n)
 
 // translate a integer into a char - v3.2.44 : supports encoding both on (-255 -- 256) or (0 -- 511)
 CL_EXPORT ClaireChar *char_I_integer(CL_INT n)
-{if ((n < -1) || (n > 255)) Cerror(21,n,0);
+{if ((n < -1) || (n > 255)) {
+    Ctracef("Integer to large for char %d\n", n);
+    return ClRes->ascii[32]; // space
+  };
  return ClRes->ascii[(unsigned char)n];}
 
 // create a new string
@@ -8382,33 +8384,53 @@ CL_EXPORT void uptime_float(double t) {
   if (msec < 0) msec = -msec;    
   CL_INT days = (CL_INT)(msec / 86400000.0);
   if(days) {
+#ifdef __LP64__
+    sprintf(buf,"%s%ldd",(neg?"-":""),days);
+#else
     sprintf(buf,"%s%dd",(neg?"-":""),days);
+#endif
     princ_string(buf);
     printask = 1;
   }
   msec = msec - (double)(86400000 * days);
   CL_INT hours = (CL_INT)(msec / 3600000.0);
   if(hours || printask) {
+#ifdef __LP64__
+    sprintf(buf,"%s%s%ldh",printask?" ":"", (neg?"-":""),hours);
+#else
     sprintf(buf,"%s%s%dh",printask?" ":"", (neg?"-":""),hours);
+#endif
     princ_string(buf);
     printask = 1;
   }
   msec = msec - (double)(3600000 * hours);
   CL_INT mins = (CL_INT)(msec / 60000.0);
   if(mins || printask) {
+#ifdef __LP64__
+    sprintf(buf,"%s%s%ldm",printask?" ":"", (neg?"-":""),mins);
+#else
     sprintf(buf,"%s%s%dm",printask?" ":"", (neg?"-":""),mins);
+#endif
     princ_string(buf);
     printask = 1;
   }
   msec = msec - (double)(60000 * mins);
   CL_INT sec = (CL_INT)(msec / 1000.0);
   if(sec || printask) {
+#ifdef __LP64__
+    sprintf(buf,"%s%s%lds",printask?" ":"", (neg?"-":""),sec);
+#else
     sprintf(buf,"%s%s%ds",printask?" ":"", (neg?"-":""),sec);
+#endif
     princ_string(buf);
     printask = 1;
   }
   msec = msec - (double)(1000 * sec);
+#ifdef __LP64__
+  sprintf(buf,"%s%s%ldms",printask?" ":"",(neg?"-":""),(CL_INT)msec);
+#else
   sprintf(buf,"%s%s%dms",printask?" ":"",(neg?"-":""),(CL_INT)msec);
+#endif
   princ_string(buf);
   }
 
@@ -9999,13 +10021,21 @@ CL_EXPORT char* unescape_string(char* src) {
           src++;
           if(*src == 0) unescapeEOS(anch);
           CL_INT c;
+#ifdef __LP64__
+          if(sscanf(src,"%lx;",&c) != 1) unescapeNUM(anch);
+#else
           if(sscanf(src,"%x;",&c) != 1) unescapeNUM(anch);
+#endif
           while(*src != ';') src++;
           src++;
           *travel++ = char_I_integer(c)->ascii;  
         } else {
           CL_INT c;
+#ifdef __LP64__
+          if(sscanf(src,"%ld;",&c) != 1) unescapeNUM(anch);
+#else
           if(sscanf(src,"%d;",&c) != 1) unescapeNUM(anch);
+#endif
           while(*src != ';') src++;
           src++;
           *travel++ = char_I_integer(c)->ascii;

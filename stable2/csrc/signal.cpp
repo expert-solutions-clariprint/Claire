@@ -85,7 +85,7 @@ property * signal_signal_handler(signal_handler *sig,property *p)
 // to re-close the execption after having restore a correct sigprocmask
 // IN CLAIRE A SIGNAL HANDLER REMAINS INSTALLED AFTER ITS DELIVERY
 // The c++ function for: meta_sighandler(sigv:integer) [NEW_ALLOC+BAG_UPDATE+SLOT_UPDATE]
-ClaireBoolean * meta_sighandler_integer(int sigv)
+ClaireBoolean * meta_sighandler_integer(CL_INT sigv)
 { GC_BIND;
   { ClaireBoolean *Result ;
     { ClaireObject *V_CC ;

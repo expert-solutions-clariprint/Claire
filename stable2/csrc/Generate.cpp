@@ -7461,7 +7461,7 @@ CL_EXPORT void  create_makefile_unix_any1(OID v12197,char *v61574,list *v12196) 
       princ_string(external_I_module1(OBJECT(module,v12197)));
       princ_string(((char*)".o "));
       if (equal_string(lower_string(sys_name_void()),((char*)"os/390")) == CTRUE)
-       importlib_I_any1(v12197,v12196);
+       lib_I_any1(v12197,v12196);
       else ;{ char * v49778 = GC_STRING(end_of_string_void());
         princ_string(v49778);
         princ_string(((char*)"\n"));
