@@ -1,6 +1,6 @@
 
 *.log
-
+/doc
 xlclaire-*/
 *.cache
 *.o
@@ -39,3 +39,8 @@ stable2/csrc/Optimize.cpp
 stable2/csrc/Generate.cpp
 test.c
 testalign.c
+*Darwin*
+include/config.h
+include/config.h.in~
+stable2/claire
+unix_step2.cl
