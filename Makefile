@@ -54,7 +54,7 @@ configure: configure.in unix_step2.cl.in tmpclaire.mk.in
 	@echo ----------------------
 	@echo - claire_tmpclaire1 stable2  -
 	@echo ----------------------
-	time ./stable2/claire -color -s 5 0 -n -f upgrade  -f step1.cl -q
+	time ./stable2/claire -color -s 8 0 -n -f upgrade  -f step1.cl -q
 	touch .claire_tmpclaire1
 	@echo -------------------------
 	@echo - OK claire_tmpclaire1  -
@@ -82,7 +82,7 @@ tmpclaire1: .claire_tmpclaire1
 	@echo --------------
 	@echo - tmpclaire2 -
 	@echo --------------
-	time ./tmpclaire1 -color -s 5 0 -n -f unix_step2.cl -f step2.cl -q
+	time ./tmpclaire1 -color -s 8 0 -n -f unix_step2.cl -f step2.cl -q
 	touch .claire_tmpclaire2
 	@echo -----------------
 	@echo - OK tmpclaire2 -
@@ -153,7 +153,7 @@ public/ccmain.cl: doc/claire.html ./tmpclaire2 release/ccmain.cl release/configu
 
 
 doc/claire.html: tmpclaire2 meta/*.cl
-	./tmpclaire2 -s 5 0 -apidoc claire -q
+	./tmpclaire2 -s 8 0 -apidoc claire -q
 
 
 a:
@@ -183,10 +183,10 @@ install: d
 
 
 moduled:
-	claire -s 5 0 -v 2 -chdir ../modules -D -call -sudo -ov -publish
+	claire -s 8 0 -v 2 -chdir ../modules -D -call -sudo -ov -publish
 
 module:
-	claire -s 5 0 -v 2 -chdir ../modules -O -os 5 -call -sudo -ov -publish
+	claire -s 8 0 -v 2 -chdir ../modules -O -os 5 -call -sudo -ov -publish
 	
 
 ad:
@@ -262,6 +262,7 @@ clean:
 	rm -rf stable/sclaire.mk
 	rm -f stable/Makefile
 	rm -f stable/config.*
+	rm -f stable2/claire
 	rm -f include/config.h
 	rm -f include/config.h.in~
 	rm -f include/Core.h
@@ -282,6 +283,7 @@ clean:
 	rm -rf xlclaire-*
 	rm -rf doc
 	rm -f release/configure
+	find . -name "*.o" -exec rm -f {} \;
 	@echo ------------
 	@echo - OK clean -
 	@echo ------------

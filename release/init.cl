@@ -30,9 +30,9 @@ else
      else claire_prefix := "/usr/local")) //<sb> use --prefix=<claire_prefix> with configure
 
 (if (lower(sys_name()) % {"darwin"} & sys_compiler() = "g++")
-  (ld_options := " -DCL64 -rdynamic",
+  (ld_options := " -rdynamic",
   cxx_options := " -DCL64 -fPIC -DPIC",
-  so_options := " -DCL64 -dynamiclib -undefined dynamic_lookup"))
+  so_options := " -dynamiclib -undefined dynamic_lookup"))
 
 
 (if (lower(sys_name()) % {"linux"} & sys_compiler() = "g++")

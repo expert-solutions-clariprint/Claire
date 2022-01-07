@@ -49,18 +49,7 @@ Orginal Claire from Yves Caseau : https://github.com/ycaseau/CLAIRE3.4
 
 ## This is the developper GIT.
 
-Build a new Claire installation package :
+To build a new Claire installation package :
 
 `./make`
-
-Goto new intall package :
- `cd xlclaire-vx.x.x`
- 
-Configure (option set home as root install wherase /usr/local/) : 
-`./configure --prefix=$HOME`
-
-build and install : 
-`make install`
-
-
 
