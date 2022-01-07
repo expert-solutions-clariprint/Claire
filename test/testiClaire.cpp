@@ -122,7 +122,7 @@ void CL_system(char *s) {};
 
 // allocate a block of size n * size(OID) if possible
 void *CL_alloc(int n)
-{int *x;
+{CL_INT *x;
   x = (CL_INT *) malloc( (size_t) (n * sizeof(OID)));
   if (x == NULL)
   {printf("There is not enough memory for CLAIRE, try claire -s 0 0\n");
