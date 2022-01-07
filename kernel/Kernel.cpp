@@ -1864,7 +1864,7 @@ CL_INT ClaireAllocation::shortCongestion() {
 
 CL_INT ClaireAllocation::gcStackCongestion() {
   CL_INT good = 0;
-  if(mem_auto) {
+  if(true) {
     void *adr = realloc(gcStack, 2 * maxGC * sizeof(ClaireAny*));
     if(adr) {
       gcStack = (ClaireAny**)adr;
@@ -1955,33 +1955,22 @@ CL_INT ClaireAllocation::newChunk(CL_INT n)
 	    ); */
 	   
        entryList[i] = ISCHUNK(ADRTOPOIN(value)[FOLLOW]);  // update next free chunk
-	//	  printf("cuts\n");
        for (j = i; (j != size); j--)            // cuts into two until right size
            {CL_INT x = (1ul << (j-1));			// 2^(j- 1) :> taille du block
            next = (CL_UNSIGNED)value + x;		// next = base actuelle + taille du block
-//		   print("x = %ul \n", );
 		   
            CL_UNSIGNED *nx = ADRTOPOIN(next);
            *nx = x;
            nx[FOLLOW] = NOTHING;
-		   // printf("** x =%lu  next:%ld  adr:j:%d %ld  ---- %d => %lx %lx \n ",x,
-			//		next,j,((CL_INT)(nx) >> 2) - CmemoryAdr , ((CL_INT)(&nx[FOLLOW]) >> 2) - CmemoryAdr, nx[FOLLOW], &(nx[FOLLOW]));
            nx[CAR] = NOTHING;
            entryList[j - 1] = ISCHUNK(next);}
        *ADRTOPOIN(value) = (1ul << size);}
    else
      {
 		 value = entryList[size];
-//         entryList[size] = ISCHUNK(Cmemory[value + FOLLOW]);
-//			printf("Use free chunk %ld (%ld) add next  entry list : %lp  FOLLOW:%ld\n",
-//					(value - CmemoryAdr),ADRTOPOIN(value),ADRTOPOIN(value)[FOLLOW],FOLLOW);
-		 
            entryList[size] = ISCHUNK(ADRTOPOIN(value)[FOLLOW]);
 	   }
    			usedCells += *ADRTOPOIN(value);                 // book-keeping
-//			printf("****** %d\n", Cmemory[50]);
-   
-//   printf("newChunk() ==> %ld (%#lx)  %ul  \n",(value - CmemoryAdr),value,Cmemory[26]);
    return value;}
 
 // allocation of a short object: this is much simpler and uses a chain of small blocks
@@ -1997,14 +1986,12 @@ CL_INT ClaireAllocation::newShort(CL_INT n)
   CL_INT value;
   if (nextFree != NOTHING)                     // chain is not empty
      {
-//		 printf(" nextFree :%ld \n",nextFree);
-		value = nextFree;
-      
+      value = nextFree;
       nextFree = Cmemory[nextFree+1];
       #ifdef CLDEBUG
       checkNextFree(); // little trick to check that values are OK
       #endif
-	  Cmemory[value] = n;
+	   Cmemory[value] = n;
       }
   else {if (firstFree > alertFree) // chain is empty
          {object_hits++;
@@ -2014,7 +2001,6 @@ CL_INT ClaireAllocation::newShort(CL_INT n)
         } else {value = firstFree;
               Cmemory[value] = n;
               firstFree += OPTIMIZE;}}
-//  printf("newShort @ %ld [ %ld] => (%#ld)\n",(long)Cmemory,value,(long)(CmemoryAdr + value));
   return CmemoryAdr + value;}
 
 
@@ -2027,7 +2013,6 @@ CL_INT ClaireAllocation::newLong(CL_INT n)
   if (n % 2 == 0) n++;
 
   CL_INT newFirstFree = firstFree + (n + 1);
-//  printf("newLong(%ld) firstFree=%ld newFirstFree=%ld\n",n,firstFree, newFirstFree);
   if (newFirstFree > maxMem) { //<sb> check memory space before modifying memory
     if(increaseShort()) return newLong(n);
     Kernel.GcError->index = 3;
@@ -2250,8 +2235,8 @@ void ClaireAllocation::gc(char *cause) {
   if (statusGC == 2) Cerror(27,0,0);                                     // v3.1.12  -> no GC allowed !
   delayedThings = 1; //<sb> use a flag instead of PUSH for things -> reduce recursivity / preserve stack
   if(inside_gc == 1) markFreeableContainer(); //<sb> have to be the first marked entity!
-  markStack();
   markHash();
+  markStack();
   if(inside_gc == 1) updateFreeme();
   //<sb> mark the current new object(new object or bag type)
   // note : always the last marked cell since it can be a
@@ -2406,9 +2391,12 @@ void ClaireAllocation::markStack() {
  for (i=0; i < ClEnv->index; i++)
    {CL_UNSIGNED oid = ClEnv->stack[i];
   if CLMEM((oid << ADDRTRANS)) MARK(oid)}
- for (i=1; i < index; i++)
+// for (i=1; i < index; i++)
+ i= 0;
+ while (i < index)
     {ClaireAny *x = gcStack[i];
-    if CLMEM(x) MARK(_oid_(x))} //<sb> use CLMEM to check that the address is OK
+    if CLMEM(x) MARK(_oid_(x));
+    i++; } //<sb> use CLMEM to check that the address is OK
  for (i=1; i <= ClRes->oIndex; i++)
     { ClaireObject *x = ClRes->hvoStack[i];
       if (x) MARK(_oid_(x)) }      // v3.3.28: MARKCELL + markObject !
@@ -2424,6 +2412,7 @@ void ClaireAllocation::markStack() {
 //<sb> made mark the unique marking function, avoid func call overhead
 // + if possible, perform tail recursion with a goto
 void ClaireAllocation::mark(OID n) {
+// printf("mark(%lx)\n",n);
   goto themark;
 markany:
   if (CTAG(n) != OBJ_CODE || SIZE(n) <= 0) return;
@@ -2517,8 +2506,8 @@ themark:
           if (z != 0) {
             c = (ClaireClass*)sl->srange;
             // we need to go through mark to perform the MARKCELL routine ! (v3.1.04)
-            if (c == Kernel._object) MARK(_oid_(z))
-            else if (c == Kernel._any) MARK(z)
+            if (c == Kernel._object) GC_ANY((ClaireAny*)z);
+            else if (c == Kernel._any) GC_ANY(OBJECT(ClaireAny, z));
             else if (c == Kernel._string) {
               char* s = (char*)z;
               if CLMEM(s) { // a CLAIRE string
@@ -2853,8 +2842,8 @@ void ClaireAllocation::sample_once() {
       symbol_used = 0;
           delayedThings = 1;
            CL_INT t1 = clock();
-           markStack();
       markHash();
+           markStack();
       samplerSweepChunk();
       samplerSweepObject();
            fprintf(samples,"%f\t%f\t%f\t%f\t%f\t%f\t%f\t%f\t%f\t%f\n",
@@ -6006,7 +5995,7 @@ CL_EXPORT CL_INT CL_Address(OID x) {return ADR(x);}
 CL_EXPORT char *CL_Oid(OID x)
 {char *s = make_string_integer(15,ClRes->ascii[32]);
 #ifdef __LP64__
-  CL_INT n = sprintf(s,"%llu",x);
+  CL_INT n = sprintf(s,"%lu",x);
 #else
   CL_INT n = sprintf(s,"%u",x);
 #endif
@@ -7633,7 +7622,10 @@ int exp2_integer(int n)
 
 // translate a integer into a char - v3.2.44 : supports encoding both on (-255 -- 256) or (0 -- 511)
 CL_EXPORT ClaireChar *char_I_integer(CL_INT n)
-{if ((n < -1) || (n > 255)) Cerror(21,n,0);
+{if ((n < -1) || (n > 255)) {
+    Ctracef("Integer to large for char %d\n", n);
+    return ClRes->ascii[32]; // space
+  };
  return ClRes->ascii[(unsigned char)n];}
 
 // create a new string
@@ -8396,33 +8388,53 @@ CL_EXPORT void uptime_float(double t) {
   if (msec < 0) msec = -msec;    
   CL_INT days = (CL_INT)(msec / 86400000.0);
   if(days) {
+#ifdef __LP64__
+    sprintf(buf,"%s%ldd",(neg?"-":""),days);
+#else
     sprintf(buf,"%s%dd",(neg?"-":""),days);
+#endif
     princ_string(buf);
     printask = 1;
   }
   msec = msec - (double)(86400000 * days);
   CL_INT hours = (CL_INT)(msec / 3600000.0);
   if(hours || printask) {
+#ifdef __LP64__
+    sprintf(buf,"%s%s%ldh",printask?" ":"", (neg?"-":""),hours);
+#else
     sprintf(buf,"%s%s%dh",printask?" ":"", (neg?"-":""),hours);
+#endif
     princ_string(buf);
     printask = 1;
   }
   msec = msec - (double)(3600000 * hours);
   CL_INT mins = (CL_INT)(msec / 60000.0);
   if(mins || printask) {
+#ifdef __LP64__
+    sprintf(buf,"%s%s%ldm",printask?" ":"", (neg?"-":""),mins);
+#else
     sprintf(buf,"%s%s%dm",printask?" ":"", (neg?"-":""),mins);
+#endif
     princ_string(buf);
     printask = 1;
   }
   msec = msec - (double)(60000 * mins);
   CL_INT sec = (CL_INT)(msec / 1000.0);
   if(sec || printask) {
+#ifdef __LP64__
+    sprintf(buf,"%s%s%lds",printask?" ":"", (neg?"-":""),sec);
+#else
     sprintf(buf,"%s%s%ds",printask?" ":"", (neg?"-":""),sec);
+#endif
     princ_string(buf);
     printask = 1;
   }
   msec = msec - (double)(1000 * sec);
+#ifdef __LP64__
+  sprintf(buf,"%s%s%ldms",printask?" ":"",(neg?"-":""),(CL_INT)msec);
+#else
   sprintf(buf,"%s%s%dms",printask?" ":"",(neg?"-":""),(CL_INT)msec);
+#endif
   princ_string(buf);
   }
 
@@ -10013,13 +10025,21 @@ CL_EXPORT char* unescape_string(char* src) {
           src++;
           if(*src == 0) unescapeEOS(anch);
           CL_INT c;
+#ifdef __LP64__
+          if(sscanf(src,"%lx;",&c) != 1) unescapeNUM(anch);
+#else
           if(sscanf(src,"%x;",&c) != 1) unescapeNUM(anch);
+#endif
           while(*src != ';') src++;
           src++;
           *travel++ = char_I_integer(c)->ascii;  
         } else {
           CL_INT c;
+#ifdef __LP64__
+          if(sscanf(src,"%ld;",&c) != 1) unescapeNUM(anch);
+#else
           if(sscanf(src,"%d;",&c) != 1) unescapeNUM(anch);
+#endif
           while(*src != ';') src++;
           src++;
           *travel++ = char_I_integer(c)->ascii;

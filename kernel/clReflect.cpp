@@ -106,7 +106,7 @@ CL_INT CL_Address(OID x) {return ADR(x);}
 
 char *CL_Oid(OID x)
 {char *s = make_string_integer(15,ClRes->ascii[32]);
-  CL_INT n = sprintf(s,"%u",x);
+  CL_INT n = sprintf(s,"%lu",x);
   *((CL_INT*)s - 1) = n;
   return s;}
 
