@@ -6009,7 +6009,7 @@ CL_EXPORT CL_INT CL_Address(OID x) {return ADR(x);}
 CL_EXPORT char *CL_Oid(OID x)
 {char *s = make_string_integer(15,ClRes->ascii[32]);
 #ifdef __LP64__
-  CL_INT n = sprintf(s,"%llu",x);
+  CL_INT n = sprintf(s,"%lu",x);
 #else
   CL_INT n = sprintf(s,"%u",x);
 #endif
@@ -8399,33 +8399,53 @@ CL_EXPORT void uptime_float(double t) {
   if (msec < 0) msec = -msec;    
   CL_INT days = (CL_INT)(msec / 86400000.0);
   if(days) {
+#ifdef __LP64__
+    sprintf(buf,"%s%ldd",(neg?"-":""),days);
+#else
     sprintf(buf,"%s%dd",(neg?"-":""),days);
+#endif
     princ_string(buf);
     printask = 1;
   }
   msec = msec - (double)(86400000 * days);
   CL_INT hours = (CL_INT)(msec / 3600000.0);
   if(hours || printask) {
+#ifdef __LP64__
+    sprintf(buf,"%s%s%ldh",printask?" ":"", (neg?"-":""),hours);
+#else
     sprintf(buf,"%s%s%dh",printask?" ":"", (neg?"-":""),hours);
+#endif
     princ_string(buf);
     printask = 1;
   }
   msec = msec - (double)(3600000 * hours);
   CL_INT mins = (CL_INT)(msec / 60000.0);
   if(mins || printask) {
+#ifdef __LP64__
+    sprintf(buf,"%s%s%ldm",printask?" ":"", (neg?"-":""),mins);
+#else
     sprintf(buf,"%s%s%dm",printask?" ":"", (neg?"-":""),mins);
+#endif
     princ_string(buf);
     printask = 1;
   }
   msec = msec - (double)(60000 * mins);
   CL_INT sec = (CL_INT)(msec / 1000.0);
   if(sec || printask) {
+#ifdef __LP64__
+    sprintf(buf,"%s%s%lds",printask?" ":"", (neg?"-":""),sec);
+#else
     sprintf(buf,"%s%s%ds",printask?" ":"", (neg?"-":""),sec);
+#endif
     princ_string(buf);
     printask = 1;
   }
   msec = msec - (double)(1000 * sec);
+#ifdef __LP64__
+  sprintf(buf,"%s%s%ldms",printask?" ":"",(neg?"-":""),(CL_INT)msec);
+#else
   sprintf(buf,"%s%s%dms",printask?" ":"",(neg?"-":""),(CL_INT)msec);
+#endif
   princ_string(buf);
   }
 
@@ -10016,13 +10036,21 @@ CL_EXPORT char* unescape_string(char* src) {
           src++;
           if(*src == 0) unescapeEOS(anch);
           CL_INT c;
+#ifdef __LP64__
+          if(sscanf(src,"%lx;",&c) != 1) unescapeNUM(anch);
+#else
           if(sscanf(src,"%x;",&c) != 1) unescapeNUM(anch);
+#endif
           while(*src != ';') src++;
           src++;
           *travel++ = char_I_integer(c)->ascii;  
         } else {
           CL_INT c;
+#ifdef __LP64__
+          if(sscanf(src,"%ld;",&c) != 1) unescapeNUM(anch);
+#else
           if(sscanf(src,"%d;",&c) != 1) unescapeNUM(anch);
+#endif
           while(*src != ';') src++;
           src++;
           *travel++ = char_I_integer(c)->ascii;

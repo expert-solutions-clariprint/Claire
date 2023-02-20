@@ -308,7 +308,7 @@ private/TMP:port := port!()
 
 [private/bunint(p:port) : integer ->
 	let i := 0
-	in (externC("int v = 0; for(;v < sizeof(CL_INT);v++) {"),
+	in (externC("CL_INT v = 0; for(;v < sizeof(CL_INT);v++) {"),
 		externC("unsigned char c = p->get()"),
 		externC("i |= (CL_INT)((CL_INT)c << (v << 3));}"), i)]
 
