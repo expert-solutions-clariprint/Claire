@@ -42,6 +42,7 @@ void loadModules()
       _string_(((char*)"complete")),
       _string_(((char*)"toplevel")),
       _string_(((char*)"wcl")),
+//      _string_(((char*)"scanf")),      
       _string_(((char*)"codedoc"))));
     Compile.initModule("Compile",iClaire.it,list::alloc(Kernel._module,1,_oid_(mClaire.it)),
     "",list::empty(Kernel._string));

@@ -448,8 +448,10 @@ AC_SUBST(CL_X86_64_CXX)
 AC_SUBST(CL_X86_64_LD)
 AC_SUBST(CXXOPTIMFLAGS)
 
-AC_OUTPUT(Makefile Makefile.mvs csrc/Optimize.cpp csrc/Generate.cpp)
+AC_OUTPUT(Makefile.unix Makefile.mvs csrc/Optimize.cpp csrc/Generate.cpp)
 
 if test `uname` = "OS/390"; then
   mv Makefile.mvs Makefile
+else 
+  mv Makefile.unix Makefile
 fi

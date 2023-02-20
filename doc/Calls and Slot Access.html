@@ -1,0 +1,259 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+	<head>
+		<link rel="stylesheet" type="text/css" href="doc.css" media="all">
+		<title>
+			claire : Calls and Slot Access
+		</title>
+		<style>
+body {
+        font-size: 14px;
+        font-family: arial, Helvetica;
+}
+
+h1 { font-size: 25px; }
+h2 { font-size: 20px; }
+
+a[href] {
+	border-bottom: 1px dotted grey;
+	text-decoration: none
+}
+
+.doc_paragraph
+{
+        font-size: 14px;
+        font-family: arial, helvetica;
+}
+
+.item_header { font-size: 10px; page-break-before: avoid; page-break-inside: avoid; page-break-after: avoid }
+
+.item_index {
+		white-space: pre;
+        font-size: 11px;
+        font-family: monaco, courier, mono-space;
+}
+
+.table_code {
+		margin: 10px auto;
+}
+
+.doc_code {
+    white-space: pre;
+		padding-top: .1em;
+		padding-bottom: .5em;
+		background-color: #EEE;
+		border: #AAA solid 1px;
+        font-size: 11px;
+        font-family: monaco, courier, mono-space;
+}
+
+.opt_usage {
+		margin-left: 1em;
+		margin-right: 1em;
+		padding: .2em;
+		background-color: #EEE;
+		border: #AAA solid 1px;
+        font-family: monaco, courier, mono-space;
+	
+}
+
+.class_proto {
+	vertical-align: top;
+	text-align: right;
+}
+
+.class_proto_super {
+	vertical-align: top;
+	text-align: right;
+}
+
+.class_proto_slot {
+	vertical-align: top;
+	text-align: left;
+}
+
+</style>
+	</head>
+	<body><table width='100%' class='item_header'>
+		<tr>
+			<td width='33%' align='left' valign='bottom'><i><a href='parametric class.html#4611703569011657074'>parametric class</a></i></td>
+			<td width='33%' align='center' valign='top'><i><a href='claire.index.html#__category_index__'>categories</a><br/><a href='claire.index.html#4611703569011622074'>Objects, Classes and Slots</a><br/><b>Calls and Slot Access</b>
+				</i></td>
+			<td width='33%' align='right' valign='bottom'><i><a href='Updates.html#4611703569011821746'>Updates</a></i></td>
+		</tr>
+	</table>
+	<h2><span class=pretitle>&nbsp;</span>&nbsp;<a name='4611703569011817362'>Calls and Slot Access</a>
+			</h2>
+	<ul></ul><ul><li><font font-face='Courier' class='item_index'><a href='Calls and Slot Access.html#4611703569013636034'>apply</a>(<font color='green'>p</font><font color='blue'>:</font>property, <font color='green'>l</font><font color='blue'>:</font>list)<font color='blue'> -&gt; </font>any</font></li><li><font font-face='Courier' class='item_index'><a href='Calls and Slot Access.html#4611703569013636386'>apply</a>(<font color='green'>m</font><font color='blue'>:</font>method, <font color='green'>l</font><font color='blue'>:</font>list)<font color='blue'> -&gt; </font>any</font></li><li><font font-face='Courier' class='item_index'><a href='Calls and Slot Access.html#4611703569014207010'>apply</a>(<font color='green'>self</font><font color='blue'>:</font>lambda, <font color='green'>%l</font><font color='blue'>:</font>list)<font color='blue'> -&gt; </font>any</font></li><li><font font-face='Courier' class='item_index'><a href='Calls and Slot Access.html#4611703569013635522'>apply</a>(<font color='green'>self</font><font color='blue'>:</font>function, <font color='green'>ls</font><font color='blue'>:</font>list, <font color='green'>l</font><font color='blue'>:</font>list)<font color='blue'> -&gt; </font>any</font></li><li><font font-face='Courier' class='item_index'><a href='Calls and Slot Access.html#4611703569013635570'>call</a>(<font color='green'>p</font><font color='blue'>:</font>property, <font color='green'>l</font><font color='blue'>:</font>listargs)<font color='blue'> -&gt; </font>any</font></li><li><font font-face='Courier' class='item_index'><a href='Calls and Slot Access.html#4611703569013488530'>funcall</a>(<font color='green'>m</font><font color='blue'>:</font>method, <font color='green'>x</font><font color='blue'>:</font>any)<font color='blue'> -&gt; </font>void</font></li><li><font font-face='Courier' class='item_index'><a href='Calls and Slot Access.html#4611703569013488706'>funcall</a>(<font color='green'>l</font><font color='blue'>:</font>lambda, <font color='green'>x</font><font color='blue'>:</font>any)<font color='blue'> -&gt; </font>void</font></li><li><font font-face='Courier' class='item_index'><a href='Calls and Slot Access.html#4611703569013488578'>funcall</a>(<font color='green'>m</font><font color='blue'>:</font>method, <font color='green'>x</font><font color='blue'>:</font>any, <font color='green'>y</font><font color='blue'>:</font>any)<font color='blue'> -&gt; </font>void</font></li><li><font font-face='Courier' class='item_index'><a href='Calls and Slot Access.html#4611703569013488754'>funcall</a>(<font color='green'>l</font><font color='blue'>:</font>lambda, <font color='green'>x</font><font color='blue'>:</font>any, <font color='green'>y</font><font color='blue'>:</font>any)<font color='blue'> -&gt; </font>void</font></li><li><font font-face='Courier' class='item_index'><a href='Calls and Slot Access.html#4611703569013487986'>funcall</a>(<font color='green'>f</font><font color='blue'>:</font>function, <font color='green'>s1</font><font color='blue'>:</font>class, <font color='green'>x</font><font color='blue'>:</font>any, <font color='green'>s</font><font color='blue'>:</font>class)<font color='blue'> -&gt; </font>void</font></li><li><font font-face='Courier' class='item_index'><a href='Calls and Slot Access.html#4611703569013488642'>funcall</a>(<font color='green'>m</font><font color='blue'>:</font>method, <font color='green'>x</font><font color='blue'>:</font>any, <font color='green'>y</font><font color='blue'>:</font>any, <font color='green'>z</font><font color='blue'>:</font>any)<font color='blue'> -&gt; </font>void</font></li><li><font font-face='Courier' class='item_index'><a href='Calls and Slot Access.html#4611703569013488818'>funcall</a>(<font color='green'>l</font><font color='blue'>:</font>lambda, <font color='green'>x</font><font color='blue'>:</font>any, <font color='green'>y</font><font color='blue'>:</font>any, <font color='green'>z</font><font color='blue'>:</font>any)<font color='blue'> -&gt; </font>void</font></li><li><font font-face='Courier' class='item_index'><a href='Calls and Slot Access.html#4611703569013488370'>funcall</a>(<font color='green'>f</font><font color='blue'>:</font>function, <font color='green'>s1</font><font color='blue'>:</font>class, <font color='green'>x</font><font color='blue'>:</font>any, <font color='green'>s2</font><font color='blue'>:</font>class, <font color='green'>y</font><font color='blue'>:</font>any, <font color='green'>s</font><font color='blue'>:</font>class)<font color='blue'> -&gt; </font>void</font></li><li><font font-face='Courier' class='item_index'><a href='Calls and Slot Access.html#4611703569013488434'>funcall</a>(<font color='green'>f</font><font color='blue'>:</font>function, <font color='green'>s1</font><font color='blue'>:</font>class, <font color='green'>x</font><font color='blue'>:</font>any, <font color='green'>s2</font><font color='blue'>:</font>class, <font color='green'>y</font><font color='blue'>:</font>any, <font color='green'>s3</font><font color='blue'>:</font>class, <font color='green'>z</font><font color='blue'>:</font>class, <font color='green'>s</font><font color='blue'>:</font>class)<font color='blue'> -&gt; </font>void</font></li></ul><p align='justify' class='doc_paragraph'> Calls are the basic building <a href='Blocks.html#4611703569011856034'><font color='#'>blocks</font></a> of a CLAIRE program. A call is a polymorphic function
+ call (a message) with the usual syntax&nbsp;: a <a href='Selectors_comma Properties and Operations.html#4611703569012697490'><font color='#'>selector</font></a> followed by a <a href='Lists_comma Sets and Tuples.html#4611703569011833826'><font color='#'>list</font></a> of arguments between
+ parentheses. A call is used to invoke a <a href='Methods.html#4611703569012232658'><font color='#'>method</font></a>.</p><p align='justify' class='doc_paragraph'> When the <a href='Selectors_comma Properties and Operations.html#4611703569012697490'><font color='#'>selector</font></a> is an <a href='Selectors_comma Properties and Operations.html#4611703569012697490'><font color='#'>operation</font></a>, such as +, -, <a href='Types.html#4611703569013515330'><font color='#'>%</font></a>, etc... (<a href='Types.html#4611703569013515330'><font color='#'>%</font></a> denotes <a href='Lists_comma Sets and Tuples.html#4611703569011833826'><font color='#'>set</font></a> membership) an infix
+ syntax is allowed (with explicit precedence <a href='Rules.html#4611703569012856434'><font color='#'>rules</font></a>)&nbsp;:
+ </p><table class='table_code' align=center border=0 width='85%'>
+										<tr><td class='doc_code'> eval(x), f(x,y,z), x.price, y.name
+</td></tr></table>
+							  <p align='justify' class='doc_paragraph'> If a slot is <a href='Classes.html#4611703569013572418'><font color='#'>read</font></a> before being defined (its value being unknown), an <a href='Exception Handling.html#4611703569012183794'><font color='#'>error</font></a> is raised. This only
+ occurs if the default value is unknown. To <a href='Classes.html#4611703569013572418'><font color='#'>read</font></a> a slot that may <a href='Objects and Entities.html#4611703569013709858'><font color='#'>not</font></a> be defined, one must use the
+ <a href='Classes.html#4611703569013572306'><font color='#'>get</font></a>(r:<a href='Selectors_comma Properties and Operations.html#4611703569012697490'><font color='#'>property</font></a>,x:<a href='Objects and Entities.html#4611703569011622050'><font color='#'>object</font></a>) <a href='Methods.html#4611703569012232658'><font color='#'>method</font></a>&nbsp;:
+ </p><table class='table_code' align=center border=0 width='85%'>
+										<tr><td class='doc_code'> John.father // may provoke an <a href='Exception Handling.html#4611703569012183794'><font color='#'>error</font></a> if John.father is unknown
+ <a href='Classes.html#4611703569013572306'><font color='#'>get</font></a>(father,john) // may return unknown
+</td></tr></table>
+							  <p align='justify' class='doc_paragraph'> When the <a href='Selectors_comma Properties and Operations.html#4611703569012697490'><font color='#'>selector</font></a> is an <a href='Selectors_comma Properties and Operations.html#4611703569012697490'><font color='#'>operation</font></a>, such as +,-,<a href='Types.html#4611703569013515330'><font color='#'>%</font></a>,etc... (<a href='Types.html#4611703569013515330'><font color='#'>%</font></a> denotes <a href='Lists_comma Sets and Tuples.html#4611703569011833826'><font color='#'>set</font></a> membership) an infix
+ syntax is allowed (with explicit precedence <a href='Rules.html#4611703569012856434'><font color='#'>rules</font></a>). Hence the following expressions are valid&nbsp;:
+ </p><table class='table_code' align=center border=0 width='85%'>
+										<tr><td class='doc_code'> 1 + 2
+ 1 + 2 * 3
+</td></tr></table>
+							  <p align='justify' class='doc_paragraph'> Note that <a href='Classes.html#4611703569013711154'><font color='#'>new</font></a> <a href='Selectors_comma Properties and Operations.html#4611703569012697490'><font color='#'>operations</font></a> may be defined. This syntax extends to boolean <a href='Selectors_comma Properties and Operations.html#4611703569012697490'><font color='#'>operations</font></a>
+ (and:&amp; and or:|). However, the evaluation follows the usual semantic for boolean expression
+ (e.g., (x &amp; y) does <a href='Objects and Entities.html#4611703569013709858'><font color='#'>not</font></a> evaluate y if x evaluates to false)&nbsp;:
+ </p><table class='table_code' align=center border=0 width='85%'>
+										<tr><td class='doc_code'> (x = 1) &amp; ((y = 2) | (y &gt; 2)) &amp; (z = 3)
+</td></tr></table>
+							  <p align='justify' class='doc_paragraph'> The values that are combined with and/or do <a href='Objects and Entities.html#4611703569013709858'><font color='#'>not</font></a> need to be boolean values (although boolean
+ expressions always return the boolean values true or false). Following a philosophy borrowed from
+ LISP, all values are assimilated to true, except for false, empty <a href='Lists_comma Sets and Tuples.html#4611703569011833826'><font color='#'>lists</font></a> and empty <a href='Lists_comma Sets and Tuples.html#4611703569011833826'><font color='#'>sets</font></a>. The special
+ treatment for the empty <a href='Lists_comma Sets and Tuples.html#4611703569011833826'><font color='#'>lists</font></a> and the empty <a href='Lists_comma Sets and Tuples.html#4611703569011833826'><font color='#'>sets</font></a> yields a simpler
+ programming style when dealing with <a href='Lists_comma Sets and Tuples.html#4611703569011833826'><font color='#'>lists</font></a> or <a href='Lists_comma Sets and Tuples.html#4611703569011833826'><font color='#'>sets</font></a>. Notice that in CLAIRE 3.0, contrary to previous
+ releases, there are many empty <a href='Lists_comma Sets and Tuples.html#4611703569011833826'><font color='#'>lists</font></a> since empty <a href='Lists_comma Sets and Tuples.html#4611703569011833826'><font color='#'>lists</font></a> can be typed (list&lt;integer&gt;(),
+ list&lt;string&gt;(), ... are all different).</p><p align='justify' class='doc_paragraph'> A dynamic functional call where the <a href='Selectors_comma Properties and Operations.html#4611703569012697490'><font color='#'>selector</font></a> is evaluated can be obtained using the call <a href='Methods.html#4611703569012232658'><font color='#'>method</font></a>.
+ For instance, call(+,1,2) is equivalent to +(1,2) and call(show,x) is equivalent to show(x). The
+ <a href='Lists_comma Sets and Tuples.html#4611703569013716946'><font color='#'>difference</font></a> is that the first parameter to call can be any expression. This is the key for writing
+ <a href='parametric class.html#4611703569011657074'><font color='#'>parametric</font></a> <a href='Methods.html#4611703569012232658'><font color='#'>methods</font></a> using the inline capabilities of CLAIRE. This also means that
+ using call is <a href='Objects and Entities.html#4611703569013709858'><font color='#'>not</font></a> a <a href='driving optimizations.html#4611703569013476850'><font color='#'>safe</font></a> way to force dynamic binding, this should be done using the <a href='Selectors_comma Properties and Operations.html#4611703569012697490'><font color='#'>property</font></a>
+ <a href='Classes.html#4611703569013710962'><font color='#'>abstract</font></a>. An <a href='Classes.html#4611703569013710962'><font color='#'>abstract</font></a> <a href='Selectors_comma Properties and Operations.html#4611703569012697490'><font color='#'>property</font></a> is a <a href='Selectors_comma Properties and Operations.html#4611703569012697490'><font color='#'>property</font></a> that can be re-defined at any <a href='Dates and Times.html#4611703569011619458'><font color='#'>time</font></a> and, therefore,
+ relies on dynamic binding. Notice that call takes a variable <a href='Integers and Floats.html#4611703569011617938'><font color='#'>number</font></a> of arguments. A similar <a href='Methods.html#4611703569012232658'><font color='#'>method</font></a>
+ named <a href='Calls and Slot Access.html#4611703569014207010'><font color='#'>apply</font></a> can be used to <a href='Calls and Slot Access.html#4611703569014207010'><font color='#'>apply</font></a> a <a href='Selectors_comma Properties and Operations.html#4611703569012697490'><font color='#'>property</font></a> to an explicit <a href='Lists_comma Sets and Tuples.html#4611703569011833826'><font color='#'>list</font></a> of arguments.</p><p align='justify' class='doc_paragraph'> Since the use of call is somehow tedious, CLAIRE supports the use of variables (local or <a href='Global Variables and Constants.html#4611703569013372722'><font color='#'>global</font></a>)
+ as selectors in a function call and re-introduce the call implicitly. For instance&nbsp;:
+ </p><table class='table_code' align=center border=0 width='85%'>
+										<tr><td class='doc_code'> compose(f:<a href='Selectors_comma Properties and Operations.html#4611703569012697490'><font color='#'>property</font></a>, g:<a href='Selectors_comma Properties and Operations.html#4611703569012697490'><font color='#'>property</font></a>, x:any)&nbsp;: any
+ 	=&gt; f(g(x))
+</td></tr></table>
+							  <p align='justify' class='doc_paragraph'> is equivalent to&nbsp;:
+ </p><table class='table_code' align=center border=0 width='85%'>
+										<tr><td class='doc_code'> compose(f:<a href='Selectors_comma Properties and Operations.html#4611703569012697490'><font color='#'>property</font></a>, g:<a href='Selectors_comma Properties and Operations.html#4611703569012697490'><font color='#'>property</font></a>, x:any)
+ 	=&gt; call(f, call(g,x))
+</td></tr></table>
+							  <p align='justify' class='doc_paragraph'></p><a name='4611703569013636034'><hr size=0 style='page-break-after: avoid' /></a>
+	<a name='apply'><hr size=0 /></a>
+	<table width='100%' class='item_header'>
+		<tr>
+			<td width='20%' align='left'><i><a href='claire.index.html#__category_index__'>categories</a></i></td>
+			<td width='20%' align='center'><i><a href='Calls and Slot Access.html#4611703569011817362'>Calls and Slot Access</a></i></td><td width='20%' align='center'><i>normal dispatch</i></td>
+	<td width='20%' align='center'><i></i></td><td width='20%' align='right'><i>Core method</i></td>
+	</tr></table><h3>apply(<font color='green'>p</font><font color='blue'>:</font>property, <font color='green'>l</font><font color='blue'>:</font>list)<font color='blue'> -&gt; </font>any</h3><p align='justify' class='doc_paragraph'> apply(<b>p</b>,<b>l</b>) is equivalent to a function <a href='Calls and Slot Access.html#4611703569013635570'><font color='#'>call</font></a> where the <a href='Selectors_comma Properties and Operations.html#4611703569012697490'><font color='#'>selector</font></a> is <b>p</b> and the argument
+ <a href='Lists_comma Sets and Tuples.html#4611703569011833826'><font color='#'>list</font></a> is <b>l</b>. For instance the following expressions are equivalent&nbsp;:
+ </p><table class='table_code' align=center border=0 width='85%'>
+										<tr><td class='doc_code'> apply(+, <a href='Lists_comma Sets and Tuples.html#4611703569011833826'><font color='#'>list</font></a>(1,2)) -&gt; 3
+ 1 + 2 -&gt; 3
+ <a href='Calls and Slot Access.html#4611703569013635570'><font color='#'>call</font></a>(+, 1, 2) -&gt; 3
+</td></tr></table>
+							  <p align='justify' class='doc_paragraph'></p><a name='4611703569013636386'><hr size=0 style='page-break-after: avoid' /></a>
+	<a name='apply'><hr size=0 /></a>
+	<table width='100%' class='item_header'>
+		<tr>
+			<td width='20%' align='left'><i><a href='claire.index.html#__category_index__'>categories</a></i></td>
+			<td width='20%' align='center'><i><a href='Calls and Slot Access.html#4611703569011817362'>Calls and Slot Access</a></i></td><td width='20%' align='center'><i>normal dispatch</i></td>
+	<td width='20%' align='center'><i></i></td><td width='20%' align='right'><i>Core method</i></td>
+	</tr></table><h3>apply(<font color='green'>m</font><font color='blue'>:</font>method, <font color='green'>l</font><font color='blue'>:</font>list)<font color='blue'> -&gt; </font>any</h3><p align='justify' class='doc_paragraph'> apply(<b>m</b>,lx) applies the <a href='Methods.html#4611703569012232658'><font color='#'>method</font></a> <b>m</b> to the argument <a href='Lists_comma Sets and Tuples.html#4611703569011833826'><font color='#'>list</font></a> lx.
+ For instance the following expressions are equivalent&nbsp;:
+ </p><table class='table_code' align=center border=0 width='85%'>
+										<tr><td class='doc_code'> apply(+ @ <a href='Integers and Floats.html#4611703569011617938'><font color='#'>integer</font></a>, <a href='Lists_comma Sets and Tuples.html#4611703569011833826'><font color='#'>list</font></a>(1, 3)) -&gt; 4
+ 1 + 3 -&gt; 4
+</td></tr></table>
+							  <p align='justify' class='doc_paragraph'></p><a name='4611703569014207010'><hr size=0 style='page-break-after: avoid' /></a>
+	<a name='apply'><hr size=0 /></a>
+	<table width='100%' class='item_header'>
+		<tr>
+			<td width='20%' align='left'><i><a href='claire.index.html#__category_index__'>categories</a></i></td>
+			<td width='20%' align='center'><i><a href='Calls and Slot Access.html#4611703569011817362'>Calls and Slot Access</a></i></td><td width='20%' align='center'><i>normal dispatch</i></td>
+	<td width='20%' align='center'><i></i></td><td width='20%' align='right'><i>Core method</i></td>
+	</tr></table><h3>apply(<font color='green'>self</font><font color='blue'>:</font>lambda, <font color='green'>%l</font><font color='blue'>:</font>list)<font color='blue'> -&gt; </font>any</h3><p align='justify' class='doc_paragraph'> apply(<b>self</b>,<b>%l</b>) applies the lambda expression <b>self</b> to the argument <a href='Lists_comma Sets and Tuples.html#4611703569011833826'><font color='#'>list</font></a> <b>%l</b>.</p><a name='4611703569013635522'><hr size=0 style='page-break-after: avoid' /></a>
+	<a name='apply'><hr size=0 /></a>
+	<table width='100%' class='item_header'>
+		<tr>
+			<td width='20%' align='left'><i><a href='claire.index.html#__category_index__'>categories</a></i></td>
+			<td width='20%' align='center'><i><a href='Calls and Slot Access.html#4611703569011817362'>Calls and Slot Access</a></i></td><td width='20%' align='center'><i>normal dispatch</i></td>
+	<td width='20%' align='center'><i></i></td><td width='20%' align='right'><i>Core method</i></td>
+	</tr></table><h3>apply(<font color='green'>self</font><font color='blue'>:</font>function, <font color='green'>ls</font><font color='blue'>:</font>list, <font color='green'>l</font><font color='blue'>:</font>list)<font color='blue'> -&gt; </font>any</h3><p align='justify' class='doc_paragraph'> apply(<b>self</b>,<b>ls</b>,<b>l</b>) applies the function <b>self</b> to the argument <a href='Lists_comma Sets and Tuples.html#4611703569011833826'><font color='#'>list</font></a> <b>l</b>, where
+ <b>ls</b> is the <a href='Lists_comma Sets and Tuples.html#4611703569011833826'><font color='#'>list</font></a> of <a href='Lists_comma Sets and Tuples.html#4611703569013499282'><font color='#'>sort</font></a> of the arguments and the result (i.e. <a href='Communication ports.html#4611703569013988514'><font color='#'>length</font></a>(<b>ls</b>) = <a href='Communication ports.html#4611703569013988514'><font color='#'>length</font></a>(<b>l</b>) + 1).
+ For instance, if <b>self</b> is the external function that defines + @ <a href='Integers and Floats.html#4611703569011617938'><font color='#'>integer</font></a>&nbsp;:
+ </p><table class='table_code' align=center border=0 width='85%'>
+										<tr><td class='doc_code'> apply(f, <a href='Lists_comma Sets and Tuples.html#4611703569011833826'><font color='#'>list</font></a>(<a href='Integers and Floats.html#4611703569011617938'><font color='#'>integer</font></a>,<a href='Integers and Floats.html#4611703569011617938'><font color='#'>integer</font></a>,<a href='Integers and Floats.html#4611703569011617938'><font color='#'>integer</font></a>), <a href='Lists_comma Sets and Tuples.html#4611703569011833826'><font color='#'>list</font></a>(1,2)) -&gt; 1 + 2
+</td></tr></table>
+							  <p align='justify' class='doc_paragraph'></p><a name='4611703569013635570'><hr size=0 style='page-break-after: avoid' /></a>
+	<a name='call'><hr size=0 /></a>
+	<table width='100%' class='item_header'>
+		<tr>
+			<td width='20%' align='left'><i><a href='claire.index.html#__category_index__'>categories</a></i></td>
+			<td width='20%' align='center'><i><a href='Calls and Slot Access.html#4611703569011817362'>Calls and Slot Access</a></i></td><td width='20%' align='center'><i>normal dispatch</i></td>
+	<td width='20%' align='center'><i></i></td><td width='20%' align='right'><i>Core method</i></td>
+	</tr></table><h3>call(<font color='green'>p</font><font color='blue'>:</font>property, <font color='green'>l</font><font color='blue'>:</font>listargs)<font color='blue'> -&gt; </font>any</h3><p align='justify' class='doc_paragraph'> call(<b>p</b>, x1, x2, ..., xn) is equivalent to <a href='Calls and Slot Access.html#4611703569014207010'><font color='#'>apply</font></a>(<b>p</b>, <a href='Lists_comma Sets and Tuples.html#4611703569011833826'><font color='#'>list</font></a>(x1 ,x2 , ... , xn)).</p><a name='4611703569013488530'><hr size=0 style='page-break-after: avoid' /></a>
+	<a name='funcall'><hr size=0 /></a>
+	<table width='100%' class='item_header'>
+		<tr>
+			<td width='20%' align='left'><i><a href='claire.index.html#__category_index__'>categories</a></i></td>
+			<td width='20%' align='center'><i><a href='Calls and Slot Access.html#4611703569011817362'>Calls and Slot Access</a></i></td><td width='20%' align='center'><i>normal dispatch</i></td>
+	<td width='20%' align='center'><i></i></td><td width='20%' align='right'><i>Kernel method</i></td>
+	</tr></table><h3>funcall(<font color='green'>m</font><font color='blue'>:</font>method, <font color='green'>x</font><font color='blue'>:</font>any)<font color='blue'> -&gt; </font>void</h3><p align='justify' class='doc_paragraph'> funcall(<b>m</b>,<b>x</b>) applies a <a href='Methods.html#4611703569012232658'><font color='#'>method</font></a> with one argument</p><a name='4611703569013488706'><hr size=0 style='page-break-after: avoid' /></a>
+	<a name='funcall'><hr size=0 /></a>
+	<table width='100%' class='item_header'>
+		<tr>
+			<td width='20%' align='left'><i><a href='claire.index.html#__category_index__'>categories</a></i></td>
+			<td width='20%' align='center'><i><a href='Calls and Slot Access.html#4611703569011817362'>Calls and Slot Access</a></i></td><td width='20%' align='center'><i>normal dispatch</i></td>
+	<td width='20%' align='center'><i></i></td><td width='20%' align='right'><i>Kernel method</i></td>
+	</tr></table><h3>funcall(<font color='green'>l</font><font color='blue'>:</font>lambda, <font color='green'>x</font><font color='blue'>:</font>any)<font color='blue'> -&gt; </font>void</h3><p align='justify' class='doc_paragraph'> funcall(<b>l</b>,<b>x</b>) applies a lambda with one argument</p><a name='4611703569013488578'><hr size=0 style='page-break-after: avoid' /></a>
+	<a name='funcall'><hr size=0 /></a>
+	<table width='100%' class='item_header'>
+		<tr>
+			<td width='20%' align='left'><i><a href='claire.index.html#__category_index__'>categories</a></i></td>
+			<td width='20%' align='center'><i><a href='Calls and Slot Access.html#4611703569011817362'>Calls and Slot Access</a></i></td><td width='20%' align='center'><i>normal dispatch</i></td>
+	<td width='20%' align='center'><i></i></td><td width='20%' align='right'><i>Kernel method</i></td>
+	</tr></table><h3>funcall(<font color='green'>m</font><font color='blue'>:</font>method, <font color='green'>x</font><font color='blue'>:</font>any, <font color='green'>y</font><font color='blue'>:</font>any)<font color='blue'> -&gt; </font>void</h3><p align='justify' class='doc_paragraph'> funcall(<b>m</b>,<b>x</b>,<b>y</b>) applies a <a href='Methods.html#4611703569012232658'><font color='#'>method</font></a> with two argument</p><a name='4611703569013488754'><hr size=0 style='page-break-after: avoid' /></a>
+	<a name='funcall'><hr size=0 /></a>
+	<table width='100%' class='item_header'>
+		<tr>
+			<td width='20%' align='left'><i><a href='claire.index.html#__category_index__'>categories</a></i></td>
+			<td width='20%' align='center'><i><a href='Calls and Slot Access.html#4611703569011817362'>Calls and Slot Access</a></i></td><td width='20%' align='center'><i>normal dispatch</i></td>
+	<td width='20%' align='center'><i></i></td><td width='20%' align='right'><i>Kernel method</i></td>
+	</tr></table><h3>funcall(<font color='green'>l</font><font color='blue'>:</font>lambda, <font color='green'>x</font><font color='blue'>:</font>any, <font color='green'>y</font><font color='blue'>:</font>any)<font color='blue'> -&gt; </font>void</h3><p align='justify' class='doc_paragraph'> funcall(<b>l</b>,<b>x</b>,<b>y</b>) applies a lambda with two argument</p><a name='4611703569013487986'><hr size=0 style='page-break-after: avoid' /></a>
+	<a name='funcall'><hr size=0 /></a>
+	<table width='100%' class='item_header'>
+		<tr>
+			<td width='20%' align='left'><i><a href='claire.index.html#__category_index__'>categories</a></i></td>
+			<td width='20%' align='center'><i><a href='Calls and Slot Access.html#4611703569011817362'>Calls and Slot Access</a></i></td><td width='20%' align='center'><i>normal dispatch</i></td>
+	<td width='20%' align='center'><i></i></td><td width='20%' align='right'><i>Kernel method</i></td>
+	</tr></table><h3>funcall(<font color='green'>f</font><font color='blue'>:</font>function, <font color='green'>s1</font><font color='blue'>:</font>class, <font color='green'>x</font><font color='blue'>:</font>any, <font color='green'>s</font><font color='blue'>:</font>class)<font color='blue'> -&gt; </font>void</h3><p align='justify' class='doc_paragraph'> funcall provides an easy <a href='Methods.html#4611703569013492642'><font color='#'>interface</font></a> with external (C++) functions.
+ funcall(<b>f</b>, <b>s1</b>, <b>x</b>, <b>s</b>) applies an external function to an argument of <a href='Lists_comma Sets and Tuples.html#4611703569013499282'><font color='#'>sort</font></a> <b>s1</b>.
+ The <a href='Lists_comma Sets and Tuples.html#4611703569013499282'><font color='#'>sort</font></a> of the returned value must be passed as an argument.
+ Notice that the <a href='Lists_comma Sets and Tuples.html#4611703569013716306'><font color='#'>last</font></a> argument is the <a href='Lists_comma Sets and Tuples.html#4611703569013499282'><font color='#'>sort</font></a> of the result, and that giving an
+ erroneous <a href='Lists_comma Sets and Tuples.html#4611703569013499282'><font color='#'>sort</font></a> argument will likely produce a fatal <a href='Exception Handling.html#4611703569012183794'><font color='#'>error</font></a>.</p><a name='4611703569013488642'><hr size=0 style='page-break-after: avoid' /></a>
+	<a name='funcall'><hr size=0 /></a>
+	<table width='100%' class='item_header'>
+		<tr>
+			<td width='20%' align='left'><i><a href='claire.index.html#__category_index__'>categories</a></i></td>
+			<td width='20%' align='center'><i><a href='Calls and Slot Access.html#4611703569011817362'>Calls and Slot Access</a></i></td><td width='20%' align='center'><i>normal dispatch</i></td>
+	<td width='20%' align='center'><i></i></td><td width='20%' align='right'><i>Kernel method</i></td>
+	</tr></table><h3>funcall(<font color='green'>m</font><font color='blue'>:</font>method, <font color='green'>x</font><font color='blue'>:</font>any, <font color='green'>y</font><font color='blue'>:</font>any, <font color='green'>z</font><font color='blue'>:</font>any)<font color='blue'> -&gt; </font>void</h3><p align='justify' class='doc_paragraph'> funcall(<b>m</b>,<b>x</b>,<b>y</b>) applies a <a href='Methods.html#4611703569012232658'><font color='#'>method</font></a> with three argument</p><a name='4611703569013488818'><hr size=0 style='page-break-after: avoid' /></a>
+	<a name='funcall'><hr size=0 /></a>
+	<table width='100%' class='item_header'>
+		<tr>
+			<td width='20%' align='left'><i><a href='claire.index.html#__category_index__'>categories</a></i></td>
+			<td width='20%' align='center'><i><a href='Calls and Slot Access.html#4611703569011817362'>Calls and Slot Access</a></i></td><td width='20%' align='center'><i>normal dispatch</i></td>
+	<td width='20%' align='center'><i></i></td><td width='20%' align='right'><i>Kernel method</i></td>
+	</tr></table><h3>funcall(<font color='green'>l</font><font color='blue'>:</font>lambda, <font color='green'>x</font><font color='blue'>:</font>any, <font color='green'>y</font><font color='blue'>:</font>any, <font color='green'>z</font><font color='blue'>:</font>any)<font color='blue'> -&gt; </font>void</h3><p align='justify' class='doc_paragraph'> funcall(<b>l</b>,<b>x</b>,<b>y</b>) applies a lambda with three argument</p><a name='4611703569013488370'><hr size=0 style='page-break-after: avoid' /></a>
+	<a name='funcall'><hr size=0 /></a>
+	<table width='100%' class='item_header'>
+		<tr>
+			<td width='20%' align='left'><i><a href='claire.index.html#__category_index__'>categories</a></i></td>
+			<td width='20%' align='center'><i><a href='Calls and Slot Access.html#4611703569011817362'>Calls and Slot Access</a></i></td><td width='20%' align='center'><i>normal dispatch</i></td>
+	<td width='20%' align='center'><i></i></td><td width='20%' align='right'><i>Kernel method</i></td>
+	</tr></table><h3>funcall(<font color='green'>f</font><font color='blue'>:</font>function, <font color='green'>s1</font><font color='blue'>:</font>class, <font color='green'>x</font><font color='blue'>:</font>any, <font color='green'>s2</font><font color='blue'>:</font>class, <font color='green'>y</font><font color='blue'>:</font>any, <font color='green'>s</font><font color='blue'>:</font>class)<font color='blue'> -&gt; </font>void</h3><p align='justify' class='doc_paragraph'> like funcall(<b>f</b>, <b>s1</b>, <b>x</b>, <b>s</b>) but for external functions with two arguments.</p><a name='4611703569013488434'><hr size=0 style='page-break-after: avoid' /></a>
+	<a name='funcall'><hr size=0 /></a>
+	<table width='100%' class='item_header'>
+		<tr>
+			<td width='20%' align='left'><i><a href='claire.index.html#__category_index__'>categories</a></i></td>
+			<td width='20%' align='center'><i><a href='Calls and Slot Access.html#4611703569011817362'>Calls and Slot Access</a></i></td><td width='20%' align='center'><i>normal dispatch</i></td>
+	<td width='20%' align='center'><i></i></td><td width='20%' align='right'><i>Kernel method</i></td>
+	</tr></table><h3>funcall(<font color='green'>f</font><font color='blue'>:</font>function, <font color='green'>s1</font><font color='blue'>:</font>class, <font color='green'>x</font><font color='blue'>:</font>any, <font color='green'>s2</font><font color='blue'>:</font>class, <font color='green'>y</font><font color='blue'>:</font>any, <font color='green'>s3</font><font color='blue'>:</font>class, <font color='green'>z</font><font color='blue'>:</font>class, <font color='green'>s</font><font color='blue'>:</font>class)<font color='blue'> -&gt; </font>void</h3><p align='justify' class='doc_paragraph'> like funcall(<b>f</b>, <b>s1</b>, <b>x</b>, <b>s</b>) but for external functions with three arguments.</p></body>
+	</html>

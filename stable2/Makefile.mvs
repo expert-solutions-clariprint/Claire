@@ -3,14 +3,14 @@
 # *  UNIX version  - CLAIRE 3.3                              *
 # ************************************************************
 
-all: Darwin-i386-g++13.0.0/cclaire
+all: Darwin-i386-g++14.0.0/cclaire
 
 # -------------------------------------------
 # |      1. directories                      |
 # -------------------------------------------
 
 # directories
-Dl= Darwin-i386-g++13.0.0
+Dl= Darwin-i386-g++14.0.0
 Ds= csrc
 Dh= include
 
@@ -102,11 +102,11 @@ X_FILES = $(Dl)/boot.x \
   $(Dl)/Generate.x \
   $(Dl)/Serialize.x
 
-Darwin-i386-g++13.0.0/dummy:
-	mkdir Darwin-i386-g++13.0.0
-	touch Darwin-i386-g++13.0.0/dummy
+Darwin-i386-g++14.0.0/dummy:
+	mkdir Darwin-i386-g++14.0.0
+	touch Darwin-i386-g++14.0.0/dummy
 
-$(Dl)/sclaire: Darwin-i386-g++13.0.0/dummy $(X_FILES) $(Dl)/noConsole.o $(Dl)/wclConsole.o sclaire-s.o
+$(Dl)/sclaire: Darwin-i386-g++14.0.0/dummy $(X_FILES) $(Dl)/noConsole.o $(Dl)/wclConsole.o sclaire-s.o
 	$(CXX) $(LDFLAGS) -o $(Dl)/sclaire sclaire-s.o $(X_FILES)
 
 
@@ -115,7 +115,7 @@ $(Dl)/sclaire: Darwin-i386-g++13.0.0/dummy $(X_FILES) $(Dl)/noConsole.o $(Dl)/wc
 # +----------------------------------------------------------------+
 
 $(Dl)/cclaire: ccmain.cl $(Dl)/sclaire
-	LIBPATH=./Darwin-i386-g++13.0.0:$(LIBPATH) ./$(Dl)/sclaire -O -m Compile -m Serialize -cx ccmain -o cclaire
+	LIBPATH=./Darwin-i386-g++14.0.0:$(LIBPATH) ./$(Dl)/sclaire -O -m Compile -m Serialize -cx ccmain -o cclaire
 	
 
 # +----------------------------------------------------------------+
@@ -123,5 +123,5 @@ $(Dl)/cclaire: ccmain.cl $(Dl)/sclaire
 # +----------------------------------------------------------------+
 
 install: $(Dl)/cclaire
-	LIBPATH=./Darwin-i386-g++13.0.0:$(LIBPATH) ./$(Dl)/sclaire -f init -v 0 -f install -q
+	LIBPATH=./Darwin-i386-g++14.0.0:$(LIBPATH) ./$(Dl)/sclaire -f init -v 0 -f install -q
 

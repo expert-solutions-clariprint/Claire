@@ -1,0 +1,457 @@
+dnl Process this file with autoconf to produce a configure script.
+AC_INIT(init.cl)
+AC_CONFIG_HEADERS([include/config.h])
+
+
+#######################################################################
+## installation prefix --prefix
+
+CLPREFIX=$prefix
+
+#######################################################################
+## --enbale-x8664  for  64bit target system
+
+CL_X86_64_CXX=""
+CL_X86_64_LD=""
+
+AC_ARG_ENABLE(x8664,
+  [--enable-x8664 enable 32bits on x86_64 platform],
+  [use_x86_64=yes],
+  [use_x86_64=no])
+
+AC_ARG_WITH([editline],
+    AS_HELP_STRING([--without-editline], [Ignore presence of editline library and disable it]))
+
+AS_IF([test "x$with_editline" != "xno"],
+      [check_editline=yes],
+      [check_editline=no])
+
+if test $use_x86_64 = yes; then
+  CL_X86_64_CXX=""
+  CL_X86_64_LD="-melf_i386"
+fi
+
+if test `uname` = "HP-UX"; then
+  LDFLAGS="-Wl,+s"
+fi
+
+if test `uname` = "Darwin"; then
+  CL_X86_64_CXX=""
+fi
+
+
+AC_LANG_CPLUSPLUS
+AC_PROG_CXX
+
+if test `uname` = "HP-UX"; then
+  CXXOPTIMFLAGS="-O2"
+fi
+
+if test `uname` = "SunOS"; then
+  CXXOPTIMFLAGS="-O3"
+fi
+
+if test $CXX = "g++"; then
+  CXXOPTIMFLAGS="-Wno-write-strings"
+fi
+
+
+#######################################################################
+## check for environment (system - architecture)
+AC_MSG_CHECKING([for system-architecture])
+if test `uname` = "OS/390"; then
+  ARCH=`uname -m`
+  SYSARCH=`uname`-$ARCH-`echo $CXX`
+elif test `uname` = "HP-UX"; then
+  ARCH=`uname -m`
+  SYSARCH=`uname`-$ARCH-`echo $CXX`
+else
+  ARCH=`uname -p`
+  SYSARCH=`uname`-$ARCH-`echo $CXX``$CXX -dumpversion`
+fi
+ARCH=`echo $ARCH | sed 's/ /_/g' | sed 's/\///g'`
+SYSARCH=`echo $SYSARCH | sed 's/ /_/g' | sed 's/\///g'`
+AC_MSG_RESULT([$SYSARCH])
+AC_SUBST(SYSARCH)
+AC_DEFINE_UNQUOTED(CLARCH, "$ARCH", [sub system architecture])
+SYSCOMPILERVERSION=`$CXX -dumpversion`
+AC_DEFINE_UNQUOTED(CLSYSCOMPILER, "$CXX", [c++ compiler])
+AC_DEFINE_UNQUOTED(CLSYSCOMPILERVERSION, "$SYSCOMPILERVERSION", [c++ compiler version])
+
+if test `uname` = "OS/390"; then
+  AC_DEFINE(_XOPEN_SOURCE_EXTENDED, 1, [OS/390 define])
+  AC_DEFINE(_ALL_SOURCE, 1, [OS/390 define])
+  AC_DEFINE(_ISOC99_SOURCE, 1, [OS/390 define])
+  AC_DEFINE(_UNIX03_SOURCE, 1, [OS/390 define])
+fi
+
+#######################################################################
+## check for various headers/function here
+AC_HEADER_TIME
+AC_HEADER_STDC
+AC_CHECK_HEADERS([stdio.h stdlib.h types.h sys/types.h unistd.h sys/unistd.h memory.h malloc.h string.h inttypes.h stdint.h ctype.h errno.h sys/errno.h net/errno.h sys/stat.h stat.h fcntl.h sys/fcntl.h sys/socket.h socket.h socket.ext.h netdb.h netinet/in.h in.h arpa/inet.h inet.h dirent.h sys/ndir.h sys/dir.h dir.h ndir.h bsdtypes.h stdefs.h bsdtime.h sys/select.h select.h wait.h sys/wait.h sys/resource.h pwd.h sys/un.h limits.h  iso/limits_iso.h endian.h sys/endian.h])
+AC_CHECK_FUNCS(memcpy socketpair fork kill getppid sigprocmask setitimer getitimer gettimeofday ftime getpriority fcntl siginterrupt)
+
+#######################################################################
+## check dlopen
+  AC_CHECK_HEADERS(dlfcn.h,
+  [AC_CHECK_LIB(dl,dlopen, DL_LIB=-ldl)
+   saved_LIBS="${LIBS}"
+   LIBS="${LIBS} ${DL_LIB}"
+   AC_CHECK_FUNCS(dlopen, enable_dynamic=yes,)
+   LIBS="${saved_LIBS}"
+  ],)
+
+  # HP/UX DLL handling
+  AC_CHECK_HEADERS(dl.h,
+  [AC_CHECK_LIB(dld,shl_load, DL_LIB=-ldld)
+   saved_LIBS="${LIBS}"
+   LIBS="${LIBS} ${DL_LIB}"
+   AC_CHECK_FUNCS(shl_load, enable_dynamic=yes,)
+   LIBS="${saved_LIBS}"
+  ],)
+
+
+#######################################################################
+## check pthread
+
+  AC_CHECK_HEADERS(pthread.h,
+  [AC_CHECK_LIB(pthread,pthread_create, PTHREAD_LIB=-lpthread)
+   saved_LIBS="${LIBS}"
+   LIBS="${LIBS} ${PTHREAD_LIB}"
+   AC_CHECK_FUNCS(pthread_create, enable_dynamic=yes,)
+   LIBS="${saved_LIBS}"
+  ],)
+
+
+#######################################################################
+## check for getsid
+CL_GETSID=no
+AC_MSG_CHECKING([for getsid])
+	AC_TRY_LINK([#include <unistd.h>],
+			[getsid(0);],
+			CL_GETSID=yes)
+
+AC_MSG_RESULT($CL_GETSID)
+if test "$CL_GETSID" = yes; then
+	AC_DEFINE(HAVE_GETSID)
+fi
+
+#######################################################################
+## check for setenv
+CL_SETENV=no
+AC_MSG_CHECKING([for setenv])
+	AC_TRY_LINK([#include <unistd.h>
+				#include <stdlib.h>],
+			[setenv("toto","tata", 1);],
+			CL_SETENV=yes)
+
+AC_MSG_RESULT($CL_SETENV)
+if test "$CL_SETENV" = yes; then
+	AC_DEFINE(HAVE_SETENV)
+fi
+
+#######################################################################
+## check for MMX support
+
+AC_MSG_CHECKING(for MMX intruction set)
+	AC_COMPILE_IFELSE([asm ("movq 0, %mm0");],
+		AC_DEFINE(HAVE_MMX_SUPPORT, 1, [Define to 1 if MMX assembly is available.])
+	    AC_MSG_RESULT(yes),
+        AC_MSG_RESULT(no))
+
+#######################################################################
+## editline
+
+CL_PRINT_EDITLINE_OPTION="no"
+
+AC_DEFUN([VL_LIB_EDITLINE], [
+  AC_CACHE_CHECK([for editline library],
+                 vl_cv_lib_readline, [
+    ORIG_LIBS="$LIBS"
+    for readline_lib in edit editline; do
+      for termcap_lib in "" termcap curses ncurses; do
+        if test -z "$termcap_lib"; then
+          TRY_LIB="-l$readline_lib"
+        else
+          TRY_LIB="-l$readline_lib -l$termcap_lib"
+        fi
+        LIBS="$ORIG_LIBS $TRY_LIB"
+        AC_TRY_LINK_FUNC(el_gets, vl_cv_lib_readline="$TRY_LIB")
+        if test -n "$vl_cv_lib_readline"; then
+          break
+        fi
+      done
+      if test -n "$vl_cv_lib_readline"; then
+        break
+      fi
+    done
+    if test -z "$vl_cv_lib_readline"; then
+      vl_cv_lib_readline="no"
+      LIBS="$ORIG_LIBS"
+    fi
+  ])
+
+  if test "$vl_cv_lib_readline" != "no"; then
+    AC_DEFINE(CLEL, 1, [Define if you have editline library])
+    CL_PRINT_EDITLINE_OPTION="yes"
+    AC_CHECK_HEADERS(histedit.h)
+  fi
+])
+
+if test "$check_editline" = "yes"; then
+  VL_LIB_EDITLINE()
+fi
+
+#######################################################################
+## socket library (from autoconf-archive)
+AC_DEFUN([ETR_SOCKET_NSL],
+[
+AC_CACHE_CHECK(for libraries containing socket functions,
+ac_cv_socket_libs, [
+        oCXXFLAGS=$CXXFLAGS
+
+        AC_TRY_LINK([
+                        #include <sys/types.h>
+                        #include <sys/socket.h>
+                        #include <netinet/in.h>
+                        #include <arpa/inet.h>
+                ],
+                [
+                        struct in_addr add;
+                        int sd = socket(AF_INET, SOCK_STREAM, 0);
+                        inet_ntoa(add);
+                ],
+                ac_cv_socket_libs=-lc, ac_cv_socket_libs=no)
+
+        if test x"$ac_cv_socket_libs" = "xno"
+        then
+                CXXFLAGS="$oCXXFLAGS -lsocket"
+                AC_TRY_LINK([
+                                #include <sys/types.h>
+                                #include <sys/socket.h>
+                                #include <netinet/in.h>
+                                #include <arpa/inet.h>
+                        ],
+                        [
+                                struct in_addr add;
+                                int sd = socket(AF_INET, SOCK_STREAM, 0);
+                                inet_ntoa(add);
+                        ],
+                        ac_cv_socket_libs=-lsocket, ac_cv_socket_libs=no)
+        fi
+
+        if test x"$ac_cv_socket_libs" = "xno"
+        then
+                CXXFLAGS="$oCXXFLAGS -lsocket -lnsl"
+                AC_TRY_LINK([
+                                #include <sys/types.h>
+                                #include <sys/socket.h>
+                                #include <netinet/in.h>
+                                #include <arpa/inet.h>
+                        ],
+                        [
+                                struct in_addr add;
+                                int sd = socket(AF_INET, SOCK_STREAM, 0);
+                                inet_ntoa(add);
+                        ],
+                        ac_cv_socket_libs="-lsocket -lnsl", ac_cv_socket_libs=no)
+        fi
+
+        if test x"$ac_cv_socket_libs" = "xno"
+        then
+                CXXFLAGS="$oCXXFLAGS"
+                AC_TRY_LINK([
+                                #include <sys/types.h>
+                                #include <sys/socket.h>
+                                #include <netinet/in.h>
+                                #include <arpa/inet.h>
+                        ],
+                        [
+                                struct in_addr add;
+                                int sd = socket(AF_INET, SOCK_STREAM, 0);
+                                inet_ntoa(add);
+                        ],
+                        ac_cv_socket_libs="", ac_cv_socket_libs=no)
+        fi
+
+        CXXFLAGS=$oCXXFLAGS
+])
+
+        if test x"$ac_cv_socket_libs" = "xno"
+        then
+                AC_MSG_ERROR([Cannot find socket libraries])
+        elif test x"$ac_cv_socket_libs" = "x-lc"
+        then
+                ETR_SOCKET_LIBS=""
+        else
+                ETR_SOCKET_LIBS="$ac_cv_socket_libs"
+        fi
+
+        AC_SUBST(ETR_SOCKET_LIBS)
+]) dnl ETR_SOCKET_NSL
+
+## actualy check for socket library
+ETR_SOCKET_NSL
+
+#######################################################################
+## prototype ac funtion (from autoconf-archive)
+AC_DEFUN([AC_PROTOTYPE],[
+dnl
+dnl Upper case function name
+dnl
+ pushdef([function],translit([$1], [a-z], [A-Z]))
+dnl
+dnl Collect tags that will be substituted
+dnl
+ pushdef([tags],[AC_PROTOTYPE_TAGS(builtin([shift],builtin([shift],builtin([shift],$@))))])
+dnl
+dnl Wrap in a 1 time loop, when a combination is found break to stop the combinatory exploration
+dnl
+ for i in 1
+ do
+   AC_PROTOTYPE_LOOP(AC_PROTOTYPE_REVERSE($1, AC_PROTOTYPE_SUBST($2,tags),AC_PROTOTYPE_SUBST($3,tags),builtin([shift],builtin([shift],builtin([shift],$@)))))
+   AC_MSG_ERROR($1 unable to find a working combination)
+ done
+ popdef([tags])
+ popdef([function])
+])
+
+dnl
+dnl AC_PROTOTYPE_REVERSE(list)
+dnl
+dnl Reverse the order of the <list>
+dnl
+AC_DEFUN([AC_PROTOTYPE_REVERSE],[ifelse($#,0,,$#,1,[[$1]],[AC_PROTOTYPE_REVERSE(builtin([shift],$@)),[$1]])])
+
+dnl
+dnl AC_PROTOTYPE_SUBST(string, tag)
+dnl
+dnl Substitute all occurence of <tag> in <string> with <tag>_VAL.
+dnl Assumes that tag_VAL is a macro containing the value associated to tag.
+dnl
+AC_DEFUN([AC_PROTOTYPE_SUBST],[ifelse($2,,[$1],[AC_PROTOTYPE_SUBST(patsubst([$1],[$2],[$2[]_VAL]),builtin([shift],builtin([shift],$@)))])])
+
+dnl
+dnl AC_PROTOTYPE_TAGS([tag, values, [tag, values ...]])
+dnl
+dnl Generate a list of <tag> by skipping <values>.
+dnl
+AC_DEFUN([AC_PROTOTYPE_TAGS],[ifelse($1,,[],[$1, AC_PROTOTYPE_TAGS(builtin([shift],builtin([shift],$@)))])])
+
+dnl
+dnl AC_PROTOTYPE_DEFINES(tags)
+dnl
+dnl Generate a AC_DEFINE(function_tag, tag_VAL) for each tag in <tags> list
+dnl Assumes that function is a macro containing the name of the function in upper case
+dnl and that tag_VAL is a macro containing the value associated to tag.
+dnl
+AC_DEFUN([AC_PROTOTYPE_DEFINES],[ifelse($1,,[],[AC_DEFINE(function[]_$1, $1_VAL) AC_PROTOTYPE_DEFINES(builtin([shift],$@))])])
+
+dnl
+dnl AC_PROTOTYPE_STATUS(tags)
+dnl
+dnl Generates a message suitable for argument to AC_MSG_* macros. For each tag
+dnl in the <tags> list the message tag => tag_VAL is generated.
+dnl Assumes that tag_VAL is a macro containing the value associated to tag.
+dnl
+AC_DEFUN([AC_PROTOTYPE_STATUS],[ifelse($1,,[],[$1 => $1_VAL AC_PROTOTYPE_STATUS(builtin([shift],$@))])])
+
+dnl
+dnl AC_PROTOTYPE_EACH(tag, values)
+dnl
+dnl Call AC_PROTOTYPE_LOOP for each values and define the macro tag_VAL to
+dnl the current value.
+dnl
+AC_DEFUN([AC_PROTOTYPE_EACH],[
+  ifelse($2,, [
+  ], [
+    pushdef([$1_VAL], $2)
+    AC_PROTOTYPE_LOOP(rest)
+    popdef([$1_VAL])
+    AC_PROTOTYPE_EACH($1, builtin([shift], builtin([shift], $@)))
+  ])
+])
+
+dnl
+dnl AC_PROTOTYPE_LOOP([tag, values, [tag, values ...]], code, include, function)
+dnl
+dnl If there is a tag/values pair, call AC_PROTOTYPE_EACH with it.
+dnl If there is no tag/values pair left, tries to compile the code and include
+dnl using AC_TRY_COMPILE. If it compiles, AC_DEFINE all the tags to their
+dnl current value and exit with success.
+dnl
+AC_DEFUN([AC_PROTOTYPE_LOOP],[
+ ifelse(builtin([eval], $# > 3), 1,
+   [
+     pushdef([rest],[builtin([shift],builtin([shift],$@))])
+     AC_PROTOTYPE_EACH($2,$1)
+     popdef([rest])
+   ], [
+     
+dnl
+dnl Activate fatal warnings if possible, gives better guess
+dnl
+     ac_save_CXXFLAGS="$CXXFLAGS"
+     if test "$CXX" = "yes" ; then CXXFLAGS="$CXXFLAGS -Werror" ; fi
+     AC_TRY_COMPILE($2, $1, [
+      CXXFLAGS="$ac_save_CXXFLAGS"
+      AC_MSG_CHECKING($3 AC_PROTOTYPE_STATUS(tags))
+      AC_MSG_RESULT(ok)
+      AC_PROTOTYPE_DEFINES(tags)
+      break;
+     ], [
+      CXXFLAGS="$ac_save_CXXFLAGS"
+     ])
+   ]
+ )
+])
+
+
+#######################################################################
+## getpeername prototype
+AC_PROTOTYPE(getpeername,
+ [
+  #if HAVE_SYS_TYPES_H
+  # include <sys/types.h>
+  #endif
+  #ifdef HAVE_SYS_SOCKET_H
+  #include <sys/socket.h>
+  #else
+  #ifdef HAVE_SOCKET_H
+  #include <socket.h>
+  #endif
+  #endif
+  #ifdef HAVE_SOCKET_EXT_H
+  #include <socket.ext.h>
+  #endif
+ ],
+ [
+  int a = 0;
+  ARG2 * b = 0;
+  ARG3 * c = 0;
+  getpeername(a, b, c);
+ ],
+ ARG2, [struct sockaddr, void],
+ ARG3, [socklen_t, int, size_t, unsigned int, long unsigned int])
+
+AC_CHECK_LIB([dl],[dlopen])
+AC_CHECK_LIB([pthread],[pthread_create])
+
+AC_SUBST(LDFLAGS)
+
+#######################################################################
+## substituion and file creation
+AC_SUBST(CLPREFIX)
+AC_SUBST(CL_PRINT_EDITLINE_OPTION)
+AC_SUBST(CL_X86_64_CXX)
+AC_SUBST(CL_X86_64_LD)
+AC_SUBST(CXXOPTIMFLAGS)
+
+AC_OUTPUT(Makefile.unix Makefile.mvs csrc/Optimize.cpp csrc/Generate.cpp)
+
+if test `uname` = "OS/390"; then
+  mv Makefile.mvs Makefile
+else 
+  mv Makefile.unix Makefile
+fi

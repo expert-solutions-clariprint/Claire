@@ -388,7 +388,7 @@
 #define INT_MASK		0xC000000000000000LL  /* the first 2 bits */
 // we need one value that is NOT a valid OID not the adress of a class
 #define NOTHING			0x8000000000000001LL     /* end of list                       */
-#define MAX_LOGLIST 50
+#define MAX_LOGLIST 36 // <lr> previous 50 by <xp>
 #else
 #define ADDRTRANS 2
 
