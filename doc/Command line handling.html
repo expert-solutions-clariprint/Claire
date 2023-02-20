@@ -76,119 +76,119 @@ a[href] {
 	</head>
 	<body><table width='100%' class='item_header'>
 		<tr>
-			<td width='33%' align='left' valign='bottom'><i><a href='Global Variables and Constants.html#4611686018982469138'>Global Variables and Constants</a></i></td>
-			<td width='33%' align='center' valign='top'><i><a href='claire.index.html#__category_index__'>categories</a><br/><a href='claire.index.html#4611686018982053986'>I/O, Modules and System Interface</a><br/><b>Command line handling</b>
+			<td width='33%' align='left' valign='bottom'><i><a href='Global Variables and Constants.html#4611703562330797874'>Global Variables and Constants</a></i></td>
+			<td width='33%' align='center' valign='top'><i><a href='claire.index.html#__category_index__'>categories</a><br/><a href='claire.index.html#4611703562330381162'>I/O, Modules and System Interface</a><br/><b>Command line handling</b>
 				</i></td>
-			<td width='33%' align='right' valign='bottom'><i><a href='Serialization.html#4611686018983146626'>Serialization</a></i></td>
+			<td width='33%' align='right' valign='bottom'><i><a href='Serialization.html#4611703562331210306'>Serialization</a></i></td>
 		</tr>
 	</table>
-	<h2><span class=pretitle>&nbsp;</span>&nbsp;<a name='4611686018983068434'>Command line handling</a>
+	<h2><span class=pretitle>&nbsp;</span>&nbsp;<a name='4611703562331463602'>Command line handling</a>
 			 <font color='red'>[XL]</font></h2>
-	<ul></ul><ul><li><font font-face='Courier' class='item_index'><a href='Command line handling.html#4611686018983094594'>option_parsed</a><font color='blue'> :: </font>property(open = 3) <font color='red'>[XL]</font></font></li><li><font font-face='Courier' class='item_index'><a href='Command line handling.html#4611686018983093698'>option_respond</a><font color='blue'> :: </font>property(open = 3) <font color='red'>[XL]</font></font></li><li><font font-face='Courier' class='item_index'><a href='Command line handling.html#4611686018983095874'>option_usage</a><font color='blue'> :: </font>property(open = 3) <font color='red'>[XL]</font></font></li></ul><p align='justify' class='doc_paragraph'> In XL CLAIRE, additionally to the main @ <a href='Lists_comma Sets and Tuples.html#4611686018980882226'><font color='#'>list</font></a> redefinition, we have
- a command line processor that make a <a href='Modules.html#4611686018982367538'><font color='#'>module</font></a> able to define a particular
- <a href='Lists_comma Sets and Tuples.html#4611686018980882226'><font color='#'>set</font></a> of option responder and associated command line documentation through
+	<ul></ul><ul><li><font font-face='Courier' class='item_index'><a href='Command line handling.html#4611703562331489074'>option_parsed</a><font color='blue'> :: </font>property(open = 3) <font color='red'>[XL]</font></font></li><li><font font-face='Courier' class='item_index'><a href='Command line handling.html#4611703562331487842'>option_respond</a><font color='blue'> :: </font>property(open = 3) <font color='red'>[XL]</font></font></li><li><font font-face='Courier' class='item_index'><a href='Command line handling.html#4611703562331489954'>option_usage</a><font color='blue'> :: </font>property(open = 3) <font color='red'>[XL]</font></font></li></ul><p align='justify' class='doc_paragraph'> In XL CLAIRE, additionally to the main @ <a href='Lists_comma Sets and Tuples.html#4611703562329258978'><font color='#'>list</font></a> redefinition, we have
+ a command line processor that make a <a href='Modules.html#4611703562330762722'><font color='#'>module</font></a> able to define a particular
+ <a href='Lists_comma Sets and Tuples.html#4611703562329258978'><font color='#'>set</font></a> of option responder and associated command line documentation through
  2 handlers. For instance the Reader implement the option -f used to load
- a <a href='Communication ports.html#4611686018982053954'><font color='#'>file</font></a> from the command line. The Reader implements&nbsp;:
+ a <a href='Communication ports.html#4611703562330381170'><font color='#'>file</font></a> from the command line. The Reader implements&nbsp;:
  </p><table class='table_code' align=center border=0 width='85%'>
-										<tr><td class='doc_code'> [<a href='Command line handling.html#4611686018983095874'><font color='#'>option_usage</font></a>(opt:{"-f", "-ef"})&nbsp;: <a href='Lists_comma Sets and Tuples.html#4611686018980882226'><font color='#'>tuple</font></a>(<a href='Strings.html#4611686018980650978'><font color='#'>string</font></a>, <a href='Strings.html#4611686018980650978'><font color='#'>string</font></a>, <a href='Strings.html#4611686018980650978'><font color='#'>string</font></a>) -&gt;
- 	<a href='Lists_comma Sets and Tuples.html#4611686018980882226'><font color='#'>tuple</font></a>("Load <a href='Communication ports.html#4611686018982053954'><font color='#'>file</font></a>",
+										<tr><td class='doc_code'> [<a href='Command line handling.html#4611703562331489954'><font color='#'>option_usage</font></a>(opt:{"-f", "-ef"})&nbsp;: <a href='Lists_comma Sets and Tuples.html#4611703562329258978'><font color='#'>tuple</font></a>(<a href='Strings.html#4611703562329046802'><font color='#'>string</font></a>, <a href='Strings.html#4611703562329046802'><font color='#'>string</font></a>, <a href='Strings.html#4611703562329046802'><font color='#'>string</font></a>) -&gt;
+ 	<a href='Lists_comma Sets and Tuples.html#4611703562329258978'><font color='#'>tuple</font></a>("Load <a href='Communication ports.html#4611703562330381170'><font color='#'>file</font></a>",
  			"{-f | -ef} &lt;file:path&gt; ...",
- 			"Load the CLAIRE <a href='Communication ports.html#4611686018982053954'><font color='#'>file</font></a>(s) &lt;file&gt;. The given path may contain an extension " /+
- 			"assuming .cl by default. When the &lt;-f&gt; option is used, the <a href='Communication ports.html#4611686018982053954'><font color='#'>file</font></a> is " /+
- 			"assumed to contain CLAIRE definitions (variables, <a href='Classes.html#4611686018980663538'><font color='#'>class</font></a>, <a href='Methods.html#4611686018981237682'><font color='#'>methods</font></a>) whereas " /+
- 			" &lt;-ef&gt; attempts to <a href='Classes.html#4611686018982602354'><font color='#'>read</font></a> a <a href='Communication ports.html#4611686018982053954'><font color='#'>file</font></a> made of CLAIRE expression.")]
+ 			"Load the CLAIRE <a href='Communication ports.html#4611703562330381170'><font color='#'>file</font></a>(s) &lt;file&gt;. The given path may contain an extension " /+
+ 			"assuming .cl by default. When the &lt;-f&gt; option is used, the <a href='Communication ports.html#4611703562330381170'><font color='#'>file</font></a> is " /+
+ 			"assumed to contain CLAIRE definitions (variables, <a href='Classes.html#4611703562329058722'><font color='#'>class</font></a>, <a href='Methods.html#4611703562329657810'><font color='#'>methods</font></a>) whereas " /+
+ 			" &lt;-ef&gt; attempts to <a href='Classes.html#4611703562330997570'><font color='#'>read</font></a> a <a href='Communication ports.html#4611703562330381170'><font color='#'>file</font></a> made of CLAIRE expression.")]
 
 
- [<a href='Command line handling.html#4611686018983093698'><font color='#'>option_respond</font></a>(opt:{"-f", "-ef"}, l:<a href='Lists_comma Sets and Tuples.html#4611686018980882226'><font color='#'>list</font></a>)&nbsp;: void -&gt;
- 	if <a href='Objects and Entities.html#4611686018982739842'><font color='#'>not</font></a>(l) invalid_option_argument(),
- 	if (<a href='Objects and Entities.html#4611686018982739842'><font color='#'>not</font></a>(<a href='File system.html#4611686018982523698'><font color='#'>isfile?</font></a>(l[1])) &amp; <a href='Objects and Entities.html#4611686018982739842'><font color='#'>not</font></a>(<a href='File system.html#4611686018982523698'><font color='#'>isfile?</font></a>(l[1] /+ ".cl")))
- 		<a href='Exception Handling.html#4611686018981214402'><font color='#'>error</font></a>("~A cannot be opened", l[1]),
- 	while (l &amp; (<a href='File system.html#4611686018982523698'><font color='#'>isfile?</font></a>(l[1]) | <a href='File system.html#4611686018982523698'><font color='#'>isfile?</font></a>(l[1] /+ ".cl")))
+ [<a href='Command line handling.html#4611703562331487842'><font color='#'>option_respond</font></a>(opt:{"-f", "-ef"}, l:<a href='Lists_comma Sets and Tuples.html#4611703562329258978'><font color='#'>list</font></a>)&nbsp;: void -&gt;
+ 	if <a href='Objects and Entities.html#4611703562331135010'><font color='#'>not</font></a>(l) invalid_option_argument(),
+ 	if (<a href='Objects and Entities.html#4611703562331135010'><font color='#'>not</font></a>(<a href='File system.html#4611703562330918882'><font color='#'>isfile?</font></a>(l[1])) &amp; <a href='Objects and Entities.html#4611703562331135010'><font color='#'>not</font></a>(<a href='File system.html#4611703562330918882'><font color='#'>isfile?</font></a>(l[1] /+ ".cl")))
+ 		<a href='Exception Handling.html#4611703562329608946'><font color='#'>error</font></a>("~A cannot be opened", l[1]),
+ 	while (l &amp; (<a href='File system.html#4611703562330918882'><font color='#'>isfile?</font></a>(l[1]) | <a href='File system.html#4611703562330918882'><font color='#'>isfile?</font></a>(l[1] /+ ".cl")))
  		let path&nbsp;:= l[1]
- 		in (l <a href='Integers and Floats.html#4611686018982742306'><font color='#'>&lt;&lt;</font></a> 1,
+ 		in (l <a href='Integers and Floats.html#4611703562330926258'><font color='#'>&lt;&lt;</font></a> 1,
  			case opt
  				({"-f"} load(path),
  				{"-ef"} eload(path)))]
 </td></tr></table>
-							  <p align='justify' class='doc_paragraph'> It comes with this implementation that when an executable is linked with a <a href='Lists_comma Sets and Tuples.html#4611686018980882226'><font color='#'>set</font></a>
- of <a href='Modules.html#4611686018982367538'><font color='#'>module</font></a> the whole option <a href='Lists_comma Sets and Tuples.html#4611686018980882226'><font color='#'>set</font></a> defined by these <a href='Modules.html#4611686018982367538'><font color='#'>module</font></a> is implicitly supported
+							  <p align='justify' class='doc_paragraph'> It comes with this implementation that when an executable is linked with a <a href='Lists_comma Sets and Tuples.html#4611703562329258978'><font color='#'>set</font></a>
+ of <a href='Modules.html#4611703562330762722'><font color='#'>module</font></a> the whole option <a href='Lists_comma Sets and Tuples.html#4611703562329258978'><font color='#'>set</font></a> defined by these <a href='Modules.html#4611703562330762722'><font color='#'>module</font></a> is implicitly supported
  by the executable. For instance, when an executable is linked with the Reader
- <a href='Modules.html#4611686018982367538'><font color='#'>module</font></a> is support the -f option.</p><p align='justify' class='doc_paragraph'> Additionally to this two handlers, a <a href='Modules.html#4611686018982367538'><font color='#'>module</font></a> can define a single restriction of
- <a href='Command line handling.html#4611686018983094594'><font color='#'>option_parsed</font></a> that will be called once the full command line has been parsed.
- With such an handler, a <a href='Modules.html#4611686018982367538'><font color='#'>module</font></a> can perform a job that depends on multiple
- independent option responder (that would have initialize <a href='Global Variables and Constants.html#4611686018982469138'><font color='#'>global</font></a> flags). For
+ <a href='Modules.html#4611703562330762722'><font color='#'>module</font></a> is support the -f option.</p><p align='justify' class='doc_paragraph'> Additionally to this two handlers, a <a href='Modules.html#4611703562330762722'><font color='#'>module</font></a> can define a single restriction of
+ <a href='Command line handling.html#4611703562331489074'><font color='#'>option_parsed</font></a> that will be called once the full command line has been parsed.
+ With such an handler, a <a href='Modules.html#4611703562330762722'><font color='#'>module</font></a> can perform a job that depends on multiple
+ independent option responder (that would have initialize <a href='Global Variables and Constants.html#4611703562330797874'><font color='#'>global</font></a> flags). For
  instance&nbsp;:
  </p><table class='table_code' align=center border=0 width='85%'>
 										<tr><td class='doc_code'> *myopt*:boolean&nbsp;:= false
 
- [<a href='Command line handling.html#4611686018983093698'><font color='#'>option_respond</font></a>(opt:{"myopt"}, l:<a href='Lists_comma Sets and Tuples.html#4611686018980882226'><font color='#'>list</font></a>)&nbsp;: void -&gt; *myopt*&nbsp;:= true]
+ [<a href='Command line handling.html#4611703562331487842'><font color='#'>option_respond</font></a>(opt:{"myopt"}, l:<a href='Lists_comma Sets and Tuples.html#4611703562329258978'><font color='#'>list</font></a>)&nbsp;: void -&gt; *myopt*&nbsp;:= true]
 
- [<a href='Command line handling.html#4611686018983094594'><font color='#'>option_parsed</font></a>()&nbsp;: void -&gt;
+ [<a href='Command line handling.html#4611703562331489074'><font color='#'>option_parsed</font></a>()&nbsp;: void -&gt;
  	if *myopt* ...
  	else ...]
 </td></tr></table>
-							  <p align='justify' class='doc_paragraph'> Restrictions of <a href='Command line handling.html#4611686018983095874'><font color='#'>option_usage</font></a> are used by the command line help which
- is handled with the particular option -h in the Core <a href='Modules.html#4611686018982367538'><font color='#'>module</font></a>&nbsp;:
+							  <p align='justify' class='doc_paragraph'> Restrictions of <a href='Command line handling.html#4611703562331489954'><font color='#'>option_usage</font></a> are used by the command line help which
+ is handled with the particular option -h in the Core <a href='Modules.html#4611703562330762722'><font color='#'>module</font></a>&nbsp;:
  </p><table class='table_code' align=center border=0 width='85%'>
 										<tr><td class='doc_code'> {-h | -help} +[&lt;m&gt; | &lt;option&gt; | &lt;index&gt;]
 </td></tr></table>
-							  <p align='justify' class='doc_paragraph'> Which would provide the help for all options defined by a <a href='Modules.html#4611686018982367538'><font color='#'>module</font></a> &lt;m&gt; or for
+							  <p align='justify' class='doc_paragraph'> Which would provide the help for all options defined by a <a href='Modules.html#4611703562330762722'><font color='#'>module</font></a> &lt;m&gt; or for
  a particular option &lt;option&gt; or for the option having the index &lt;index&gt; in
- the option index as generated by option -h when used without arguments.</p><a name='4611686018983094594'><hr size=0 style='page-break-after: avoid' /></a>
+ the option index as generated by option -h when used without arguments.</p><a name='4611703562331489074'><hr size=0 style='page-break-after: avoid' /></a>
 	<a name='option_parsed'><hr size=0 /></a>
 	<table width='100%' class='item_header'>
 		<tr>
 			<td width='20%' align='left'><i><a href='claire.index.html#__category_index__'>categories</a></i></td>
-			<td width='20%' align='center'><i><a href='Command line handling.html#4611686018983068434'>Command line handling</a></i></td><td width='20%' align='center'><i>normal dispatch</i></td>
+			<td width='20%' align='center'><i><a href='Command line handling.html#4611703562331463602'>Command line handling</a></i></td><td width='20%' align='center'><i>normal dispatch</i></td>
 			<td  width='20%'></td><td width='20%' align='right'><i><font color='red'>[XL]</font> Core interface</i></td>
-	</tr></table><h3>option_parsed<font color='blue'> :: </font>property(open = 3)</h3><p align='justify' class='doc_paragraph'> A <a href='Modules.html#4611686018982367538'><font color='#'>module</font></a> can define a single option_parsed restriction that will be called
+	</tr></table><h3>option_parsed<font color='blue'> :: </font>property(open = 3)</h3><p align='justify' class='doc_paragraph'> A <a href='Modules.html#4611703562330762722'><font color='#'>module</font></a> can define a single option_parsed restriction that will be called
  by the command line option parser at startup as soon as the full command
- line is parsed. It will be used inside a <a href='Modules.html#4611686018982367538'><font color='#'>module</font></a> to perform an <a href='Selectors_comma Properties and Operations.html#4611686018981725154'><font color='#'>operation</font></a>
- that rely on multiple options (for which <a href='Command line handling.html#4611686018983093698'><font color='#'>option_respond</font></a> as already been called):
+ line is parsed. It will be used inside a <a href='Modules.html#4611703562330762722'><font color='#'>module</font></a> to perform an <a href='Selectors_comma Properties and Operations.html#4611703562330122642'><font color='#'>operation</font></a>
+ that rely on multiple options (for which <a href='Command line handling.html#4611703562331487842'><font color='#'>option_respond</font></a> as already been called):
  </p><table class='table_code' align=center border=0 width='85%'>
 										<tr><td class='doc_code'> option_parsed()&nbsp;: void -&gt;
  	...
 </td></tr></table>
-							  <p align='justify' class='doc_paragraph'></p><a name='4611686018983093698'><hr size=0 style='page-break-after: avoid' /></a>
+							  <p align='justify' class='doc_paragraph'></p><a name='4611703562331487842'><hr size=0 style='page-break-after: avoid' /></a>
 	<a name='option_respond'><hr size=0 /></a>
 	<table width='100%' class='item_header'>
 		<tr>
 			<td width='20%' align='left'><i><a href='claire.index.html#__category_index__'>categories</a></i></td>
-			<td width='20%' align='center'><i><a href='Command line handling.html#4611686018983068434'>Command line handling</a></i></td><td width='20%' align='center'><i>normal dispatch</i></td>
+			<td width='20%' align='center'><i><a href='Command line handling.html#4611703562331463602'>Command line handling</a></i></td><td width='20%' align='center'><i>normal dispatch</i></td>
 			<td  width='20%'></td><td width='20%' align='right'><i><font color='red'>[XL]</font> Core interface</i></td>
-	</tr></table><h3>option_respond<font color='blue'> :: </font>property(open = 3)</h3><p align='justify' class='doc_paragraph'> A <a href='Modules.html#4611686018982367538'><font color='#'>module</font></a> can define multiple option_respond restrictions that will be called
+	</tr></table><h3>option_respond<font color='blue'> :: </font>property(open = 3)</h3><p align='justify' class='doc_paragraph'> A <a href='Modules.html#4611703562330762722'><font color='#'>module</font></a> can define multiple option_respond restrictions that will be called
  by the command line option parser at startup. option_respond will take two
  arguments:
  </p><table class='table_code' align=center border=0 width='85%'>
-										<tr><td class='doc_code'> option_respond(opt:{"-opt"}, l:<a href='Lists_comma Sets and Tuples.html#4611686018980882226'><font color='#'>list</font></a>[<a href='Strings.html#4611686018980650978'><font color='#'>string</font></a>])&nbsp;: void -&gt;
+										<tr><td class='doc_code'> option_respond(opt:{"-opt"}, l:<a href='Lists_comma Sets and Tuples.html#4611703562329258978'><font color='#'>list</font></a>[<a href='Strings.html#4611703562329046802'><font color='#'>string</font></a>])&nbsp;: void -&gt;
  	...
 </td></tr></table>
 							  <p align='justify' class='doc_paragraph'> </p>
-							  <ul> <li>a <a href='Lists_comma Sets and Tuples.html#4611686018980882226'><font color='#'>set</font></a> <a href='Global Variables and Constants.html#4611686018982469138'><font color='#'>constant</font></a> that contain the option name ("-opt")
- <li>a <a href='Lists_comma Sets and Tuples.html#4611686018980882226'><font color='#'>list</font></a> argument that represent the remaining arguments
+							  <ul> <li>a <a href='Lists_comma Sets and Tuples.html#4611703562329258978'><font color='#'>set</font></a> <a href='Global Variables and Constants.html#4611703562330797874'><font color='#'>constant</font></a> that contain the option name ("-opt")
+ <li>a <a href='Lists_comma Sets and Tuples.html#4611703562329258978'><font color='#'>list</font></a> argument that represent the remaining arguments
  in the command line (where the option as already been removed).
  </ul>
-							  <p align='justify' class='doc_paragraph'> It is up to the handler to remove used arguments from the given <a href='Lists_comma Sets and Tuples.html#4611686018980882226'><font color='#'>list</font></a>.</p><a name='4611686018983095874'><hr size=0 style='page-break-after: avoid' /></a>
+							  <p align='justify' class='doc_paragraph'> It is up to the handler to remove used arguments from the given <a href='Lists_comma Sets and Tuples.html#4611703562329258978'><font color='#'>list</font></a>.</p><a name='4611703562331489954'><hr size=0 style='page-break-after: avoid' /></a>
 	<a name='option_usage'><hr size=0 /></a>
 	<table width='100%' class='item_header'>
 		<tr>
 			<td width='20%' align='left'><i><a href='claire.index.html#__category_index__'>categories</a></i></td>
-			<td width='20%' align='center'><i><a href='Command line handling.html#4611686018983068434'>Command line handling</a></i></td><td width='20%' align='center'><i>normal dispatch</i></td>
+			<td width='20%' align='center'><i><a href='Command line handling.html#4611703562331463602'>Command line handling</a></i></td><td width='20%' align='center'><i>normal dispatch</i></td>
 			<td  width='20%'></td><td width='20%' align='right'><i><font color='red'>[XL]</font> Core interface</i></td>
-	</tr></table><h3>option_usage<font color='blue'> :: </font>property(open = 3)</h3><p align='justify' class='doc_paragraph'> A <a href='Modules.html#4611686018982367538'><font color='#'>module</font></a> can define multiple option_usage restrictions that will be called
+	</tr></table><h3>option_usage<font color='blue'> :: </font>property(open = 3)</h3><p align='justify' class='doc_paragraph'> A <a href='Modules.html#4611703562330762722'><font color='#'>module</font></a> can define multiple option_usage restrictions that will be called
  by the command line option parser when the command line help is invoked.
- option_usage takes a single argument that is a <a href='Global Variables and Constants.html#4611686018982469138'><font color='#'>constant</font></a> <a href='Lists_comma Sets and Tuples.html#4611686018980882226'><font color='#'>set</font></a> that contain
- names of multiple related options. The handler should return of <a href='Lists_comma Sets and Tuples.html#4611686018980882226'><font color='#'>tuple</font></a> of
- 3 <a href='Strings.html#4611686018980650978'><font color='#'>strings</font></a>&nbsp;:
+ option_usage takes a single argument that is a <a href='Global Variables and Constants.html#4611703562330797874'><font color='#'>constant</font></a> <a href='Lists_comma Sets and Tuples.html#4611703562329258978'><font color='#'>set</font></a> that contain
+ names of multiple related options. The handler should return of <a href='Lists_comma Sets and Tuples.html#4611703562329258978'><font color='#'>tuple</font></a> of
+ 3 <a href='Strings.html#4611703562329046802'><font color='#'>strings</font></a>&nbsp;:
  </p>
 							  <ul> <li>A short single line description
- <li>The usage syntax of the (<a href='Lists_comma Sets and Tuples.html#4611686018980882226'><font color='#'>set</font></a> of) option
+ <li>The usage syntax of the (<a href='Lists_comma Sets and Tuples.html#4611703562329258978'><font color='#'>set</font></a> of) option
  <li>A detailed description
  </ul>
 							  <p align='justify' class='doc_paragraph'> </p><table class='table_code' align=center border=0 width='85%'>
-										<tr><td class='doc_code'> option_usage(opt:{"-opt"})&nbsp;: <a href='Lists_comma Sets and Tuples.html#4611686018980882226'><font color='#'>tuple</font></a>(<a href='Strings.html#4611686018980650978'><font color='#'>string</font></a>, <a href='Strings.html#4611686018980650978'><font color='#'>string</font></a>, <a href='Strings.html#4611686018980650978'><font color='#'>string</font></a>) -&gt;
- 	<a href='Lists_comma Sets and Tuples.html#4611686018980882226'><font color='#'>tuple</font></a>("short description",
- 			"-opt &lt;f:<a href='Communication ports.html#4611686018982053954'><font color='#'>file</font></a>&gt;",
+										<tr><td class='doc_code'> option_usage(opt:{"-opt"})&nbsp;: <a href='Lists_comma Sets and Tuples.html#4611703562329258978'><font color='#'>tuple</font></a>(<a href='Strings.html#4611703562329046802'><font color='#'>string</font></a>, <a href='Strings.html#4611703562329046802'><font color='#'>string</font></a>, <a href='Strings.html#4611703562329046802'><font color='#'>string</font></a>) -&gt;
+ 	<a href='Lists_comma Sets and Tuples.html#4611703562329258978'><font color='#'>tuple</font></a>("short description",
+ 			"-opt &lt;f:<a href='Communication ports.html#4611703562330381170'><font color='#'>file</font></a>&gt;",
  			"long description on how to use option -opt
  			we may use &lt;f&gt; to reference the argument f
  			it can also span multiple line if needed")
@@ -202,8 +202,8 @@ a[href] {
  <li>{...} is used to enclose a non-optional part of the option expression, mostly used if it
  encloses various alternatives
  <li>[...] is used to enclose optional part of the option expression
- <li>+[...] is used for the repetition one or more <a href='Dates and Times.html#4611686018980648178'><font color='#'>time</font></a>
- <li>...|... (the <a href='Communication ports.html#4611686018983025762'><font color='#'>pipe</font></a>) is used for possible alternatives
+ <li>+[...] is used for the repetition one or more <a href='Dates and Times.html#4611703562329044610'><font color='#'>time</font></a>
+ <li>...|... (the <a href='Communication ports.html#4611703562331421314'><font color='#'>pipe</font></a>) is used for possible alternatives
  </ul>
 							  <p align='justify' class='doc_paragraph'></p></body>
 	</html>
