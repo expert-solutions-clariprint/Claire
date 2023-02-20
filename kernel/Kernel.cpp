@@ -2833,6 +2833,7 @@ void ClaireAllocation::sample_once() {
           delayedThings = 1;
            CL_INT t1 = clock();
       markHash();
+           markStack();
       samplerSweepChunk();
       samplerSweepObject();
            fprintf(samples,"%f\t%f\t%f\t%f\t%f\t%f\t%f\t%f\t%f\t%f\n",
