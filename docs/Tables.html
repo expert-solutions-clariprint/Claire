@@ -1,0 +1,189 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+	<head>
+		<link rel="stylesheet" type="text/css" href="doc.css" media="all">
+		<title>
+			claire : Tables
+		</title>
+		<style>
+body {
+        font-size: 14px;
+        font-family: arial, Helvetica;
+}
+
+h1 { font-size: 25px; }
+h2 { font-size: 20px; }
+
+a[href] {
+	border-bottom: 1px dotted grey;
+	text-decoration: none
+}
+
+.doc_paragraph
+{
+        font-size: 14px;
+        font-family: arial, helvetica;
+}
+
+.item_header { font-size: 10px; page-break-before: avoid; page-break-inside: avoid; page-break-after: avoid }
+
+.item_index {
+		white-space: pre;
+        font-size: 11px;
+        font-family: monaco, courier, mono-space;
+}
+
+.table_code {
+		margin: 10px auto;
+}
+
+.doc_code {
+    white-space: pre;
+		padding-top: .1em;
+		padding-bottom: .5em;
+		background-color: #EEE;
+		border: #AAA solid 1px;
+        font-size: 11px;
+        font-family: monaco, courier, mono-space;
+}
+
+.opt_usage {
+		margin-left: 1em;
+		margin-right: 1em;
+		padding: .2em;
+		background-color: #EEE;
+		border: #AAA solid 1px;
+        font-family: monaco, courier, mono-space;
+	
+}
+
+.class_proto {
+	vertical-align: top;
+	text-align: right;
+}
+
+.class_proto_super {
+	vertical-align: top;
+	text-align: right;
+}
+
+.class_proto_slot {
+	vertical-align: top;
+	text-align: left;
+}
+
+</style>
+	</head>
+	<body><table width='100%' class='item_header'>
+		<tr>
+			<td width='33%' align='left' valign='bottom'><i>Methods and Types<br/><a href='Iterations.html#4611703541554694626'>Iterations</a></i></td>
+			<td width='33%' align='center' valign='top'><i><a href='claire.index.html#__category_index__'>categories</a><br/><a href='claire.index.html#4611703541554778466'>Tables, Rules and Hypothetical Reasoning</a><br/><b>Tables</b>
+				</i></td>
+			<td width='33%' align='right' valign='bottom'><i><a href='Rules.html#4611703541554789746'>Rules</a></i></td>
+		</tr>
+	</table>
+	<h1><span class=pretitle>&nbsp;</span>&nbsp;Tables, Rules and Hypothetical Reasoning</h1>
+		<h2><span class=pretitle>&nbsp;</span>&nbsp;<a name='4611703541554717490'>Tables</a>
+			</h2>
+	<ul></ul><ul><li><font font-face='Courier' class='item_index'><a href='Tables.html#4611703541555625586'>erase</a>(<font color='green'>a</font><font color='blue'>:</font>table)<font color='blue'> -&gt; </font>void</font></li><li><font font-face='Courier' class='item_index'><a href='Tables.html#4611703541555484818'>make_table</a>(<font color='green'>d</font><font color='blue'>:</font>type, <font color='green'>t</font><font color='blue'>:</font>type, <font color='green'>x</font><font color='blue'>:</font>any)<font color='blue'> -&gt; </font>table</font></li><li><font font-face='Courier' class='item_index'><a href='Tables.html#4611703541555488466'>nth</a>(<font color='green'>t</font><font color='blue'>:</font>table, <font color='green'>x</font><font color='blue'>:</font>any)<font color='blue'> -&gt; </font>any</font></li><li><font font-face='Courier' class='item_index'><a href='Tables.html#4611703541555488530'>nth</a>(<font color='green'>t</font><font color='blue'>:</font>table, <font color='green'>x</font><font color='blue'>:</font>any, <font color='green'>y</font><font color='blue'>:</font>any)<font color='blue'> -&gt; </font>any</font></li><li><font font-face='Courier' class='item_index'><a href='Tables.html#4611703541555489378'>nth=</a>(<font color='green'>t</font><font color='blue'>:</font>table, <font color='green'>x</font><font color='blue'>:</font>any, <font color='green'>y</font><font color='blue'>:</font>any)<font color='blue'> -&gt; </font>any</font></li><li><font font-face='Courier' class='item_index'><a href='Tables.html#4611703541555489474'>nth=</a>(<font color='green'>t</font><font color='blue'>:</font>table, <font color='green'>x1</font><font color='blue'>:</font>any, <font color='green'>x2</font><font color='blue'>:</font>any, <font color='green'>y</font><font color='blue'>:</font>any)<font color='blue'> -&gt; </font>any</font></li><li><font font-face='Courier' class='item_index'><a href='Tables.html#4611703541555490482'>put</a>(<font color='green'>t</font><font color='blue'>:</font>table, <font color='green'>x</font><font color='blue'>:</font>object, <font color='green'>y</font><font color='blue'>:</font>any)<font color='blue'> -&gt; </font>any</font></li></ul><p align='justify' class='doc_paragraph'> Named <a href='array.html#4611703541554188930'><font color='#'>arrays</font></a>, called tables, can be defined in CLAIRE with the following syntax&nbsp;:
+ </p><table class='table_code' align=center border=0 width='85%'>
+										<tr><td class='doc_code'> &lt;name&gt;[var:&lt;domain&gt;]&nbsp;: &lt;type&gt;&nbsp;:= &lt;expression(var)&gt;
+</td></tr></table>
+							  <p align='justify' class='doc_paragraph'> The &lt;type&gt; is the range of the table and &lt;expression&gt; is an expression that is used to
+ fill the table. This expression may either be a <a href='Global Variables and Constants.html#4611703541555361842'><font color='#'>constant</font></a> or a function of the variables
+ of the table (i.e., an expression in which the variables appear). If the expression is a
+ <a href='Global Variables and Constants.html#4611703541555361842'><font color='#'>constant</font></a>, it is implicitly considered as a default value, the domain of the table may thus
+ be infinite. If the default expression is a function, then the table is filled when it is
+ created, so the domain needs to be finite. When one wants to represent incomplete information,
+ one should fill this spot with the value unknown. For instance, we can define&nbsp;:
+ </p><table class='table_code' align=center border=0 width='85%'>
+										<tr><td class='doc_code'> square[x:(0 .. 20)]&nbsp;: <a href='Integers and Floats.html#4611703541553607058'><font color='#'>integer</font></a>&nbsp;:= (x * x)
+ creator[x:<a href='Classes.html#4611703541553622690'><font color='#'>class</font></a>]&nbsp;: <a href='Strings.html#4611703541553610770'><font color='#'>string</font></a>&nbsp;:= "who created that <a href='Classes.html#4611703541553622690'><font color='#'>class</font></a>"
+ maximum[x:<a href='Lists_comma Sets and Tuples.html#4611703541553841378'><font color='#'>set</font></a>[0 .. 10]]&nbsp;: <a href='Integers and Floats.html#4611703541553607058'><font color='#'>integer</font></a>&nbsp;:= (if x <a href='Lists_comma Sets and Tuples.html#4611703541555705026'><font color='#'>min</font></a>(x,&gt; @ <a href='Integers and Floats.html#4611703541553607058'><font color='#'>integer</font></a>) else 0)
+</td></tr></table>
+							  <p align='justify' class='doc_paragraph'> Tables can be accessed through square brackets and can be modified with assignment expressions
+ like for local variables&nbsp;:
+ </p><table class='table_code' align=center border=0 width='85%'>
+										<tr><td class='doc_code'> square[1], square[2]&nbsp;:= 4, square[4]&nbsp;:+ 5
+</td></tr></table>
+							  <p align='justify' class='doc_paragraph'> We can also define two-dimensional tables such as&nbsp;:
+ </p><table class='table_code' align=center border=0 width='85%'>
+										<tr><td class='doc_code'> distance[x:<a href='Lists_comma Sets and Tuples.html#4611703541553841378'><font color='#'>tuple</font></a>(city,city)]&nbsp;: <a href='Integers and Floats.html#4611703541553607058'><font color='#'>integer</font></a>&nbsp;:= 0
+ cost[x:<a href='Lists_comma Sets and Tuples.html#4611703541553841378'><font color='#'>tuple</font></a>(1 .. 10, 1 .. 10)]&nbsp;: <a href='Integers and Floats.html#4611703541553607058'><font color='#'>integer</font></a>&nbsp;:= 0
+</td></tr></table>
+							  <p align='justify' class='doc_paragraph'> The proper way to use such a table is distance[<a href='Lists_comma Sets and Tuples.html#4611703541553841378'><font color='#'>list</font></a>(denver,miami)] but CLAIRE also supports
+ distance[denver,miami]. CLAIRE also supports a more straightforward declaration such as&nbsp;:
+ </p><table class='table_code' align=center border=0 width='85%'>
+										<tr><td class='doc_code'> cost[x:(1 .. 10), y:(1 .. 10)]&nbsp;: <a href='Integers and Floats.html#4611703541553607058'><font color='#'>integer</font></a>&nbsp;:= 0
+</td></tr></table>
+							  <p align='justify' class='doc_paragraph'> <a href='Lists_comma Sets and Tuples.html#4611703541555705426'><font color='#'>Last</font></a>, tables can be defined in an unamed fashion through the <a href='Methods.html#4611703541554221778'><font color='#'>method</font></a> <a href='Tables.html#4611703541555484818'><font color='#'>make_table</font></a>, such unamed
+ can be collected by the <a href='Miscellaneous.html#4611703541555700434'><font color='#'>GC</font></a>&nbsp;:
+ </p><table class='table_code' align=center border=0 width='85%'>
+										<tr><td class='doc_code'> let square&nbsp;:= <a href='Tables.html#4611703541555484818'><font color='#'>make_table</font></a>((1 .. 10), <a href='Integers and Floats.html#4611703541553607058'><font color='#'>integer</font></a>, 0)
+ in (for n in (1 .. 10))
+ 		square[n]&nbsp;:= n * n,
+ 	...)
+</td></tr></table>
+							  <p align='justify' class='doc_paragraph'></p><a name='4611703541555625586'><hr size=0 style='page-break-after: avoid' /></a>
+	<a name='erase'><hr size=0 /></a>
+	<table width='100%' class='item_header'>
+		<tr>
+			<td width='20%' align='left'><i><a href='claire.index.html#__category_index__'>categories</a></i></td>
+			<td width='20%' align='center'><i><a href='Tables.html#4611703541554717490'>Tables</a></i></td><td width='20%' align='center'><i>normal dispatch</i></td>
+	<td width='20%' align='center'><i></i></td><td width='20%' align='right'><i>Core method</i></td>
+	</tr></table><h3>erase(<font color='green'>a</font><font color='blue'>:</font>table)<font color='blue'> -&gt; </font>void</h3><p align='justify' class='doc_paragraph'> erase(<b>a</b>) removes all value pairs contained in the <a href='Tables.html#4611703541554717490'><font color='#'>table</font></a>. This means that,
+ on one hand, the value <b>a</b>[x] becomes unknown for each <a href='Objects and Entities.html#4611703541553611170'><font color='#'>object</font></a> x, and also
+ that any references to an <a href='Objects and Entities.html#4611703541553611170'><font color='#'>object</font></a> from the <a href='Tables.html#4611703541554717490'><font color='#'>table</font></a>'s domain or an associated
+ value is lost, which may be useful to allow for complete garbage collection.</p><a name='4611703541555484818'><hr size=0 style='page-break-after: avoid' /></a>
+	<a name='make_table'><hr size=0 /></a>
+	<table width='100%' class='item_header'>
+		<tr>
+			<td width='20%' align='left'><i><a href='claire.index.html#__category_index__'>categories</a></i></td>
+			<td width='20%' align='center'><i><a href='Tables.html#4611703541554717490'>Tables</a></i></td><td width='20%' align='center'><i>normal dispatch</i></td>
+	<td width='20%' align='center'><i></i></td><td width='20%' align='right'><i>Kernel method</i></td>
+	</tr></table><h3>make_table(<font color='green'>d</font><font color='blue'>:</font>type, <font color='green'>t</font><font color='blue'>:</font>type, <font color='green'>x</font><font color='blue'>:</font>any)<font color='blue'> -&gt; </font>table</h3><p align='justify' class='doc_paragraph'> returns a <a href='Tables.html#4611703541554717490'><font color='#'>table</font></a> with a domain of <a href='Types.html#4611703541554225330'><font color='#'>type</font></a> <b>d</b> and a range <b>t</b>.
+ The parameter <b>x</b> is the default value, thus <b>x</b> must belong to <b>t</b>, as
+ well as any future value that will be <a href='Symbols.html#4611703541555490578'><font color='#'>put</font></a> in the <a href='Tables.html#4611703541554717490'><font color='#'>table</font></a>.</p><p align='justify' class='doc_paragraph'> <font color='red'>[XL]</font> In XL CLAIRE, <a href='Tables.html#4611703541554717490'><font color='#'>tables</font></a> created by make_table are seen as <a href='Classes.html#4611703541555700018'><font color='#'>ephemeral</font></a>,
+ thus collectable by the <a href='Miscellaneous.html#4611703541555700434'><font color='#'>GC</font></a>.</p><a name='4611703541555488466'><hr size=0 style='page-break-after: avoid' /></a>
+	<a name='nth'><hr size=0 /></a>
+	<table width='100%' class='item_header'>
+		<tr>
+			<td width='20%' align='left'><i><a href='claire.index.html#__category_index__'>categories</a></i></td>
+			<td width='20%' align='center'><i><a href='Tables.html#4611703541554717490'>Tables</a></i></td><td width='20%' align='center'><i>normal dispatch</i></td>
+	<td width='20%' align='center'><i></i></td><td width='20%' align='right'><i>Kernel method</i></td>
+	</tr></table><h3>nth(<font color='green'>t</font><font color='blue'>:</font>table, <font color='green'>x</font><font color='blue'>:</font>any)<font color='blue'> -&gt; </font>any</h3><p align='justify' class='doc_paragraph'> nth(<b>t</b>,<b>x</b>) returns the element of <b>t</b> that as the key <b>x</b>.
+ nth(<b>t</b>,<b>x</b>) is equivalent to <b>t</b>[<b>x</b>].</p><a name='4611703541555488530'><hr size=0 style='page-break-after: avoid' /></a>
+	<a name='nth'><hr size=0 /></a>
+	<table width='100%' class='item_header'>
+		<tr>
+			<td width='20%' align='left'><i><a href='claire.index.html#__category_index__'>categories</a></i></td>
+			<td width='20%' align='center'><i><a href='Tables.html#4611703541554717490'>Tables</a></i></td><td width='20%' align='center'><i>normal dispatch</i></td>
+	<td width='20%' align='center'><i></i></td><td width='20%' align='right'><i>Kernel method</i></td>
+	</tr></table><h3>nth(<font color='green'>t</font><font color='blue'>:</font>table, <font color='green'>x</font><font color='blue'>:</font>any, <font color='green'>y</font><font color='blue'>:</font>any)<font color='blue'> -&gt; </font>any</h3><p align='justify' class='doc_paragraph'> nth(<b>t</b>,<b>x</b>) returns the element of <b>t</b> that as the key <a href='Lists_comma Sets and Tuples.html#4611703541553841378'><font color='#'>tuple</font></a>(<b>x</b>, <b>y</b>).
+ nth(<b>t</b>,<b>x</b>) is equivalent to <b>t</b>[<b>x</b>,<b>y</b>], <b>t</b>[<a href='Lists_comma Sets and Tuples.html#4611703541553841378'><font color='#'>tuple</font></a>(<b>x</b>,<b>y</b>)] and nth(<b>t</b>,<a href='Lists_comma Sets and Tuples.html#4611703541553841378'><font color='#'>tuple</font></a>(<b>x</b>,<b>y</b>)).</p><a name='4611703541555489378'><hr size=0 style='page-break-after: avoid' /></a>
+	<a name='nth='><hr size=0 /></a>
+	<table width='100%' class='item_header'>
+		<tr>
+			<td width='20%' align='left'><i><a href='claire.index.html#__category_index__'>categories</a></i></td>
+			<td width='20%' align='center'><i><a href='Tables.html#4611703541554717490'>Tables</a></i></td><td width='20%' align='center'><i>normal dispatch</i></td>
+	<td width='20%' align='center'><i></i></td><td width='20%' align='right'><i>Kernel method</i></td>
+	</tr></table><h3>nth=(<font color='green'>t</font><font color='blue'>:</font>table, <font color='green'>x</font><font color='blue'>:</font>any, <font color='green'>y</font><font color='blue'>:</font>any)<font color='blue'> -&gt; </font>any</h3><p align='justify' class='doc_paragraph'> <a href='Communication ports.html#4611703541555977474'><font color='#'>nth</font></a>=(<b>t</b>,<b>x</b>,<b>y</b>) <a href='Lists_comma Sets and Tuples.html#4611703541553841378'><font color='#'>sets</font></a> the item of <b>t</b> with key <b>x</b> to <b>y</b>.
+ <a href='Communication ports.html#4611703541555977474'><font color='#'>nth</font></a>=(<b>t</b>,<b>x</b>,<b>y</b>) is equivalent to <b>t</b>[<b>x</b>]&nbsp;:= <b>y</b>.</p><a name='4611703541555489474'><hr size=0 style='page-break-after: avoid' /></a>
+	<a name='nth='><hr size=0 /></a>
+	<table width='100%' class='item_header'>
+		<tr>
+			<td width='20%' align='left'><i><a href='claire.index.html#__category_index__'>categories</a></i></td>
+			<td width='20%' align='center'><i><a href='Tables.html#4611703541554717490'>Tables</a></i></td><td width='20%' align='center'><i>normal dispatch</i></td>
+	<td width='20%' align='center'><i></i></td><td width='20%' align='right'><i>Kernel method</i></td>
+	</tr></table><h3>nth=(<font color='green'>t</font><font color='blue'>:</font>table, <font color='green'>x1</font><font color='blue'>:</font>any, <font color='green'>x2</font><font color='blue'>:</font>any, <font color='green'>y</font><font color='blue'>:</font>any)<font color='blue'> -&gt; </font>any</h3><p align='justify' class='doc_paragraph'> <a href='Communication ports.html#4611703541555977474'><font color='#'>nth</font></a>=(<b>t</b>,<b>x1</b>,<b>x2</b>,<b>y</b>) <a href='Lists_comma Sets and Tuples.html#4611703541553841378'><font color='#'>sets</font></a> the item <b>t</b> with key <a href='Lists_comma Sets and Tuples.html#4611703541553841378'><font color='#'>tuple</font></a>(<b>x1</b>,<b>x2</b>) to <b>y</b>
+ <a href='Communication ports.html#4611703541555977474'><font color='#'>nth</font></a>=(<b>t</b>,<b>x1</b>,<b>x2</b>,<b>y</b>) is equivalent to <b>t</b>[<b>x1</b>,<b>x2</b>]&nbsp;:= <b>y</b>.</p><a name='4611703541555490482'><hr size=0 style='page-break-after: avoid' /></a>
+	<a name='put'><hr size=0 /></a>
+	<table width='100%' class='item_header'>
+		<tr>
+			<td width='20%' align='left'><i><a href='claire.index.html#__category_index__'>categories</a></i></td>
+			<td width='20%' align='center'><i><a href='Tables.html#4611703541554717490'>Tables</a></i></td><td width='20%' align='center'><i>normal dispatch</i></td>
+	<td width='20%' align='center'><i></i></td><td width='20%' align='right'><i>Kernel method</i></td>
+	</tr></table><h3>put(<font color='green'>t</font><font color='blue'>:</font>table, <font color='green'>x</font><font color='blue'>:</font>object, <font color='green'>y</font><font color='blue'>:</font>any)<font color='blue'> -&gt; </font>any</h3><p align='justify' class='doc_paragraph'> put(<b>t</b>,<b>x</b>,<b>y</b>) is equivalent to <b>t</b>[<b>x</b>]&nbsp;:= <b>y</b> but does <a href='Objects and Entities.html#4611703541555698978'><font color='#'>not</font></a> trigger the <a href='Rules.html#4611703541554789746'><font color='#'>rules</font></a>
+ associated to a.
+ Besides, this <a href='Selectors_comma Properties and Operations.html#4611703541554686610'><font color='#'>operation</font></a> is performed without any type-checking.</p></body>
+	</html>

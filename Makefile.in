@@ -122,7 +122,7 @@ $(Dr)/configure: $(Dr)/configure.in.unix
 # How to create a public xl version #
 #####################################
 
-public/ccmain.cl: doc/index.html ./tmpclaire2 $(Dr)/ccmain.cl $(Dr)/configure $(Dr)/Makefile.in.unix $(Dr)/Makefile.in.mvs $(Dr)/init.cl $(Dr)/Makefile.nt
+public/ccmain.cl: docs/index.html ./tmpclaire2 $(Dr)/ccmain.cl $(Dr)/configure $(Dr)/Makefile.in.unix $(Dr)/Makefile.in.mvs $(Dr)/init.cl $(Dr)/Makefile.nt
 	@echo -------
 	@echo - pub -
 	@echo -------
@@ -133,9 +133,9 @@ public/ccmain.cl: doc/index.html ./tmpclaire2 $(Dr)/ccmain.cl $(Dr)/configure $(
 	rm -drf public/meta/CVS
 	rm -drf public/meta/.svn
 	cp -R $(Dh) public
-	cp -R doc public
-	rm -drf public/doc/CVS
-	rm -drf public/doc/.svn
+	cp -R docs public
+	rm -drf public/docs/CVS
+	rm -drf public/docs/.svn
 	rm -f public/$(Dh)/config.h
 	rm -f public/$(Dh)/acconfig.h
 	rm -drf public/$(Dh)/CVS
@@ -165,9 +165,10 @@ public/ccmain.cl: doc/index.html ./tmpclaire2 $(Dr)/ccmain.cl $(Dr)/configure $(
 	@echo ----------
 
 
-doc/index.html: tmpclaire2 meta/*.cl
+docs/index.html: tmpclaire2 meta/*.cl
 	./tmpclaire2 -s 8 0 -apidoc claire -q
-	mv doc/claire.html doc/index.html
+	mv doc docs
+	mv docs/claire.html docs/index.html
 
 
 a:
@@ -297,6 +298,7 @@ clean:
 	rm -rf $(Ds1)/*
 	rm -rf xlclaire-*
 	rm -rf doc
+	rm -rf docs
 	rm -f $(Dr)/configure
 	rm -f Makefile
 	find . -name "*.o" -exec rm -f {} \;

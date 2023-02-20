@@ -1,0 +1,276 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+	<head>
+		<link rel="stylesheet" type="text/css" href="doc.css" media="all">
+		<title>
+			claire : Methods
+		</title>
+		<style>
+body {
+        font-size: 14px;
+        font-family: arial, Helvetica;
+}
+
+h1 { font-size: 25px; }
+h2 { font-size: 20px; }
+
+a[href] {
+	border-bottom: 1px dotted grey;
+	text-decoration: none
+}
+
+.doc_paragraph
+{
+        font-size: 14px;
+        font-family: arial, helvetica;
+}
+
+.item_header { font-size: 10px; page-break-before: avoid; page-break-inside: avoid; page-break-after: avoid }
+
+.item_index {
+		white-space: pre;
+        font-size: 11px;
+        font-family: monaco, courier, mono-space;
+}
+
+.table_code {
+		margin: 10px auto;
+}
+
+.doc_code {
+    white-space: pre;
+		padding-top: .1em;
+		padding-bottom: .5em;
+		background-color: #EEE;
+		border: #AAA solid 1px;
+        font-size: 11px;
+        font-family: monaco, courier, mono-space;
+}
+
+.opt_usage {
+		margin-left: 1em;
+		margin-right: 1em;
+		padding: .2em;
+		background-color: #EEE;
+		border: #AAA solid 1px;
+        font-family: monaco, courier, mono-space;
+	
+}
+
+.class_proto {
+	vertical-align: top;
+	text-align: right;
+}
+
+.class_proto_super {
+	vertical-align: top;
+	text-align: right;
+}
+
+.class_proto_slot {
+	vertical-align: top;
+	text-align: left;
+}
+
+</style>
+	</head>
+	<body><table width='100%' class='item_header'>
+		<tr>
+			<td width='33%' align='left' valign='bottom'><i>Lists, Sets and Instructions<br/><a href='array.html#4611703541554188930'>array</a></i></td>
+			<td width='33%' align='center' valign='top'><i><a href='claire.index.html#__category_index__'>categories</a><br/><a href='claire.index.html#4611703541554221818'>Methods and Types</a><br/><b>Methods</b>
+				</i></td>
+			<td width='33%' align='right' valign='bottom'><i><a href='Types.html#4611703541554225330'>Types</a></i></td>
+		</tr>
+	</table>
+	<h1><span class=pretitle>&nbsp;</span>&nbsp;Methods and Types</h1>
+		<h2><span class=pretitle>&nbsp;</span>&nbsp;<a name='4611703541554221778'>Methods</a>
+			</h2>
+	<ul></ul><ul><li><font font-face='Courier' class='item_index'><a href='Methods.html#4611703541555481634'>interface</a>(<font color='green'>p</font><font color='blue'>:</font>property)<font color='blue'> -&gt; </font>void</font></li><li><font font-face='Courier' class='item_index'><a href='Methods.html#4611703541555481762'>interface</a>(<font color='green'>c</font><font color='blue'>:</font>class U Union, <font color='green'>pi</font><font color='blue'>:</font>listargs)<font color='blue'> -&gt; </font>void</font></li></ul><p align='justify' class='doc_paragraph'> A method is the definition of a <a href='Selectors_comma Properties and Operations.html#4611703541554686610'><font color='#'>property</font></a> for a given signature. A method is defined by the
+ following pattern&nbsp;: a <a href='Selectors_comma Properties and Operations.html#4611703541554686610'><font color='#'>selector</font></a> (the name of the <a href='Selectors_comma Properties and Operations.html#4611703541554686610'><font color='#'>property</font></a> represented by the method), a <a href='Lists_comma Sets and Tuples.html#4611703541553841378'><font color='#'>list</font></a>
+ of typed parameters (the <a href='Lists_comma Sets and Tuples.html#4611703541553841378'><font color='#'>list</font></a> of their <a href='Types.html#4611703541554225330'><font color='#'>types</font></a> forms the domain of the method), a range expression
+ and a body (an expression or a let statement introduced by -&gt; or =&gt;).
+ </p><table class='table_code' align=center border=0 width='85%'>
+										<tr><td class='doc_code'> &lt;selector&gt;(&lt;typed parameters&gt;)&nbsp;: &lt;range&gt;<sup>opt</sup> &lt; -&gt; | =&gt; &gt; &lt;body&gt;
+
+ fact(n:{0})&nbsp;: <a href='Integers and Floats.html#4611703541553607058'><font color='#'>integer</font></a> -&gt; 1
+ fact(n:<a href='Integers and Floats.html#4611703541553607058'><font color='#'>integer</font></a>)&nbsp;: <a href='Integers and Floats.html#4611703541553607058'><font color='#'>integer</font></a> -&gt; (n * fact(n - 1))
+ print_test()&nbsp;: void
+ 	-&gt; (<a href='Printing.html#4611703541555698866'><font color='#'>print</font></a>("Hello"),
+ 		<a href='Printing.html#4611703541555698866'><font color='#'>print</font></a>("<a href='Hypothetical Reasoning.html#4611703541554934354'><font color='#'>world</font></a><n")></td></tr></table>
+							  <p align='justify' class='doc_paragraph'> </p>
+									<table align='center' width='80%'>
+									<tr><td><p align='justify' class='doc_paragraph'>
+										<b>Definition : </b><i>A signature is a Cartesian product of <a href='Types.html#4611703541554225330'><font color='#'>types</font></a> that always contains the extension of the function.
+ More precisely, a signature A<sub>1</sub>* A<sub>2</sub>* ... * A<sub>n</sub>, also represented as <a href='Lists_comma Sets and Tuples.html#4611703541553841378'><font color='#'>list</font></a>(A<sub>1</sub>, ...,A<sub>n</sub>) or
+ A<sub>1</sub>* A<sub>2</sub>* ... * A<sub>n-1</sub> -&gt; A<sub>n</sub>, is associated to a method definition f(...)&nbsp;: A<sub>n</sub> -&gt; ... for two
+ purposes: it says that the definition of the <a href='Selectors_comma Properties and Operations.html#4611703541554686610'><font color='#'>property</font></a> f is only valid for input arguments
+ (x<sub>1</sub>, x<sub>2</sub>, ..., x<sub>n-1</sub>) in A<sub>1</sub>* A<sub>2</sub>* ... * A<sub>n-1</sub> and it says that the result of f(x<sub>1</sub>, x<sub>2</sub>, ..., x<sub>n-1</sub>)
+ must belong to A<sub>n</sub>. The <a href='Selectors_comma Properties and Operations.html#4611703541554686610'><font color='#'>property</font></a> f is also called an overloaded function and a method m is called its restriction
+ to A<sub>1</sub>* A<sub>2</sub>* ... * A<sub>n-1</sub>.
+ </i></p></td></tr></table>
+									<p align='justify' class='doc_paragraph'> If two methods have intersecting signatures and the <a href='Selectors_comma Properties and Operations.html#4611703541554686610'><font color='#'>property</font></a> is called on <a href='Objects and Entities.html#4611703541553611170'><font color='#'>objects</font></a> in both signatures,
+ the definition of the method with the smaller domain is taken into account. If the two domains have a
+ non-empty intersection but are <a href='Objects and Entities.html#4611703541555698978'><font color='#'>not</font></a> comparable, a warning is issued and the result is
+ implementation-dependent. The <a href='Lists_comma Sets and Tuples.html#4611703541553841378'><font color='#'>set</font></a> of methods that <a href='Calls and Slot Access.html#4611703541556196130'><font color='#'>apply</font></a> for a given <a href='Classes.html#4611703541553622690'><font color='#'>class</font></a> or return results in
+ another can be found conveniently with methods.</p><p align='justify' class='doc_paragraph'> The range declaration can only be omitted if the range is void. In particular, this is convenient
+ when using the interpreter&nbsp;:
+ </p><table class='table_code' align=center border=0 width='85%'>
+										<tr><td class='doc_code'> loadMM()
+ -&gt; (<a href='Modules.html#4611703541555465442'><font color='#'>begin</font></a>(my_module),
+ 	load("f1"),
+ 	load("f2"),
+ 	<a href='Modules.html#4611703541555465522'><font color='#'>end</font></a>(my_module))
+</td></tr></table>
+							  <p align='justify' class='doc_paragraph'> If the range is void (unspecified), the result cannot be used inside another expression
+ (a type-checking <a href='Exception Handling.html#4611703541554155506'><font color='#'>error</font></a> will be detected at compilation). A method's range must be declared
+ void if it does <a href='Objects and Entities.html#4611703541555698978'><font color='#'>not</font></a> return a value (for instance, if its <a href='Lists_comma Sets and Tuples.html#4611703541555705426'><font color='#'>last</font></a> statement is, recursively, a <a href='Calls and Slot Access.html#4611703541555624690'><font color='#'>call</font></a>
+ to another method with range void). It is important <a href='Objects and Entities.html#4611703541555698978'><font color='#'>not</font></a> to mix restrictions with void range with
+ other regular methods that do return a value, since the compiler will generate an <a href='Exception Handling.html#4611703541554155506'><font color='#'>error</font></a> when
+ compiling a <a href='Calls and Slot Access.html#4611703541555624690'><font color='#'>call</font></a> unless it can guarantee that the void methods will <a href='Objects and Entities.html#4611703541555698978'><font color='#'>not</font></a> be used.</p><p align='justify' class='doc_paragraph'> The default range was changed to void in the version 3.3 of CLAIRE, in an effort to encourage
+ proper typing of methods: "no range" means that the method does <a href='Objects and Entities.html#4611703541555698978'><font color='#'>not</font></a> return a value. This is an
+ important change when migrating code from earlier versions of CLAIRE.
+ CLAIRE supports methods with a variable <a href='Integers and Floats.html#4611703541553607058'><font color='#'>number</font></a> of arguments using the listargs keyword. The
+ arguments are <a href='Symbols.html#4611703541555490578'><font color='#'>put</font></a> in a <a href='Lists_comma Sets and Tuples.html#4611703541553841378'><font color='#'>list</font></a>, which is passed to the (unique) argument of <a href='Types.html#4611703541554225330'><font color='#'>type</font></a> listargs. For
+ instance, if we define&nbsp;:
+ </p><table class='table_code' align=center border=0 width='85%'>
+										<tr><td class='doc_code'> [f(x:<a href='Integers and Floats.html#4611703541553607058'><font color='#'>integer</font></a>,y:listargs) -&gt; x + size(y)]
+</td></tr></table>
+							  <p align='justify' class='doc_paragraph'> A <a href='Calls and Slot Access.html#4611703541555624690'><font color='#'>call</font></a> f(1,2,3,4) will produce the binding x = 1 and y = <a href='Lists_comma Sets and Tuples.html#4611703541553841378'><font color='#'>list</font></a>(2,3,4) and will return 4.</p><p align='justify' class='doc_paragraph'> CLAIRE also supports functions that return multiple values using <a href='Lists_comma Sets and Tuples.html#4611703541553841378'><font color='#'>tuples</font></a>. If you need a function
+ that returns n values v1,v2,...,vn of respective <a href='Types.html#4611703541554225330'><font color='#'>types</font></a> t1,t2,...,tn, you simply declare its range
+ as <a href='Lists_comma Sets and Tuples.html#4611703541553841378'><font color='#'>tuple</font></a>(t1,t2,...,tn) and return <a href='Lists_comma Sets and Tuples.html#4611703541553841378'><font color='#'>tuple</font></a>(v1,v2,...,vn) in the body of the function. For instance the
+ following method returns the maximum value of a <a href='Lists_comma Sets and Tuples.html#4611703541553841378'><font color='#'>list</font></a> and the "regret" which is the <a href='Lists_comma Sets and Tuples.html#4611703541555706066'><font color='#'>difference</font></a>
+ between the best and the second-best value&nbsp;:
+ </p><table class='table_code' align=center border=0 width='85%'>
+										<tr><td class='doc_code'> [my_max(l:<a href='Lists_comma Sets and Tuples.html#4611703541553841378'><font color='#'>list</font></a>[<a href='Integers and Floats.html#4611703541553607058'><font color='#'>integer</font></a>])&nbsp;: <a href='Lists_comma Sets and Tuples.html#4611703541553841378'><font color='#'>tuple</font></a>(<a href='Integers and Floats.html#4611703541553607058'><font color='#'>integer</font></a>,<a href='Integers and Floats.html#4611703541553607058'><font color='#'>integer</font></a>)
+ -&gt; let x1&nbsp;:= 1000000000, x2&nbsp;:= 1000000000
+ 	in (for y in l
+ 		(if (y &lt; x1) (x2&nbsp;:= x1, x1&nbsp;:= y)
+ 		else if (y &lt; x2) x2&nbsp;:= y),
+ 		<a href='Lists_comma Sets and Tuples.html#4611703541553841378'><font color='#'>tuple</font></a>(x1,x2))]
+</td></tr></table>
+							  <p align='justify' class='doc_paragraph'> The <a href='Lists_comma Sets and Tuples.html#4611703541553841378'><font color='#'>tuple</font></a> produced by a tuple-valued method can be used in any way, but the preferred way is to
+ use a tuple-assignment in a let. For instance, here is how we would use the max2 method&nbsp;:
+ </p><table class='table_code' align=center border=0 width='85%'>
+										<tr><td class='doc_code'> let (a,b)&nbsp;:= my_max(<a href='Lists_comma Sets and Tuples.html#4611703541553841378'><font color='#'>list</font></a>{f(i) | i in (1 .. 10)})
+ in ...
+</td></tr></table>
+							  <p align='justify' class='doc_paragraph'> Each <a href='Dates and Times.html#4611703541553608578'><font color='#'>time</font></a> you use a tuple-assignment for a tuple-method, the compiler uses an optimization
+ technique to use the <a href='Lists_comma Sets and Tuples.html#4611703541553841378'><font color='#'>tuple</font></a> virtually without any allocation. This makes using tuple-valued
+ methods a <a href='driving optimizations.html#4611703541555465970'><font color='#'>safe</font></a> and elegant programming technique.</p><p align='justify' class='doc_paragraph'> The body of a method is either a CLAIRE expression (the most common case) or an external (C++)
+ function. In the first case, the method can be seen as defined by a lambda abstraction. This
+ lambda can be created directly through the following&nbsp;:
+ </p><table class='table_code' align=center border=0 width='85%'>
+										<tr><td class='doc_code'> lambda[(&lt;typed parameters&gt;), &lt;body&gt;]
+</td></tr></table>
+							  <p align='justify' class='doc_paragraph'> Defining a method with an external function is the standard way to import a C/C++ function
+ in CLAIRE. This is done with the function!(...) constructor, as in the following&nbsp;:
+ </p><table class='table_code' align=center border=0 width='85%'>
+										<tr><td class='doc_code'> f(x:<a href='Integers and Floats.html#4611703541553607058'><font color='#'>integer</font></a>,y:<a href='Integers and Floats.html#4611703541553607058'><font color='#'>integer</font></a>) -&gt; function!(my_version_of_f)
+ <a href='Integers and Floats.html#4611703541555703954'><font color='#'>cos</font></a>(x:<a href='Integers and Floats.html#4611703541553607058'><font color='#'>float</font></a>) -&gt; function!(cos_for_claire)
+</td></tr></table>
+							  <p align='justify' class='doc_paragraph'> It is important to notice that in CLAIRE, methods can have at most 20 parameters. Methods with
+ 40 or more parameters that exist in some C++ libraries are very hard to maintain. It is advised
+ to use parameter <a href='Objects and Entities.html#4611703541553611170'><font color='#'>objects</font></a> in this situation.</p><p align='justify' class='doc_paragraph'> CLAIRE also provides inline methods, that are defined using the =&gt; keyword before the body
+ instead of -&gt;. An inline method behaves exactly like a regular method. The only <a href='Lists_comma Sets and Tuples.html#4611703541555706066'><font color='#'>difference</font></a> is
+ that the compiler will use in-line substitution in its generated code instead of a function <a href='Calls and Slot Access.html#4611703541555624690'><font color='#'>call</font></a>
+ when it seems more appropriate. Inline methods can be seen as polymorphic macros, and are
+ quite powerful because of the combination of <a href='parametric class.html#4611703541553681010'><font color='#'>parametric</font></a> function <a href='Calls and Slot Access.html#4611703541553806482'><font color='#'>calls</font></a> (using <a href='Calls and Slot Access.html#4611703541555624690'><font color='#'>call</font></a>(...))
+ and <a href='parametric class.html#4611703541553681010'><font color='#'>parametric</font></a> iteration (using for). Let us consider the two following examples, where
+ subtype[<a href='Integers and Floats.html#4611703541553607058'><font color='#'>integer</font></a>] is the <a href='Types.html#4611703541554225330'><font color='#'>type</font></a> of everything that represents a <a href='Lists_comma Sets and Tuples.html#4611703541553841378'><font color='#'>set</font></a> of <a href='Integers and Floats.html#4611703541553607058'><font color='#'>integers</font></a>&nbsp;:
+ </p><table class='table_code' align=center border=0 width='85%'>
+										<tr><td class='doc_code'> sum(s:subtype[<a href='Integers and Floats.html#4611703541553607058'><font color='#'>integer</font></a>])&nbsp;: <a href='Integers and Floats.html#4611703541553607058'><font color='#'>integer</font></a>
+ 	=&gt; let x&nbsp;:= 0 in (for y in s x&nbsp;:+ y, x)
+
+ <a href='Lists_comma Sets and Tuples.html#4611703541555705026'><font color='#'>min</font></a>(s:subtype[<a href='Integers and Floats.html#4611703541553607058'><font color='#'>integer</font></a>], f:<a href='Selectors_comma Properties and Operations.html#4611703541554686610'><font color='#'>property</font></a>)&nbsp;: <a href='Integers and Floats.html#4611703541553607058'><font color='#'>integer</font></a>
+ 	=&gt; let x&nbsp;:= 0, empty&nbsp;:= true
+ 		in (for y in s
+ 			(if empty (x&nbsp;:= y, empty&nbsp;:= false)
+ 			else if <a href='Calls and Slot Access.html#4611703541555624690'><font color='#'>call</font></a>(f,y,x) x&nbsp;:= y),
+ 			x)
+</td></tr></table>
+							  <p align='justify' class='doc_paragraph'> For each <a href='Calls and Slot Access.html#4611703541555624690'><font color='#'>call</font></a> to these methods, the compiler performs the substitution and optimizes the result.
+ For instance, the optimized code generated for sum({x.age | x in person}) and for
+ <a href='Lists_comma Sets and Tuples.html#4611703541555705026'><font color='#'>min</font></a>({x in 1 .. 10 | f(x) &gt; 0}, &gt;) will be&nbsp;:
+ </p><table class='table_code' align=center border=0 width='85%'>
+										<tr><td class='doc_code'> let x&nbsp;:= 0
+ in (for %v in person.instances
+ 		let y&nbsp;:= %v.age in x&nbsp;:+ y, x)
+
+ let x&nbsp;:= 0, empty&nbsp;:= true, y&nbsp;:= 1, <a href='Lists_comma Sets and Tuples.html#4611703541555705106'><font color='#'>max</font></a>&nbsp;:= 10
+ in (while (y &lt;= <a href='Lists_comma Sets and Tuples.html#4611703541555705106'><font color='#'>max</font></a>)
+ 		(if (f(y) &gt; 0)
+ 			(if empty (x&nbsp;:= y, empty&nbsp;:= false)
+ 			else if (y &gt; x) x&nbsp;:= y),
+ 		y&nbsp;:+ 1),
+ 	x)
+</td></tr></table>
+							  <p align='justify' class='doc_paragraph'> Notice that, in these two cases, the construction of temporary <a href='Lists_comma Sets and Tuples.html#4611703541553841378'><font color='#'>sets</font></a> is totally avoided. The
+ combined use of inline methods and functional parameters provides an easy way to produce generic
+ algorithms that can be instantiated as follows&nbsp;:
+ </p><table class='table_code' align=center border=0 width='85%'>
+										<tr><td class='doc_code'> mymin(l:<a href='Lists_comma Sets and Tuples.html#4611703541553841378'><font color='#'>list</font></a>[<a href='Integers and Floats.html#4611703541553607058'><font color='#'>integer</font></a>])&nbsp;: <a href='Integers and Floats.html#4611703541553607058'><font color='#'>integer</font></a> -&gt; <a href='Lists_comma Sets and Tuples.html#4611703541555705026'><font color='#'>min</font></a>(l, my_order)
+</td></tr></table>
+							  <p align='justify' class='doc_paragraph'> The code generated for the definition of mymin @ <a href='Lists_comma Sets and Tuples.html#4611703541553841378'><font color='#'>list</font></a>[<a href='Integers and Floats.html#4611703541553607058'><font color='#'>integer</font></a>] will use a direct <a href='Calls and Slot Access.html#4611703541555624690'><font color='#'>call</font></a> to
+ my_order (with static binding) and the efficient iteration pattern for <a href='Lists_comma Sets and Tuples.html#4611703541553841378'><font color='#'>lists</font></a>, because <a href='Lists_comma Sets and Tuples.html#4611703541555705026'><font color='#'>min</font></a> is
+ an inline method. In that case, the previous definition of <a href='Lists_comma Sets and Tuples.html#4611703541555705026'><font color='#'>min</font></a> may be seen as a pattern of
+ algorithms.</p><p align='justify' class='doc_paragraph'> </p>
+							  <ul><li><b>CAVEAT&nbsp;: </b><i>A recursive macro will cause an endless loop that may be
+ painful to detect and debug. </i></li></ul>
+							  <p align='justify' class='doc_paragraph'> For upward compatibility reasons (from <a href='Miscellaneous.html#4611703541555624050'><font color='#'>release</font></a> 1.0), CLAIRE still supports the use of external
+ brackets around method definitions. The brackets are there to represent boxes around methods
+ (and are pretty-printed as such with advanced <a href='Printing.html#4611703541555063538'><font color='#'>printing</font></a> tools). For instance, one can <a href='Classes.html#4611703541555561634'><font color='#'>write</font></a>&nbsp;:
+ </p><table class='table_code' align=center border=0 width='85%'>
+										<tr><td class='doc_code'> [mymin(l:<a href='Lists_comma Sets and Tuples.html#4611703541553841378'><font color='#'>list</font></a>[<a href='Integers and Floats.html#4611703541553607058'><font color='#'>integer</font></a>])&nbsp;: <a href='Integers and Floats.html#4611703541553607058'><font color='#'>integer</font></a> -&gt; <a href='Lists_comma Sets and Tuples.html#4611703541555705026'><font color='#'>min</font></a>(l, my_order)]
+</td></tr></table>
+							  <p align='justify' class='doc_paragraph'> Brackets have been found useful by some users because one can search for the definition of the
+ method m by looking for occurrences of '[mmm'. They also transform a method definition into a
+ closed syntactical unit that may be easier to manipulate (e.g., cut-and-paste).</p><p align='justify' class='doc_paragraph'> When a <a href='Classes.html#4611703541555700274'><font color='#'>new</font></a> <a href='Selectors_comma Properties and Operations.html#4611703541554686610'><font color='#'>property</font></a> is created, it is most often implicitly with the definition of a <a href='Classes.html#4611703541555700274'><font color='#'>new</font></a> method
+ or a <a href='Classes.html#4611703541555700274'><font color='#'>new</font></a> <a href='Calls and Slot Access.html#4611703541553806482'><font color='#'>slot</font></a>, although a direct <a href='Instantiation.html#4611703541554143698'><font color='#'>instantiation</font></a> is possible. Each <a href='Selectors_comma Properties and Operations.html#4611703541554686610'><font color='#'>property</font></a> has an extensibility
+ status that may be one of&nbsp;:
+ </p>
+							  <ul> <li>open, which means that <a href='Classes.html#4611703541555700274'><font color='#'>new</font></a> restrictions may be added at any <a href='Dates and Times.html#4611703541553608578'><font color='#'>time</font></a>. The compiler will
+ generate the proper code so that extensibility is guaranteed.
+ <li>undefined, which is the default status under the interpreter, means that the status may
+ evolve to open or to closed in the future.
+ <li>closed, which means that no <a href='Classes.html#4611703541555700274'><font color='#'>new</font></a> restriction may be added if it provokes an
+ inheritance conflict with an existing restriction. An inheritance conflict in CLAIRE
+ is properly defined by the non-empty intersection of the two domains (Cartesian products)
+ of the methods.
+ </ul>
+							  <p align='justify' class='doc_paragraph'> The compiler will automatically change the status from undefined to closed, unless the status
+ is forced with the <a href='Classes.html#4611703541555700082'><font color='#'>abstract</font></a> declaration&nbsp;:
+ </p><table class='table_code' align=center border=0 width='85%'>
+										<tr><td class='doc_code'> <a href='Classes.html#4611703541555700082'><font color='#'>abstract</font></a>(p)
+</td></tr></table>
+							  <p align='justify' class='doc_paragraph'> Conversely, the <a href='Classes.html#4611703541555700114'><font color='#'>final</font></a> declaration&nbsp;:
+ </p><table class='table_code' align=center border=0 width='85%'>
+										<tr><td class='doc_code'> <a href='Classes.html#4611703541555700114'><font color='#'>final</font></a>(p)
+</td></tr></table>
+							  <p align='justify' class='doc_paragraph'> may be used to force the status to closed, in the interpreted mode. Note that these two
+ declarations have obviously an impact on performance: an open <a href='Selectors_comma Properties and Operations.html#4611703541554686610'><font color='#'>property</font></a> will be compiled with the
+ systematic used of dynamic <a href='Calls and Slot Access.html#4611703541553806482'><font color='#'>calls</font></a>, which ensures the extensibility of the compiled code, but at a
+ price. On the contrary, a <a href='Classes.html#4611703541555700114'><font color='#'>final</font></a> <a href='Selectors_comma Properties and Operations.html#4611703541554686610'><font color='#'>property</font></a> will enable the compiler to use as much static binding as
+ possible, yielding faster <a href='Calls and Slot Access.html#4611703541555624690'><font color='#'>call</font></a> executions. Notice that the <a href='Methods.html#4611703541555481762'><font color='#'>interface</font></a>(p) declaration has been
+ introduced to support dynamic dispatch in a efficient manner, as long as the <a href='Selectors_comma Properties and Operations.html#4611703541554686610'><font color='#'>property</font></a> is uniform.</p><a name='4611703541555481634'><hr size=0 style='page-break-after: avoid' /></a>
+	<a name='interface'><hr size=0 /></a>
+	<table width='100%' class='item_header'>
+		<tr>
+			<td width='20%' align='left'><i><a href='claire.index.html#__category_index__'>categories</a></i></td>
+			<td width='20%' align='center'><i><a href='Methods.html#4611703541554221778'>Methods</a></i></td><td width='20%' align='center'><i>normal dispatch</i></td>
+	<td width='20%' align='center'><i></i></td><td width='20%' align='right'><i>Language method</i></td>
+	</tr></table><h3>interface(<font color='green'>p</font><font color='blue'>:</font>property)<font color='blue'> -&gt; </font>void</h3><p align='justify' class='doc_paragraph'> Activate fast dispatch on the <a href='Selectors_comma Properties and Operations.html#4611703541554686610'><font color='#'>property</font></a> <b>p</b>, that is dynamic <a href='Calls and Slot Access.html#4611703541553806482'><font color='#'>calls</font></a> should be optimized.
+ <b>p</b> is meant to be a uniform <a href='Selectors_comma Properties and Operations.html#4611703541554686610'><font color='#'>property</font></a> such the optimization can take place.</p><a name='4611703541555481762'><hr size=0 style='page-break-after: avoid' /></a>
+	<a name='interface'><hr size=0 /></a>
+	<table width='100%' class='item_header'>
+		<tr>
+			<td width='20%' align='left'><i><a href='claire.index.html#__category_index__'>categories</a></i></td>
+			<td width='20%' align='center'><i><a href='Methods.html#4611703541554221778'>Methods</a></i></td><td width='20%' align='center'><i>normal dispatch</i></td>
+	<td width='20%' align='center'><i></i></td><td width='20%' align='right'><i>Language method</i></td>
+	</tr></table><h3>interface(<font color='green'>c</font><font color='blue'>:</font>class U Union, <font color='green'>pi</font><font color='blue'>:</font>listargs)<font color='blue'> -&gt; </font>void</h3><p align='justify' class='doc_paragraph'> This <a href='Classes.html#4611703541555700274'><font color='#'>new</font></a> <a href='Methods.html#4611703541554221778'><font color='#'>method</font></a> (in CLAIRE 3.1) is used to associate the interface status to a
+ <a href='Selectors_comma Properties and Operations.html#4611703541554686610'><font color='#'>property</font></a> or a <a href='Lists_comma Sets and Tuples.html#4611703541553841378'><font color='#'>set</font></a> of <a href='Selectors_comma Properties and Operations.html#4611703541554686610'><font color='#'>properties</font></a>. Within a <a href='Classes.html#4611703541553622690'><font color='#'>class</font></a> (through the use of
+ interface(<b>c</b>, p1, ...)), this means that a <a href='Types.html#4611703541555622914'><font color='#'>member</font></a> <a href='Methods.html#4611703541554221778'><font color='#'>method</font></a> will be generated for
+ the C++ <a href='Classes.html#4611703541553622690'><font color='#'>class</font></a> associated to <b>c</b>. Note that this definition requires the presence of
+ a <a href='Methods.html#4611703541554221778'><font color='#'>method</font></a> <b>pi</b> @ C for each <a href='Selectors_comma Properties and Operations.html#4611703541554686610'><font color='#'>property</font></a> <b>pi</b>. In CLAIRE 3.1, a union (c1 U c2 ... U c3)
+ can be used instead of a <a href='Classes.html#4611703541553622690'><font color='#'>class</font></a>, which is an elegant way to factor the interface
+ declaration for c1, ... cn.</p></body>
+	</html>

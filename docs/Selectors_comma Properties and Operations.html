@@ -1,0 +1,176 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+	<head>
+		<link rel="stylesheet" type="text/css" href="doc.css" media="all">
+		<title>
+			claire : Selectors, Properties and Operations
+		</title>
+		<style>
+body {
+        font-size: 14px;
+        font-family: arial, Helvetica;
+}
+
+h1 { font-size: 25px; }
+h2 { font-size: 20px; }
+
+a[href] {
+	border-bottom: 1px dotted grey;
+	text-decoration: none
+}
+
+.doc_paragraph
+{
+        font-size: 14px;
+        font-family: arial, helvetica;
+}
+
+.item_header { font-size: 10px; page-break-before: avoid; page-break-inside: avoid; page-break-after: avoid }
+
+.item_index {
+		white-space: pre;
+        font-size: 11px;
+        font-family: monaco, courier, mono-space;
+}
+
+.table_code {
+		margin: 10px auto;
+}
+
+.doc_code {
+    white-space: pre;
+		padding-top: .1em;
+		padding-bottom: .5em;
+		background-color: #EEE;
+		border: #AAA solid 1px;
+        font-size: 11px;
+        font-family: monaco, courier, mono-space;
+}
+
+.opt_usage {
+		margin-left: 1em;
+		margin-right: 1em;
+		padding: .2em;
+		background-color: #EEE;
+		border: #AAA solid 1px;
+        font-family: monaco, courier, mono-space;
+	
+}
+
+.class_proto {
+	vertical-align: top;
+	text-align: right;
+}
+
+.class_proto_super {
+	vertical-align: top;
+	text-align: right;
+}
+
+.class_proto_slot {
+	vertical-align: top;
+	text-align: left;
+}
+
+</style>
+	</head>
+	<body><table width='100%' class='item_header'>
+		<tr>
+			<td width='33%' align='left' valign='bottom'><i><a href='Escaping Types.html#4611703541554611970'>Escaping Types</a></i></td>
+			<td width='33%' align='center' valign='top'><i><a href='claire.index.html#__category_index__'>categories</a><br/><a href='claire.index.html#4611703541554221818'>Methods and Types</a><br/><b>Selectors, Properties and Operations</b>
+				</i></td>
+			<td width='33%' align='right' valign='bottom'><i><a href='Iterations.html#4611703541554694626'>Iterations</a></i></td>
+		</tr>
+	</table>
+	<h2><span class=pretitle>&nbsp;</span>&nbsp;<a name='4611703541554686610'>Selectors, Properties and Operations</a>
+			</h2>
+	<ul></ul><ul><li><font font-face='Courier' class='item_index'><a href='Selectors_comma Properties and Operations.html#4611703541555482354'>inverse</a>(<font color='green'>r</font><font color='blue'>:</font>relation)<font color='blue'> -&gt; </font>relation</font></li></ul><p align='justify' class='doc_paragraph'> As we said previously, CLAIRE supports two syntaxes for using selectors, f(...) and
+ (.... f ....). The <a href='Hypothetical Reasoning.html#4611703541555503314'><font color='#'>choice</font></a> only exists when the associated <a href='Methods.html#4611703541554221778'><font color='#'>methods</font></a> have exactly two arguments.
+ The ability to be used with an infix syntax is attached to the property f&nbsp;:
+ </p><table class='table_code' align=center border=0 width='85%'>
+										<tr><td class='doc_code'> f&nbsp;:: operation()
+</td></tr></table>
+							  <p align='justify' class='doc_paragraph'> Once f has been declared as an operation, CLAIRE will check that it is used as such
+ subsequently. Restrictions of f can then be defined with the usual syntax&nbsp;:
+ </p><table class='table_code' align=center border=0 width='85%'>
+										<tr><td class='doc_code'> f(x:<a href='Integers and Floats.html#4611703541553607058'><font color='#'>integer</font></a>, y:<a href='Integers and Floats.html#4611703541553607058'><font color='#'>integer</font></a>)&nbsp;: ...
+</td></tr></table>
+							  <p align='justify' class='doc_paragraph'> Note that declaring f as an operation can only be done when no restriction of f is known.
+ If the first appearance of f is in the declaration of a <a href='Methods.html#4611703541554221778'><font color='#'>method</font></a>, f is considered as a normal
+ selector and its status cannot be changed thereafter. Each operation is an <a href='Objects and Entities.html#4611703541553611170'><font color='#'>object</font></a> (inherits
+ from property) with a precedence <a href='Calls and Slot Access.html#4611703541553806482'><font color='#'>slot</font></a> that is used by the reader to produce the proper syntax
+ tree from expressions without parentheses.
+ </p><table class='table_code' align=center border=0 width='85%'>
+										<tr><td class='doc_code'> gcd&nbsp;:: operation(precedence = precedence(/))
+ 12 + 3 gcd 4 // same as 12 + (3 gcd 4)
+</td></tr></table>
+							  <p align='justify' class='doc_paragraph'> So far we have assumed that any <a href='Methods.html#4611703541554221778'><font color='#'>method</font></a> definition is allowed, provided that inheritance
+ conflict may cause warning. Once a property is compiled, CLAIRE uses a more restrictive
+ approach since only <a href='Classes.html#4611703541555700274'><font color='#'>new</font></a> <a href='Methods.html#4611703541554221778'><font color='#'>methods</font></a> that have an empty intersection with existing <a href='Methods.html#4611703541554221778'><font color='#'>methods</font></a> (for
+ a given property) are allowed. This allows the compiler to generate efficient code. It is
+ possible to keep the "open" status of a property when it is compiled through the
+ <a href='Classes.html#4611703541555700082'><font color='#'>abstract</font></a> declaration.
+ </p><table class='table_code' align=center border=0 width='85%'>
+										<tr><td class='doc_code'> <a href='Classes.html#4611703541555700082'><font color='#'>abstract</font></a>(f)
+</td></tr></table>
+							  <p align='justify' class='doc_paragraph'> Such a statement will force CLAIRE to consider f as an "<a href='Classes.html#4611703541555700082'><font color='#'>abstract</font></a>" parameter of the program
+ that can be changed at any <a href='Dates and Times.html#4611703541553608578'><font color='#'>time</font></a>. In that case, any re-definition of f (any <a href='Classes.html#4611703541555700274'><font color='#'>new</font></a> <a href='Methods.html#4611703541554221778'><font color='#'>method</font></a>) will
+ be allowed. When defining a property parameter, one should keep in mind that another user
+ may redefine the behavior of the property freely in the future.</p><p align='justify' class='doc_paragraph'> It is sometimes useful to model a system with redundant information. This can be done by
+ considering pairs of relations inverse one of another. In this case the system maintains the
+ soundness of the database by propagating <a href='Updates.html#4611703541553810866'><font color='#'>updates</font></a> on one of the relations onto the other. For
+ example if husband is a relation from the <a href='Classes.html#4611703541553622690'><font color='#'>class</font></a> man onto the <a href='Classes.html#4611703541553622690'><font color='#'>class</font></a> woman and wife a relation
+ from woman to man, if moreover husband and wife have been declared inverse one of another,
+ each modification (addition or retrieval of information) on the relation husband will be
+ propagated onto wife. For example husband(mary)&nbsp;:= john will automatically generate the <a href='Updates.html#4611703541553810866'><font color='#'>update</font></a>
+ wife(john)&nbsp;:= mary. Syntactically, relations are declared inverses one of another with
+ the declaration&nbsp;:
+ </p><table class='table_code' align=center border=0 width='85%'>
+										<tr><td class='doc_code'> inverse(husband)&nbsp;:= wife
+</td></tr></table>
+							  <p align='justify' class='doc_paragraph'> This can be done for any relation: <a href='Calls and Slot Access.html#4611703541553806482'><font color='#'>slots</font></a> and <a href='Tables.html#4611703541554717490'><font color='#'>tables</font></a>. Inverses introduce an important distinction
+ between multi-valued relations and mono-valued relations. A relation is multi-valued in CLAIRE
+ when its range is a subset of <a href='Lists_comma Sets and Tuples.html#4611703541553841378'><font color='#'>bag</font></a> (i.e. a <a href='Lists_comma Sets and Tuples.html#4611703541553841378'><font color='#'>set</font></a> or a <a href='Lists_comma Sets and Tuples.html#4611703541553841378'><font color='#'>list</font></a>). In that case the <a href='Calls and Slot Access.html#4611703541553806482'><font color='#'>slot</font></a> multivalued? of
+ the relation is <a href='Lists_comma Sets and Tuples.html#4611703541553841378'><font color='#'>set</font></a> to true and the <a href='Lists_comma Sets and Tuples.html#4611703541553841378'><font color='#'>set</font></a> associated with an <a href='Objects and Entities.html#4611703541553611170'><font color='#'>object</font></a> x is supposed to be the <a href='Lists_comma Sets and Tuples.html#4611703541553841378'><font color='#'>set</font></a>
+ of values associated with x through the relation.</p><p align='justify' class='doc_paragraph'> This has the following impact on inversion. If r and s are two mono-valued relations inverse one
+ of another, we have the following equivalence&nbsp;:
+ </p><table class='table_code' align=center border=0 width='85%'>
+										<tr><td class='doc_code'> s(x) = y &lt;=&gt; r(y) = x
+</td></tr></table>
+							  <p align='justify' class='doc_paragraph'> In addition, the range of r needs to be included in the domain of s and conversely. The
+ meaning of inversion is different if r is multi-valued since the inverse declaration now means&nbsp;:
+ </p><table class='table_code' align=center border=0 width='85%'>
+										<tr><td class='doc_code'> s(x) = y &lt;=&gt; x E r(y)
+</td></tr></table>
+							  <p align='justify' class='doc_paragraph'> Two multi-valued relations can indeed be declared inverses one of another. For example, if
+ parents and children are two relations from person to <a href='Lists_comma Sets and Tuples.html#4611703541553841378'><font color='#'>set</font></a>[person] and if inverse(children) =
+ parents, then&nbsp;:
+ </p><table class='table_code' align=center border=0 width='85%'>
+										<tr><td class='doc_code'> children(x) = {y in person | x <a href='Types.html#4611703541555504450'><font color='#'>%</font></a> parents(y)}
+</td></tr></table>
+							  <p align='justify' class='doc_paragraph'> Modifications to the inverse relation are triggered by <a href='Updates.html#4611703541553810866'><font color='#'>updates</font></a> (with&nbsp;:=) and creations of
+ <a href='Objects and Entities.html#4611703541553611170'><font color='#'>objects</font></a> (with filled <a href='Calls and Slot Access.html#4611703541553806482'><font color='#'>slots</font></a>). Since the explicit inverse of a relation is activated only upon
+ modifications to the database (it is <a href='Objects and Entities.html#4611703541555698978'><font color='#'>not</font></a> retroactive), one should always <a href='Lists_comma Sets and Tuples.html#4611703541553841378'><font color='#'>set</font></a> the declaration
+ of an inverse as soon as the relation itself is declared, before the relation is applied on
+ <a href='Objects and Entities.html#4611703541553611170'><font color='#'>objects</font></a>. This will ensure the soundness of the database. To <a href='Strings.html#4611703541555471762'><font color='#'>escape</font></a> the triggering of <a href='Updates.html#4611703541553810866'><font color='#'>updates</font></a>
+ to inverse relations, the solution is to fill the relation with the <a href='Methods.html#4611703541554221778'><font color='#'>method</font></a> <a href='Symbols.html#4611703541555490578'><font color='#'>put</font></a> instead of&nbsp;:=.
+ For example, the following declaration&nbsp;:
+ </p><table class='table_code' align=center border=0 width='85%'>
+										<tr><td class='doc_code'> let john&nbsp;:= person() in (<a href='Symbols.html#4611703541555490578'><font color='#'>put</font></a>(wife,john,mary), john)
+</td></tr></table>
+							  <p align='justify' class='doc_paragraph'> does the same as&nbsp;:
+ </p><table class='table_code' align=center border=0 width='85%'>
+										<tr><td class='doc_code'> john&nbsp;:: person(wife = mary)
+</td></tr></table>
+							  <p align='justify' class='doc_paragraph'> without triggering the <a href='Updates.html#4611703541553810866'><font color='#'>update</font></a> husband(mary)&nbsp;:= john.</p><a name='4611703541555482354'><hr size=0 style='page-break-after: avoid' /></a>
+	<a name='inverse'><hr size=0 /></a>
+	<table width='100%' class='item_header'>
+		<tr>
+			<td width='20%' align='left'><i><a href='claire.index.html#__category_index__'>categories</a></i></td>
+			<td width='20%' align='center'><i><a href='Selectors_comma Properties and Operations.html#4611703541554686610'>Selectors, Properties and Operations</a></i></td><td width='20%' align='center'><i>normal dispatch</i></td>
+	<td width='20%' align='center'><i></i></td><td width='20%' align='right'><i>Kernel method</i></td>
+	</tr></table><h3>inverse(<font color='green'>r</font><font color='blue'>:</font>relation)<font color='blue'> -&gt; </font>relation</h3><p align='justify' class='doc_paragraph'> <b>r</b>.inverse contains the inverse relation of <b>r</b>. If the range of <b>r</b> inherits from <a href='Lists_comma Sets and Tuples.html#4611703541553841378'><font color='#'>bag</font></a>
+ then <b>r</b> is considered multi-valued by default. If <b>r</b> and its inverse are mono-valued
+ then if <b>r</b>(x) = y then inverse(<b>r</b>)(y) = x. If they are multi-valued, then inverse(<b>r</b>)(y)
+ returns the <a href='Lists_comma Sets and Tuples.html#4611703541553841378'><font color='#'>set</font></a> (resp. <a href='Lists_comma Sets and Tuples.html#4611703541553841378'><font color='#'>list</font></a>) of all x such that (y <a href='Types.html#4611703541555504450'><font color='#'>%</font></a> <b>r</b>(x)).</p></body>
+	</html>

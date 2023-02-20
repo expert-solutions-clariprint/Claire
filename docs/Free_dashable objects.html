@@ -1,0 +1,139 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+	<head>
+		<link rel="stylesheet" type="text/css" href="doc.css" media="all">
+		<title>
+			claire : Free-able objects
+		</title>
+		<style>
+body {
+        font-size: 14px;
+        font-family: arial, Helvetica;
+}
+
+h1 { font-size: 25px; }
+h2 { font-size: 20px; }
+
+a[href] {
+	border-bottom: 1px dotted grey;
+	text-decoration: none
+}
+
+.doc_paragraph
+{
+        font-size: 14px;
+        font-family: arial, helvetica;
+}
+
+.item_header { font-size: 10px; page-break-before: avoid; page-break-inside: avoid; page-break-after: avoid }
+
+.item_index {
+		white-space: pre;
+        font-size: 11px;
+        font-family: monaco, courier, mono-space;
+}
+
+.table_code {
+		margin: 10px auto;
+}
+
+.doc_code {
+    white-space: pre;
+		padding-top: .1em;
+		padding-bottom: .5em;
+		background-color: #EEE;
+		border: #AAA solid 1px;
+        font-size: 11px;
+        font-family: monaco, courier, mono-space;
+}
+
+.opt_usage {
+		margin-left: 1em;
+		margin-right: 1em;
+		padding: .2em;
+		background-color: #EEE;
+		border: #AAA solid 1px;
+        font-family: monaco, courier, mono-space;
+	
+}
+
+.class_proto {
+	vertical-align: top;
+	text-align: right;
+}
+
+.class_proto_super {
+	vertical-align: top;
+	text-align: right;
+}
+
+.class_proto_slot {
+	vertical-align: top;
+	text-align: left;
+}
+
+</style>
+	</head>
+	<body><table width='100%' class='item_header'>
+		<tr>
+			<td width='33%' align='left' valign='bottom'><i><a href='Classes.html#4611703541553622690'>Classes</a></i></td>
+			<td width='33%' align='center' valign='top'><i><a href='claire.index.html#__category_index__'>categories</a><br/><a href='claire.index.html#4611703541553611194'>Objects, Classes and Slots</a><br/><b>Free-able objects</b>
+				</i></td>
+			<td width='33%' align='right' valign='bottom'><i><a href='parametric class.html#4611703541553681010'>parametric class</a></i></td>
+		</tr>
+	</table>
+	<h2><span class=pretitle>&nbsp;</span>&nbsp;<a name='4611703541553624802'>Free-able objects</a>
+			 <font color='red'>[XL]</font></h2>
+	<ul></ul><ul><li><font font-face='Courier' class='item_index'><a href='Free_dashable objects.html#4611703541555507842'>free!</a><font color='blue'> :: </font>property(open = 3) <font color='red'>[XL]</font></font></li><li><font font-face='Courier' class='item_index'><a href='Free_dashable objects.html#4611703541555506418'>prefree!</a><font color='blue'> :: </font>property(open = 3) <font color='red'>[XL]</font></font></li></ul><p align='justify' class='doc_paragraph'> Starting with XL CLAIRE, a <a href='Classes.html#4611703541553622690'><font color='#'>class</font></a> can inherit from freeable_object that are special kind of
+ <a href='Classes.html#4611703541555700018'><font color='#'>ephemeral</font></a> <a href='Objects and Entities.html#4611703541553611170'><font color='#'>objects</font></a> regarding the Garbage collector (<a href='Miscellaneous.html#4611703541555700434'><font color='#'>GC</font></a>). We can define two <a href='Miscellaneous.html#4611703541555700434'><font color='#'>GC</font></a> callbacks (<a href='Free_dashable objects.html#4611703541555506418'><font color='#'>prefree!</font></a>
+ and <a href='Free_dashable objects.html#4611703541555507842'><font color='#'>free!</font></a>) for such <a href='Objects and Entities.html#4611703541553611170'><font color='#'>object</font></a> that will be called when the <a href='Miscellaneous.html#4611703541555700434'><font color='#'>GC</font></a> attempt to free an <a href='Objects and Entities.html#4611703541553611170'><font color='#'>object</font></a> giving a
+ chance for such <a href='Objects and Entities.html#4611703541553611170'><font color='#'>object</font></a> to perform a cleanup <a href='Selectors_comma Properties and Operations.html#4611703541554686610'><font color='#'>operation</font></a>&nbsp;:
+ </p>
+							  <ul> <li><a href='Free_dashable objects.html#4611703541555506418'><font color='#'>prefree!</font></a> is called by the <a href='Miscellaneous.html#4611703541555700434'><font color='#'>GC</font></a> once for each <a href='Objects and Entities.html#4611703541553611170'><font color='#'>object</font></a> that will be freed in a short <a href='Dates and Times.html#4611703541553608578'><font color='#'>time</font></a>. It
+ is the handler of <a href='Hypothetical Reasoning.html#4611703541555503314'><font color='#'>choice</font></a> to perform synchronization between <a href='Objects and Entities.html#4611703541553611170'><font color='#'>objects</font></a> that are going to be
+ freed (like flushing temporary data in a <a href='Communication ports.html#4611703541555978002'><font color='#'>buffer</font></a> <a href='Communication ports.html#4611703541555973250'><font color='#'>filter</font></a>).
+ <li><a href='Free_dashable objects.html#4611703541555507842'><font color='#'>free!</font></a> is called by the <a href='Miscellaneous.html#4611703541555700434'><font color='#'>GC</font></a> once for each <a href='Objects and Entities.html#4611703541553611170'><font color='#'>object</font></a> before it is actual freed (like freeing
+ memory allocated outside CLAIRE memory or closing a <a href='Communication ports.html#4611703541555978978'><font color='#'>descriptor</font></a>). The body of a <a href='Free_dashable objects.html#4611703541555507842'><font color='#'>free!</font></a> handler
+ should make no assumption that the relations between the <a href='Objects and Entities.html#4611703541553611170'><font color='#'>object</font></a> and the database are valid.
+ If we need to use <a href='Objects and Entities.html#4611703541553611170'><font color='#'>object</font></a>'s relation then the <a href='Free_dashable objects.html#4611703541555506418'><font color='#'>prefree!</font></a> handler should be used instead.
+ </ul>
+							  <p align='justify' class='doc_paragraph'> As an illustration we could define the following long_double <a href='Classes.html#4611703541553622690'><font color='#'>class</font></a> that import from C++ the
+ 'long double' data <a href='Types.html#4611703541554225330'><font color='#'>type</font></a>&nbsp;:</p><p align='justify' class='doc_paragraph'> </p><table class='table_code' align=center border=0 width='85%'>
+										<tr><td class='doc_code'> long_double* &lt;: import()
+ long_double &lt;: freeable_object(value:long_double*)
+ (c_interface(long_double*, "long double*"))
+
+ <a href='Classes.html#4611703541555462082'><font color='#'>close</font></a>(self:long_double)&nbsp;: long_double -&gt;
+ 	(self.value&nbsp;:= externC("(long double*)::malloc(sizeof(long double))", long_double*),
+ 	self)
+
+ <a href='Free_dashable objects.html#4611703541555507842'><font color='#'>free!</font></a>(self:long_double)&nbsp;: void -&gt; externC("::free(self-&gt;value)")
+</td></tr></table>
+							  <p align='justify' class='doc_paragraph'></p><a name='4611703541555507842'><hr size=0 style='page-break-after: avoid' /></a>
+	<a name='free!'><hr size=0 /></a>
+	<table width='100%' class='item_header'>
+		<tr>
+			<td width='20%' align='left'><i><a href='claire.index.html#__category_index__'>categories</a></i></td>
+			<td width='20%' align='center'><i><a href='Free_dashable objects.html#4611703541553624802'>Free-able objects</a></i></td><td width='20%' align='center'><i>normal dispatch</i></td>
+			<td  width='20%'></td><td width='20%' align='right'><i><font color='red'>[XL]</font> Kernel interface</i></td>
+	</tr></table><h3>free!<font color='blue'> :: </font>property(open = 3)</h3><p align='justify' class='doc_paragraph'> In a similar way to <a href='Free_dashable objects.html#4611703541555506418'><font color='#'>prefree!</font></a> <a href='Methods.html#4611703541555481762'><font color='#'>interface</font></a> free! is called by the <a href='Miscellaneous.html#4611703541555700434'><font color='#'>GC</font></a> before a freeable_object is
+ actually freed. It is a good place, for instance, to free externally allocated memory. An <a href='Objects and Entities.html#4611703541553611170'><font color='#'>object</font></a> x given to the
+ free! handler should be handled with a lot of care&nbsp;:
+ </p>
+							  <ul> <li>Don't try to access x.s where x.s is itself an <a href='Objects and Entities.html#4611703541553611170'><font color='#'>object</font></a> (x.s could already be freed by the <a href='Miscellaneous.html#4611703541555700434'><font color='#'>GC</font></a>).
+ use <a href='Free_dashable objects.html#4611703541555506418'><font color='#'>prefree!</font></a> instead for such <a href='Selectors_comma Properties and Operations.html#4611703541554686610'><font color='#'>operation</font></a>
+ <li>Don't create reference on x (i.e. don't <a href='Classes.html#4611703541555561714'><font color='#'>add</font></a> x to a <a href='Lists_comma Sets and Tuples.html#4611703541553841378'><font color='#'>list</font></a>, don't <a href='Lists_comma Sets and Tuples.html#4611703541553841378'><font color='#'>set</font></a> a <a href='Global Variables and Constants.html#4611703541555361842'><font color='#'>global</font></a> var to x)
+ </ul>
+							  <p align='justify' class='doc_paragraph'></p><a name='4611703541555506418'><hr size=0 style='page-break-after: avoid' /></a>
+	<a name='prefree!'><hr size=0 /></a>
+	<table width='100%' class='item_header'>
+		<tr>
+			<td width='20%' align='left'><i><a href='claire.index.html#__category_index__'>categories</a></i></td>
+			<td width='20%' align='center'><i><a href='Free_dashable objects.html#4611703541553624802'>Free-able objects</a></i></td><td width='20%' align='center'><i>normal dispatch</i></td>
+			<td  width='20%'></td><td width='20%' align='right'><i><font color='red'>[XL]</font> Kernel interface</i></td>
+	</tr></table><h3>prefree!<font color='blue'> :: </font>property(open = 3)</h3><p align='justify' class='doc_paragraph'> The prefree! <a href='Methods.html#4611703541555481762'><font color='#'>interface</font></a> is called by the <a href='Miscellaneous.html#4611703541555700434'><font color='#'>GC</font></a> before a freeable_object is actually freed.
+ It give a chance to terminate inter-object <a href='Selectors_comma Properties and Operations.html#4611703541554686610'><font color='#'>operations</font></a> that may need a <a href='Lists_comma Sets and Tuples.html#4611703541555705426'><font color='#'>last</font></a> synchronization
+ step (like the <a href='Communication ports.html#4611703541555976226'><font color='#'>flush</font></a> of a <a href='Communication ports.html#4611703541555973250'><font color='#'>filter</font></a>). Since an <a href='Objects and Entities.html#4611703541553611170'><font color='#'>object</font></a> x given to the handler prefree! is about to be
+ freed you should never create reference on x in the scope of the handler (i.e. don't <a href='Classes.html#4611703541555561714'><font color='#'>add</font></a> x to a
+ <a href='Lists_comma Sets and Tuples.html#4611703541553841378'><font color='#'>list</font></a>, don't <a href='Lists_comma Sets and Tuples.html#4611703541553841378'><font color='#'>set</font></a> a <a href='Global Variables and Constants.html#4611703541555361842'><font color='#'>global</font></a> var to x).</p></body>
+	</html>
