@@ -36,3 +36,4 @@ config.status
 *.tgz
 include/config.h.in~
 include/config.h
+stable2/config.log
