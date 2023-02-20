@@ -7612,7 +7612,10 @@ int exp2_integer(int n)
 
 // translate a integer into a char - v3.2.44 : supports encoding both on (-255 -- 256) or (0 -- 511)
 CL_EXPORT ClaireChar *char_I_integer(CL_INT n)
-{if ((n < -1) || (n > 255)) Cerror(21,n,0);
+{if ((n < -1) || (n > 255)) {
+    Ctracef("Integer to large for char %d\n", n);
+    return ClRes->ascii[32]; // space
+  };
  return ClRes->ascii[(unsigned char)n];}
 
 // create a new string
