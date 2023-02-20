@@ -12237,7 +12237,7 @@ Optimize.home->addMethod(list::domain(1,Kernel._void),Kernel._string,
     { 
 #ifndef CLPC
 ;
-      _void_(Optimize.compiler->env = ((char*)"Darwin-i386-g++4.2.1"));
+      _void_(Optimize.compiler->env = ((char*)"Darwin-i386-g++14.0.0"));
       
 #endif
 ;

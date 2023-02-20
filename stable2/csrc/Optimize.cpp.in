@@ -604,7 +604,7 @@ CL_EXPORT CL_INT  status_I_restriction(restriction *v62612) {
     }
   
 
-CL_EXPORT CL_INT  c_return_integer(int v8240,int v8241) { 
+CL_EXPORT CL_INT  c_return_integer(CL_INT v8240,CL_INT v8241) { 
     { CL_INT Result = 0;
       { CL_INT  v8220 = or_integer(v8240,v8241);
         if ((nth_integer(v8240,((CL_INT)(OID)(5))) != CTRUE) && 

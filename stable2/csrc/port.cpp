@@ -228,7 +228,7 @@ int  write_port_port1_Core(PortObject *self,char*buf,int len)
       if ((boolean_I_any(r) == CTRUE) && 
           ((*(OBJECT(bag,(*Kernel.domain)(r))))[1] == _oid_(c)))
        Result = apply_method(OBJECT(method,r),list::alloc(3,_oid_(self),
-        GC_OID(ClAlloc->import(Core._char_star,(CL_INT *) buf)),
+        GC_OID(ClAlloc->import(Core._char_star,(OID *) buf)),
         ((OID)len)));
       else if (INHERIT(self->isa,Core._filter))
        Result = Core.write_port->fcall(((CL_INT) OBJECT(ClaireObject,GC_OID(_oid_(CLREAD(filter,self,target))))),((CL_INT) buf),((CL_INT) len));
@@ -250,7 +250,7 @@ int  read_port_port1_Core(PortObject *self,char*buf,int len)
       if ((boolean_I_any(r) == CTRUE) && 
           ((*(OBJECT(bag,(*Kernel.domain)(r))))[1] == _oid_(c)))
        Result = apply_method(OBJECT(method,r),list::alloc(3,_oid_(self),
-        GC_OID(ClAlloc->import(Core._char_star,(CL_INT *) buf)),
+        GC_OID(ClAlloc->import(Core._char_star,(OID *) buf)),
         ((OID)len)));
       else if (INHERIT(self->isa,Core._filter))
        Result = Core.read_port->fcall(((CL_INT) OBJECT(ClaireObject,GC_OID(_oid_(CLREAD(filter,self,target))))),((CL_INT) buf),((CL_INT) len));
@@ -271,7 +271,7 @@ void  unget_port_port1_Core(PortObject *self,char*buf,int len)
     if ((boolean_I_any(r) == CTRUE) && 
         ((*(OBJECT(bag,(*Kernel.domain)(r))))[1] == _oid_(c)))
      apply_method(OBJECT(method,r),list::alloc(3,_oid_(self),
-      GC_OID(ClAlloc->import(Core._char_star,(CL_INT *) buf)),
+      GC_OID(ClAlloc->import(Core._char_star,(OID *) buf)),
       ((OID)len)));
     else if (INHERIT(self->isa,Core._filter))
      _void_(Core.unget_port->fcall(((CL_INT) OBJECT(ClaireObject,GC_OID(_oid_(CLREAD(filter,self,target))))),((CL_INT) buf),((CL_INT) len)));

@@ -518,7 +518,7 @@ CL_EXPORT void  add_ident_string1(char *s) {
       list * loc = list::alloc(Kernel._any,3,_string_(s),
         f,
         ((OID)l));
-		GC_ANY(loc)
+		    GC_ANY(loc);
       if ((equal_string(s,((char*)".")) == CTRUE) || 
           (equal_string(s,((char*)"[")) == CTRUE))
        loc->addFast((OID)((OID)((CL_INT)((CL_INT)o-(CL_INT)1)-(CL_INT)LENGTH_STRING(s))));

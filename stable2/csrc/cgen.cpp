@@ -1065,7 +1065,7 @@ void  interface_I_c_producer(Generate_c_producer *v52319,ClaireClass *v45520)
 { if (v45520 == Kernel._void)
    princ_string("void ");
   else if (v45520 == Kernel._integer)
-   princ_string("int ");
+   princ_string("CL_INT ");
   else if ((v45520 == Kernel._function) || 
       ((v45520 == Kernel._char) || 
         (v45520 == Kernel._boolean)))

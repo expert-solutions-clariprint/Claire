@@ -59,7 +59,7 @@ CL_EXPORT void  main_list(list *l) {
       _oid_(list::alloc(Kernel._any,3,_string_(((char*)"")),
         _string_(((char*)"")),
         _string_(((char*)"")))));
-    _void_(Optimize.compiler->env = ((char*)"Darwin-i386-g++4.2.1"));
+    _void_(Optimize.compiler->env = ((char*)"Darwin-i386-g++14.0.0"));
     (Generate.so_options->value= _string_(((char*)" -dynamiclib -undefined dynamic_lookup")));
     (Generate.cxx_options->value= _string_(((char*)" -fPIC -DPIC")));
     (Generate.ld_options->value= _string_(((char*)" -DCL64 -rdynamic")));
