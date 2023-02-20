@@ -3,14 +3,14 @@
 # *  UNIX version  - CLAIRE 3.3                              *
 # ************************************************************
 
-all: Darwin-i386-g++4.2.1/cclaire
+all: Darwin-i386-g++14.0.0/cclaire
 
 # -------------------------------------------
 # |      1. directories                      |
 # -------------------------------------------
 
 # directories
-Dl = Darwin-i386-g++4.2.1
+Dl = Darwin-i386-g++14.0.0
 Ds = csrc
 Dh = include
 
@@ -18,7 +18,7 @@ Dh = include
 CXX = g++
 
 # this line is system-dependent ! you may need to edit it ...
-CXXFLAGS = -DCLDEBUG -g -Wno-write-strings -I$(Dh)
+CXXFLAGS =  -Wno-write-strings -I$(Dh)
 
 
 
@@ -75,12 +75,12 @@ LIBS_claire = $(Dl)/Kernel.o \
   $(Dl)/Generate.o \
   $(Dl)/Serialize.o
 
-Darwin-i386-g++4.2.1/dummy:
-	mkdir -p Darwin-i386-g++4.2.1
-	touch Darwin-i386-g++4.2.1/dummy
+Darwin-i386-g++14.0.0/dummy:
+	mkdir Darwin-i386-g++14.0.0
+	touch Darwin-i386-g++14.0.0/dummy
 
-$(Dl)/sclaire: Darwin-i386-g++4.2.1/dummy $(LIBS_claire) $(Dl)/noConsole.o $(Dl)/wclConsole.o sclaire-s.o
-	$(CXX)  -g  -o $(Dl)/sclaire -lpthread -ldl  -ledit  sclaire-s.o $(LIBS_claire)
+$(Dl)/sclaire: Darwin-i386-g++14.0.0/dummy $(LIBS_claire) $(Dl)/noConsole.o $(Dl)/wclConsole.o sclaire-s.o
+	$(CXX)   -o $(Dl)/sclaire   sclaire-s.o $(LIBS_claire) -lpthread -ldl  -ledit
 
 
 # +----------------------------------------------------------------+
