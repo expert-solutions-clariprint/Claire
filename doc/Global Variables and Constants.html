@@ -76,62 +76,62 @@ a[href] {
 	</head>
 	<body><table width='100%' class='item_header'>
 		<tr>
-			<td width='33%' align='left' valign='bottom'><i><a href='Modules.html#4611703562330762722'>Modules</a></i></td>
-			<td width='33%' align='center' valign='top'><i><a href='claire.index.html#__category_index__'>categories</a><br/><a href='claire.index.html#4611703562330381162'>I/O, Modules and System Interface</a><br/><b>Global Variables and Constants</b>
+			<td width='33%' align='left' valign='bottom'><i><a href='Modules.html#4611703569013337570'>Modules</a></i></td>
+			<td width='33%' align='center' valign='top'><i><a href='claire.index.html#__category_index__'>categories</a><br/><a href='claire.index.html#4611703569012956010'>I/O, Modules and System Interface</a><br/><b>Global Variables and Constants</b>
 				</i></td>
-			<td width='33%' align='right' valign='bottom'><i><a href='Command line handling.html#4611703562331463602'>Command line handling</a></i></td>
+			<td width='33%' align='right' valign='bottom'><i><a href='Command line handling.html#4611703569014038450'>Command line handling</a></i></td>
 		</tr>
 	</table>
-	<h2><span class=pretitle>&nbsp;</span>&nbsp;<a name='4611703562330797874'>Global Variables and Constants</a>
+	<h2><span class=pretitle>&nbsp;</span>&nbsp;<a name='4611703569013372722'>Global Variables and Constants</a>
 			</h2>
-	<ul></ul><ul></ul><p align='justify' class='doc_paragraph'> CLAIRE offers the possibility to define global variables; they are named <a href='Objects and Entities.html#4611703562329047202'><font color='#'>objects</font></a> from the
- following <a href='Classes.html#4611703562329058722'><font color='#'>class</font></a>&nbsp;:
+	<ul></ul><ul></ul><p align='justify' class='doc_paragraph'> CLAIRE offers the possibility to define global variables; they are named <a href='Objects and Entities.html#4611703569011622050'><font color='#'>objects</font></a> from the
+ following <a href='Classes.html#4611703569011633570'><font color='#'>class</font></a>&nbsp;:
  </p><table class='table_code' align=center border=0 width='85%'>
-										<tr><td class='doc_code'> global_variable &lt;: thing(range:<a href='Types.html#4611703562329661362'><font color='#'>type</font></a>, value:any)
+										<tr><td class='doc_code'> global_variable &lt;: thing(range:<a href='Types.html#4611703569012236210'><font color='#'>type</font></a>, value:any)
 </td></tr></table>
 							  <p align='justify' class='doc_paragraph'> For instance, one can create the following&nbsp;:
  </p><table class='table_code' align=center border=0 width='85%'>
-										<tr><td class='doc_code'> tata&nbsp;:: global_variable(range = <a href='Integers and Floats.html#4611703562329043090'><font color='#'>integer</font></a>,
+										<tr><td class='doc_code'> tata&nbsp;:: global_variable(range = <a href='Integers and Floats.html#4611703569011617938'><font color='#'>integer</font></a>,
  						value = 12)
 </td></tr></table>
 							  <p align='justify' class='doc_paragraph'> However, there is a shorthand notation&nbsp;:
  </p><table class='table_code' align=center border=0 width='85%'>
-										<tr><td class='doc_code'> tata:<a href='Integers and Floats.html#4611703562329043090'><font color='#'>integer</font></a>&nbsp;:: 12
+										<tr><td class='doc_code'> tata:<a href='Integers and Floats.html#4611703569011617938'><font color='#'>integer</font></a>&nbsp;:: 12
 </td></tr></table>
 							  <p align='justify' class='doc_paragraph'> Notice that, contrary to languages such as C++, you always must provide an initialization value
  when you define a global variable (it may be the unknown value). Variables can be used anywhere,
- following the visibility <a href='Rules.html#4611703562330281586'><font color='#'>rules</font></a> of their <a href='Symbols.html#4611703562330752450'><font color='#'>identifiers</font></a>. Their value can be changed directly with the
+ following the visibility <a href='Rules.html#4611703569012856434'><font color='#'>rules</font></a> of their <a href='Symbols.html#4611703569013327298'><font color='#'>identifiers</font></a>. Their value can be changed directly with the
  same syntax as local variables.
  </p><table class='table_code' align=center border=0 width='85%'>
 										<tr><td class='doc_code'> tata&nbsp;:= 12, tata&nbsp;:+ 1, tata&nbsp;:- 10
 </td></tr></table>
 							  <p align='justify' class='doc_paragraph'> The value that is assigned to a global variable must always belong to its range, with the
- <a href='Exception Handling.html#4611703562329608946'><font color='#'>exception</font></a> of the unknown value, which is allowed. If a variable is re-defined, the <a href='Classes.html#4611703562331136306'><font color='#'>new</font></a> value
- replaces the old one, with the <a href='Exception Handling.html#4611703562329608946'><font color='#'>exception</font></a> still of unknown, which does <a href='Objects and Entities.html#4611703562331135010'><font color='#'>not</font></a> <a href='Strings.html#4611703562330926930'><font color='#'>replace</font></a> the previous
- value. This is useful for defining flags, which are global_variables that are <a href='Lists_comma Sets and Tuples.html#4611703562329258978'><font color='#'>set</font></a> from the
- outside (e.g., by the compiler). One could <a href='Classes.html#4611703562330997666'><font color='#'>write</font></a>, for instance,
+ <a href='Exception Handling.html#4611703569012183794'><font color='#'>exception</font></a> of the unknown value, which is allowed. If a variable is re-defined, the <a href='Classes.html#4611703569013711154'><font color='#'>new</font></a> value
+ replaces the old one, with the <a href='Exception Handling.html#4611703569012183794'><font color='#'>exception</font></a> still of unknown, which does <a href='Objects and Entities.html#4611703569013709858'><font color='#'>not</font></a> <a href='Strings.html#4611703569013501778'><font color='#'>replace</font></a> the previous
+ value. This is useful for defining flags, which are global_variables that are <a href='Lists_comma Sets and Tuples.html#4611703569011833826'><font color='#'>set</font></a> from the
+ outside (e.g., by the compiler). One could <a href='Classes.html#4611703569013572514'><font color='#'>write</font></a>, for instance,
  </p><table class='table_code' align=center border=0 width='85%'>
 										<tr><td class='doc_code'> talk:boolean&nbsp;:: unknown
  (#if talk printf(...))
 </td></tr></table>
-							  <p align='justify' class='doc_paragraph'> The value of talk may be <a href='Lists_comma Sets and Tuples.html#4611703562329258978'><font color='#'>set</font></a> to false before running the program to avoid loading the printf
- statements. When the value does <a href='Objects and Entities.html#4611703562331135010'><font color='#'>not</font></a> change, it is simpler to just assign a value to an
- <a href='Symbols.html#4611703562330752450'><font color='#'>identifier</font></a>. For instance&nbsp;:
+							  <p align='justify' class='doc_paragraph'> The value of talk may be <a href='Lists_comma Sets and Tuples.html#4611703569011833826'><font color='#'>set</font></a> to false before running the program to avoid loading the printf
+ statements. When the value does <a href='Objects and Entities.html#4611703569013709858'><font color='#'>not</font></a> change, it is simpler to just assign a value to an
+ <a href='Symbols.html#4611703569013327298'><font color='#'>identifier</font></a>. For instance&nbsp;:
  </p><table class='table_code' align=center border=0 width='85%'>
 										<tr><td class='doc_code'> toto&nbsp;:: 13
 </td></tr></table>
-							  <p align='justify' class='doc_paragraph'> binds the value 13 to the <a href='Symbols.html#4611703562330752450'><font color='#'>identifier</font></a> toto. This is useful to define aliases, especially when we
- use imported <a href='Objects and Entities.html#4611703562329047202'><font color='#'>objects</font></a> from other <a href='Modules.html#4611703562330762722'><font color='#'>modules</font></a>. For instance, if we use Logic/Algebra/exp, we may want
+							  <p align='justify' class='doc_paragraph'> binds the value 13 to the <a href='Symbols.html#4611703569013327298'><font color='#'>identifier</font></a> toto. This is useful to define aliases, especially when we
+ use imported <a href='Objects and Entities.html#4611703569011622050'><font color='#'>objects</font></a> from other <a href='Modules.html#4611703569013337570'><font color='#'>modules</font></a>. For instance, if we use Logic/Algebra/exp, we may want
  to define a simpler alias with&nbsp;:
  </p><table class='table_code' align=center border=0 width='85%'>
 										<tr><td class='doc_code'> exp&nbsp;:: Logic/Algebra/exp
 </td></tr></table>
-							  <p align='justify' class='doc_paragraph'> The value assigned to a global variable may be made part of a <a href='Hypothetical Reasoning.html#4611703562330370386'><font color='#'>world</font></a> definition and thus restored
- by backtracking using <a href='Hypothetical Reasoning.html#4611703562330939346'><font color='#'>choice</font></a>/<a href='Hypothetical Reasoning.html#4611703562330939458'><font color='#'>backtrack</font></a>. It is simply required to declare the variable as a
- defeasible (i.e., <a href='Hypothetical Reasoning.html#4611703562330939458'><font color='#'>backtrack</font></a> -able) variable using the <a href='Hypothetical Reasoning.html#4611703562330933906'><font color='#'>store</font></a> declaration as for a relation&nbsp;:
+							  <p align='justify' class='doc_paragraph'> The value assigned to a global variable may be made part of a <a href='Hypothetical Reasoning.html#4611703569012945234'><font color='#'>world</font></a> definition and thus restored
+ by backtracking using <a href='Hypothetical Reasoning.html#4611703569013514194'><font color='#'>choice</font></a>/<a href='Hypothetical Reasoning.html#4611703569013514306'><font color='#'>backtrack</font></a>. It is simply required to declare the variable as a
+ defeasible (i.e., <a href='Hypothetical Reasoning.html#4611703569013514306'><font color='#'>backtrack</font></a> -able) variable using the <a href='Hypothetical Reasoning.html#4611703569013508754'><font color='#'>store</font></a> declaration as for a relation&nbsp;:
  </p><table class='table_code' align=center border=0 width='85%'>
-										<tr><td class='doc_code'> <a href='Hypothetical Reasoning.html#4611703562330933906'><font color='#'>store</font></a>(tata)
- (tata&nbsp;:= 1, <a href='Hypothetical Reasoning.html#4611703562330939346'><font color='#'>choice</font></a>(), tata&nbsp;:= 2, <a href='Hypothetical Reasoning.html#4611703562330939458'><font color='#'>backtrack</font></a>(), assert(tata = 1))
+										<tr><td class='doc_code'> <a href='Hypothetical Reasoning.html#4611703569013508754'><font color='#'>store</font></a>(tata)
+ (tata&nbsp;:= 1, <a href='Hypothetical Reasoning.html#4611703569013514194'><font color='#'>choice</font></a>(), tata&nbsp;:= 2, <a href='Hypothetical Reasoning.html#4611703569013514306'><font color='#'>backtrack</font></a>(), assert(tata = 1))
 </td></tr></table>
 							  <p align='justify' class='doc_paragraph'></p></body>
 	</html>

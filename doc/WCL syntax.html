@@ -76,51 +76,51 @@ a[href] {
 	</head>
 	<body><table width='100%' class='item_header'>
 		<tr>
-			<td width='33%' align='left' valign='bottom'><i><a href='Printing.html#4611703562330638834'>Printing</a></i></td>
-			<td width='33%' align='center' valign='top'><i><a href='claire.index.html#__category_index__'>categories</a><br/><a href='claire.index.html#4611703562330381162'>I/O, Modules and System Interface</a><br/><b>WCL syntax</b>
+			<td width='33%' align='left' valign='bottom'><i><a href='Printing.html#4611703569013213682'>Printing</a></i></td>
+			<td width='33%' align='center' valign='top'><i><a href='claire.index.html#__category_index__'>categories</a><br/><a href='claire.index.html#4611703569012956010'>I/O, Modules and System Interface</a><br/><b>WCL syntax</b>
 				</i></td>
-			<td width='33%' align='right' valign='bottom'><i><a href='Reading.html#4611703562330686242'>Reading</a></i></td>
+			<td width='33%' align='right' valign='bottom'><i><a href='Reading.html#4611703569013261090'>Reading</a></i></td>
 		</tr>
 	</table>
-	<h2><span class=pretitle>&nbsp;</span>&nbsp;<a name='4611703562330647858'>WCL syntax</a>
+	<h2><span class=pretitle>&nbsp;</span>&nbsp;<a name='4611703569013222706'>WCL syntax</a>
 			 <font color='red'>[XL]</font></h2>
-	<ul></ul><ul></ul><p align='justify' class='doc_paragraph'> XL CLAIRE comes with a <a href='Classes.html#4611703562331136306'><font color='#'>new</font></a> <a href='Printing.html#4611703562330638834'><font color='#'>printing</font></a> facility called WCL syntax standing for Web
- CLaire syntax due to its <a href='Design.html#4611703562329008258'><font color='#'>design</font></a> originally meant for web oriented applications with
+	<ul></ul><ul></ul><p align='justify' class='doc_paragraph'> XL CLAIRE comes with a <a href='Classes.html#4611703569013711154'><font color='#'>new</font></a> <a href='Printing.html#4611703569013213682'><font color='#'>printing</font></a> facility called WCL syntax standing for Web
+ CLaire syntax due to its <a href='Design.html#4611703569011583106'><font color='#'>design</font></a> originally meant for web oriented applications with
  generation of dynamic content.
  WCL syntax draws its inspiration from HTML and the ability to embed CLAIRE code
- in such language. It comes as a <a href='Printing.html#4611703562330638834'><font color='#'>printing</font></a> alternative to printf and also perform
+ in such language. It comes as a <a href='Printing.html#4611703569013213682'><font color='#'>printing</font></a> alternative to printf and also perform
  inline substitution.
  For instance, here is a simple WCL fragment and its printf equivalent&nbsp;:
  </p><table class='table_code' align=center border=0 width='85%'>
-										<tr><td class='doc_code'> ?>Hello world&lt;? &lt;=&gt; printf("Hello <a href='Hypothetical Reasoning.html#4611703562330370386'><font color='#'>world</font></a>")
+										<tr><td class='doc_code'> ?>Hello world&lt;? &lt;=&gt; printf("Hello <a href='Hypothetical Reasoning.html#4611703569012945234'><font color='#'>world</font></a>")
 </td></tr></table>
 							  <p align='justify' class='doc_paragraph'> A WCL fragment is introduced with the keyword <i>?></i> which is the beginning of a static
- <a href='Strings.html#4611703562329046802'><font color='#'>string</font></a> terminated by the corresponding keyword <i>&lt;?</i> substituted at <a href='Classes.html#4611703562330997570'><font color='#'>read</font></a> <a href='Dates and Times.html#4611703562329044610'><font color='#'>time</font></a> by a <a href='Calls and Slot Access.html#4611703562331060722'><font color='#'>call</font></a>
- to <a href='Printing.html#4611703562331062242'><font color='#'>princ</font></a>. As a convenience a WCL fragment may <a href='Objects and Entities.html#4611703562331135010'><font color='#'>not</font></a> be delimited with a
+ <a href='Strings.html#4611703569011621650'><font color='#'>string</font></a> terminated by the corresponding keyword <i>&lt;?</i> substituted at <a href='Classes.html#4611703569013572418'><font color='#'>read</font></a> <a href='Dates and Times.html#4611703569011619458'><font color='#'>time</font></a> by a <a href='Calls and Slot Access.html#4611703569013635570'><font color='#'>call</font></a>
+ to <a href='Printing.html#4611703569013637090'><font color='#'>princ</font></a>. As a convenience a WCL fragment may <a href='Objects and Entities.html#4611703569013709858'><font color='#'>not</font></a> be delimited with a
  coma as shown in the following equivalent forms&nbsp;:
  </p><table class='table_code' align=center border=0 width='85%'>
-										<tr><td class='doc_code'> ?>toto&lt;? <a href='Printing.html#4611703562331062242'><font color='#'>princ</font></a>("titi") ?>tata&lt;?
- ?>toto&lt;? , <a href='Printing.html#4611703562331062242'><font color='#'>princ</font></a>("titi"), ?>tata&lt;?
- ?>toto&lt;? <a href='Printing.html#4611703562331062242'><font color='#'>princ</font></a>("titi"), ?>tata&lt;?
- ?>toto&lt;? , <a href='Printing.html#4611703562331062242'><font color='#'>princ</font></a>("titi") ?>tata&lt;?
- <a href='Printing.html#4611703562331062242'><font color='#'>princ</font></a>("tototititata")
+										<tr><td class='doc_code'> ?>toto&lt;? <a href='Printing.html#4611703569013637090'><font color='#'>princ</font></a>("titi") ?>tata&lt;?
+ ?>toto&lt;? , <a href='Printing.html#4611703569013637090'><font color='#'>princ</font></a>("titi"), ?>tata&lt;?
+ ?>toto&lt;? <a href='Printing.html#4611703569013637090'><font color='#'>princ</font></a>("titi"), ?>tata&lt;?
+ ?>toto&lt;? , <a href='Printing.html#4611703569013637090'><font color='#'>princ</font></a>("titi") ?>tata&lt;?
+ <a href='Printing.html#4611703569013637090'><font color='#'>princ</font></a>("tototititata")
 </td></tr></table>
-							  <p align='justify' class='doc_paragraph'> As in a printf construction a WCL fragment can invoke a <a href='Methods.html#4611703562329657810'><font color='#'>method</font></a> take an argument, this is
- achieved by postfixing the <a href='Selectors_comma Properties and Operations.html#4611703562330122642'><font color='#'>selector</font></a> of the <a href='Calls and Slot Access.html#4611703562331060722'><font color='#'>call</font></a> to the <i>&lt;?</i> keyword as in&nbsp;:
+							  <p align='justify' class='doc_paragraph'> As in a printf construction a WCL fragment can invoke a <a href='Methods.html#4611703569012232658'><font color='#'>method</font></a> take an argument, this is
+ achieved by postfixing the <a href='Selectors_comma Properties and Operations.html#4611703569012697490'><font color='#'>selector</font></a> of the <a href='Calls and Slot Access.html#4611703569013635570'><font color='#'>call</font></a> to the <i>&lt;?</i> keyword as in&nbsp;:
  </p><table class='table_code' align=center border=0 width='85%'>
-										<tr><td class='doc_code'> ?>toto&lt;?princ "titi" &lt;=&gt; <a href='Printing.html#4611703562331062242'><font color='#'>princ</font></a>("tototiti")
+										<tr><td class='doc_code'> ?>toto&lt;?princ "titi" &lt;=&gt; <a href='Printing.html#4611703569013637090'><font color='#'>princ</font></a>("tototiti")
 </td></tr></table>
-							  <p align='justify' class='doc_paragraph'> As a notation shortcut, three special forms are allowed for the postfixed <a href='Selectors_comma Properties and Operations.html#4611703562330122642'><font color='#'>selector</font></a>&nbsp;:
+							  <p align='justify' class='doc_paragraph'> As a notation shortcut, three special forms are allowed for the postfixed <a href='Selectors_comma Properties and Operations.html#4611703569012697490'><font color='#'>selector</font></a>&nbsp;:
  </p><table class='table_code' align=center border=0 width='85%'>
-										<tr><td class='doc_code'> ?>toto&lt;?= &lt;exp&gt; &lt;=&gt; <a href='Printing.html#4611703562331062242'><font color='#'>princ</font></a>("toto"), echo(&lt;exp&gt;)
- ?>toto&lt;?== &lt;exp&gt; &lt;=&gt; <a href='Printing.html#4611703562331062242'><font color='#'>princ</font></a>("toto"), self_html(&lt;exp&gt;)
- ?>toto&lt;?oid &lt;exp&gt; &lt;=&gt; <a href='Printing.html#4611703562331062242'><font color='#'>princ</font></a>("toto"), <a href='Printing.html#4611703562331062242'><font color='#'>princ</font></a>(Core/Oid(&lt;exp&gt;))
+										<tr><td class='doc_code'> ?>toto&lt;?= &lt;exp&gt; &lt;=&gt; <a href='Printing.html#4611703569013637090'><font color='#'>princ</font></a>("toto"), echo(&lt;exp&gt;)
+ ?>toto&lt;?== &lt;exp&gt; &lt;=&gt; <a href='Printing.html#4611703569013637090'><font color='#'>princ</font></a>("toto"), self_html(&lt;exp&gt;)
+ ?>toto&lt;?oid &lt;exp&gt; &lt;=&gt; <a href='Printing.html#4611703569013637090'><font color='#'>princ</font></a>("toto"), <a href='Printing.html#4611703569013637090'><font color='#'>princ</font></a>(Core/Oid(&lt;exp&gt;))
 </td></tr></table>
-							  <p align='justify' class='doc_paragraph'> Where echo and self_html and both extensible. The <a href='Lists_comma Sets and Tuples.html#4611703562331141458'><font color='#'>last</font></a> form (oid) may be used to
+							  <p align='justify' class='doc_paragraph'> Where echo and self_html and both extensible. The <a href='Lists_comma Sets and Tuples.html#4611703569013716306'><font color='#'>last</font></a> form (oid) may be used to
  produce a unique printed value for the given expression &lt;exp&gt;. By default echo behave
- like <a href='Printing.html#4611703562331062242'><font color='#'>princ</font></a> for primitive <a href='Objects and Entities.html#4611703562329047202'><font color='#'>objects</font></a> (<a href='Integers and Floats.html#4611703562329043090'><font color='#'>integers</font></a>, <a href='Integers and Floats.html#4611703562329043090'><font color='#'>floats</font></a>, <a href='Chars.html#4611703562329044914'><font color='#'>chars</font></a> and <a href='Strings.html#4611703562329046802'><font color='#'>strings</font></a>) and <a href='Printing.html#4611703562330898322'><font color='#'>self_print</font></a>
- for other <a href='Objects and Entities.html#4611703562329047202'><font color='#'>objects</font></a>. self_html behave like echo but also perform conversion for special
- HTML <a href='Objects and Entities.html#4611703562329047202'><font color='#'>entities</font></a>&nbsp;:
+ like <a href='Printing.html#4611703569013637090'><font color='#'>princ</font></a> for primitive <a href='Objects and Entities.html#4611703569011622050'><font color='#'>objects</font></a> (<a href='Integers and Floats.html#4611703569011617938'><font color='#'>integers</font></a>, <a href='Integers and Floats.html#4611703569011617938'><font color='#'>floats</font></a>, <a href='Chars.html#4611703569011619762'><font color='#'>chars</font></a> and <a href='Strings.html#4611703569011621650'><font color='#'>strings</font></a>) and <a href='Printing.html#4611703569013473170'><font color='#'>self_print</font></a>
+ for other <a href='Objects and Entities.html#4611703569011622050'><font color='#'>objects</font></a>. self_html behave like echo but also perform conversion for special
+ HTML <a href='Objects and Entities.html#4611703569011622050'><font color='#'>entities</font></a>&nbsp;:
  </p>
 							  <ul> <li>'&lt;' is printed as '&amp;lt;'
  <li>'&gt;' is printed as '&amp;gt;'
@@ -129,16 +129,16 @@ a[href] {
  </ul>
 							  <p align='justify' class='doc_paragraph'> As a summary, a WCL fragment as the following syntax&nbsp;:
  </p><table class='table_code' align=center border=0 width='85%'>
-										<tr><td class='doc_code'> &lt;wcl fragment&gt; = &lt; ?> &lt;text&gt; &lt;? &lt; &lt;= | == | oid | <a href='Selectors_comma Properties and Operations.html#4611703562330122642'><font color='#'>property</font></a>&gt; &lt;exp&gt; &gt;<sup>opt</sup> &gt;
+										<tr><td class='doc_code'> &lt;wcl fragment&gt; = &lt; ?> &lt;text&gt; &lt;? &lt; &lt;= | == | oid | <a href='Selectors_comma Properties and Operations.html#4611703569012697490'><font color='#'>property</font></a>&gt; &lt;exp&gt; &gt;<sup>opt</sup> &gt;
 </td></tr></table>
-							  <p align='justify' class='doc_paragraph'> As a <a href='Lists_comma Sets and Tuples.html#4611703562331141458'><font color='#'>last</font></a> sample here is a code that would generate an HTML <a href='Tables.html#4611703562330189362'><font color='#'>table</font></a> with 10 rows and ten columns
- where each cell contains its coordinates in the <a href='Tables.html#4611703562330189362'><font color='#'>table</font></a>&nbsp;:
+							  <p align='justify' class='doc_paragraph'> As a <a href='Lists_comma Sets and Tuples.html#4611703569013716306'><font color='#'>last</font></a> sample here is a code that would generate an HTML <a href='Tables.html#4611703569012764210'><font color='#'>table</font></a> with 10 rows and ten columns
+ where each cell contains its coordinates in the <a href='Tables.html#4611703569012764210'><font color='#'>table</font></a>&nbsp;:
  </p><table class='table_code' align=center border=0 width='85%'>
 										<tr><td class='doc_code'> ?>&lt;table&gt;&lt;?
  	for y in (1 .. 10)
  		( ?>&lt;tr&gt;&lt;?
  			for x in (1 .. 10) ( ?>&lt;td&gt;&lt;?= x ?>,&lt;?= y))
- ?>&lt;/<a href='Tables.html#4611703562330189362'><font color='#'>table</font></a>&gt;&lt;?
+ ?>&lt;/<a href='Tables.html#4611703569012764210'><font color='#'>table</font></a>&gt;&lt;?
 </td></tr></table>
 							  <p align='justify' class='doc_paragraph'></p></body>
 	</html>

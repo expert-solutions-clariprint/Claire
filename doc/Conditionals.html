@@ -76,40 +76,40 @@ a[href] {
 	</head>
 	<body><table width='100%' class='item_header'>
 		<tr>
-			<td width='33%' align='left' valign='bottom'><i><a href='Blocks.html#4611703562329281186'>Blocks</a></i></td>
-			<td width='33%' align='center' valign='top'><i><a href='claire.index.html#__category_index__'>categories</a><br/><a href='claire.index.html#4611703562329258994'>Lists, Sets and Instructions</a><br/><b>Conditionals</b>
+			<td width='33%' align='left' valign='bottom'><i><a href='Blocks.html#4611703569011856034'>Blocks</a></i></td>
+			<td width='33%' align='center' valign='top'><i><a href='claire.index.html#__category_index__'>categories</a><br/><a href='claire.index.html#4611703569011833842'>Lists, Sets and Instructions</a><br/><b>Conditionals</b>
 				</i></td>
-			<td width='33%' align='right' valign='bottom'><i><a href='Loops.html#4611703562329438962'>Loops</a></i></td>
+			<td width='33%' align='right' valign='bottom'><i><a href='Loops.html#4611703569012013810'>Loops</a></i></td>
 		</tr>
 	</table>
-	<h2><span class=pretitle>&nbsp;</span>&nbsp;<a name='4611703562329295330'>Conditionals</a>
+	<h2><span class=pretitle>&nbsp;</span>&nbsp;<a name='4611703569011870178'>Conditionals</a>
 			</h2>
 	<ul></ul><ul></ul><p align='justify' class='doc_paragraph'> if statements have the usual syntax (if &lt;test&gt; x else y) with implicit nestings (else if).
  The &lt;test&gt; expression is evaluated and the instruction x is evaluated if the value is
- different from false, <a href='Lists_comma Sets and Tuples.html#4611703562331062466'><font color='#'>nil</font></a> or {}. Otherwise, the instruction y is evaluated,
+ different from false, <a href='Lists_comma Sets and Tuples.html#4611703569013637314'><font color='#'>nil</font></a> or {}. Otherwise, the instruction y is evaluated,
  or the default value false is returned if no else part was provided.
  </p><table class='table_code' align=center border=0 width='85%'>
 										<tr><td class='doc_code'> if (x = 1) x&nbsp;:= f(x,y)
  else if (x &gt; 1) x&nbsp;:= g(x,y)
  else (x&nbsp;:= 3, f(x,y))
 
- if (let y&nbsp;:= 3 in x + y &gt; 4 / x) <a href='Printing.html#4611703562331134898'><font color='#'>print</font></a>(x)
+ if (let y&nbsp;:= 3 in x + y &gt; 4 / x) <a href='Printing.html#4611703569013709746'><font color='#'>print</font></a>(x)
 </td></tr></table>
-							  <p align='justify' class='doc_paragraph'> If statements must be inside a <a href='Blocks.html#4611703562329281186'><font color='#'>block</font></a>, which means that if they are <a href='Objects and Entities.html#4611703562331135010'><font color='#'>not</font></a> inside a sequence
+							  <p align='justify' class='doc_paragraph'> If statements must be inside a <a href='Blocks.html#4611703569011856034'><font color='#'>block</font></a>, which means that if they are <a href='Objects and Entities.html#4611703569013709858'><font color='#'>not</font></a> inside a sequence
  surrounded by parenthesis they must be themselves surrounded by parenthesis
- (thus forming a <a href='Blocks.html#4611703562329281186'><font color='#'>block</font></a>).</p><p align='justify' class='doc_paragraph'> case is a set-based switch instruction: CLAIRE tests the branching <a href='Lists_comma Sets and Tuples.html#4611703562329258978'><font color='#'>sets</font></a> one after another,
- executes the instruction associated with the first <a href='Lists_comma Sets and Tuples.html#4611703562329258978'><font color='#'>set</font></a> that contains the <a href='Objects and Entities.html#4611703562329047202'><font color='#'>object</font></a> and exits the
+ (thus forming a <a href='Blocks.html#4611703569011856034'><font color='#'>block</font></a>).</p><p align='justify' class='doc_paragraph'> case is a set-based switch instruction: CLAIRE tests the branching <a href='Lists_comma Sets and Tuples.html#4611703569011833826'><font color='#'>sets</font></a> one after another,
+ executes the instruction associated with the first <a href='Lists_comma Sets and Tuples.html#4611703569011833826'><font color='#'>set</font></a> that contains the <a href='Objects and Entities.html#4611703569011622050'><font color='#'>object</font></a> and exits the
  case instruction without any further testing. Hence, the default branch is associated with the
- <a href='Lists_comma Sets and Tuples.html#4611703562329258978'><font color='#'>set</font></a> any. As for an if, the returned value is <a href='Lists_comma Sets and Tuples.html#4611703562331062466'><font color='#'>nil</font></a> if no branch of the case is relevant&nbsp;:
+ <a href='Lists_comma Sets and Tuples.html#4611703569011833826'><font color='#'>set</font></a> any. As for an if, the returned value is <a href='Lists_comma Sets and Tuples.html#4611703569013637314'><font color='#'>nil</font></a> if no branch of the case is relevant&nbsp;:
  </p><table class='table_code' align=center border=0 width='85%'>
 										<tr><td class='doc_code'> case x ({1} x + 1, {2,3} x + 2, any x + 3)
- case x (<a href='Integers and Floats.html#4611703562329043090'><font color='#'>integer</font></a> (x&nbsp;:= 3, <a href='Printing.html#4611703562331134898'><font color='#'>print</font></a>(x)),
- 		any <a href='Exception Handling.html#4611703562329608946'><font color='#'>error</font></a>("~I is no good<n",x))></td></tr></table>
-							  <p align='justify' class='doc_paragraph'> Note that the compiler will <a href='Objects and Entities.html#4611703562331135010'><font color='#'>not</font></a> accept a modification of the variable that is <a href='Objects and Entities.html#4611703562331135010'><font color='#'>not</font></a> consistent
+ case x (<a href='Integers and Floats.html#4611703569011617938'><font color='#'>integer</font></a> (x&nbsp;:= 3, <a href='Printing.html#4611703569013709746'><font color='#'>print</font></a>(x)),
+ 		any <a href='Exception Handling.html#4611703569012183794'><font color='#'>error</font></a>("~I is no good<n",x))></td></tr></table>
+							  <p align='justify' class='doc_paragraph'> Note that the compiler will <a href='Objects and Entities.html#4611703569013709858'><font color='#'>not</font></a> accept a modification of the variable that is <a href='Objects and Entities.html#4611703569013709858'><font color='#'>not</font></a> consistent
  with the branch of the case (such as case x ({1} x&nbsp;:= 2)). The expression on which the switching
- is performed is usually a variable, but can be any expression. However, it should <a href='Objects and Entities.html#4611703562331135010'><font color='#'>not</font></a> produce any
- side effect since it will be evaluated many <a href='Dates and Times.html#4611703562329044610'><font color='#'>times</font></a>.</p><p align='justify' class='doc_paragraph'> Starting with CLAIRE 3.3, only boolean expressions should be used in the &lt;test&gt; expression of a
+ is performed is usually a variable, but can be any expression. However, it should <a href='Objects and Entities.html#4611703569013709858'><font color='#'>not</font></a> produce any
+ side effect since it will be evaluated many <a href='Dates and Times.html#4611703569011619458'><font color='#'>times</font></a>.</p><p align='justify' class='doc_paragraph'> Starting with CLAIRE 3.3, only boolean expressions should be used in the &lt;test&gt; expression of a
  conditional statement. The implicit coercion of any expression into a Boolean is still supported,
- but should <a href='Objects and Entities.html#4611703562331135010'><font color='#'>not</font></a> be used any longer. The compiler will issue a warning if a non-boolean expression
+ but should <a href='Objects and Entities.html#4611703569013709858'><font color='#'>not</font></a> be used any longer. The compiler will issue a warning if a non-boolean expression
  is used in an If.</p></body>
 	</html>

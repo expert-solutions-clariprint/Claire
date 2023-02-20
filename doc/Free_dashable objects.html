@@ -76,64 +76,64 @@ a[href] {
 	</head>
 	<body><table width='100%' class='item_header'>
 		<tr>
-			<td width='33%' align='left' valign='bottom'><i><a href='Classes.html#4611703562329058722'>Classes</a></i></td>
-			<td width='33%' align='center' valign='top'><i><a href='claire.index.html#__category_index__'>categories</a><br/><a href='claire.index.html#4611703562329047226'>Objects, Classes and Slots</a><br/><b>Free-able objects</b>
+			<td width='33%' align='left' valign='bottom'><i><a href='Classes.html#4611703569011633570'>Classes</a></i></td>
+			<td width='33%' align='center' valign='top'><i><a href='claire.index.html#__category_index__'>categories</a><br/><a href='claire.index.html#4611703569011622074'>Objects, Classes and Slots</a><br/><b>Free-able objects</b>
 				</i></td>
-			<td width='33%' align='right' valign='bottom'><i><a href='parametric class.html#4611703562329082226'>parametric class</a></i></td>
+			<td width='33%' align='right' valign='bottom'><i><a href='parametric class.html#4611703569011657074'>parametric class</a></i></td>
 		</tr>
 	</table>
-	<h2><span class=pretitle>&nbsp;</span>&nbsp;<a name='4611703562329060834'>Free-able objects</a>
+	<h2><span class=pretitle>&nbsp;</span>&nbsp;<a name='4611703569011635682'>Free-able objects</a>
 			 <font color='red'>[XL]</font></h2>
-	<ul></ul><ul><li><font font-face='Courier' class='item_index'><a href='Free_dashable objects.html#4611703562330943874'>free!</a><font color='blue'> :: </font>property(open = 3) <font color='red'>[XL]</font></font></li><li><font font-face='Courier' class='item_index'><a href='Free_dashable objects.html#4611703562330942450'>prefree!</a><font color='blue'> :: </font>property(open = 3) <font color='red'>[XL]</font></font></li></ul><p align='justify' class='doc_paragraph'> Starting with XL CLAIRE, a <a href='Classes.html#4611703562329058722'><font color='#'>class</font></a> can inherit from freeable_object that are special kind of
- <a href='Classes.html#4611703562331136050'><font color='#'>ephemeral</font></a> <a href='Objects and Entities.html#4611703562329047202'><font color='#'>objects</font></a> regarding the Garbage collector (<a href='Miscellaneous.html#4611703562331136466'><font color='#'>GC</font></a>). We can define two <a href='Miscellaneous.html#4611703562331136466'><font color='#'>GC</font></a> callbacks (<a href='Free_dashable objects.html#4611703562330942450'><font color='#'>prefree!</font></a>
- and <a href='Free_dashable objects.html#4611703562330943874'><font color='#'>free!</font></a>) for such <a href='Objects and Entities.html#4611703562329047202'><font color='#'>object</font></a> that will be called when the <a href='Miscellaneous.html#4611703562331136466'><font color='#'>GC</font></a> attempt to free an <a href='Objects and Entities.html#4611703562329047202'><font color='#'>object</font></a> giving a
- chance for such <a href='Objects and Entities.html#4611703562329047202'><font color='#'>object</font></a> to perform a cleanup <a href='Selectors_comma Properties and Operations.html#4611703562330122642'><font color='#'>operation</font></a>&nbsp;:
+	<ul></ul><ul><li><font font-face='Courier' class='item_index'><a href='Free_dashable objects.html#4611703569013518722'>free!</a><font color='blue'> :: </font>property(open = 3) <font color='red'>[XL]</font></font></li><li><font font-face='Courier' class='item_index'><a href='Free_dashable objects.html#4611703569013517298'>prefree!</a><font color='blue'> :: </font>property(open = 3) <font color='red'>[XL]</font></font></li></ul><p align='justify' class='doc_paragraph'> Starting with XL CLAIRE, a <a href='Classes.html#4611703569011633570'><font color='#'>class</font></a> can inherit from freeable_object that are special kind of
+ <a href='Classes.html#4611703569013710898'><font color='#'>ephemeral</font></a> <a href='Objects and Entities.html#4611703569011622050'><font color='#'>objects</font></a> regarding the Garbage collector (<a href='Miscellaneous.html#4611703569013711314'><font color='#'>GC</font></a>). We can define two <a href='Miscellaneous.html#4611703569013711314'><font color='#'>GC</font></a> callbacks (<a href='Free_dashable objects.html#4611703569013517298'><font color='#'>prefree!</font></a>
+ and <a href='Free_dashable objects.html#4611703569013518722'><font color='#'>free!</font></a>) for such <a href='Objects and Entities.html#4611703569011622050'><font color='#'>object</font></a> that will be called when the <a href='Miscellaneous.html#4611703569013711314'><font color='#'>GC</font></a> attempt to free an <a href='Objects and Entities.html#4611703569011622050'><font color='#'>object</font></a> giving a
+ chance for such <a href='Objects and Entities.html#4611703569011622050'><font color='#'>object</font></a> to perform a cleanup <a href='Selectors_comma Properties and Operations.html#4611703569012697490'><font color='#'>operation</font></a>&nbsp;:
  </p>
-							  <ul> <li><a href='Free_dashable objects.html#4611703562330942450'><font color='#'>prefree!</font></a> is called by the <a href='Miscellaneous.html#4611703562331136466'><font color='#'>GC</font></a> once for each <a href='Objects and Entities.html#4611703562329047202'><font color='#'>object</font></a> that will be freed in a short <a href='Dates and Times.html#4611703562329044610'><font color='#'>time</font></a>. It
- is the handler of <a href='Hypothetical Reasoning.html#4611703562330939346'><font color='#'>choice</font></a> to perform synchronization between <a href='Objects and Entities.html#4611703562329047202'><font color='#'>objects</font></a> that are going to be
- freed (like flushing temporary data in a <a href='Communication ports.html#4611703562331414034'><font color='#'>buffer</font></a> <a href='Communication ports.html#4611703562331409282'><font color='#'>filter</font></a>).
- <li><a href='Free_dashable objects.html#4611703562330943874'><font color='#'>free!</font></a> is called by the <a href='Miscellaneous.html#4611703562331136466'><font color='#'>GC</font></a> once for each <a href='Objects and Entities.html#4611703562329047202'><font color='#'>object</font></a> before it is actual freed (like freeing
- memory allocated outside CLAIRE memory or closing a <a href='Communication ports.html#4611703562331415010'><font color='#'>descriptor</font></a>). The body of a <a href='Free_dashable objects.html#4611703562330943874'><font color='#'>free!</font></a> handler
- should make no assumption that the relations between the <a href='Objects and Entities.html#4611703562329047202'><font color='#'>object</font></a> and the database are valid.
- If we need to use <a href='Objects and Entities.html#4611703562329047202'><font color='#'>object</font></a>'s relation then the <a href='Free_dashable objects.html#4611703562330942450'><font color='#'>prefree!</font></a> handler should be used instead.
+							  <ul> <li><a href='Free_dashable objects.html#4611703569013517298'><font color='#'>prefree!</font></a> is called by the <a href='Miscellaneous.html#4611703569013711314'><font color='#'>GC</font></a> once for each <a href='Objects and Entities.html#4611703569011622050'><font color='#'>object</font></a> that will be freed in a short <a href='Dates and Times.html#4611703569011619458'><font color='#'>time</font></a>. It
+ is the handler of <a href='Hypothetical Reasoning.html#4611703569013514194'><font color='#'>choice</font></a> to perform synchronization between <a href='Objects and Entities.html#4611703569011622050'><font color='#'>objects</font></a> that are going to be
+ freed (like flushing temporary data in a <a href='Communication ports.html#4611703569013988882'><font color='#'>buffer</font></a> <a href='Communication ports.html#4611703569013984130'><font color='#'>filter</font></a>).
+ <li><a href='Free_dashable objects.html#4611703569013518722'><font color='#'>free!</font></a> is called by the <a href='Miscellaneous.html#4611703569013711314'><font color='#'>GC</font></a> once for each <a href='Objects and Entities.html#4611703569011622050'><font color='#'>object</font></a> before it is actual freed (like freeing
+ memory allocated outside CLAIRE memory or closing a <a href='Communication ports.html#4611703569013989858'><font color='#'>descriptor</font></a>). The body of a <a href='Free_dashable objects.html#4611703569013518722'><font color='#'>free!</font></a> handler
+ should make no assumption that the relations between the <a href='Objects and Entities.html#4611703569011622050'><font color='#'>object</font></a> and the database are valid.
+ If we need to use <a href='Objects and Entities.html#4611703569011622050'><font color='#'>object</font></a>'s relation then the <a href='Free_dashable objects.html#4611703569013517298'><font color='#'>prefree!</font></a> handler should be used instead.
  </ul>
-							  <p align='justify' class='doc_paragraph'> As an illustration we could define the following long_double <a href='Classes.html#4611703562329058722'><font color='#'>class</font></a> that import from C++ the
- 'long double' data <a href='Types.html#4611703562329661362'><font color='#'>type</font></a>&nbsp;:</p><p align='justify' class='doc_paragraph'> </p><table class='table_code' align=center border=0 width='85%'>
+							  <p align='justify' class='doc_paragraph'> As an illustration we could define the following long_double <a href='Classes.html#4611703569011633570'><font color='#'>class</font></a> that import from C++ the
+ 'long double' data <a href='Types.html#4611703569012236210'><font color='#'>type</font></a>&nbsp;:</p><p align='justify' class='doc_paragraph'> </p><table class='table_code' align=center border=0 width='85%'>
 										<tr><td class='doc_code'> long_double* &lt;: import()
  long_double &lt;: freeable_object(value:long_double*)
  (c_interface(long_double*, "long double*"))
 
- <a href='Classes.html#4611703562330898114'><font color='#'>close</font></a>(self:long_double)&nbsp;: long_double -&gt;
+ <a href='Classes.html#4611703569013472962'><font color='#'>close</font></a>(self:long_double)&nbsp;: long_double -&gt;
  	(self.value&nbsp;:= externC("(long double*)::malloc(sizeof(long double))", long_double*),
  	self)
 
- <a href='Free_dashable objects.html#4611703562330943874'><font color='#'>free!</font></a>(self:long_double)&nbsp;: void -&gt; externC("::free(self-&gt;value)")
+ <a href='Free_dashable objects.html#4611703569013518722'><font color='#'>free!</font></a>(self:long_double)&nbsp;: void -&gt; externC("::free(self-&gt;value)")
 </td></tr></table>
-							  <p align='justify' class='doc_paragraph'></p><a name='4611703562330943874'><hr size=0 style='page-break-after: avoid' /></a>
+							  <p align='justify' class='doc_paragraph'></p><a name='4611703569013518722'><hr size=0 style='page-break-after: avoid' /></a>
 	<a name='free!'><hr size=0 /></a>
 	<table width='100%' class='item_header'>
 		<tr>
 			<td width='20%' align='left'><i><a href='claire.index.html#__category_index__'>categories</a></i></td>
-			<td width='20%' align='center'><i><a href='Free_dashable objects.html#4611703562329060834'>Free-able objects</a></i></td><td width='20%' align='center'><i>normal dispatch</i></td>
+			<td width='20%' align='center'><i><a href='Free_dashable objects.html#4611703569011635682'>Free-able objects</a></i></td><td width='20%' align='center'><i>normal dispatch</i></td>
 			<td  width='20%'></td><td width='20%' align='right'><i><font color='red'>[XL]</font> Kernel interface</i></td>
-	</tr></table><h3>free!<font color='blue'> :: </font>property(open = 3)</h3><p align='justify' class='doc_paragraph'> In a similar way to <a href='Free_dashable objects.html#4611703562330942450'><font color='#'>prefree!</font></a> <a href='Methods.html#4611703562330917794'><font color='#'>interface</font></a> free! is called by the <a href='Miscellaneous.html#4611703562331136466'><font color='#'>GC</font></a> before a freeable_object is
- actually freed. It is a good place, for instance, to free externally allocated memory. An <a href='Objects and Entities.html#4611703562329047202'><font color='#'>object</font></a> x given to the
+	</tr></table><h3>free!<font color='blue'> :: </font>property(open = 3)</h3><p align='justify' class='doc_paragraph'> In a similar way to <a href='Free_dashable objects.html#4611703569013517298'><font color='#'>prefree!</font></a> <a href='Methods.html#4611703569013492642'><font color='#'>interface</font></a> free! is called by the <a href='Miscellaneous.html#4611703569013711314'><font color='#'>GC</font></a> before a freeable_object is
+ actually freed. It is a good place, for instance, to free externally allocated memory. An <a href='Objects and Entities.html#4611703569011622050'><font color='#'>object</font></a> x given to the
  free! handler should be handled with a lot of care&nbsp;:
  </p>
-							  <ul> <li>Don't try to access x.s where x.s is itself an <a href='Objects and Entities.html#4611703562329047202'><font color='#'>object</font></a> (x.s could already be freed by the <a href='Miscellaneous.html#4611703562331136466'><font color='#'>GC</font></a>).
- use <a href='Free_dashable objects.html#4611703562330942450'><font color='#'>prefree!</font></a> instead for such <a href='Selectors_comma Properties and Operations.html#4611703562330122642'><font color='#'>operation</font></a>
- <li>Don't create reference on x (i.e. don't <a href='Classes.html#4611703562330997746'><font color='#'>add</font></a> x to a <a href='Lists_comma Sets and Tuples.html#4611703562329258978'><font color='#'>list</font></a>, don't <a href='Lists_comma Sets and Tuples.html#4611703562329258978'><font color='#'>set</font></a> a <a href='Global Variables and Constants.html#4611703562330797874'><font color='#'>global</font></a> var to x)
+							  <ul> <li>Don't try to access x.s where x.s is itself an <a href='Objects and Entities.html#4611703569011622050'><font color='#'>object</font></a> (x.s could already be freed by the <a href='Miscellaneous.html#4611703569013711314'><font color='#'>GC</font></a>).
+ use <a href='Free_dashable objects.html#4611703569013517298'><font color='#'>prefree!</font></a> instead for such <a href='Selectors_comma Properties and Operations.html#4611703569012697490'><font color='#'>operation</font></a>
+ <li>Don't create reference on x (i.e. don't <a href='Classes.html#4611703569013572594'><font color='#'>add</font></a> x to a <a href='Lists_comma Sets and Tuples.html#4611703569011833826'><font color='#'>list</font></a>, don't <a href='Lists_comma Sets and Tuples.html#4611703569011833826'><font color='#'>set</font></a> a <a href='Global Variables and Constants.html#4611703569013372722'><font color='#'>global</font></a> var to x)
  </ul>
-							  <p align='justify' class='doc_paragraph'></p><a name='4611703562330942450'><hr size=0 style='page-break-after: avoid' /></a>
+							  <p align='justify' class='doc_paragraph'></p><a name='4611703569013517298'><hr size=0 style='page-break-after: avoid' /></a>
 	<a name='prefree!'><hr size=0 /></a>
 	<table width='100%' class='item_header'>
 		<tr>
 			<td width='20%' align='left'><i><a href='claire.index.html#__category_index__'>categories</a></i></td>
-			<td width='20%' align='center'><i><a href='Free_dashable objects.html#4611703562329060834'>Free-able objects</a></i></td><td width='20%' align='center'><i>normal dispatch</i></td>
+			<td width='20%' align='center'><i><a href='Free_dashable objects.html#4611703569011635682'>Free-able objects</a></i></td><td width='20%' align='center'><i>normal dispatch</i></td>
 			<td  width='20%'></td><td width='20%' align='right'><i><font color='red'>[XL]</font> Kernel interface</i></td>
-	</tr></table><h3>prefree!<font color='blue'> :: </font>property(open = 3)</h3><p align='justify' class='doc_paragraph'> The prefree! <a href='Methods.html#4611703562330917794'><font color='#'>interface</font></a> is called by the <a href='Miscellaneous.html#4611703562331136466'><font color='#'>GC</font></a> before a freeable_object is actually freed.
- It give a chance to terminate inter-object <a href='Selectors_comma Properties and Operations.html#4611703562330122642'><font color='#'>operations</font></a> that may need a <a href='Lists_comma Sets and Tuples.html#4611703562331141458'><font color='#'>last</font></a> synchronization
- step (like the <a href='Communication ports.html#4611703562331412258'><font color='#'>flush</font></a> of a <a href='Communication ports.html#4611703562331409282'><font color='#'>filter</font></a>). Since an <a href='Objects and Entities.html#4611703562329047202'><font color='#'>object</font></a> x given to the handler prefree! is about to be
- freed you should never create reference on x in the scope of the handler (i.e. don't <a href='Classes.html#4611703562330997746'><font color='#'>add</font></a> x to a
- <a href='Lists_comma Sets and Tuples.html#4611703562329258978'><font color='#'>list</font></a>, don't <a href='Lists_comma Sets and Tuples.html#4611703562329258978'><font color='#'>set</font></a> a <a href='Global Variables and Constants.html#4611703562330797874'><font color='#'>global</font></a> var to x).</p></body>
+	</tr></table><h3>prefree!<font color='blue'> :: </font>property(open = 3)</h3><p align='justify' class='doc_paragraph'> The prefree! <a href='Methods.html#4611703569013492642'><font color='#'>interface</font></a> is called by the <a href='Miscellaneous.html#4611703569013711314'><font color='#'>GC</font></a> before a freeable_object is actually freed.
+ It give a chance to terminate inter-object <a href='Selectors_comma Properties and Operations.html#4611703569012697490'><font color='#'>operations</font></a> that may need a <a href='Lists_comma Sets and Tuples.html#4611703569013716306'><font color='#'>last</font></a> synchronization
+ step (like the <a href='Communication ports.html#4611703569013987106'><font color='#'>flush</font></a> of a <a href='Communication ports.html#4611703569013984130'><font color='#'>filter</font></a>). Since an <a href='Objects and Entities.html#4611703569011622050'><font color='#'>object</font></a> x given to the handler prefree! is about to be
+ freed you should never create reference on x in the scope of the handler (i.e. don't <a href='Classes.html#4611703569013572594'><font color='#'>add</font></a> x to a
+ <a href='Lists_comma Sets and Tuples.html#4611703569011833826'><font color='#'>list</font></a>, don't <a href='Lists_comma Sets and Tuples.html#4611703569011833826'><font color='#'>set</font></a> a <a href='Global Variables and Constants.html#4611703569013372722'><font color='#'>global</font></a> var to x).</p></body>
 	</html>
