@@ -34,3 +34,5 @@ configure
 config.status
 *.o
 *.tgz
+include/config.h.in~
+include/config.h
