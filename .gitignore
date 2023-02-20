@@ -1,7 +1,7 @@
 
 *.log
+*xlclaire-*
 /doc
-xlclaire-*/
 *.cache
 *.o
 public*
@@ -33,6 +33,12 @@ configure
 .DS_Store
 config.status
 *.o
+*.tgz
+include/config.h.in~
+include/config.h
+stable2/config.log
+stable2/Darwin*
+stable2/Linux*
 /Makefile
 stable2/Makefile
 stable2/csrc/Optimize.cpp

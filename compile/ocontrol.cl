@@ -98,6 +98,21 @@ c_code(self:Return) : any
 c_gc?(self:Handle) : boolean
  -> (c_gc?(self.arg) | c_gc?(self.other))
 
+[c_code(self:Thandle,s:class) : any
+ -> let vbr := Variable!(gensym(), 0, any),
+        i := If(test = Call(claire/traceTtry?,list(system)),
+                arg = Let(  var = vbr,
+                            value = Call(claire/beforeTtry,list(self.test)),
+                            arg = Handle( test = self.test,
+                                          arg = Call(   claire/afterTtry, 
+                                                        list( vbr, Call(eval,list(self.arg)) ) ),
+                                          other = Call( claire/otherTtry,
+                                                        list( vbr, Call(eval, list(self.other)) )   )
+                                        )
+                          ),
+                other = Handle(test = self.test, arg = self.arg, other = self.other) )
+    in c_code(i,s)   ]
+
 // ****************************************************************
 // *      Part 2: Specific structures                             *
 // ****************************************************************
@@ -590,6 +605,28 @@ infers_from(t:type,self:any) : type
                              c_inline(r, list(v2, vnew, narg), s)),
                       other = n.arg),
         c_code(n,s)) ]
+
+[c_type(self:Tfor) : type -> infers_from(return_type(self.arg),self)]
+
+// notice that tfor is of sort any and may require a cast ..
+[c_code(self:Tfor,s:class) : any
+ -> let fv := self.var,
+        fnv := Variable(pname = fv.pname, range = fv.range,
+                      mClaire/index = fv.mClaire/index),
+        narg := substitution(self.arg,fv,fnv),
+        fsa := self.set_arg,
+        doprintv := Do(list(Call(print_in_string,list(system)),
+                            Printf(args = list("~A",get(name,fnv.pname))),
+                            Call(end_of_string,list(system)))),
+        i := If(test = Call(claire/traceTfor?,list(system)),
+                arg = Call(claire/afterTfor,
+                          list( Call(claire/beforeTfor,list(doprintv,fsa)),
+                                Handle(arg = For(var = fnv, set_arg = fsa, arg = narg),
+                                        test = any,
+                                        other = Call(exception!,list(system)))
+                                )),
+                other = For(var = fnv, set_arg = fsa, arg = narg))
+    in c_code(i,s) ]
 
 
 Compile/c_gc?(self:Iteration) : boolean -> true

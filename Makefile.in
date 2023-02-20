@@ -297,6 +297,7 @@ clean:
 	rm -rf xlclaire-*
 	rm -rf doc
 	rm -f $(Dr)/configure
+	rm -f Makefile
 	find . -name "*.o" -exec rm -f {} \;
 	@echo ------------
 	@echo - OK clean -

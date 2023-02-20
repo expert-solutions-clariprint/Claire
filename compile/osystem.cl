@@ -333,6 +333,7 @@ claire/safe(x:any) : type[x] -> x
                     Gassign  any,
                     Super any,
                     For any,
+                    Tfor any, //<lr> tfor
                     Ffor object, //<sb> v3.3.33 ffor
                     Exists (if (self.other = unknown) any else object),
                     Iteration object,
@@ -394,6 +395,7 @@ claire/safe(x:any) : type[x] -> x
                     r2 := c_or(list{c_status(x, l) | x in self.args but y}) in
                  c_return(r1,r2),
              For c_return( c_status(self.arg,l), c_status(self.set_arg, l)),
+             Tfor c_return( c_status(self.arg,l), c_status(self.set_arg, l)), //<lr> tfor
              Ffor c_return( c_status(self.arg,l),
              					c_or(c_status(self.set_arg, l), c_status(self.forkedby, l))), //<sb> v3.3.33 ffor
              Iteration c_return(bit_vector(NEW_ALLOC), c_status(self.arg,l)),

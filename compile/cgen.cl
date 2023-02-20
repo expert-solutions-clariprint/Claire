@@ -153,13 +153,6 @@ class_princ(c:c_producer,self:class) : void
  -> case x
       (function printf("_function_(~I,~I)", c_princ(x), print(string!(x))),
        char printf("_char_(((unsigned char)~S))", x),
-       ;char printf("_char_('~I')",
-      ;             (if (x % {'\"', '\'', '?', '\\'}) printf("\\~A", x)
-      ;             else if (x = '\t') princ("\\t")
-       ;            else if (x = '\r') princ("\\r")
-        ;           else if (x = '\n') princ("\\n")
-        ;           else princ(x)
-        ;           )),
        environment princ("ClEnv"),
        string printf("((char*)~S)", x),
        global_variable  globalVar(c,x),

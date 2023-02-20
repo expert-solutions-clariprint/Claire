@@ -3,6 +3,7 @@
 /**   Kernel.cpp pp                                                    */
 /**  Copyright (C) 1998-2003 Yves Caseau. All Rights Reserved.         */
 /**  cf claire.h                                                       */
+/** xp 2021 : fix many GC issues
 /***********************************************************************/
 
 #if defined(CLPC) && !defined(CLPCNODLL)
@@ -1476,12 +1477,14 @@ CL_EXPORT OID CmemoryAdr;                  // memory zone
 #define ADRTOPOIN(x) ((CL_UNSIGNED*)((CL_UNSIGNED)x << ADDRTRANS))
 #define SIZE(n) (*((CL_INT*)((CL_UNSIGNED)n << ADDRTRANS) - 1))             // returns the size of the object
 // #define CL_MAX_INT 0xFFFFFFFFFFFFFFFFLL >> 2
+#define MAXLOGALLOC 12
 #else
 #define ADDRTRANS 2
 #define POINTOADR(x) ((CL_UNSIGNED)x >> ADDRTRANS)
 #define ADRTOPOIN(x) ((CL_UNSIGNED*)((CL_UNSIGNED)x << ADDRTRANS))
 #define SIZE(n) (*((CL_INT*)((CL_UNSIGNED)n << ADDRTRANS) - 1))             // returns the size of the object
 // #define CL_MAX_INT 0xFFFFFFFF >> 2
+#define MAXLOGALLOC 9
 #endif
 
 
@@ -1605,9 +1608,9 @@ CL_INT allocateClaire(CL_INT i, CL_INT j, CL_INT memauto) {
   ClAlloc->maxList = (1ul << (18 + i));
   ClAlloc->maxSize = (1ul << (18 + i));
   if(memauto) {
-    ClAlloc->maxList0 = (1ul << (18 + 10));
-    ClAlloc->maxSize0 = (2ul << (18 + 10));
-    ClAlloc->maxStack = 8000 * (1ul << 10);
+    ClAlloc->maxList0 = (1ul << (18 + MAXLOGALLOC));  // <lr> previous xp 10
+    ClAlloc->maxSize0 = (2ul << (18 + MAXLOGALLOC));  // <lr> previous xp 10
+    ClAlloc->maxStack = 8000 * (1ul << MAXLOGALLOC);  // <lr> previous xp 10
   } else {
     ClAlloc->maxList0 = (1ul << (18 + i));
     ClAlloc->maxSize0 = (2ul << (18 + i));
@@ -1698,7 +1701,7 @@ CL_EXPORT CL_INT startClaire(CL_INT argc, char *argv[]) {
       SAMPLE_PERIOD = atoi(argv[l]);
     } else if(strcmp(argv[l],"-x") == 0 || strcmp(argv[l],"-xe") == 0 ||
 #ifdef __LP64__		
-        sscanf(argv[l],"-x%ld-%ld",&i,&j) == 2 || sscanf(argv[l],"-xe%ld-%ld",&i,&j) == 2)
+      sscanf(argv[l],"-x%ld-%ld",&i,&j) == 2 || sscanf(argv[l],"-xe%ld-%ld",&i,&j) == 2)
 #else
 	    sscanf(argv[l],"-x%d-%d",&i,&j) == 2  || sscanf(argv[l],"-xe%d-%d",&i,&j) == 2)
 #endif
@@ -1707,10 +1710,11 @@ CL_EXPORT CL_INT startClaire(CL_INT argc, char *argv[]) {
       LOGO = 0;
       TOPLEVEL = 0;
       NOEL = 1;
+  }
 #ifdef __LP64__		
-    } else if(strcmp(argv[l],"-xwcl") == 0 || sscanf(argv[l],"-xwcl%ld-%ld",&i,&j) == 2) {
+     else if(strcmp(argv[l],"-xwcl") == 0 || sscanf(argv[l],"-xwcl%ld-%ld",&i,&j) == 2) {
 #else
-    } else if(strcmp(argv[l],"-xwcl") == 0 || sscanf(argv[l],"-xwcl%d-%d",&i,&j) == 2) {
+     else if(strcmp(argv[l],"-xwcl") == 0 || sscanf(argv[l],"-xwcl%d-%d",&i,&j) == 2) {
 #endif
       if(++l == argc) break;
       LOGO = 0;
@@ -1864,7 +1868,7 @@ CL_INT ClaireAllocation::shortCongestion() {
 
 CL_INT ClaireAllocation::gcStackCongestion() {
   CL_INT good = 0;
-  if(true) {
+  if(mem_auto && maxGC < 20000 * (1ul << MAXLOGALLOC)) { // <lr> previous 1ul << 9
     void *adr = realloc(gcStack, 2 * maxGC * sizeof(ClaireAny*));
     if(adr) {
       gcStack = (ClaireAny**)adr;
@@ -1923,17 +1927,13 @@ CL_INT sampling = 0;
 //     Cmemory[x + PREVIOUS] = address of the previous chunk in the chain
 CL_INT ClaireAllocation::newChunk(CL_INT n)
 {
-//	printf("newChunk\n");
-//	printf("**** %ld\n", n);
   if (gcstress == 1) gc("StressChunk");
 #ifdef CLDEBUG
  if(inside_gc) Ctracef("Warning: newChunck inside gc\n"); 
 #endif
  CL_INT value;
  CL_INT size,next,i,j;
- // n *= 2;
   size = log2up(n) ;                          /* note that 2^size is always > n */
-// printf("ClaireAllocation::newChunk(%ld) size:%ld\n",n,size);
   if (size > logList) return checkChunkIncrease(1,n);
   if (entryList[size] == NOTHING) //<sb> not a free chunck! we have to find a chunck of a possible bigger size
      { 
@@ -1948,12 +1948,7 @@ CL_INT ClaireAllocation::newChunk(CL_INT n)
 			 return value;}
        value = entryList[i];
 	   CL_UNSIGNED _idx = (&(ADRTOPOIN(value)[FOLLOW])) - Cmemory;
-	   
-	  /* 	   printf("i = %lu    value = %lu  addr %lx  FOLLOW : %lu  	addre follow:  %lu %lu\n",i,value,&(ADRTOPOIN(value)[FOLLOW]),ADRTOPOIN(value)[FOLLOW],
-	   		(&(ADRTOPOIN(value)[FOLLOW])) - Cmemory,
-			_idx
-	    ); */
-	   
+	   	   
        entryList[i] = ISCHUNK(ADRTOPOIN(value)[FOLLOW]);  // update next free chunk
        for (j = i; (j != size); j--)            // cuts into two until right size
            {CL_INT x = (1ul << (j-1));			// 2^(j- 1) :> taille du block
@@ -1977,8 +1972,6 @@ CL_INT ClaireAllocation::newChunk(CL_INT n)
 // of size OPTIMIZE
 CL_INT ClaireAllocation::newShort(CL_INT n)
 {
-//	printf("newShort(%ld)\n",n);
-//	printf("ClaireAllocation::newShort(%ld)\n",n);
   if (gcstress == 1) gc("StressShort");
  #ifdef CLDEBUG
   if(inside_gc) Ctracef("Warning: newShort inside gc\n");  
@@ -2387,11 +2380,9 @@ void ClaireAllocation::markHash() {
 // mark the items in the various stacks
 void ClaireAllocation::markStack() {
  CL_INT i;
-// printf("MARK stack index is = %d\n", ClEnv->index);
  for (i=0; i < ClEnv->index; i++)
    {CL_UNSIGNED oid = ClEnv->stack[i];
   if CLMEM((oid << ADDRTRANS)) MARK(oid)}
-// for (i=1; i < index; i++)
  i= 0;
  while (i < index)
     {ClaireAny *x = gcStack[i];
@@ -2412,7 +2403,6 @@ void ClaireAllocation::markStack() {
 //<sb> made mark the unique marking function, avoid func call overhead
 // + if possible, perform tail recursion with a goto
 void ClaireAllocation::mark(OID n) {
-// printf("mark(%lx)\n",n);
   goto themark;
 markany:
   if (CTAG(n) != OBJ_CODE || SIZE(n) <= 0) return;
@@ -7893,12 +7883,15 @@ public:
 
 TzSet TzSet::single = TzSet();
 
-CL_EXPORT char *tzset_string(char* tz) {
+CL_EXPORT char *tzset_string(char *tz) {
+   char *oldtz;
+   oldtz = getenv("TZ");
   char tmp[256];
   strcpy(tmp,"TZ=");
   strcat(tmp,tz);
   setenv_string(tmp);
   tzset();
+  if (oldtz) return copy_string(oldtz);
   return "";
 }
 

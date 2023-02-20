@@ -1,0 +1,122 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+	<head>
+		<link rel="stylesheet" type="text/css" href="doc.css" media="all">
+		<title>
+			claire : Instantiation
+		</title>
+		<style>
+body {
+        font-size: 14px;
+        font-family: arial, Helvetica;
+}
+
+h1 { font-size: 25px; }
+h2 { font-size: 20px; }
+
+a[href] {
+	border-bottom: 1px dotted grey;
+	text-decoration: none
+}
+
+.doc_paragraph
+{
+        font-size: 14px;
+        font-family: arial, helvetica;
+}
+
+.item_header { font-size: 10px; page-break-before: avoid; page-break-inside: avoid; page-break-after: avoid }
+
+.item_index {
+		white-space: pre;
+        font-size: 11px;
+        font-family: monaco, courier, mono-space;
+}
+
+.table_code {
+		margin: 10px auto;
+}
+
+.doc_code {
+    white-space: pre;
+		padding-top: .1em;
+		padding-bottom: .5em;
+		background-color: #EEE;
+		border: #AAA solid 1px;
+        font-size: 11px;
+        font-family: monaco, courier, mono-space;
+}
+
+.opt_usage {
+		margin-left: 1em;
+		margin-right: 1em;
+		padding: .2em;
+		background-color: #EEE;
+		border: #AAA solid 1px;
+        font-family: monaco, courier, mono-space;
+	
+}
+
+.class_proto {
+	vertical-align: top;
+	text-align: right;
+}
+
+.class_proto_super {
+	vertical-align: top;
+	text-align: right;
+}
+
+.class_proto_slot {
+	vertical-align: top;
+	text-align: left;
+}
+
+</style>
+	</head>
+	<body><table width='100%' class='item_header'>
+		<tr>
+			<td width='33%' align='left' valign='bottom'><i><a href='Loops.html#4611703569012013810'>Loops</a></i></td>
+			<td width='33%' align='center' valign='top'><i><a href='claire.index.html#__category_index__'>categories</a><br/><a href='claire.index.html#4611703569011833842'>Lists, Sets and Instructions</a><br/><b>Instantiation</b>
+				</i></td>
+			<td width='33%' align='right' valign='bottom'><i><a href='Exception Handling.html#4611703569012183794'>Exception Handling</a></i></td>
+		</tr>
+	</table>
+	<h2><span class=pretitle>&nbsp;</span>&nbsp;<a name='4611703569012154578'>Instantiation</a>
+			</h2>
+	<ul></ul><ul></ul><p align='justify' class='doc_paragraph'> <a href='Instantiation.html#4611703569012154578'><font color='#'>Instantiation</font></a> is the mechanism of creating a <a href='Classes.html#4611703569013711154'><font color='#'>new</font></a> <a href='Objects and Entities.html#4611703569011622050'><font color='#'>object</font></a> of a given <a href='Classes.html#4611703569011633570'><font color='#'>class</font></a>;
+ <a href='Instantiation.html#4611703569012154578'><font color='#'>instantiation</font></a> is done by using the <a href='Classes.html#4611703569011633570'><font color='#'>class</font></a> as a <a href='Selectors_comma Properties and Operations.html#4611703569012697490'><font color='#'>selector</font></a> and by giving a <a href='Lists_comma Sets and Tuples.html#4611703569011833826'><font color='#'>list</font></a> of
+ "&lt;slot&gt; = &lt;value&gt;" pairs as arguments&nbsp;:
+ </p><table class='table_code' align=center border=0 width='85%'>
+										<tr><td class='doc_code'> complex(re = 0.0, im = 1.0)
+ person(age = 0, father = john)
+</td></tr></table>
+							  <p align='justify' class='doc_paragraph'> Recall that the <a href='Lists_comma Sets and Tuples.html#4611703569011833826'><font color='#'>list</font></a> of instances of a given <a href='Classes.html#4611703569011633570'><font color='#'>class</font></a> is only kept for non-ephemeral <a href='Classes.html#4611703569011633570'><font color='#'>classes</font></a>
+ (a <a href='Classes.html#4611703569011633570'><font color='#'>class</font></a> is <a href='Classes.html#4611703569013710898'><font color='#'>ephemeral</font></a> if has been declared as such or if it inherits from the
+ ephemeral_object <a href='Classes.html#4611703569011633570'><font color='#'>class</font></a>). The creation of a <a href='Classes.html#4611703569013711154'><font color='#'>new</font></a> instance of a <a href='Classes.html#4611703569011633570'><font color='#'>class</font></a> yields to a function
+ <a href='Calls and Slot Access.html#4611703569013635570'><font color='#'>call</font></a> to the <a href='Methods.html#4611703569012232658'><font color='#'>method</font></a> <a href='Classes.html#4611703569013472962'><font color='#'>close</font></a>. <a href='Objects and Entities.html#4611703569011622050'><font color='#'>Objects</font></a> with a name are represented by the <a href='Classes.html#4611703569011633570'><font color='#'>class</font></a> thing, hence
+ descendents of thing (<a href='Classes.html#4611703569011633570'><font color='#'>classes</font></a> that inherit from thing) can be given a name with the
+ definition <a href='Selectors_comma Properties and Operations.html#4611703569012697490'><font color='#'>operation</font></a>&nbsp;::. These named <a href='Objects and Entities.html#4611703569011622050'><font color='#'>objects</font></a> can later be accessed with their name,
+ while <a href='Objects and Entities.html#4611703569011622050'><font color='#'>objects</font></a> with no name offer no handle to manipulate them after their creation outside
+ of their <a href='Blocks.html#4611703569011856034'><font color='#'>block</font></a> (<a href='Objects and Entities.html#4611703569011622050'><font color='#'>objects</font></a> with no name are usually attached to a local variable with a let
+ whenever any other <a href='Selectors_comma Properties and Operations.html#4611703569012697490'><font color='#'>operation</font></a> other than the creation itself is needed)&nbsp;:
+ </p><table class='table_code' align=center border=0 width='85%'>
+										<tr><td class='doc_code'> paul&nbsp;:: person(age = 10, father = peter)
+</td></tr></table>
+							  <p align='justify' class='doc_paragraph'> Notice that the <a href='Symbols.html#4611703569013327298'><font color='#'>identifier</font></a> used as the name of an <a href='Objects and Entities.html#4611703569011622050'><font color='#'>object</font></a> is a <a href='Global Variables and Constants.html#4611703569013372722'><font color='#'>constant</font></a> that cannot be
+ changed. Thus, it is different from creating a <a href='Global Variables and Constants.html#4611703569013372722'><font color='#'>global</font></a> variable that would contain an
+ <a href='Objects and Entities.html#4611703569011622050'><font color='#'>object</font></a> as in&nbsp;:
+ </p><table class='table_code' align=center border=0 width='85%'>
+										<tr><td class='doc_code'> aGoodGuy:person&nbsp;:: person(age = 10, father = peter)
+</td></tr></table>
+							  <p align='justify' class='doc_paragraph'> Additionally, there is a simpler way of instantiating parameterized <a href='Classes.html#4611703569011633570'><font color='#'>classes</font></a> by dropping
+ the <a href='Calls and Slot Access.html#4611703569011817362'><font color='#'>slot</font></a> names. All values of the parameter <a href='Calls and Slot Access.html#4611703569011817362'><font color='#'>slots</font></a> must be provided in the exact order that
+ was used to declare the <a href='Lists_comma Sets and Tuples.html#4611703569011833826'><font color='#'>list</font></a> of parameters. For instance, we could use&nbsp;:
+ </p><table class='table_code' align=center border=0 width='85%'>
+										<tr><td class='doc_code'> complex(0.0,1.0), stack(<a href='Integers and Floats.html#4611703569011617938'><font color='#'>integer</font></a>)
+</td></tr></table>
+							  <p align='justify' class='doc_paragraph'> The previously mentioned <a href='Instantiation.html#4611703569012154578'><font color='#'>instantiation</font></a> form only applies to a parameterized <a href='Classes.html#4611703569011633570'><font color='#'>class</font></a>. It is
+ possible to instantiate a <a href='Classes.html#4611703569011633570'><font color='#'>class</font></a> that is given as a parameter (say, the variable v) using
+ the <a href='Classes.html#4611703569013711154'><font color='#'>new</font></a> <a href='Methods.html#4611703569012232658'><font color='#'>method</font></a>. <a href='Classes.html#4611703569013711154'><font color='#'>New</font></a>(v) creates an instance of the <a href='Classes.html#4611703569011633570'><font color='#'>class</font></a> v and <a href='Classes.html#4611703569013711154'><font color='#'>new</font></a>(v,s) creates a named
+ instance of the <a href='Classes.html#4611703569011633570'><font color='#'>class</font></a> v (assumed to be a subclass of thing) with the name s.</p></body>
+	</html>

@@ -1,0 +1,125 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+	<head>
+		<link rel="stylesheet" type="text/css" href="doc.css" media="all">
+		<title>
+			claire : Debugging
+		</title>
+		<style>
+body {
+        font-size: 14px;
+        font-family: arial, Helvetica;
+}
+
+h1 { font-size: 25px; }
+h2 { font-size: 20px; }
+
+a[href] {
+	border-bottom: 1px dotted grey;
+	text-decoration: none
+}
+
+.doc_paragraph
+{
+        font-size: 14px;
+        font-family: arial, helvetica;
+}
+
+.item_header { font-size: 10px; page-break-before: avoid; page-break-inside: avoid; page-break-after: avoid }
+
+.item_index {
+		white-space: pre;
+        font-size: 11px;
+        font-family: monaco, courier, mono-space;
+}
+
+.table_code {
+		margin: 10px auto;
+}
+
+.doc_code {
+    white-space: pre;
+		padding-top: .1em;
+		padding-bottom: .5em;
+		background-color: #EEE;
+		border: #AAA solid 1px;
+        font-size: 11px;
+        font-family: monaco, courier, mono-space;
+}
+
+.opt_usage {
+		margin-left: 1em;
+		margin-right: 1em;
+		padding: .2em;
+		background-color: #EEE;
+		border: #AAA solid 1px;
+        font-family: monaco, courier, mono-space;
+	
+}
+
+.class_proto {
+	vertical-align: top;
+	text-align: right;
+}
+
+.class_proto_super {
+	vertical-align: top;
+	text-align: right;
+}
+
+.class_proto_slot {
+	vertical-align: top;
+	text-align: left;
+}
+
+</style>
+	</head>
+	<body><table width='100%' class='item_header'>
+		<tr>
+			<td width='33%' align='left' valign='bottom'><i>Using</i></td>
+			<td width='33%' align='center' valign='top'><i><a href='claire.index.html#__category_index__'>categories</a><br/><a href='claire.index.html#4611703569013634210'>Using XL Claire</a><br/><b>Debugging</b>
+				</i></td>
+			<td width='33%' align='right' valign='bottom'><i></i></td>
+		</tr>
+	</table>
+	<h1><span class=pretitle>&nbsp;</span>&nbsp;Using XL Claire</h1>
+		<h2><span class=pretitle>&nbsp;</span>&nbsp;<a name='4611703569013460818'>Debugging</a>
+			 <font color='red'>[XL]</font></h2>
+	<ul></ul><ul></ul><p align='justify' class='doc_paragraph'> XL claire comes with a whole <a href='Classes.html#4611703569013711154'><font color='#'>new</font></a> debugger (since v3.3.39) that is far more
+ robust and powerful than its previous implementation. The <a href='Classes.html#4611703569013711154'><font color='#'>new</font></a> strategy is to
+ produce an instrumented meta code that <a href='Calls and Slot Access.html#4611703569011817362'><font color='#'>calls</font></a> the debugger handlers, as such
+ interpreted and compiled code are homogeneously handled with the debugger.
+ The debugger <a href='Methods.html#4611703569013492642'><font color='#'>interface</font></a> is handled by the toplevel and is highly inspired by
+ the popular GNU debugger (gdb). The debugger is activated by the -debug command
+ line option which would&nbsp;:
+ </p>
+							  <ul> <li>Instrument the loaded code. If additionally a compilation option is specified
+ then the compiled code would also be instrumented (Notice that the compiler option
+ -D implicitly implies -debug).
+ <li>Configure the toplevel to handle debug code.
+ </ul>
+							  <p align='justify' class='doc_paragraph'> When an unhandled <a href='Exception Handling.html#4611703569012183794'><font color='#'>exception</font></a> is caught by the toplevel a special debug loop is entered
+ providing <a href='Debugging.html#4611703569013460818'><font color='#'>debugging</font></a> <a href='Methods.html#4611703569013492642'><font color='#'>interface</font></a> to the user additionaly to the standard toplevel <a href='Features.html#4611703569011583682'><font color='#'>features</font></a>,
+ namely&nbsp;:
+ </p>
+							  <ul> <li><b>w, wh, whe, wher, where, bt </b>: backtrace of the execution stack (frames)
+ <li><b>f, fr, fra, fram, frame </b>: redisplay the current frame presented with a source code summary
+ <li><b>u, up </b>:  select the caller frame
+ <li><b>d, do, dow, down </b>:  select the called frame
+ <li><b>e, ed, edi, edit </b>: open the source <a href='Communication ports.html#4611703569012956018'><font color='#'>file</font></a> of the current frame at the <a href='Strings.html#4611703569013494450'><font color='#'>right</font></a> line (provided a correct setup of the
+ WCL_EDITOR environment variable)
+ <li>local variables can be used as normal variable in the scope of the current selected frame (i.e.
+ the user can use these variables in expressions)
+ <li><b>q </b>: abort the command and leave the debug loop
+ </ul>
+							  <p align='justify' class='doc_paragraph'> Additionally the user may control a program execution step by step (stepper) either from
+ an initial command or by interrupting the execution of a command. A program may be
+ interrupted using ^C which would however stop the interpreter under Win32. </p><p align='justify' class='doc_paragraph'> XL Claire comes with a debugger that let the user control and step during
+ a program execution and locate the place where an <a href='Exception Handling.html#4611703569012183794'><font color='#'>exception</font></a> was thrown.
+ The debugger <a href='Methods.html#4611703569013492642'><font color='#'>interface</font></a> is inspired by gdb (the popular
+ GNU debugger) and provide backtrace, source <a href='Communication ports.html#4611703569012956018'><font color='#'>file</font></a> listing, frame inspection
+ including local variables.</p><p align='justify' class='doc_paragraph'> In order to be debugged some code have to be instrumented which is done
+ by specifying the -debug option on the command line. Since the instrumentation
+ is performed at the meta level the debugger would handle interpreted and compiled
+ code homogeneously.</p></body>
+	</html>

@@ -34,12 +34,14 @@ reserved_keyword <: keyword()
 else :: reserved_keyword()
 for :: reserved_keyword()
 claire/ffor :: reserved_keyword() //<sb> v3.3.33 ffor
+claire/tfor :: reserved_keyword() //<lr> tfor 
 case :: reserved_keyword()
 while :: reserved_keyword()
 until :: reserved_keyword()
 let :: reserved_keyword()
 when :: reserved_keyword()
 try :: reserved_keyword()
+ttry :: reserved_keyword() //<lr> ttry
 if :: reserved_keyword()
 Zif :: reserved_keyword()
 branch :: reserved_keyword()

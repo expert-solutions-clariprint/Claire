@@ -1,0 +1,198 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+	<head>
+		<link rel="stylesheet" type="text/css" href="doc.css" media="all">
+		<title>
+			claire : Blocks
+		</title>
+		<style>
+body {
+        font-size: 14px;
+        font-family: arial, Helvetica;
+}
+
+h1 { font-size: 25px; }
+h2 { font-size: 20px; }
+
+a[href] {
+	border-bottom: 1px dotted grey;
+	text-decoration: none
+}
+
+.doc_paragraph
+{
+        font-size: 14px;
+        font-family: arial, helvetica;
+}
+
+.item_header { font-size: 10px; page-break-before: avoid; page-break-inside: avoid; page-break-after: avoid }
+
+.item_index {
+		white-space: pre;
+        font-size: 11px;
+        font-family: monaco, courier, mono-space;
+}
+
+.table_code {
+		margin: 10px auto;
+}
+
+.doc_code {
+    white-space: pre;
+		padding-top: .1em;
+		padding-bottom: .5em;
+		background-color: #EEE;
+		border: #AAA solid 1px;
+        font-size: 11px;
+        font-family: monaco, courier, mono-space;
+}
+
+.opt_usage {
+		margin-left: 1em;
+		margin-right: 1em;
+		padding: .2em;
+		background-color: #EEE;
+		border: #AAA solid 1px;
+        font-family: monaco, courier, mono-space;
+	
+}
+
+.class_proto {
+	vertical-align: top;
+	text-align: right;
+}
+
+.class_proto_super {
+	vertical-align: top;
+	text-align: right;
+}
+
+.class_proto_slot {
+	vertical-align: top;
+	text-align: left;
+}
+
+</style>
+	</head>
+	<body><table width='100%' class='item_header'>
+		<tr>
+			<td width='33%' align='left' valign='bottom'><i><a href='Lists_comma Sets and Tuples.html#4611703569011833826'>Lists, Sets and Tuples</a></i></td>
+			<td width='33%' align='center' valign='top'><i><a href='claire.index.html#__category_index__'>categories</a><br/><a href='claire.index.html#4611703569011833842'>Lists, Sets and Instructions</a><br/><b>Blocks</b>
+				</i></td>
+			<td width='33%' align='right' valign='bottom'><i><a href='Conditionals.html#4611703569011870178'>Conditionals</a></i></td>
+		</tr>
+	</table>
+	<h2><span class=pretitle>&nbsp;</span>&nbsp;<a name='4611703569011856034'>Blocks</a>
+			</h2>
+	<ul></ul><ul></ul><p align='justify' class='doc_paragraph'> Parentheses can be used to group a sequence of instructions into one. In this case, the returned
+ value is the value of the <a href='Lists_comma Sets and Tuples.html#4611703569013716306'><font color='#'>last</font></a> instruction&nbsp;:
+ </p><table class='table_code' align=center border=0 width='85%'>
+										<tr><td class='doc_code'> (x&nbsp;:= 3, x&nbsp;:= 5)
+</td></tr></table>
+							  <p align='justify' class='doc_paragraph'> Parentheses can also be used to explicitly build an expression. In the case of boolean evaluation
+ (for example in an if), any expression is considered as true except false, empty <a href='Lists_comma Sets and Tuples.html#4611703569011833826'><font color='#'>sets</font></a> and empty
+ <a href='Lists_comma Sets and Tuples.html#4611703569011833826'><font color='#'>lists</font></a>&nbsp;:
+ </p><table class='table_code' align=center border=0 width='85%'>
+										<tr><td class='doc_code'> (1 + 2) * 3
+ if (x = 2 &amp; l)
+</td></tr></table>
+							  <p align='justify' class='doc_paragraph'> Local variables can be introduced in a block with the let construct. These variables can be typed,
+ but it is <a href='Objects and Entities.html#4611703569013709858'><font color='#'>not</font></a> mandatory (CLAIRE will use <a href='Types.html#4611703569012236210'><font color='#'>type</font></a> inference to provide with a reasonable <a href='Types.html#4611703569012236210'><font color='#'>type</font></a>). On
+ the other hand, unlike languages such as C++, you always must provide an initialization value
+ when you define a variable. A let instruction contains a sequence of variable definitions and,
+ following the in keyword, a body (another instruction). The scope of the local variable is exactly
+ that body and the value of the let instruction is the value returned by this body.
+ </p><table class='table_code' align=center border=0 width='85%'>
+										<tr><td class='doc_code'> let x&nbsp;:= 1, y&nbsp;:= 3 in (z&nbsp;:= x + y, y&nbsp;:= 0)
+</td></tr></table>
+							  <p align='justify' class='doc_paragraph'> Notice that CLAIRE uses&nbsp;:= to represent assignment and = to represent equality.
+ The compiler will issue a warning if a statement (x = y) is used where an assignment was
+ probably meant (this is the case when the value of the assignment is <a href='Objects and Entities.html#4611703569013709858'><font color='#'>not</font></a> needed, such as
+ in x&nbsp;:= 1, y = 3, z&nbsp;:= 4).</p><p align='justify' class='doc_paragraph'> The value of local variables can be changed with the same syntax as an <a href='Updates.html#4611703569011821746'><font color='#'>update</font></a> to an <a href='Objects and Entities.html#4611703569011622050'><font color='#'>object</font></a>:
+ the syntax&nbsp;:op is allowed for all <a href='Selectors_comma Properties and Operations.html#4611703569012697490'><font color='#'>operations</font></a> op&nbsp;:
+ </p><table class='table_code' align=center border=0 width='85%'>
+										<tr><td class='doc_code'> x&nbsp;:= x + 1, x&nbsp;:+ 1, x&nbsp;:/ 2, x&nbsp;:<a href='Integers and Floats.html#4611703569013714658'><font color='#'>^</font></a> 2
+</td></tr></table>
+							  <p align='justify' class='doc_paragraph'> The name of a local variable can be any <a href='Symbols.html#4611703569013327298'><font color='#'>identifier</font></a>, including the name of an existing <a href='Objects and Entities.html#4611703569011622050'><font color='#'>object</font></a>
+ or variable. In that case, the <a href='Classes.html#4611703569013711154'><font color='#'>new</font></a> variable overrides the older definition within the scope
+ of the let. While this may prove useful in a few cases, it should be used sparingly since it
+ yields to code that is hard to <a href='Classes.html#4611703569013572418'><font color='#'>read</font></a>. A <a href='Rules.html#4611703569012856434'><font color='#'>rule</font></a> of thumb is to avoid mixing the name of variables
+ and the name of <a href='Selectors_comma Properties and Operations.html#4611703569012697490'><font color='#'>properties</font></a> since it often produces <a href='Exception Handling.html#4611703569012183794'><font color='#'>errors</font></a> that are hard to catch (the <a href='Selectors_comma Properties and Operations.html#4611703569012697490'><font color='#'>property</font></a>
+ cannot be accessed any more once a variable with the same name is defined). The control
+ structure when is a special form of let, which only evaluates the body if the value of the
+ local variable (unique) is <a href='Objects and Entities.html#4611703569013709858'><font color='#'>not</font></a> unknown (otherwise, the returned value is unknown). This is
+ convenient to use <a href='Calls and Slot Access.html#4611703569011817362'><font color='#'>slots</font></a> that are <a href='Objects and Entities.html#4611703569013709858'><font color='#'>not</font></a> necessarily defined as in the following example&nbsp;:
+ </p><table class='table_code' align=center border=0 width='85%'>
+										<tr><td class='doc_code'> when f&nbsp;:= <a href='Classes.html#4611703569013572306'><font color='#'>get</font></a>(father,x)
+ in printf("his father is ~S<n",>f)
+</td></tr></table>
+							  <p align='justify' class='doc_paragraph'> The default behavior when the value is unknown can be specified using the else keyword.
+ The statement following the else keyword will be evaluated and its value will be returned
+ when the value of the local variable is unknown&nbsp;:
+ </p><table class='table_code' align=center border=0 width='85%'>
+										<tr><td class='doc_code'> when f&nbsp;:= <a href='Classes.html#4611703569013572306'><font color='#'>get</font></a>(father,x)
+ in printf("his father is ~S<n",>f)
+ else printf("his father is <a href='Objects and Entities.html#4611703569013709858'><font color='#'>not</font></a> known at the present <a href='Dates and Times.html#4611703569011619458'><font color='#'>time</font></a><n")></td></tr></table>
+							  <p align='justify' class='doc_paragraph'> Local variables can also be introduced as a pattern, that is a <a href='Lists_comma Sets and Tuples.html#4611703569011833826'><font color='#'>tuple</font></a> of variables. In that
+ case, the initial value must be a <a href='Lists_comma Sets and Tuples.html#4611703569011833826'><font color='#'>tuple</font></a> of the <a href='Strings.html#4611703569013494450'><font color='#'>right</font></a> <a href='Communication ports.html#4611703569013988514'><font color='#'>length</font></a>. For instance, one could <a href='Classes.html#4611703569013572514'><font color='#'>write</font></a>&nbsp;:
+ </p><table class='table_code' align=center border=0 width='85%'>
+										<tr><td class='doc_code'> let (x, y, z)&nbsp;:= <a href='Lists_comma Sets and Tuples.html#4611703569011833826'><font color='#'>tuple</font></a>(1, 2, 3) in x + y + z
+</td></tr></table>
+							  <p align='justify' class='doc_paragraph'> The <a href='Lists_comma Sets and Tuples.html#4611703569011833826'><font color='#'>tuple</font></a> of variable is simply introduced as a sequence of variables surrounded by two
+ parentheses. The most common use of this form is to assign the multiple values returned
+ by a function with range <a href='Lists_comma Sets and Tuples.html#4611703569011833826'><font color='#'>tuple</font></a>, as we shall see in the next section. If we suppose that f
+ is a <a href='Methods.html#4611703569012232658'><font color='#'>method</font></a> that returns a <a href='Lists_comma Sets and Tuples.html#4611703569011833826'><font color='#'>tuple</font></a> with arity 2, then the two following forms are equivalent:
+ </p><table class='table_code' align=center border=0 width='85%'>
+										<tr><td class='doc_code'> let (x1,x2)&nbsp;:= f() in ...
+
+ let l&nbsp;:= f(), x1&nbsp;:= l[1], x2&nbsp;:= l[2] in ...
+</td></tr></table>
+							  <p align='justify' class='doc_paragraph'> <font color='red'>[XL]</font> In XL CLAIRE, as a syntactical shortcut, we can define in a single let statement both
+ <a href='Lists_comma Sets and Tuples.html#4611703569011833826'><font color='#'>tuple</font></a> assigment and normal variable assigment as in&nbsp;:
+ </p><table class='table_code' align=center border=0 width='85%'>
+										<tr><td class='doc_code'> let (x1,x2)&nbsp;:= f(),
+ 	x3&nbsp;:= g() in ...
+</td></tr></table>
+							  <p align='justify' class='doc_paragraph'> <a href='Lists_comma Sets and Tuples.html#4611703569011833826'><font color='#'>Tuples</font></a> of variables can also be assigned directly within a block as in the following example&nbsp;:
+ </p><table class='table_code' align=center border=0 width='85%'>
+										<tr><td class='doc_code'> (x1, x2)&nbsp;:= <a href='Lists_comma Sets and Tuples.html#4611703569011833826'><font color='#'>tuple</font></a>(x2, x1)
+</td></tr></table>
+							  <p align='justify' class='doc_paragraph'> Although this mostly used for assigning the result of tuple-valued functions without any useless
+ allocation, it is interesting to note that the previous example will be compiled into a nice
+ value-exchange interaction without any allocation (the compiler is smart enough to determine
+ that the <a href='Lists_comma Sets and Tuples.html#4611703569011833826'><font color='#'>list</font></a> "<a href='Lists_comma Sets and Tuples.html#4611703569011833826'><font color='#'>list</font></a>(x2,x1)" is <a href='Objects and Entities.html#4611703569013709858'><font color='#'>not</font></a> used as such).</p><p align='justify' class='doc_paragraph'> The key principle of lexical variables is that they are local to the "let" in which they are
+ defined. CLAIRE supports another similar <a href='Types.html#4611703569012236210'><font color='#'>type</font></a> of block, which is called a temporary <a href='Calls and Slot Access.html#4611703569011817362'><font color='#'>slot</font></a>
+ assignment. The idea is to change the value of a <a href='Calls and Slot Access.html#4611703569011817362'><font color='#'>slot</font></a> but only locally, within a given expression.
+ This is done as follows:
+ </p><table class='table_code' align=center border=0 width='85%'>
+										<tr><td class='doc_code'> let x.r&nbsp;:= y in e
+</td></tr></table>
+							  <p align='justify' class='doc_paragraph'> changes the value of r(x) to y, executes e and then restore r(x) to its previous value. It is
+ strictly equivalent to
+ </p><table class='table_code' align=center border=0 width='85%'>
+										<tr><td class='doc_code'> let old_v&nbsp;:= x.r
+ in (x.r&nbsp;:= y,
+ 	let result&nbsp;:= e
+ 	in (x.r&nbsp;:= old_v, result))
+</td></tr></table>
+							  <p align='justify' class='doc_paragraph'> CLAIRE provides automatic <a href='Types.html#4611703569012236210'><font color='#'>type</font></a> inference for variables that are defined in a let so that explicit
+ typing is <a href='Objects and Entities.html#4611703569013709858'><font color='#'>not</font></a> necessary in most of the cases. Here are a few <a href='Rules.html#4611703569012856434'><font color='#'>rules</font></a> to help you decide if you need
+ to <a href='Classes.html#4611703569013572594'><font color='#'>add</font></a> an explicit <a href='Types.html#4611703569012236210'><font color='#'>type</font></a> to your variable or even cast a special <a href='Types.html#4611703569012236210'><font color='#'>type</font></a> for the value that is
+ assigned to the variable&nbsp;:
+ <ol> <li>(a) <a href='Types.html#4611703569012236210'><font color='#'>Type</font></a> inference will provide a <a href='Types.html#4611703569012236210'><font color='#'>type</font></a> to a Let variable only if they do <a href='Objects and Entities.html#4611703569013709858'><font color='#'>not</font></a> have one already.
+ <li>(b) when you provide a <a href='Types.html#4611703569012236210'><font color='#'>type</font></a> in let x:t&nbsp;:= y, the compiler will check that the value y belong
+ to t and will issue a warning and/or insert a run-time type-check accordingly.
+ <li>(c) if you want to force the <a href='Types.html#4611703569012236210'><font color='#'>type</font></a> that is inferred to something smaller than what CLAIRE thinks
+ for y, you must use a cast&nbsp;:
+ </p><table class='table_code' align=center border=0 width='85%'>
+										<tr><td class='doc_code'> let x&nbsp;:= (y as t2) in ...
+</td></tr></table>
+							  <p align='justify' class='doc_paragraph'> </ol> To summarize&nbsp;:
+ </p>
+							  <ul> <li>in most cases CLAIRE range inference works, so you <a href='Classes.html#4611703569013572514'><font color='#'>write</font></a> let x&nbsp;:= y in ...
+ <li>you use let x:t&nbsp;:= y to weaken the <a href='Types.html#4611703569012236210'><font color='#'>type</font></a> inference, mostly because you want to <a href='Symbols.html#4611703569013501458'><font color='#'>put</font></a>
+ something of a different <a href='Types.html#4611703569012236210'><font color='#'>type</font></a> later
+ <li>you use let x&nbsp;:= (y as t) to narrow the <a href='Types.html#4611703569012236210'><font color='#'>type</font></a> inferred by CLAIRE.
+ </ul>
+							  <p align='justify' class='doc_paragraph'></p></body>
+	</html>

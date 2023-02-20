@@ -1,0 +1,200 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+	<head>
+		<link rel="stylesheet" type="text/css" href="doc.css" media="all">
+		<title>
+			claire : Process handling
+		</title>
+		<style>
+body {
+        font-size: 14px;
+        font-family: arial, Helvetica;
+}
+
+h1 { font-size: 25px; }
+h2 { font-size: 20px; }
+
+a[href] {
+	border-bottom: 1px dotted grey;
+	text-decoration: none
+}
+
+.doc_paragraph
+{
+        font-size: 14px;
+        font-family: arial, helvetica;
+}
+
+.item_header { font-size: 10px; page-break-before: avoid; page-break-inside: avoid; page-break-after: avoid }
+
+.item_index {
+		white-space: pre;
+        font-size: 11px;
+        font-family: monaco, courier, mono-space;
+}
+
+.table_code {
+		margin: 10px auto;
+}
+
+.doc_code {
+    white-space: pre;
+		padding-top: .1em;
+		padding-bottom: .5em;
+		background-color: #EEE;
+		border: #AAA solid 1px;
+        font-size: 11px;
+        font-family: monaco, courier, mono-space;
+}
+
+.opt_usage {
+		margin-left: 1em;
+		margin-right: 1em;
+		padding: .2em;
+		background-color: #EEE;
+		border: #AAA solid 1px;
+        font-family: monaco, courier, mono-space;
+	
+}
+
+.class_proto {
+	vertical-align: top;
+	text-align: right;
+}
+
+.class_proto_super {
+	vertical-align: top;
+	text-align: right;
+}
+
+.class_proto_slot {
+	vertical-align: top;
+	text-align: left;
+}
+
+</style>
+	</head>
+	<body><table width='100%' class='item_header'>
+		<tr>
+			<td width='33%' align='left' valign='bottom'><i><a href='Environment variables.html#4611703569013453666'>Environment variables</a></i></td>
+			<td width='33%' align='center' valign='top'><i><a href='claire.index.html#__category_index__'>categories</a><br/><a href='claire.index.html#4611703569013453626'>Platform</a><br/><b>Process handling</b>
+				</i></td>
+			<td width='33%' align='right' valign='bottom'><i><a href='File system.html#4611703569013459858'>File system</a></i></td>
+		</tr>
+	</table>
+	<h2><span class=pretitle>&nbsp;</span>&nbsp;<a name='4611703569013459042'>Process handling</a>
+			 <font color='red'>[XL]</font></h2>
+	<ul><li><font font-face='Courier' class='item_index'><a href='Process handling.html#4611703569013877362'>process_status</a><font color='blue'> &lt;: </font>thing <font color='red'>[XL]</font></font></li></ul><ul><li><font font-face='Courier' class='item_index'><a href='Process handling.html#4611703569013719810'>fork</a>()<font color='blue'> -&gt; </font>integer <font color='red'>[XL]</font></font></li><li><font font-face='Courier' class='item_index'><a href='Process handling.html#4611703569013491730'>getpid</a>()<font color='blue'> -&gt; </font>integer <font color='red'>[XL]</font></font></li><li><font font-face='Courier' class='item_index'><a href='Process handling.html#4611703569013491794'>getppid</a>()<font color='blue'> -&gt; </font>integer <font color='red'>[XL]</font></font></li><li><font font-face='Courier' class='item_index'><a href='Process handling.html#4611703569013491858'>getuid</a>()<font color='blue'> -&gt; </font>integer <font color='red'>[XL]</font></font></li><li><font font-face='Courier' class='item_index'><a href='Process handling.html#4611703569013493922'>kill</a>(<font color='green'>p</font><font color='blue'>:</font>integer)<font color='blue'> -&gt; </font>void <font color='red'>[XL]</font></font></li><li><font font-face='Courier' class='item_index'><a href='Process handling.html#4611703569013718050'>on_fork</a><font color='blue'> :: </font>property(open = 3) <font color='red'>[XL]</font></font></li><li><font font-face='Courier' class='item_index'><a href='Process handling.html#4611703569013718322'>on_forked</a><font color='blue'> :: </font>property(open = 3) <font color='red'>[XL]</font></font></li><li><font font-face='Courier' class='item_index'><a href='Process handling.html#4611703569013878770'>waitpid</a>(<font color='green'>p</font><font color='blue'>:</font>integer)<font color='blue'> -&gt; </font>tuple(process_status, integer, any) <font color='red'>[XL]</font></font></li><li><font font-face='Courier' class='item_index'><a href='Process handling.html#4611703569013878722'>waitpid</a>(<font color='green'>p</font><font color='blue'>:</font>integer, <font color='green'>block?</font><font color='blue'>:</font>boolean)<font color='blue'> -&gt; </font>tuple(process_status, integer, any) <font color='red'>[XL]</font></font></li></ul><p align='justify' class='doc_paragraph'></p><a name='4611703569013719810'><hr size=0 style='page-break-after: avoid' /></a>
+	<a name='fork'><hr size=0 /></a>
+	<table width='100%' class='item_header'>
+		<tr>
+			<td width='20%' align='left'><i><a href='claire.index.html#__category_index__'>categories</a></i></td>
+			<td width='20%' align='center'><i><a href='Process handling.html#4611703569013459042'>Process handling</a></i></td><td width='20%' align='center'><i>normal dispatch</i></td>
+	<td width='20%' align='center'><i></i></td><td width='20%' align='right'><i><font color='red'>[XL]</font> Core method</i></td>
+	</tr></table><h3>fork()<font color='blue'> -&gt; </font>integer</h3><p align='justify' class='doc_paragraph'> fork is the standard UNIX <a href='Methods.html#4611703569013492642'><font color='#'>interface</font></a> to create <a href='Classes.html#4611703569013711154'><font color='#'>new</font></a> processes.
+ fork creates a child process that is an image of the current
+ process that only differs by the returned value which is:
+ </p>
+							  <ul> <li>0 for the parent process<n> <li>n &gt; 0 for the child process where n is the process <a href='driving optimizations.html#4611703569013713506'><font color='#'>id</font></a> of the child<n> </ul>
+							  <p align='justify' class='doc_paragraph'> under win32 it produce a system <a href='Exception Handling.html#4611703569012183794'><font color='#'>error</font></a>.</p><a name='4611703569013491730'><hr size=0 style='page-break-after: avoid' /></a>
+	<a name='getpid'><hr size=0 /></a>
+	<table width='100%' class='item_header'>
+		<tr>
+			<td width='20%' align='left'><i><a href='claire.index.html#__category_index__'>categories</a></i></td>
+			<td width='20%' align='center'><i><a href='Process handling.html#4611703569013459042'>Process handling</a></i></td><td width='20%' align='center'><i>normal dispatch</i></td>
+	<td width='20%' align='center'><i></i></td><td width='20%' align='right'><i><font color='red'>[XL]</font> Kernel method</i></td>
+	</tr></table><h3>getpid()<font color='blue'> -&gt; </font>integer</h3><p align='justify' class='doc_paragraph'> getpid() returns the process <a href='driving optimizations.html#4611703569013713506'><font color='#'>id</font></a> of the calling process</p><a name='4611703569013491794'><hr size=0 style='page-break-after: avoid' /></a>
+	<a name='getppid'><hr size=0 /></a>
+	<table width='100%' class='item_header'>
+		<tr>
+			<td width='20%' align='left'><i><a href='claire.index.html#__category_index__'>categories</a></i></td>
+			<td width='20%' align='center'><i><a href='Process handling.html#4611703569013459042'>Process handling</a></i></td><td width='20%' align='center'><i>normal dispatch</i></td>
+	<td width='20%' align='center'><i></i></td><td width='20%' align='right'><i><font color='red'>[XL]</font> Kernel method</i></td>
+	</tr></table><h3>getppid()<font color='blue'> -&gt; </font>integer</h3><p align='justify' class='doc_paragraph'> getppid() returns the parent process <a href='driving optimizations.html#4611703569013713506'><font color='#'>id</font></a> of the calling process</p><a name='4611703569013491858'><hr size=0 style='page-break-after: avoid' /></a>
+	<a name='getuid'><hr size=0 /></a>
+	<table width='100%' class='item_header'>
+		<tr>
+			<td width='20%' align='left'><i><a href='claire.index.html#__category_index__'>categories</a></i></td>
+			<td width='20%' align='center'><i><a href='Process handling.html#4611703569013459042'>Process handling</a></i></td><td width='20%' align='center'><i>normal dispatch</i></td>
+	<td width='20%' align='center'><i></i></td><td width='20%' align='right'><i><font color='red'>[XL]</font> Kernel method</i></td>
+	</tr></table><h3>getuid()<font color='blue'> -&gt; </font>integer</h3><p align='justify' class='doc_paragraph'> getuid() returns the real user <a href='driving optimizations.html#4611703569013713506'><font color='#'>ID</font></a> of the calling process. Under windows
+ this <a href='Methods.html#4611703569012232658'><font color='#'>method</font></a> always returns 0</p><a name='4611703569013493922'><hr size=0 style='page-break-after: avoid' /></a>
+	<a name='kill'><hr size=0 /></a>
+	<table width='100%' class='item_header'>
+		<tr>
+			<td width='20%' align='left'><i><a href='claire.index.html#__category_index__'>categories</a></i></td>
+			<td width='20%' align='center'><i><a href='Process handling.html#4611703569013459042'>Process handling</a></i></td><td width='20%' align='center'><i>normal dispatch</i></td>
+	<td width='20%' align='center'><i></i></td><td width='20%' align='right'><i><font color='red'>[XL]</font> Kernel method</i></td>
+	</tr></table><h3>kill(<font color='green'>p</font><font color='blue'>:</font>integer)<font color='blue'> -&gt; </font>void</h3><p align='justify' class='doc_paragraph'> kill(<b>p</b>) terminates the process identified by the process <a href='driving optimizations.html#4611703569013713506'><font color='#'>id</font></a> <b>p</b>.
+ It first give a chance to the process to <a href='Miscellaneous.html#4611703569013501026'><font color='#'>exit</font></a> gracefully upon
+ receipt of a SIGTERM <a href='Signal Handling.html#4611703569013869426'><font color='#'>signal</font></a>. If the process still runs after
+ a short timeout then a SIGKILL <a href='Signal Handling.html#4611703569013869426'><font color='#'>signal</font></a> is send to the process.
+ The caller should have necessary permissions.</p><a name='4611703569013718050'><hr size=0 style='page-break-after: avoid' /></a>
+	<a name='on_fork'><hr size=0 /></a>
+	<table width='100%' class='item_header'>
+		<tr>
+			<td width='20%' align='left'><i><a href='claire.index.html#__category_index__'>categories</a></i></td>
+			<td width='20%' align='center'><i><a href='Process handling.html#4611703569013459042'>Process handling</a></i></td><td width='20%' align='center'><i>normal dispatch</i></td>
+			<td  width='20%'></td><td width='20%' align='right'><i><font color='red'>[XL]</font> Core interface</i></td>
+	</tr></table><h3>on_fork<font color='blue'> :: </font>property(open = 3)</h3><p align='justify' class='doc_paragraph'> <a href='Process handling.html#4611703569013719810'><font color='#'>fork</font></a>, when called in CLAIRE applies all existing on_fork
+ with the domain void.
+ the on_fork callback is applied just before the <a href='Process handling.html#4611703569013719810'><font color='#'>fork</font></a>, that is
+ the parent process only. For instance&nbsp;:
+ </p><table class='table_code' align=center border=0 width='85%'>
+										<tr><td class='doc_code'> on_fork()&nbsp;: void -&gt; printf("attemp to <a href='Process handling.html#4611703569013719810'><font color='#'>fork</font></a>...<n")></td></tr></table>
+							  <p align='justify' class='doc_paragraph'></p><a name='4611703569013718322'><hr size=0 style='page-break-after: avoid' /></a>
+	<a name='on_forked'><hr size=0 /></a>
+	<table width='100%' class='item_header'>
+		<tr>
+			<td width='20%' align='left'><i><a href='claire.index.html#__category_index__'>categories</a></i></td>
+			<td width='20%' align='center'><i><a href='Process handling.html#4611703569013459042'>Process handling</a></i></td><td width='20%' align='center'><i>normal dispatch</i></td>
+			<td  width='20%'></td><td width='20%' align='right'><i><font color='red'>[XL]</font> Core interface</i></td>
+	</tr></table><h3>on_forked<font color='blue'> :: </font>property(open = 3)</h3><p align='justify' class='doc_paragraph'> after a <a href='Process handling.html#4611703569013719810'><font color='#'>fork</font></a>, CLAIRE applies all existing on_forked
+ restrictions that have the domain boolean.
+ the on_forked callback is applied with true from the child and
+ false from the parent process. For instance&nbsp;:
+ </p><table class='table_code' align=center border=0 width='85%'>
+										<tr><td class='doc_code'> on_forked(parent?:boolean)&nbsp;: void -&gt;
+ 		printf("just forked (~I)<n",> 					(if parent? <a href='Printing.html#4611703569013637090'><font color='#'>princ</font></a>("parent")
+ 					else printf("child ~S", <a href='Process handling.html#4611703569013491730'><font color='#'>getpid</font></a>())))
+</td></tr></table>
+							  <p align='justify' class='doc_paragraph'></p><a name='4611703569013877362'><hr size=0 style='page-break-after: avoid' /></a>
+	<a name='process_status'><hr size=0 /></a>
+	<table width='100%' class='item_header'>
+		<tr>
+			<td width='20%' align='left'><i><a href='claire.index.html#__category_index__'>categories</a></i></td>
+			<td width='20%' align='center'><i><a href='Process handling.html#4611703569013459042'>Process handling</a></i></td><td width='20%' align='center'><i>open</i></td>
+	<td width='20%'></td><td width='20%' align='right'><i><font color='red'>[XL]</font> Core class</i></td>
+	</tr></table><table><tr><td class=class_proto><h3>process_status</h3><td class_proto_slot><br/><span class=item_index>&nbsp;&nbsp;-</span></table><h3>Instances</h3>WRUNNING, WEXITED, WSIGNALED, WSTOPPED<p align='justify' class='doc_paragraph'> A process status is returned by <a href='Process handling.html#4611703569013878770'><font color='#'>waitpid</font></a> and tell how a child process
+ has exited:
+ </p>
+							  <ul> <li>WRUNNING&nbsp;: the child still runs
+ <li>WEXITED&nbsp;: the child exited normally with a <a href='Calls and Slot Access.html#4611703569013635570'><font color='#'>call</font></a> to <a href='Miscellaneous.html#4611703569013501026'><font color='#'>exit</font></a>
+ <li>WSIGNALED&nbsp;: the child was terminated by a <a href='Signal Handling.html#4611703569013869426'><font color='#'>signal</font></a>, this may be an
+ abnormal termination that caused the creation a core dump <a href='Communication ports.html#4611703569012956018'><font color='#'>file</font></a>.
+ <li>WSTOPPED&nbsp;: the child was stopped
+ </ul>
+							  <p align='justify' class='doc_paragraph'></p><a name='4611703569013878770'><hr size=0 style='page-break-after: avoid' /></a>
+	<a name='waitpid'><hr size=0 /></a>
+	<table width='100%' class='item_header'>
+		<tr>
+			<td width='20%' align='left'><i><a href='claire.index.html#__category_index__'>categories</a></i></td>
+			<td width='20%' align='center'><i><a href='Process handling.html#4611703569013459042'>Process handling</a></i></td><td width='20%' align='center'><i>normal dispatch</i></td>
+	<td width='20%' align='center'><i></i></td><td width='20%' align='right'><i><font color='red'>[XL]</font> Core method</i></td>
+	</tr></table><h3>waitpid(<font color='green'>p</font><font color='blue'>:</font>integer)<font color='blue'> -&gt; </font>tuple(process_status, integer, any)</h3><p align='justify' class='doc_paragraph'> waitpid(<b>p</b>) is equivalent to waitpid(<b>p</b>, true)</p><a name='4611703569013878722'><hr size=0 style='page-break-after: avoid' /></a>
+	<a name='waitpid'><hr size=0 /></a>
+	<table width='100%' class='item_header'>
+		<tr>
+			<td width='20%' align='left'><i><a href='claire.index.html#__category_index__'>categories</a></i></td>
+			<td width='20%' align='center'><i><a href='Process handling.html#4611703569013459042'>Process handling</a></i></td><td width='20%' align='center'><i>normal dispatch</i></td>
+	<td width='20%' align='center'><i></i></td><td width='20%' align='right'><i><font color='red'>[XL]</font> Core method</i></td>
+	</tr></table><h3>waitpid(<font color='green'>p</font><font color='blue'>:</font>integer, <font color='green'>block?</font><font color='blue'>:</font>boolean)<font color='blue'> -&gt; </font>tuple(process_status, integer, any)</h3><p align='justify' class='doc_paragraph'> waitpid is a the UNIX <a href='Methods.html#4611703569013492642'><font color='#'>interface</font></a> to <a href='Classes.html#4611703569013572306'><font color='#'>get</font></a> status of child process.
+ The parameter <b>p</b> specifies the <a href='Lists_comma Sets and Tuples.html#4611703569011833826'><font color='#'>set</font></a> of child processes to wait for:
+ </p>
+							  <ul> <li><b>p</b> = -1&nbsp;: the <a href='Calls and Slot Access.html#4611703569013635570'><font color='#'>call</font></a> waits for any child process.
+ <li><b>p</b> = 0&nbsp;: the <a href='Calls and Slot Access.html#4611703569013635570'><font color='#'>call</font></a> waits for any child process in the process group of the caller.
+ <li><b>p</b> &gt; 0&nbsp;: the <a href='Calls and Slot Access.html#4611703569013635570'><font color='#'>call</font></a> waits for the process with process <a href='driving optimizations.html#4611703569013713506'><font color='#'>id</font></a> <b>p</b>.
+ <li>else&nbsp;: the <a href='Calls and Slot Access.html#4611703569013635570'><font color='#'>call</font></a> waits for any process whose process group <a href='driving optimizations.html#4611703569013713506'><font color='#'>id</font></a> equals the absolute value of <b>p</b>.
+ </ul>
+							  <p align='justify' class='doc_paragraph'> <b>block?</b>, when true, tell that the <a href='Calls and Slot Access.html#4611703569013635570'><font color='#'>call</font></a> should <a href='Blocks.html#4611703569011856034'><font color='#'>block</font></a> until a waited child terminates.</p></body>
+	</html>

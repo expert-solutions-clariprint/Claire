@@ -56,11 +56,13 @@ OID CmemoryAdr;                  // memory zone
 #define POINTOADR(x) ((CL_INSIGNED)x >> ADDRTRANS)
 #define ADRTOPOIN(x) ((CL_INSIGNED*)((CL_INSIGNED)x << ADDRTRANS))
 #define SIZE(n) (*((CL_INT*)((CL_INSIGNED)n << ADDRTRANS) - 1))             // returns the size of the object
+#define MAXLOGALLOC 12
 #else
 #define ADDRTRANS 2
 #define POINTOADR(x) ((CL_INSIGNED)x >> ADDRTRANS)
 #define ADRTOPOIN(x) ((CL_INSIGNED*)((CL_INSIGNED)x << ADDRTRANS))
 #define SIZE(n) (*((CL_INT*)((CL_INSIGNED)n << ADDRTRANS) - 1))             // returns the size of the object
+#define MAXLOGALLOC 9
 #endif
 
 
@@ -177,9 +179,9 @@ CL_INT allocateClaire(CL_INT i, CL_INT j, CL_INT memauto) {
 	ClAlloc->maxList = (1ul << (18 + i));
 	ClAlloc->maxSize = (1ul << (18 + i));
 	if(memauto) {
-		ClAlloc->maxList0 = (1ul << (18 + 10));
-		ClAlloc->maxSize0 = (2ul << (18 + 10));
-		ClAlloc->maxStack = 8000 * (1ul << 10);
+	    ClAlloc->maxList0 = (1ul << (18 + MAXLOGALLOC));  // <lr> previous xp 10
+	    ClAlloc->maxSize0 = (2ul << (18 + MAXLOGALLOC));  // <lr> previous xp 10
+	    ClAlloc->maxStack = 8000 * (1ul << MAXLOGALLOC);  // <lr> previous xp 10
 	} else {
 		ClAlloc->maxList0 = (1ul << (18 + i));
 		ClAlloc->maxSize0 = (2ul << (18 + i));
@@ -396,7 +398,7 @@ CL_INT ClaireAllocation::shortCongestion() {
 
 CL_INT ClaireAllocation::gcStackCongestion() {
 	CL_INT good = 0;
-	if(mem_auto && maxGC < 20000 * (1ul << 9)) {
+	if(mem_auto && maxGC < 20000 * (1ul << MAXLOGALLOC)) { // <lr> previous 1ul << 9
 		void *adr = realloc(gcStack, 2 * maxGC * sizeof(ClaireAny*));
 		if(adr) {
 			gcStack = (ClaireAny**)adr;
