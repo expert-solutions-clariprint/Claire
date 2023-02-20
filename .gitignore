@@ -1,7 +1,7 @@
 
 *.log
-
 *xlclaire-*
+/doc
 *.cache
 *.o
 public*
@@ -39,3 +39,14 @@ include/config.h
 stable2/config.log
 stable2/Darwin*
 stable2/Linux*
+/Makefile
+stable2/Makefile
+stable2/csrc/Optimize.cpp
+stable2/csrc/Generate.cpp
+test.c
+testalign.c
+*Darwin*
+include/config.h
+include/config.h.in~
+stable2/claire
+unix_step2.cl
