@@ -122,7 +122,7 @@ $(Dr)/configure: $(Dr)/configure.in.unix
 # How to create a public xl version #
 #####################################
 
-public/ccmain.cl: doc/claire.html ./tmpclaire2 $(Dr)/ccmain.cl $(Dr)/configure $(Dr)/Makefile.in.unix $(Dr)/Makefile.in.mvs $(Dr)/init.cl $(Dr)/Makefile.nt
+public/ccmain.cl: doc/index.html ./tmpclaire2 $(Dr)/ccmain.cl $(Dr)/configure $(Dr)/Makefile.in.unix $(Dr)/Makefile.in.mvs $(Dr)/init.cl $(Dr)/Makefile.nt
 	@echo -------
 	@echo - pub -
 	@echo -------
@@ -165,8 +165,9 @@ public/ccmain.cl: doc/claire.html ./tmpclaire2 $(Dr)/ccmain.cl $(Dr)/configure $
 	@echo ----------
 
 
-doc/claire.html: tmpclaire2 meta/*.cl
+doc/index.html: tmpclaire2 meta/*.cl
 	./tmpclaire2 -s 8 0 -apidoc claire -q
+	mv doc/claire.html doc/index.html
 
 
 a:
