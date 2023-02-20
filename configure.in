@@ -1,5 +1,5 @@
 dnl Process this file with autoconf to produce a configure script.
-AC_INIT(Makefile)
+AC_INIT(Makefile.in)
 AC_CONFIG_HEADERS([include/config.h])
 AC_LANG_CPLUSPLUS
 AC_PROG_CXX
@@ -355,4 +355,4 @@ AC_SUBST(CLPREFIX)
 AC_SUBST(CL_PRINT_EDITLINE_OPTION)
 
 
-AC_OUTPUT(tmpclaire.mk unix_step2.cl)
+AC_OUTPUT(Makefile tmpclaire.mk unix_step2.cl)
