@@ -17,6 +17,8 @@
 
 // @author Yves CASEAU
 // @author Sylvain BENILAN
+// @author Xavier PECHOULTRES expert-solutions
+// @author Laurent REBIERE expert-solutions
 
 // @copyright Copyright (C) 1994-2006 Yves Caseau. All Rights Reserved.
 // @copyright Copyright (C) 2000-2006 XL. All Rights Reserved.

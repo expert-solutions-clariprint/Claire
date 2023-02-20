@@ -76,90 +76,90 @@ a[href] {
 	</head>
 	<body><table width='100%' class='item_header'>
 		<tr>
-			<td width='33%' align='left' valign='bottom'><i><a href='Types.html#4611703569012236210'>Types</a></i></td>
-			<td width='33%' align='center' valign='top'><i><a href='claire.index.html#__category_index__'>categories</a><br/><a href='claire.index.html#4611703569012232698'>Methods and Types</a><br/><b>Polymorphism</b>
+			<td width='33%' align='left' valign='bottom'><i><a href='Types.html#4611703575761920178'>Types</a></i></td>
+			<td width='33%' align='center' valign='top'><i><a href='claire.index.html#__category_index__'>categories</a><br/><a href='claire.index.html#4611703575761916666'>Methods and Types</a><br/><b>Polymorphism</b>
 				</i></td>
-			<td width='33%' align='right' valign='bottom'><i><a href='Escaping Types.html#4611703569012653570'>Escaping Types</a></i></td>
+			<td width='33%' align='right' valign='bottom'><i><a href='Escaping Types.html#4611703575762306818'>Escaping Types</a></i></td>
 		</tr>
 	</table>
-	<h2><span class=pretitle>&nbsp;</span>&nbsp;<a name='4611703569012557954'>Polymorphism</a>
+	<h2><span class=pretitle>&nbsp;</span>&nbsp;<a name='4611703575762241922'>Polymorphism</a>
 			</h2>
 	<ul></ul><ul></ul><p align='justify' class='doc_paragraph'> In addition to the traditional "objet-oriented" polymorphism, CLAIRE also offers two forms of
- <a href='parametric class.html#4611703569011657074'><font color='#'>parametric</font></a> polymorphism, which can be skipped by a novice reader.</p><p align='justify' class='doc_paragraph'> <b>(1) </b>There often exists a relation between the <a href='Types.html#4611703569012236210'><font color='#'>types</font></a> of the arguments of a <a href='Methods.html#4611703569012232658'><font color='#'>method</font></a>.
+ <a href='parametric class.html#4611703575761375858'><font color='#'>parametric</font></a> polymorphism, which can be skipped by a novice reader.</p><p align='justify' class='doc_paragraph'> <b>(1) </b>There often exists a relation between the <a href='Types.html#4611703575761920178'><font color='#'>types</font></a> of the arguments of a <a href='Methods.html#4611703575761916626'><font color='#'>method</font></a>.
  Capturing such a relation is made possible in CLAIRE through the notion of an
- "extended signature". For instance, if we want to define the <a href='Selectors_comma Properties and Operations.html#4611703569012697490'><font color='#'>operation</font></a> "push" on a
+ "extended signature". For instance, if we want to define the <a href='Selectors_comma Properties and Operations.html#4611703575762381458'><font color='#'>operation</font></a> "push" on a
  stack, we would like to check that the argument y that is being pushed on the stack s belongs
- to the <a href='Types.html#4611703569012236210'><font color='#'>type</font></a> of(s), that we know to be a parameter of s. The value of this parameter can be
+ to the <a href='Types.html#4611703575761920178'><font color='#'>type</font></a> of(s), that we know to be a parameter of s. The value of this parameter can be
  introduced as a variable and reused for the typing of the remaining variables (or the range)
  as follows&nbsp;:
  </p><table class='table_code' align=center border=0 width='85%'>
-										<tr><td class='doc_code'> push(s:stack&lt;X&gt;, y:X) -&gt; (s.content&nbsp;:<a href='Classes.html#4611703569013572594'><font color='#'>add</font></a> y, s.index&nbsp;:+ 1)
+										<tr><td class='doc_code'> push(s:stack&lt;X&gt;, y:X) -&gt; (s.content&nbsp;:<a href='Classes.html#4611703575763256562'><font color='#'>add</font></a> y, s.index&nbsp;:+ 1)
 </td></tr></table>
-							  <p align='justify' class='doc_paragraph'> The declaration s:stack&lt;X&gt; introduced X as a <a href='Types.html#4611703569012236210'><font color='#'>type</font></a> variable with value s.of,
- since stack[of] was defined as a parameterized <a href='Classes.html#4611703569011633570'><font color='#'>class</font></a>. Using X in y:X simply means that
- y must belong to the <a href='Types.html#4611703569012236210'><font color='#'>type</font></a> s.of. Such intermediate <a href='Types.html#4611703569012236210'><font color='#'>type</font></a> variables must be free <a href='Symbols.html#4611703569013327298'><font color='#'>identifiers</font></a>
- (the <a href='Symbols.html#4611703569013327298'><font color='#'>symbol</font></a> is <a href='Objects and Entities.html#4611703569013709858'><font color='#'>not</font></a> used as the name of an <a href='Objects and Entities.html#4611703569011622050'><font color='#'>object</font></a>) and must be introduced with the following
+							  <p align='justify' class='doc_paragraph'> The declaration s:stack&lt;X&gt; introduced X as a <a href='Types.html#4611703575761920178'><font color='#'>type</font></a> variable with value s.of,
+ since stack[of] was defined as a parameterized <a href='Classes.html#4611703575761317538'><font color='#'>class</font></a>. Using X in y:X simply means that
+ y must belong to the <a href='Types.html#4611703575761920178'><font color='#'>type</font></a> s.of. Such intermediate <a href='Types.html#4611703575761920178'><font color='#'>type</font></a> variables must be free <a href='Symbols.html#4611703575763011266'><font color='#'>identifiers</font></a>
+ (the <a href='Symbols.html#4611703575763011266'><font color='#'>symbol</font></a> is <a href='Objects and Entities.html#4611703575763393826'><font color='#'>not</font></a> used as the name of an <a href='Objects and Entities.html#4611703575761306018'><font color='#'>object</font></a>) and must be introduced with the following
  template&nbsp;:
  </p><table class='table_code' align=center border=0 width='85%'>
 										<tr><td class='doc_code'> &lt;class&gt;[pi=vi, ...]
 </td></tr></table>
-							  <p align='justify' class='doc_paragraph'> The use of <a href='Types.html#4611703569012236210'><font color='#'>type</font></a> variables in the signature can be compared to pattern matching.
- The first step is to bind the <a href='Types.html#4611703569012236210'><font color='#'>type</font></a> variable. If (p = V) is used in c[ ...] instead of p:t,
- it means that we do <a href='Objects and Entities.html#4611703569013709858'><font color='#'>not</font></a> <a href='Symbols.html#4611703569013501458'><font color='#'>put</font></a> any restriction on the parameter p but that we want to bind its
+							  <p align='justify' class='doc_paragraph'> The use of <a href='Types.html#4611703575761920178'><font color='#'>type</font></a> variables in the signature can be compared to pattern matching.
+ The first step is to bind the <a href='Types.html#4611703575761920178'><font color='#'>type</font></a> variable. If (p = V) is used in c[ ...] instead of p:t,
+ it means that we do <a href='Objects and Entities.html#4611703575763393826'><font color='#'>not</font></a> <a href='Symbols.html#4611703575763185426'><font color='#'>put</font></a> any restriction on the parameter p but that we want to bind its
  value to V for further use. Note that this is only interesting if the value of the parameter
- is a <a href='Types.html#4611703569012236210'><font color='#'>type</font></a> itself. Once a <a href='Types.html#4611703569012236210'><font color='#'>type</font></a> variable V is defined, it can be used to form a pattern
+ is a <a href='Types.html#4611703575761920178'><font color='#'>type</font></a> itself. Once a <a href='Types.html#4611703575761920178'><font color='#'>type</font></a> variable V is defined, it can be used to form a pattern
  (called a &lt;type with var&gt; in the CLAIRE syntax) as follows:</p><p align='justify' class='doc_paragraph'> </p><table class='table_code' align=center border=0 width='85%'>
 										<tr><td class='doc_code'> &lt;type with var&gt; = &lt;type&gt; | &lt;var&gt; | {&lt;var&gt;} |
- 	<a href='Lists_comma Sets and Tuples.html#4611703569011833826'><font color='#'>tuple</font></a>(&lt;type with var&gt;<sup>seq+</sup>) |
+ 	<a href='Lists_comma Sets and Tuples.html#4611703575761536226'><font color='#'>tuple</font></a>(&lt;type with var&gt;<sup>seq+</sup>) |
  	&lt;class&gt;[&lt; &lt;var&gt;:&lt;type with var&gt; | &lt;var&gt;=&lt;var&gt; &gt;<sup>seq+</sup>]
 </td></tr></table>
 							  <p align='justify' class='doc_paragraph'> <b>(2) </b>The second advanced typing feature of CLAIRE is designed to capture the fine
- relationship between the <a href='Types.html#4611703569012236210'><font color='#'>type</font></a> of the output result and the <a href='Types.html#4611703569012236210'><font color='#'>types</font></a> of the input arguments.
+ relationship between the <a href='Types.html#4611703575761920178'><font color='#'>type</font></a> of the output result and the <a href='Types.html#4611703575761920178'><font color='#'>types</font></a> of the input arguments.
  When such a relationship can be described with a CLAIRE expression e(x1,...,xn),
- where x1, ..., xn are the <a href='Types.html#4611703569012236210'><font color='#'>types</font></a> of the input parameters, CLAIRE allows to substitute
- <a href='Types.html#4611703569012236210'><font color='#'>type</font></a>[e] to the range declaration. It means that the result of the evaluation of the <a href='Methods.html#4611703569012232658'><font color='#'>method</font></a>
- should belong to e(t1,...,tn) for any <a href='Types.html#4611703569012236210'><font color='#'>types</font></a> t1,...,tn that contain the input parameters.</p><p align='justify' class='doc_paragraph'> For instance, the identity function is known to return a result of the same <a href='Types.html#4611703569012236210'><font color='#'>type</font></a> as its
+ where x1, ..., xn are the <a href='Types.html#4611703575761920178'><font color='#'>types</font></a> of the input parameters, CLAIRE allows to substitute
+ <a href='Types.html#4611703575761920178'><font color='#'>type</font></a>[e] to the range declaration. It means that the result of the evaluation of the <a href='Methods.html#4611703575761916626'><font color='#'>method</font></a>
+ should belong to e(t1,...,tn) for any <a href='Types.html#4611703575761920178'><font color='#'>types</font></a> t1,...,tn that contain the input parameters.</p><p align='justify' class='doc_paragraph'> For instance, the identity function is known to return a result of the same <a href='Types.html#4611703575761920178'><font color='#'>type</font></a> as its
  input argument (by definition !). Therefore, it can be described in CLAIRE as follows&nbsp;:
  </p><table class='table_code' align=center border=0 width='85%'>
-										<tr><td class='doc_code'> <a href='driving optimizations.html#4611703569013713506'><font color='#'>id</font></a>(x:any)&nbsp;: <a href='Types.html#4611703569012236210'><font color='#'>type</font></a>[x] -&gt; x
+										<tr><td class='doc_code'> <a href='driving optimizations.html#4611703575763397474'><font color='#'>id</font></a>(x:any)&nbsp;: <a href='Types.html#4611703575761920178'><font color='#'>type</font></a>[x] -&gt; x
 </td></tr></table>
-							  <p align='justify' class='doc_paragraph'> In the expression that we introduce with the <a href='Types.html#4611703569012236210'><font color='#'>type</font></a>[e] construct, we can use the <a href='Types.html#4611703569012236210'><font color='#'>types</font></a> of
+							  <p align='justify' class='doc_paragraph'> In the expression that we introduce with the <a href='Types.html#4611703575761920178'><font color='#'>type</font></a>[e] construct, we can use the <a href='Types.html#4611703575761920178'><font color='#'>types</font></a> of
  the input variables directly through the variables themselves. For instance, in the
- "<a href='Types.html#4611703569012236210'><font color='#'>type</font></a>[x]" definition of the <a href='driving optimizations.html#4611703569013713506'><font color='#'>id</font></a> example, the "x" refers to the <a href='Types.html#4611703569012236210'><font color='#'>type</font></a> of the input variable.
- Notice that the <a href='Types.html#4611703569012236210'><font color='#'>types</font></a> of the input variables are <a href='Objects and Entities.html#4611703569013709858'><font color='#'>not</font></a> uniquely defined. Therefore, the user
- must ensure that her "prediction" e of the output <a href='Types.html#4611703569012236210'><font color='#'>type</font></a> is valid for any valid <a href='Types.html#4611703569012236210'><font color='#'>types</font></a> t1, ..., tn
- of the input arguments.</p><p align='justify' class='doc_paragraph'> The expression e may use the extra <a href='Types.html#4611703569012236210'><font color='#'>type</font></a> variables that were introduced earlier.
- For instance, we could define the "top" <a href='Methods.html#4611703569012232658'><font color='#'>method</font></a> for stacks as follows&nbsp;:
+ "<a href='Types.html#4611703575761920178'><font color='#'>type</font></a>[x]" definition of the <a href='driving optimizations.html#4611703575763397474'><font color='#'>id</font></a> example, the "x" refers to the <a href='Types.html#4611703575761920178'><font color='#'>type</font></a> of the input variable.
+ Notice that the <a href='Types.html#4611703575761920178'><font color='#'>types</font></a> of the input variables are <a href='Objects and Entities.html#4611703575763393826'><font color='#'>not</font></a> uniquely defined. Therefore, the user
+ must ensure that her "prediction" e of the output <a href='Types.html#4611703575761920178'><font color='#'>type</font></a> is valid for any valid <a href='Types.html#4611703575761920178'><font color='#'>types</font></a> t1, ..., tn
+ of the input arguments.</p><p align='justify' class='doc_paragraph'> The expression e may use the extra <a href='Types.html#4611703575761920178'><font color='#'>type</font></a> variables that were introduced earlier.
+ For instance, we could define the "top" <a href='Methods.html#4611703575761916626'><font color='#'>method</font></a> for stacks as follows&nbsp;:
  </p><table class='table_code' align=center border=0 width='85%'>
-										<tr><td class='doc_code'> top(s:stack&lt;X&gt;)&nbsp;: <a href='Types.html#4611703569012236210'><font color='#'>type</font></a>[X] -&gt; s.content[s.index]
+										<tr><td class='doc_code'> top(s:stack&lt;X&gt;)&nbsp;: <a href='Types.html#4611703575761920178'><font color='#'>type</font></a>[X] -&gt; s.content[s.index]
 </td></tr></table>
-							  <p align='justify' class='doc_paragraph'> The "second-order <a href='Types.html#4611703569012236210'><font color='#'>type</font></a>" e (second-order means that we <a href='Types.html#4611703569012236210'><font color='#'>type</font></a> the <a href='Methods.html#4611703569012232658'><font color='#'>method</font></a>, which is a
- function on <a href='Objects and Entities.html#4611703569011622050'><font color='#'>objects</font></a>, with another function on <a href='Types.html#4611703569012236210'><font color='#'>types</font></a>) is built using the basic CLAIRE
- operators on <a href='Types.html#4611703569012236210'><font color='#'>types</font></a> such as U, <a href='Integers and Floats.html#4611703569013714658'><font color='#'>^</font></a> and some useful <a href='Selectors_comma Properties and Operations.html#4611703569012697490'><font color='#'>operations</font></a> such as "<a href='Types.html#4611703569013633794'><font color='#'>member</font></a>". If c is a <a href='Types.html#4611703569012236210'><font color='#'>type</font></a>,
- <a href='Types.html#4611703569013633794'><font color='#'>member</font></a>(c) is the minimal <a href='Types.html#4611703569012236210'><font color='#'>type</font></a> that contains all possible members of c. For instance,
- <a href='Types.html#4611703569013633794'><font color='#'>member</font></a>({c}) = c by definition. This is useful to describe the range of the enumeration
- <a href='Methods.html#4611703569012232658'><font color='#'>method</font></a> set!. This <a href='Methods.html#4611703569012232658'><font color='#'>method</font></a> returns a <a href='Lists_comma Sets and Tuples.html#4611703569011833826'><font color='#'>set</font></a>, whose members belong to the input <a href='Classes.html#4611703569011633570'><font color='#'>class</font></a> c by definition.
- Thus, we know that they must belong to the <a href='Types.html#4611703569012236210'><font color='#'>type</font></a> <a href='Types.html#4611703569013633794'><font color='#'>member</font></a>(X) for any <a href='Types.html#4611703569012236210'><font color='#'>type</font></a> X to whom c belongs
- (cf. definition of <a href='Types.html#4611703569013633794'><font color='#'>member</font></a>). This translates into the following CLAIRE definition&nbsp;:
+							  <p align='justify' class='doc_paragraph'> The "second-order <a href='Types.html#4611703575761920178'><font color='#'>type</font></a>" e (second-order means that we <a href='Types.html#4611703575761920178'><font color='#'>type</font></a> the <a href='Methods.html#4611703575761916626'><font color='#'>method</font></a>, which is a
+ function on <a href='Objects and Entities.html#4611703575761306018'><font color='#'>objects</font></a>, with another function on <a href='Types.html#4611703575761920178'><font color='#'>types</font></a>) is built using the basic CLAIRE
+ operators on <a href='Types.html#4611703575761920178'><font color='#'>types</font></a> such as U, <a href='Integers and Floats.html#4611703575763398626'><font color='#'>^</font></a> and some useful <a href='Selectors_comma Properties and Operations.html#4611703575762381458'><font color='#'>operations</font></a> such as "<a href='Types.html#4611703575763317762'><font color='#'>member</font></a>". If c is a <a href='Types.html#4611703575761920178'><font color='#'>type</font></a>,
+ <a href='Types.html#4611703575763317762'><font color='#'>member</font></a>(c) is the minimal <a href='Types.html#4611703575761920178'><font color='#'>type</font></a> that contains all possible members of c. For instance,
+ <a href='Types.html#4611703575763317762'><font color='#'>member</font></a>({c}) = c by definition. This is useful to describe the range of the enumeration
+ <a href='Methods.html#4611703575761916626'><font color='#'>method</font></a> set!. This <a href='Methods.html#4611703575761916626'><font color='#'>method</font></a> returns a <a href='Lists_comma Sets and Tuples.html#4611703575761536226'><font color='#'>set</font></a>, whose members belong to the input <a href='Classes.html#4611703575761317538'><font color='#'>class</font></a> c by definition.
+ Thus, we know that they must belong to the <a href='Types.html#4611703575761920178'><font color='#'>type</font></a> <a href='Types.html#4611703575763317762'><font color='#'>member</font></a>(X) for any <a href='Types.html#4611703575761920178'><font color='#'>type</font></a> X to whom c belongs
+ (cf. definition of <a href='Types.html#4611703575763317762'><font color='#'>member</font></a>). This translates into the following CLAIRE definition&nbsp;:
  </p><table class='table_code' align=center border=0 width='85%'>
-										<tr><td class='doc_code'> set!(c:<a href='Classes.html#4611703569011633570'><font color='#'>class</font></a>)&nbsp;: <a href='Types.html#4611703569012236210'><font color='#'>type</font></a>[<a href='Lists_comma Sets and Tuples.html#4611703569011833826'><font color='#'>set</font></a>[<a href='Types.html#4611703569013633794'><font color='#'>member</font></a>(c)]] -&gt; c.instances
+										<tr><td class='doc_code'> set!(c:<a href='Classes.html#4611703575761317538'><font color='#'>class</font></a>)&nbsp;: <a href='Types.html#4611703575761920178'><font color='#'>type</font></a>[<a href='Lists_comma Sets and Tuples.html#4611703575761536226'><font color='#'>set</font></a>[<a href='Types.html#4611703575763317762'><font color='#'>member</font></a>(c)]] -&gt; c.instances
 </td></tr></table>
-							  <p align='justify' class='doc_paragraph'> For instance, if c belongs to subtype[B] then set!(c) belongs to <a href='Lists_comma Sets and Tuples.html#4611703569011833826'><font color='#'>set</font></a>[B].</p><p align='justify' class='doc_paragraph'> To summarize, here is a more precise description of the syntax for defining a <a href='Methods.html#4611703569012232658'><font color='#'>method</font></a>&nbsp;:
+							  <p align='justify' class='doc_paragraph'> For instance, if c belongs to subtype[B] then set!(c) belongs to <a href='Lists_comma Sets and Tuples.html#4611703575761536226'><font color='#'>set</font></a>[B].</p><p align='justify' class='doc_paragraph'> To summarize, here is a more precise description of the syntax for defining a <a href='Methods.html#4611703575761916626'><font color='#'>method</font></a>&nbsp;:
  </p><table class='table_code' align=center border=0 width='85%'>
 										<tr><td class='doc_code'> &lt;function&gt;(&lt;vi&gt;:&lt;ti&gt;<sup>i E (1 .. n)</sup>)&nbsp;: &lt;range&gt; -&gt; &lt;exp&gt;
 </td></tr></table>
-							  <p align='justify' class='doc_paragraph'> Each <a href='Types.html#4611703569012236210'><font color='#'>type</font></a> ti for the variable vi is an "extended <a href='Types.html#4611703569012236210'><font color='#'>type</font></a>" that may use <a href='Types.html#4611703569012236210'><font color='#'>type</font></a> variables
- introduced by the previous extended <a href='Types.html#4611703569012236210'><font color='#'>types</font></a> t1, t2 ... ti-1 . An extended <a href='Types.html#4611703569012236210'><font color='#'>type</font></a> is
+							  <p align='justify' class='doc_paragraph'> Each <a href='Types.html#4611703575761920178'><font color='#'>type</font></a> ti for the variable vi is an "extended <a href='Types.html#4611703575761920178'><font color='#'>type</font></a>" that may use <a href='Types.html#4611703575761920178'><font color='#'>type</font></a> variables
+ introduced by the previous extended <a href='Types.html#4611703575761920178'><font color='#'>types</font></a> t1, t2 ... ti-1 . An extended <a href='Types.html#4611703575761920178'><font color='#'>type</font></a> is
  defined as follows&nbsp;:
  </p><table class='table_code' align=center border=0 width='85%'>
-										<tr><td class='doc_code'> &lt;et&gt; = &lt;class&gt; | &lt;set&gt; | &lt;var&gt; | (&lt;et&gt; <a href='Integers and Floats.html#4611703569013714658'><font color='#'>^</font></a> | U &lt;et&gt;) | (&lt;integer&gt; .. &lt;integer&gt;) |
- 	<a href='Lists_comma Sets and Tuples.html#4611703569011833826'><font color='#'>set</font></a>[&lt;et&gt;] | <a href='Lists_comma Sets and Tuples.html#4611703569011833826'><font color='#'>list</font></a>[&lt;et&gt;] | &lt;et&gt;[] | <a href='Lists_comma Sets and Tuples.html#4611703569011833826'><font color='#'>tuple</font></a>(&lt;et&gt;<sup>seq</sup>) |
+										<tr><td class='doc_code'> &lt;et&gt; = &lt;class&gt; | &lt;set&gt; | &lt;var&gt; | (&lt;et&gt; <a href='Integers and Floats.html#4611703575763398626'><font color='#'>^</font></a> | U &lt;et&gt;) | (&lt;integer&gt; .. &lt;integer&gt;) |
+ 	<a href='Lists_comma Sets and Tuples.html#4611703575761536226'><font color='#'>set</font></a>[&lt;et&gt;] | <a href='Lists_comma Sets and Tuples.html#4611703575761536226'><font color='#'>list</font></a>[&lt;et&gt;] | &lt;et&gt;[] | <a href='Lists_comma Sets and Tuples.html#4611703575761536226'><font color='#'>tuple</font></a>(&lt;et&gt;<sup>seq</sup>) |
  	&lt;class&gt;[&lt; &lt;var&gt;:&lt;et&gt; | &lt;var&gt;=&lt; &lt;var&gt; | &lt;const&gt; &gt; &gt;<sup>seq+</sup>]
 </td></tr></table>
-							  <p align='justify' class='doc_paragraph'> The &lt;range&gt; expression is either a regular <a href='Types.html#4611703569012236210'><font color='#'>type</font></a> or a "second order <a href='Types.html#4611703569012236210'><font color='#'>type</font></a>",
- which is a CLAIRE expression e introduced with the <a href='Types.html#4611703569012236210'><font color='#'>type</font></a>[e] syntactical construct&nbsp;:
+							  <p align='justify' class='doc_paragraph'> The &lt;range&gt; expression is either a regular <a href='Types.html#4611703575761920178'><font color='#'>type</font></a> or a "second order <a href='Types.html#4611703575761920178'><font color='#'>type</font></a>",
+ which is a CLAIRE expression e introduced with the <a href='Types.html#4611703575761920178'><font color='#'>type</font></a>[e] syntactical construct&nbsp;:
  </p><table class='table_code' align=center border=0 width='85%'>
-										<tr><td class='doc_code'> &lt;range&gt; = &lt;type&gt; | <a href='Types.html#4611703569012236210'><font color='#'>type</font></a>[&lt;expression&gt;]
+										<tr><td class='doc_code'> &lt;range&gt; = &lt;type&gt; | <a href='Types.html#4611703575761920178'><font color='#'>type</font></a>[&lt;expression&gt;]
 </td></tr></table>
 							  <p align='justify' class='doc_paragraph'></p></body>
 	</html>

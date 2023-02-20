@@ -1,7 +1,6 @@
 
 *.log
 *xlclaire-*
-/doc
 *.cache
 *.o
 public*
