@@ -7883,12 +7883,15 @@ public:
 
 TzSet TzSet::single = TzSet();
 
-CL_EXPORT char *tzset_string(char* tz) {
+CL_EXPORT char *tzset_string(char *tz) {
+   char *oldtz;
+   oldtz = getenv("TZ");
   char tmp[256];
   strcpy(tmp,"TZ=");
   strcat(tmp,tz);
   setenv_string(tmp);
   tzset();
+  if (oldtz) return copy_string(oldtz);
   return "";
 }
 
