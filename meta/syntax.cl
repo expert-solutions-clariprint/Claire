@@ -115,6 +115,13 @@ nextstruct(r:meta_reader, %first:keyword, e:keyword) : any
            x := (if (firstc(r) = #/,) next(r), ; to remove later
                  For(var = %var, set_arg = %set, arg = nexts(r, e))) in
          (unbind!(r, %bind), x)
+    else if (%first = tfor)
+       let %var := extract_variable(nexts!(r, in)),
+           %set := nexte(r),
+           %bind := bind!(r, %var),
+           x := (if (firstc(r) = #/,) next(r), ; to remove later
+                 Tfor(var = %var, set_arg = %set, arg = nexts(r, e))) in
+         (unbind!(r, %bind), x)
     else if (%first = ffor) //<sb> v3.3.33: ffor
     	let %var := extract_variable(nexts!(r, in)),
            %set := nexts(r, by),
@@ -129,6 +136,9 @@ nextstruct(r:meta_reader, %first:keyword, e:keyword) : any
     else if (%first = try)
        let %a := nexts!(r, catch), %t := nexte(r) in
          Handle(test = %t, arg = %a, other = nexts(r, e))
+    else if (%first = ttry)
+       let %a := nexts!(r, catch), %t := nexte(r) in
+         Thandle(test = %t, arg = %a, other = nexts(r, e))
     else %first)
 
 // reads a let expression

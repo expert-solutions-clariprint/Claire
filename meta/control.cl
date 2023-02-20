@@ -270,6 +270,44 @@ self_eval(self:For) : any
     	        put(trace!, system, n)),
 			res)))
 
+//<lr>
+
+iClaire/Tfor <: Iteration()
+
+claire/traceTfor? :: property(open = 3, range = boolean)
+claire/traceTfor?() : boolean -> false
+
+claire/beforeTfor :: property(open = 3, range = any)
+// [claire/beforeTfor(sfv:string,sfsa:string) : any -> 0]
+[claire/beforeTfor(sfv:string,fsa:any) : any -> 0]
+
+// tfor catch exceptions afterTfor must close(exception!()) at last
+claire/afterTfor :: property(open = 3, range = any)
+[claire/afterTfor(br:any,fr:any) : any -> fr]
+
+[getFor(self:Tfor) : For -> For(var = self.var, set_arg = self.set_arg, arg = self.arg)]
+
+[self_print(self:Tfor) : void
+ -> printf("`BLUEtfor `BLACK~I `BLUEin `BLACK~I ~I", ppvariable(self.var),
+           (let %l := pretty.index in
+              (set_level(),
+               printexp(self.set_arg, false),
+               pretty.index := %l)),
+           (pretty.index :+ 2,
+            lbreak(),
+            print(self.arg),
+            pretty.index :- 2))]
+
+[self_eval(self:Tfor) : any
+-> let self_eval1 := @(self_eval,For)
+    in ( if eval(Call(selector = traceTfor?, args = list<any>(void))) 
+            eval(Call(selector = afterTfor, 
+                        args = list(eval(Call(selector = beforeTfor, 
+                                                args = list((print_in_string(),printf("~S",self.var),end_of_string()),
+                                                            self.set_arg))),
+                                    (try apply(self_eval1,list(getFor(self))) catch any exception!())   )))
+        else apply(self_eval1,list<any>(getFor(self))))]
+
 //<sb> v3.3.33 ffor
 iClaire/Ffor <: Instruction_with_var(set_arg:any, arg:any, iClaire/forkedby:any)
 
@@ -609,6 +647,30 @@ self_eval(self:Handle) : any
        try eval(self.arg)
        catch x (if (exception!() % return_error) close(exception!())
                 else eval(self.other)))     // <yc> 6/98
+
+
+
+claire/traceTtry? :: property(open = 3, range = boolean)
+claire/traceTtry?() : boolean -> false
+
+claire/beforeTtry :: property(open = 3, range = any)
+[claire/beforeTtry(ttest:any) : any -> 0]
+
+claire/afterTtry :: property(open = 3, range = any)
+[claire/afterTtry(br:any,tr:any) : any -> tr]
+
+claire/otherTtry :: property(open = 3, range = any)
+[claire/otherTtry(br:any,tc:any) : any -> tc]
+
+iClaire/Thandle <: Handle()
+
+[self_eval(self:Thandle) : any
+-> (if traceTtry?() 
+        let x := eval(self.test), 
+             br := beforeTtry(x) 
+        in (try afterTtry(br, eval(self.arg))
+            catch x otherTtry(br, eval(self.other))   )
+    else self_eval@Handle(self))]
 
 // *********************************************************************
 // *     Part 4: the constructs                                         *
