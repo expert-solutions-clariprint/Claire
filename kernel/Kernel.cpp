@@ -7735,8 +7735,15 @@ CL_EXPORT void print_float_(OID x) {ClEnv->cout->put(float_v(x));}     // v3.2.5
 /***********************************************************************/
 
 // useful upper and lower bound to check overflow
+// double CL_EXPORT CLMAXFLOAT = 1073741823.0;              // v3.3.12
+// double CL_EXPORT CLMINFLOAT = -1073741822.0;
+#ifdef __LP64__
+double CL_EXPORT CLMAXFLOAT = 2.30583e+18;
+double CL_EXPORT CLMINFLOAT = -2.30583e+18;
+#else
 double CL_EXPORT CLMAXFLOAT = 1073741823.0;              // v3.3.12
 double CL_EXPORT CLMINFLOAT = -1073741822.0;
+#endif
 
 // this file contains the C++ code for system dependent API
 // under unix we benefit of configuration (HAVE_XXX definitions)

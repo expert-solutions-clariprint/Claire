@@ -722,8 +722,15 @@ CL_INT integer_I_symbol (symbol *s)
 /*********************************************************************/
 
 // useful upper and lower bound to check overflow
+// double CLMAXFLOAT = 1073741823.0;              // v3.3.12
+// double CLMINFLOAT = -1073741822.0;
+#ifdef __LP64__
+double CLMAXFLOAT = 2.30583e+18;
+double CLMINFLOAT = -2.30583e+18;
+#else
 double CLMAXFLOAT = 1073741823.0;              // v3.3.12
 double CLMINFLOAT = -1073741822.0;
+#endif
 
 /*
 void princ_integer(CL_INT i) {ClEnv->cout->put(i);}
