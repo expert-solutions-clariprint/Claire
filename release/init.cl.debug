@@ -34,10 +34,22 @@ else
   cxx_options := " -fPIC -DPIC",
   so_options := " -dynamiclib -undefined dynamic_lookup"))
 
-(if (lower(sys_name()) % {"linux", "sun", "solaris"} & sys_compiler() = "g++")
+
+(if (lower(sys_name()) % {"linux"} & sys_compiler() = "g++")
   (ld_options := " -rdynamic",
   cxx_options := " -fPIC -DPIC",
-  so_options := " -dynamiclib -undefined dynamic_lookup"))
+  so_options := " -fPIC -DPIC -rdynamic -shared"))
+
+(if (lower(sys_name()) % {"sun", "sunos", "solaris"} & sys_compiler() = "g++")
+  (ld_options := " -rdynamic",
+  cxx_options := " -fPIC -DPIC",
+  so_options := " -fPIC -DPIC -shared"))
+
+(if (lower(sys_name()) % {"sun", "sunos", "solaris"} & sys_compiler() = "CC")
+  (ld_options := " -Bdynamic",
+  cxx_options := " -KPIC",
+  so_options := " -KPIC -G"))
+
 
 (if (lower(sys_name()) = "aix" & sys_compiler() = "g++")
   (ld_options := " -Wl,-bmaxdata:0x80000000 -Wl,-brtl -Wl,-bdynamic -Wl,-bexpfull",
