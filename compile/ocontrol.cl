@@ -198,7 +198,7 @@ c_code(self:Call_function2) : any
         else if (length(a) > 1 & a[2] % string)
            c_code(If(test = Call(Core/should_trace?, list(module!(),a[1])),
            			arg = Call(Core/mtformat,
-                          list(module!(), a[2], a[1], List(args = (copy(a) << 2))))),
+                          list(module!(), a[2], a[1], c_gc!(c_code(List(args = (copy(a) << 2)), list))))),
                   any))]
 
 
