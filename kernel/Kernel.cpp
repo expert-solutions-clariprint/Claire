@@ -2247,9 +2247,11 @@ void ClaireAllocation::gc(char *cause) {
     object_used += SIZE(n);
     MARKCELL(n);}
   }
+  if(inside_gc == 1) sweepFreeable();
+
   sweepChunk();
   sweepObject();
-  if(inside_gc == 1) sweepFreeable();
+
   CL_INT tegc;
   msec(tegc);
   consumed_gc += (tegc - tgc);
