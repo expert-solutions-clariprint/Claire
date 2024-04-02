@@ -191,15 +191,16 @@ c_code(self:Call_function2) : any
 // the trace should be issued. It saves the argumet list allocation if the
 // trace isn't issued
 [c_code(self:Trace) : any
- -> let a := self.args in
-       (if OPT.online? self
+ -> let a := self.args,  oldgcloop := OPT.loop_gc,
+       res := (OPT.loop_gc := true,
+            if OPT.online? self
         else if (length(a) = 1 & c_type(a[1]) <= integer)
           c_code(Call(write,list(verbose,system,a[1])))
         else if (length(a) > 1 & a[2] % string)
            c_code(If(test = Call(Core/should_trace?, list(module!(),a[1])),
            			arg = Call(Core/mtformat,
                           list(module!(), a[2], a[1], c_gc!(c_code(List(args = (copy(a) << 2)), list))))),
-                  any))]
+                  any)) in (OPT.loop_gc := oldgcloop ,res )]
 
 
 c_type(self:Assert) : type -> any
