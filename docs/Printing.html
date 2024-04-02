@@ -76,171 +76,171 @@ a[href] {
 	</head>
 	<body><table width='100%' class='item_header'>
 		<tr>
-			<td width='33%' align='left' valign='bottom'><i><a href='Communication ports.html#4611703541555012722'>Communication ports</a></i></td>
-			<td width='33%' align='center' valign='top'><i><a href='claire.index.html#__category_index__'>categories</a><br/><a href='claire.index.html#4611703541555012714'>I/O, Modules and System Interface</a><br/><b>Printing</b>
+			<td width='33%' align='left' valign='bottom'><i><a href='Communication ports.html#4611703602812822642'>Communication ports</a></i></td>
+			<td width='33%' align='center' valign='top'><i><a href='claire.index.html#__category_index__'>categories</a><br/><a href='claire.index.html#4611703602812822634'>I/O, Modules and System Interface</a><br/><b>Printing</b>
 				</i></td>
-			<td width='33%' align='right' valign='bottom'><i><a href='WCL syntax.html#4611703541555235378'>WCL syntax</a></i></td>
+			<td width='33%' align='right' valign='bottom'><i><a href='WCL syntax.html#4611703602813045298'>WCL syntax</a></i></td>
 		</tr>
 	</table>
-	<h2><span class=pretitle>&nbsp;</span>&nbsp;<a name='4611703541555063538'>Printing</a>
+	<h2><span class=pretitle>&nbsp;</span>&nbsp;<a name='4611703602812873458'>Printing</a>
 			</h2>
-	<ul></ul><ul><li><font font-face='Courier' class='item_index'><a href='Printing.html#4611703541555698818'>end_of_string</a>()<font color='blue'> -&gt; </font>string</font></li><li><font font-face='Courier' class='item_index'><a href='Printing.html#4611703541555625842'>format</a>(<font color='green'>self</font><font color='blue'>:</font>string, <font color='green'>larg</font><font color='blue'>:</font>list)<font color='blue'> -&gt; </font>void</font></li><li><font font-face='Courier' class='item_index'><a href='Printing.html#4611703541555489858'>princ</a>(<font color='green'>n</font><font color='blue'>:</font>integer)<font color='blue'> -&gt; </font>void</font></li><li><font font-face='Courier' class='item_index'><a href='Printing.html#4611703541555489922'>princ</a>(<font color='green'>s</font><font color='blue'>:</font>string)<font color='blue'> -&gt; </font>void</font></li><li><font font-face='Courier' class='item_index'><a href='Printing.html#4611703541555479714'>princ</a>(<font color='green'>c</font><font color='blue'>:</font>char)<font color='blue'> -&gt; </font>void</font></li><li><font font-face='Courier' class='item_index'><a href='Printing.html#4611703541555626210'>princ</a>(<font color='green'>s</font><font color='blue'>:</font>bag)<font color='blue'> -&gt; </font>void</font></li><li><font font-face='Courier' class='item_index'><a href='Printing.html#4611703541555490018'>princ</a>(<font color='green'>s</font><font color='blue'>:</font>string, <font color='green'>i</font><font color='blue'>:</font>integer, <font color='green'>j</font><font color='blue'>:</font>integer)<font color='blue'> -&gt; </font>void <font color='red'>[XL]</font></font></li><li><font font-face='Courier' class='item_index'><a href='Printing.html#4611703541555698866'>print</a>(<font color='green'>x</font><font color='blue'>:</font>any)<font color='blue'> -&gt; </font>void</font></li><li><font font-face='Courier' class='item_index'><a href='Printing.html#4611703541555698578'>print_in_string</a>()<font color='blue'> -&gt; </font>void</font></li><li><font font-face='Courier' class='item_index'><a href='Printing.html#4611703541555462290'>self_print</a><font color='blue'> :: </font>property(open = 3)</font></li></ul><p align='justify' class='doc_paragraph'> There are several ways of <a href='Printing.html#4611703541555063538'><font color='#'>printing</font></a> in CLAIRE. Any <a href='Objects and Entities.html#4611703541553611170'><font color='#'>entity</font></a> may be printed with the
- function <a href='Printing.html#4611703541555698866'><font color='#'>print</font></a>. When <a href='Printing.html#4611703541555698866'><font color='#'>print</font></a> is called for an <a href='Objects and Entities.html#4611703541553611170'><font color='#'>object</font></a> that does <a href='Objects and Entities.html#4611703541555698978'><font color='#'>not</font></a> inherit from thing
- (an <a href='Objects and Entities.html#4611703541553611170'><font color='#'>object</font></a> without a name), it <a href='Calls and Slot Access.html#4611703541553806482'><font color='#'>calls</font></a> the <a href='Methods.html#4611703541554221778'><font color='#'>method</font></a> <a href='Printing.html#4611703541555462290'><font color='#'>self_print</font></a> of which you can define <a href='Classes.html#4611703541555700274'><font color='#'>new</font></a>
- restrictions whenever you define <a href='Classes.html#4611703541555700274'><font color='#'>new</font></a> <a href='Classes.html#4611703541553622690'><font color='#'>classes</font></a>. If <a href='Printing.html#4611703541555462290'><font color='#'>self_print</font></a> was called on an <a href='Objects and Entities.html#4611703541553611170'><font color='#'>object</font></a> x
- owned by a <a href='Classes.html#4611703541553622690'><font color='#'>class</font></a> toto for which no applicable restriction could be found,
- it would <a href='Printing.html#4611703541555698866'><font color='#'>print</font></a> &lt;toto&gt;.</p><p align='justify' class='doc_paragraph'> In the case of <a href='Lists_comma Sets and Tuples.html#4611703541553841378'><font color='#'>bags</font></a> (<a href='Lists_comma Sets and Tuples.html#4611703541553841378'><font color='#'>sets</font></a> or <a href='Lists_comma Sets and Tuples.html#4611703541553841378'><font color='#'>lists</font></a>), <a href='Strings.html#4611703541553610770'><font color='#'>strings</font></a>, <a href='Symbols.html#4611703541555316418'><font color='#'>symbols</font></a> or characters, the standard <a href='Methods.html#4611703541554221778'><font color='#'>method</font></a>
- is <a href='Printing.html#4611703541555626210'><font color='#'>princ</font></a>. It formats its argument in a somewhat nicer way than <a href='Printing.html#4611703541555698866'><font color='#'>print</font></a>. For example&nbsp;:
+	<ul></ul><ul><li><font font-face='Courier' class='item_index'><a href='Printing.html#4611703602813508738'>end_of_string</a>()<font color='blue'> -&gt; </font>string</font></li><li><font font-face='Courier' class='item_index'><a href='Printing.html#4611703602813435762'>format</a>(<font color='green'>self</font><font color='blue'>:</font>string, <font color='green'>larg</font><font color='blue'>:</font>list)<font color='blue'> -&gt; </font>void</font></li><li><font font-face='Courier' class='item_index'><a href='Printing.html#4611703602813299778'>princ</a>(<font color='green'>n</font><font color='blue'>:</font>integer)<font color='blue'> -&gt; </font>void</font></li><li><font font-face='Courier' class='item_index'><a href='Printing.html#4611703602813299842'>princ</a>(<font color='green'>s</font><font color='blue'>:</font>string)<font color='blue'> -&gt; </font>void</font></li><li><font font-face='Courier' class='item_index'><a href='Printing.html#4611703602813289634'>princ</a>(<font color='green'>c</font><font color='blue'>:</font>char)<font color='blue'> -&gt; </font>void</font></li><li><font font-face='Courier' class='item_index'><a href='Printing.html#4611703602813436130'>princ</a>(<font color='green'>s</font><font color='blue'>:</font>bag)<font color='blue'> -&gt; </font>void</font></li><li><font font-face='Courier' class='item_index'><a href='Printing.html#4611703602813299938'>princ</a>(<font color='green'>s</font><font color='blue'>:</font>string, <font color='green'>i</font><font color='blue'>:</font>integer, <font color='green'>j</font><font color='blue'>:</font>integer)<font color='blue'> -&gt; </font>void <font color='red'>[XL]</font></font></li><li><font font-face='Courier' class='item_index'><a href='Printing.html#4611703602813508786'>print</a>(<font color='green'>x</font><font color='blue'>:</font>any)<font color='blue'> -&gt; </font>void</font></li><li><font font-face='Courier' class='item_index'><a href='Printing.html#4611703602813508498'>print_in_string</a>()<font color='blue'> -&gt; </font>void</font></li><li><font font-face='Courier' class='item_index'><a href='Printing.html#4611703602813272210'>self_print</a><font color='blue'> :: </font>property(open = 3)</font></li></ul><p align='justify' class='doc_paragraph'> There are several ways of <a href='Printing.html#4611703602812873458'><font color='#'>printing</font></a> in CLAIRE. Any <a href='Objects and Entities.html#4611703602811421090'><font color='#'>entity</font></a> may be printed with the
+ function <a href='Printing.html#4611703602813508786'><font color='#'>print</font></a>. When <a href='Printing.html#4611703602813508786'><font color='#'>print</font></a> is called for an <a href='Objects and Entities.html#4611703602811421090'><font color='#'>object</font></a> that does <a href='Objects and Entities.html#4611703602813508898'><font color='#'>not</font></a> inherit from thing
+ (an <a href='Objects and Entities.html#4611703602811421090'><font color='#'>object</font></a> without a name), it <a href='Calls and Slot Access.html#4611703602811616402'><font color='#'>calls</font></a> the <a href='Methods.html#4611703602812031698'><font color='#'>method</font></a> <a href='Printing.html#4611703602813272210'><font color='#'>self_print</font></a> of which you can define <a href='Classes.html#4611703602813510194'><font color='#'>new</font></a>
+ restrictions whenever you define <a href='Classes.html#4611703602813510194'><font color='#'>new</font></a> <a href='Classes.html#4611703602811432610'><font color='#'>classes</font></a>. If <a href='Printing.html#4611703602813272210'><font color='#'>self_print</font></a> was called on an <a href='Objects and Entities.html#4611703602811421090'><font color='#'>object</font></a> x
+ owned by a <a href='Classes.html#4611703602811432610'><font color='#'>class</font></a> toto for which no applicable restriction could be found,
+ it would <a href='Printing.html#4611703602813508786'><font color='#'>print</font></a> &lt;toto&gt;.</p><p align='justify' class='doc_paragraph'> In the case of <a href='Lists_comma Sets and Tuples.html#4611703602811651298'><font color='#'>bags</font></a> (<a href='Lists_comma Sets and Tuples.html#4611703602811651298'><font color='#'>sets</font></a> or <a href='Lists_comma Sets and Tuples.html#4611703602811651298'><font color='#'>lists</font></a>), <a href='Strings.html#4611703602811420690'><font color='#'>strings</font></a>, <a href='Symbols.html#4611703602813126338'><font color='#'>symbols</font></a> or characters, the standard <a href='Methods.html#4611703602812031698'><font color='#'>method</font></a>
+ is <a href='Printing.html#4611703602813436130'><font color='#'>princ</font></a>. It formats its argument in a somewhat nicer way than <a href='Printing.html#4611703602813508786'><font color='#'>print</font></a>. For example&nbsp;:
  </p><table class='table_code' align=center border=0 width='85%'>
-										<tr><td class='doc_code'> <a href='Printing.html#4611703541555698866'><font color='#'>print</font></a>("john") prints "john"
- <a href='Printing.html#4611703541555626210'><font color='#'>princ</font></a>("john") prints john
+										<tr><td class='doc_code'> <a href='Printing.html#4611703602813508786'><font color='#'>print</font></a>("john") prints "john"
+ <a href='Printing.html#4611703602813436130'><font color='#'>princ</font></a>("john") prints john
 </td></tr></table>
-							  <p align='justify' class='doc_paragraph'> Finally, there also exists a printf macro as in C. Its first argument is a <a href='Strings.html#4611703541553610770'><font color='#'>string</font></a> with
+							  <p align='justify' class='doc_paragraph'> Finally, there also exists a printf macro as in C. Its first argument is a <a href='Strings.html#4611703602811420690'><font color='#'>string</font></a> with
  possible occurrences of the control patterns ~S, ~I and ~A. The macro requires as many
- arguments as there are "tilde patterns" in the <a href='Strings.html#4611703541553610770'><font color='#'>string</font></a>, and pairs in order of appearance
- arguments together with tildes. These control patterns do <a href='Objects and Entities.html#4611703541555698978'><font color='#'>not</font></a> refer to the <a href='Types.html#4611703541554225330'><font color='#'>type</font></a> of the
- corresponding argument but to the way you want it to be printed. The macro will <a href='Calls and Slot Access.html#4611703541555624690'><font color='#'>call</font></a> <a href='Printing.html#4611703541555698866'><font color='#'>print</font></a>
- for each argument associated with a ~S form, <a href='Printing.html#4611703541555626210'><font color='#'>princ</font></a> for each associated with a ~A form and
- will <a href='Printing.html#4611703541555698866'><font color='#'>print</font></a> the result of the evaluation of the argument for each ~I form. A mnemonic is A
+ arguments as there are "tilde patterns" in the <a href='Strings.html#4611703602811420690'><font color='#'>string</font></a>, and pairs in order of appearance
+ arguments together with tildes. These control patterns do <a href='Objects and Entities.html#4611703602813508898'><font color='#'>not</font></a> refer to the <a href='Types.html#4611703602812035250'><font color='#'>type</font></a> of the
+ corresponding argument but to the way you want it to be printed. The macro will <a href='Calls and Slot Access.html#4611703602813434610'><font color='#'>call</font></a> <a href='Printing.html#4611703602813508786'><font color='#'>print</font></a>
+ for each argument associated with a ~S form, <a href='Printing.html#4611703602813436130'><font color='#'>princ</font></a> for each associated with a ~A form and
+ will <a href='Printing.html#4611703602813508786'><font color='#'>print</font></a> the result of the evaluation of the argument for each ~I form. A mnemonic is A
  for alphanumeric, S for standard and I for instruction. Hence the command&nbsp;:
  </p><table class='table_code' align=center border=0 width='85%'>
 										<tr><td class='doc_code'> printf("~S is ~A and here is what we know<n>~I", john, 23, show(john))
 </td></tr></table>
 							  <p align='justify' class='doc_paragraph'> will be expanded into&nbsp;:
  </p><table class='table_code' align=center border=0 width='85%'>
-										<tr><td class='doc_code'> (<a href='Printing.html#4611703541555698866'><font color='#'>print</font></a>(john), <a href='Printing.html#4611703541555626210'><font color='#'>princ</font></a>(" is "), <a href='Printing.html#4611703541555626210'><font color='#'>princ</font></a>(23),
- 	<a href='Printing.html#4611703541555626210'><font color='#'>princ</font></a>(" and here is what we know<n"),> 		show(john))
+										<tr><td class='doc_code'> (<a href='Printing.html#4611703602813508786'><font color='#'>print</font></a>(john), <a href='Printing.html#4611703602813436130'><font color='#'>princ</font></a>(" is "), <a href='Printing.html#4611703602813436130'><font color='#'>princ</font></a>(23),
+ 	<a href='Printing.html#4611703602813436130'><font color='#'>princ</font></a>(" and here is what we know<n"),> 		show(john))
 </td></tr></table>
-							  <p align='justify' class='doc_paragraph'> Output may also be directed to a <a href='Communication ports.html#4611703541555012722'><font color='#'>file</font></a> or another <a href='Communication ports.html#4611703541555973058'><font color='#'>device</font></a> instead of the screen, using a <a href='Communication ports.html#4611703541555012722'><font color='#'>port</font></a>.
- A <a href='Communication ports.html#4611703541555012722'><font color='#'>port</font></a> is an <a href='Objects and Entities.html#4611703541553611170'><font color='#'>object</font></a> bound to a physical <a href='Communication ports.html#4611703541555973058'><font color='#'>device</font></a>, a memory <a href='Communication ports.html#4611703541555978002'><font color='#'>buffer</font></a> or a <a href='Communication ports.html#4611703541555012722'><font color='#'>file</font></a>. The <a href='Methods.html#4611703541554221778'><font color='#'>method</font></a>
- <a href='Communication ports.html#4611703541555503058'><font color='#'>use_as_output</font></a> is meant to select the <a href='Communication ports.html#4611703541555012722'><font color='#'>port</font></a> on which the output will be written. Following
+							  <p align='justify' class='doc_paragraph'> Output may also be directed to a <a href='Communication ports.html#4611703602812822642'><font color='#'>file</font></a> or another <a href='Communication ports.html#4611703602813782978'><font color='#'>device</font></a> instead of the screen, using a <a href='Communication ports.html#4611703602812822642'><font color='#'>port</font></a>.
+ A <a href='Communication ports.html#4611703602812822642'><font color='#'>port</font></a> is an <a href='Objects and Entities.html#4611703602811421090'><font color='#'>object</font></a> bound to a physical <a href='Communication ports.html#4611703602813782978'><font color='#'>device</font></a>, a memory <a href='Communication ports.html#4611703602813787922'><font color='#'>buffer</font></a> or a <a href='Communication ports.html#4611703602812822642'><font color='#'>file</font></a>. The <a href='Methods.html#4611703602812031698'><font color='#'>method</font></a>
+ <a href='Communication ports.html#4611703602813312978'><font color='#'>use_as_output</font></a> is meant to select the <a href='Communication ports.html#4611703602812822642'><font color='#'>port</font></a> on which the output will be written. Following
  is an example&nbsp;:
  </p><table class='table_code' align=center border=0 width='85%'>
-										<tr><td class='doc_code'> let p&nbsp;:= <a href='Communication ports.html#4611703541555983506'><font color='#'>fopen</font></a>("agenda-2006", "w")
- in (<a href='Communication ports.html#4611703541555503058'><font color='#'>use_as_output</font></a>(p),
- 	<a href='Classes.html#4611703541555561634'><font color='#'>write</font></a>(agenda), fclose(p))
+										<tr><td class='doc_code'> let p&nbsp;:= <a href='Communication ports.html#4611703602813793426'><font color='#'>fopen</font></a>("agenda-2006", "w")
+ in (<a href='Communication ports.html#4611703602813312978'><font color='#'>use_as_output</font></a>(p),
+ 	<a href='Classes.html#4611703602813371554'><font color='#'>write</font></a>(agenda), fclose(p))
 </td></tr></table>
-							  <p align='justify' class='doc_paragraph'> <font color='red'>[XL]</font> In XL CLAIRE printf construction can take a <a href='Communication ports.html#4611703541555012722'><font color='#'>port</font></a> argument and would perform a local
- output rediction to the supplied <a href='Communication ports.html#4611703541555012722'><font color='#'>port</font></a>&nbsp;:
+							  <p align='justify' class='doc_paragraph'> <font color='red'>[XL]</font> In XL CLAIRE printf construction can take a <a href='Communication ports.html#4611703602812822642'><font color='#'>port</font></a> argument and would perform a local
+ output rediction to the supplied <a href='Communication ports.html#4611703602812822642'><font color='#'>port</font></a>&nbsp;:
  </p><table class='table_code' align=center border=0 width='85%'>
 										<tr><td class='doc_code'> printf(my_port, "~S is ~A and here is what we know<n>~I", john, 23, show(john))
 </td></tr></table>
 							  <p align='justify' class='doc_paragraph'> will be expanded into&nbsp;:
  </p><table class='table_code' align=center border=0 width='85%'>
-										<tr><td class='doc_code'> let old&nbsp;:= <a href='Communication ports.html#4611703541555503058'><font color='#'>use_as_output</font></a>(my_port)
- in (<a href='Printing.html#4611703541555698866'><font color='#'>print</font></a>(john), <a href='Printing.html#4611703541555626210'><font color='#'>princ</font></a>(" is "), <a href='Printing.html#4611703541555626210'><font color='#'>princ</font></a>(23),
- 	<a href='Printing.html#4611703541555626210'><font color='#'>princ</font></a>(" and here is what we know<n"),>show(john),
-  <a href='Communication ports.html#4611703541555503058'><font color='#'>use_as_output</font></a>(old))
+										<tr><td class='doc_code'> let old&nbsp;:= <a href='Communication ports.html#4611703602813312978'><font color='#'>use_as_output</font></a>(my_port)
+ in (<a href='Printing.html#4611703602813508786'><font color='#'>print</font></a>(john), <a href='Printing.html#4611703602813436130'><font color='#'>princ</font></a>(" is "), <a href='Printing.html#4611703602813436130'><font color='#'>princ</font></a>(23),
+ 	<a href='Printing.html#4611703602813436130'><font color='#'>princ</font></a>(" and here is what we know<n"),>show(john),
+  <a href='Communication ports.html#4611703602813312978'><font color='#'>use_as_output</font></a>(old))
 </td></tr></table>
-							  <p align='justify' class='doc_paragraph'> CLAIRE also offers a simple <a href='Methods.html#4611703541554221778'><font color='#'>method</font></a> to redirect the output towards a <a href='Strings.html#4611703541553610770'><font color='#'>string</font></a> <a href='Communication ports.html#4611703541555012722'><font color='#'>port</font></a>. Two
- <a href='Methods.html#4611703541554221778'><font color='#'>methods</font></a> are needed to do this: <a href='Printing.html#4611703541555698578'><font color='#'>print_in_string</font></a> and <a href='Printing.html#4611703541555698818'><font color='#'>end_of_string</font></a>. <a href='Printing.html#4611703541555698578'><font color='#'>print_in_string</font></a>() starts
- redirecting all <a href='Printing.html#4611703541555063538'><font color='#'>printing</font></a> statements towards the <a href='Strings.html#4611703541553610770'><font color='#'>string</font></a> being built. <a href='Printing.html#4611703541555698818'><font color='#'>end_of_string</font></a>() returns
- the <a href='Strings.html#4611703541553610770'><font color='#'>string</font></a> formed by all the <a href='Printing.html#4611703541555063538'><font color='#'>printing</font></a> done between these two instructions. You can only use
- <a href='Printing.html#4611703541555698578'><font color='#'>print_in_string</font></a> with one output <a href='Strings.html#4611703541553610770'><font color='#'>string</font></a> at a <a href='Dates and Times.html#4611703541553608578'><font color='#'>time</font></a>; more complex uses require the creation of
- multiple <a href='Strings.html#4611703541553610770'><font color='#'>string</font></a> <a href='Communication ports.html#4611703541555012722'><font color='#'>ports</font></a>.</p><p align='justify' class='doc_paragraph'> All trace statements will be directed to this <a href='Communication ports.html#4611703541555012722'><font color='#'>port</font></a>. A trace statement is either obtained
- implicitly through tracing a <a href='Methods.html#4611703541554221778'><font color='#'>method</font></a> or a <a href='Rules.html#4611703541554789746'><font color='#'>rule</font></a>, or explicitly with the trace statement.
+							  <p align='justify' class='doc_paragraph'> CLAIRE also offers a simple <a href='Methods.html#4611703602812031698'><font color='#'>method</font></a> to redirect the output towards a <a href='Strings.html#4611703602811420690'><font color='#'>string</font></a> <a href='Communication ports.html#4611703602812822642'><font color='#'>port</font></a>. Two
+ <a href='Methods.html#4611703602812031698'><font color='#'>methods</font></a> are needed to do this: <a href='Printing.html#4611703602813508498'><font color='#'>print_in_string</font></a> and <a href='Printing.html#4611703602813508738'><font color='#'>end_of_string</font></a>. <a href='Printing.html#4611703602813508498'><font color='#'>print_in_string</font></a>() starts
+ redirecting all <a href='Printing.html#4611703602812873458'><font color='#'>printing</font></a> statements towards the <a href='Strings.html#4611703602811420690'><font color='#'>string</font></a> being built. <a href='Printing.html#4611703602813508738'><font color='#'>end_of_string</font></a>() returns
+ the <a href='Strings.html#4611703602811420690'><font color='#'>string</font></a> formed by all the <a href='Printing.html#4611703602812873458'><font color='#'>printing</font></a> done between these two instructions. You can only use
+ <a href='Printing.html#4611703602813508498'><font color='#'>print_in_string</font></a> with one output <a href='Strings.html#4611703602811420690'><font color='#'>string</font></a> at a <a href='Dates and Times.html#4611703602811418498'><font color='#'>time</font></a>; more complex uses require the creation of
+ multiple <a href='Strings.html#4611703602811420690'><font color='#'>string</font></a> <a href='Communication ports.html#4611703602812822642'><font color='#'>ports</font></a>.</p><p align='justify' class='doc_paragraph'> All trace statements will be directed to this <a href='Communication ports.html#4611703602812822642'><font color='#'>port</font></a>. A trace statement is either obtained
+ implicitly through tracing a <a href='Methods.html#4611703602812031698'><font color='#'>method</font></a> or a <a href='Rules.html#4611703602812599666'><font color='#'>rule</font></a>, or explicitly with the trace statement.
  the statement trace(n, &lt;string&gt;, &lt;args&gt; ...) is equivalent to printf(&lt;string&gt;, &lt;args&gt; ..)
- with two differences: the <a href='Strings.html#4611703541553610770'><font color='#'>string</font></a> is printed only if the verbosity level verbose() is
- higher than n and the output <a href='Communication ports.html#4611703541555012722'><font color='#'>port</font></a> is ctrace(). The following lines are equivalent&nbsp;:
+ with two differences: the <a href='Strings.html#4611703602811420690'><font color='#'>string</font></a> is printed only if the verbosity level verbose() is
+ higher than n and the output <a href='Communication ports.html#4611703602812822642'><font color='#'>port</font></a> is ctrace(). The following lines are equivalent&nbsp;:
  </p><table class='table_code' align=center border=0 width='85%'>
 										<tr><td class='doc_code'> trace(0, "assigning ~S with ~S", x, y)
  //[0] assigning ~S with ~S // x, y
  (if (verbose() &gt;= 0) printf(ctrace(), "assigning ~S with ~S", x, y))
 </td></tr></table>
-							  <p align='justify' class='doc_paragraph'> <font color='red'>[XL]</font> In XL CLAIRE however, trace instructions are bound to a <a href='Modules.html#4611703541555354338'><font color='#'>module</font></a> such one can specify a
- per <a href='Modules.html#4611703541555354338'><font color='#'>module</font></a> verbose policy&nbsp;: a <a href='Modules.html#4611703541555354338'><font color='#'>module</font></a> m has a <a href='Calls and Slot Access.html#4611703541553806482'><font color='#'>slot</font></a> m.verbose that can take the values&nbsp;:
+							  <p align='justify' class='doc_paragraph'> <font color='red'>[XL]</font> In XL CLAIRE however, trace instructions are bound to a <a href='Modules.html#4611703602813164258'><font color='#'>module</font></a> such one can specify a
+ per <a href='Modules.html#4611703602813164258'><font color='#'>module</font></a> verbose policy&nbsp;: a <a href='Modules.html#4611703602813164258'><font color='#'>module</font></a> m has a <a href='Calls and Slot Access.html#4611703602811616402'><font color='#'>slot</font></a> m.verbose that can take the values&nbsp;:
  </p>
-							  <ul> <li>true (default) that tell that each trace of the <a href='Modules.html#4611703541555354338'><font color='#'>module</font></a> follows the system policy
+							  <ul> <li>true (default) that tell that each trace of the <a href='Modules.html#4611703602813164258'><font color='#'>module</font></a> follows the system policy
  <li>false tells that traces of m won't be issued
- <li>an <a href='Integers and Floats.html#4611703541553607058'><font color='#'>integer</font></a> n would <a href='Lists_comma Sets and Tuples.html#4611703541553841378'><font color='#'>set</font></a> the verbose level n for m only
- <li>an interval of two <a href='Integers and Floats.html#4611703541553607058'><font color='#'>integer</font></a> that define a range of allowed levels for m only
+ <li>an <a href='Integers and Floats.html#4611703602811416978'><font color='#'>integer</font></a> n would <a href='Lists_comma Sets and Tuples.html#4611703602811651298'><font color='#'>set</font></a> the verbose level n for m only
+ <li>an interval of two <a href='Integers and Floats.html#4611703602811416978'><font color='#'>integer</font></a> that define a range of allowed levels for m only
  </ul>
-							  <p align='justify' class='doc_paragraph'></p><a name='4611703541555698818'><hr size=0 style='page-break-after: avoid' /></a>
+							  <p align='justify' class='doc_paragraph'></p><a name='4611703602813508738'><hr size=0 style='page-break-after: avoid' /></a>
 	<a name='end_of_string'><hr size=0 /></a>
 	<table width='100%' class='item_header'>
 		<tr>
 			<td width='20%' align='left'><i><a href='claire.index.html#__category_index__'>categories</a></i></td>
-			<td width='20%' align='center'><i><a href='Printing.html#4611703541555063538'>Printing</a></i></td><td width='20%' align='center'><i>normal dispatch</i></td>
+			<td width='20%' align='center'><i><a href='Printing.html#4611703602812873458'>Printing</a></i></td><td width='20%' align='center'><i>normal dispatch</i></td>
 	<td width='20%' align='center'><i></i></td><td width='20%' align='right'><i>Core method</i></td>
-	</tr></table><h3>end_of_string()<font color='blue'> -&gt; </font>string</h3><p align='justify' class='doc_paragraph'> end_of_string() returns the <a href='Strings.html#4611703541553610770'><font color='#'>string</font></a> containing everything
- that has been printed since the <a href='Lists_comma Sets and Tuples.html#4611703541555705426'><font color='#'>last</font></a> <a href='Calls and Slot Access.html#4611703541555624690'><font color='#'>call</font></a> to <a href='Printing.html#4611703541555698578'><font color='#'>print_in_string</font></a>().</p><a name='4611703541555625842'><hr size=0 style='page-break-after: avoid' /></a>
+	</tr></table><h3>end_of_string()<font color='blue'> -&gt; </font>string</h3><p align='justify' class='doc_paragraph'> end_of_string() returns the <a href='Strings.html#4611703602811420690'><font color='#'>string</font></a> containing everything
+ that has been printed since the <a href='Lists_comma Sets and Tuples.html#4611703602813515346'><font color='#'>last</font></a> <a href='Calls and Slot Access.html#4611703602813434610'><font color='#'>call</font></a> to <a href='Printing.html#4611703602813508498'><font color='#'>print_in_string</font></a>().</p><a name='4611703602813435762'><hr size=0 style='page-break-after: avoid' /></a>
 	<a name='format'><hr size=0 /></a>
 	<table width='100%' class='item_header'>
 		<tr>
 			<td width='20%' align='left'><i><a href='claire.index.html#__category_index__'>categories</a></i></td>
-			<td width='20%' align='center'><i><a href='Printing.html#4611703541555063538'>Printing</a></i></td><td width='20%' align='center'><i>normal dispatch</i></td>
+			<td width='20%' align='center'><i><a href='Printing.html#4611703602812873458'>Printing</a></i></td><td width='20%' align='center'><i>normal dispatch</i></td>
 	<td width='20%' align='center'><i></i></td><td width='20%' align='right'><i>Core method</i></td>
-	</tr></table><h3>format(<font color='green'>self</font><font color='blue'>:</font>string, <font color='green'>larg</font><font color='blue'>:</font>list)<font color='blue'> -&gt; </font>void</h3><p align='justify' class='doc_paragraph'> This <a href='Methods.html#4611703541554221778'><font color='#'>method</font></a> does the same thing as printf, except that there are always two
- arguments, thus the arguments must be replaced by an explicit <a href='Lists_comma Sets and Tuples.html#4611703541553841378'><font color='#'>list</font></a>. Unlike
- with the printf construction <i>~I </i>cannot be used in a format. <a href='Lists_comma Sets and Tuples.html#4611703541555705426'><font color='#'>Last</font></a> the <a href='Strings.html#4611703541553610770'><font color='#'>string</font></a>
- s may contain <a href='Miscellaneous.html#4611703541555468514'><font color='#'>color</font></a> escapes.</p><a name='4611703541555489858'><hr size=0 style='page-break-after: avoid' /></a>
+	</tr></table><h3>format(<font color='green'>self</font><font color='blue'>:</font>string, <font color='green'>larg</font><font color='blue'>:</font>list)<font color='blue'> -&gt; </font>void</h3><p align='justify' class='doc_paragraph'> This <a href='Methods.html#4611703602812031698'><font color='#'>method</font></a> does the same thing as printf, except that there are always two
+ arguments, thus the arguments must be replaced by an explicit <a href='Lists_comma Sets and Tuples.html#4611703602811651298'><font color='#'>list</font></a>. Unlike
+ with the printf construction <i>~I </i>cannot be used in a format. <a href='Lists_comma Sets and Tuples.html#4611703602813515346'><font color='#'>Last</font></a> the <a href='Strings.html#4611703602811420690'><font color='#'>string</font></a>
+ s may contain <a href='Miscellaneous.html#4611703602813278434'><font color='#'>color</font></a> escapes.</p><a name='4611703602813299778'><hr size=0 style='page-break-after: avoid' /></a>
 	<a name='princ'><hr size=0 /></a>
 	<table width='100%' class='item_header'>
 		<tr>
 			<td width='20%' align='left'><i><a href='claire.index.html#__category_index__'>categories</a></i></td>
-			<td width='20%' align='center'><i><a href='Printing.html#4611703541555063538'>Printing</a></i></td><td width='20%' align='center'><i>normal dispatch</i></td>
+			<td width='20%' align='center'><i><a href='Printing.html#4611703602812873458'>Printing</a></i></td><td width='20%' align='center'><i>normal dispatch</i></td>
 	<td width='20%' align='center'><i></i></td><td width='20%' align='right'><i>Kernel method</i></td>
-	</tr></table><h3>princ(<font color='green'>n</font><font color='blue'>:</font>integer)<font color='blue'> -&gt; </font>void</h3><p align='justify' class='doc_paragraph'> equivalent to <a href='Printing.html#4611703541555698866'><font color='#'>print</font></a>(<b>n</b>)</p><a name='4611703541555489922'><hr size=0 style='page-break-after: avoid' /></a>
+	</tr></table><h3>princ(<font color='green'>n</font><font color='blue'>:</font>integer)<font color='blue'> -&gt; </font>void</h3><p align='justify' class='doc_paragraph'> equivalent to <a href='Printing.html#4611703602813508786'><font color='#'>print</font></a>(<b>n</b>)</p><a name='4611703602813299842'><hr size=0 style='page-break-after: avoid' /></a>
 	<a name='princ'><hr size=0 /></a>
 	<table width='100%' class='item_header'>
 		<tr>
 			<td width='20%' align='left'><i><a href='claire.index.html#__category_index__'>categories</a></i></td>
-			<td width='20%' align='center'><i><a href='Printing.html#4611703541555063538'>Printing</a></i></td><td width='20%' align='center'><i>normal dispatch</i></td>
+			<td width='20%' align='center'><i><a href='Printing.html#4611703602812873458'>Printing</a></i></td><td width='20%' align='center'><i>normal dispatch</i></td>
 	<td width='20%' align='center'><i></i></td><td width='20%' align='right'><i>Kernel method</i></td>
-	</tr></table><h3>princ(<font color='green'>s</font><font color='blue'>:</font>string)<font color='blue'> -&gt; </font>void</h3><p align='justify' class='doc_paragraph'> princ(<b>s</b>) prints the <a href='Strings.html#4611703541553610770'><font color='#'>string</font></a> <b>s</b> on the current output (cout()).</p><a name='4611703541555479714'><hr size=0 style='page-break-after: avoid' /></a>
+	</tr></table><h3>princ(<font color='green'>s</font><font color='blue'>:</font>string)<font color='blue'> -&gt; </font>void</h3><p align='justify' class='doc_paragraph'> princ(<b>s</b>) prints the <a href='Strings.html#4611703602811420690'><font color='#'>string</font></a> <b>s</b> on the current output (cout()).</p><a name='4611703602813289634'><hr size=0 style='page-break-after: avoid' /></a>
 	<a name='princ'><hr size=0 /></a>
 	<table width='100%' class='item_header'>
 		<tr>
 			<td width='20%' align='left'><i><a href='claire.index.html#__category_index__'>categories</a></i></td>
-			<td width='20%' align='center'><i><a href='Printing.html#4611703541555063538'>Printing</a></i></td><td width='20%' align='center'><i>normal dispatch</i></td>
+			<td width='20%' align='center'><i><a href='Printing.html#4611703602812873458'>Printing</a></i></td><td width='20%' align='center'><i>normal dispatch</i></td>
 	<td width='20%' align='center'><i></i></td><td width='20%' align='right'><i>Kernel method</i></td>
-	</tr></table><h3>princ(<font color='green'>c</font><font color='blue'>:</font>char)<font color='blue'> -&gt; </font>void</h3><p align='justify' class='doc_paragraph'> princ(<b>c</b>) prints the <a href='Chars.html#4611703541553608882'><font color='#'>char</font></a> <b>c</b> on the current output (cout()).</p><a name='4611703541555626210'><hr size=0 style='page-break-after: avoid' /></a>
+	</tr></table><h3>princ(<font color='green'>c</font><font color='blue'>:</font>char)<font color='blue'> -&gt; </font>void</h3><p align='justify' class='doc_paragraph'> princ(<b>c</b>) prints the <a href='Chars.html#4611703602811418802'><font color='#'>char</font></a> <b>c</b> on the current output (cout()).</p><a name='4611703602813436130'><hr size=0 style='page-break-after: avoid' /></a>
 	<a name='princ'><hr size=0 /></a>
 	<table width='100%' class='item_header'>
 		<tr>
 			<td width='20%' align='left'><i><a href='claire.index.html#__category_index__'>categories</a></i></td>
-			<td width='20%' align='center'><i><a href='Printing.html#4611703541555063538'>Printing</a></i></td><td width='20%' align='center'><i>normal dispatch</i></td>
+			<td width='20%' align='center'><i><a href='Printing.html#4611703602812873458'>Printing</a></i></td><td width='20%' align='center'><i>normal dispatch</i></td>
 	<td width='20%' align='center'><i></i></td><td width='20%' align='right'><i>Kernel method</i></td>
-	</tr></table><h3>princ(<font color='green'>s</font><font color='blue'>:</font>bag)<font color='blue'> -&gt; </font>void</h3><p align='justify' class='doc_paragraph'> prints the content of the <a href='Lists_comma Sets and Tuples.html#4611703541553841378'><font color='#'>bag</font></a> l on the current output (cout()).
- elements are separated by a comma ','.</p><a name='4611703541555490018'><hr size=0 style='page-break-after: avoid' /></a>
+	</tr></table><h3>princ(<font color='green'>s</font><font color='blue'>:</font>bag)<font color='blue'> -&gt; </font>void</h3><p align='justify' class='doc_paragraph'> prints the content of the <a href='Lists_comma Sets and Tuples.html#4611703602811651298'><font color='#'>bag</font></a> l on the current output (cout()).
+ elements are separated by a comma ','.</p><a name='4611703602813299938'><hr size=0 style='page-break-after: avoid' /></a>
 	<a name='princ'><hr size=0 /></a>
 	<table width='100%' class='item_header'>
 		<tr>
 			<td width='20%' align='left'><i><a href='claire.index.html#__category_index__'>categories</a></i></td>
-			<td width='20%' align='center'><i><a href='Printing.html#4611703541555063538'>Printing</a></i></td><td width='20%' align='center'><i>normal dispatch</i></td>
+			<td width='20%' align='center'><i><a href='Printing.html#4611703602812873458'>Printing</a></i></td><td width='20%' align='center'><i>normal dispatch</i></td>
 	<td width='20%' align='center'><i></i></td><td width='20%' align='right'><i><font color='red'>[XL]</font> Kernel method</i></td>
-	</tr></table><h3>princ(<font color='green'>s</font><font color='blue'>:</font>string, <font color='green'>i</font><font color='blue'>:</font>integer, <font color='green'>j</font><font color='blue'>:</font>integer)<font color='blue'> -&gt; </font>void</h3><p align='justify' class='doc_paragraph'> princ(<b>s</b>,<b>i</b>,<b>j</b>) is equivalent to princ(<a href='Communication ports.html#4611703541555977826'><font color='#'>substring</font></a>(<b>s</b>,<b>i</b>,<b>j</b>)) but without
- the allocation of a temporary <a href='Strings.html#4611703541553610770'><font color='#'>string</font></a></p><a name='4611703541555698866'><hr size=0 style='page-break-after: avoid' /></a>
+	</tr></table><h3>princ(<font color='green'>s</font><font color='blue'>:</font>string, <font color='green'>i</font><font color='blue'>:</font>integer, <font color='green'>j</font><font color='blue'>:</font>integer)<font color='blue'> -&gt; </font>void</h3><p align='justify' class='doc_paragraph'> princ(<b>s</b>,<b>i</b>,<b>j</b>) is equivalent to princ(<a href='Communication ports.html#4611703602813787746'><font color='#'>substring</font></a>(<b>s</b>,<b>i</b>,<b>j</b>)) but without
+ the allocation of a temporary <a href='Strings.html#4611703602811420690'><font color='#'>string</font></a></p><a name='4611703602813508786'><hr size=0 style='page-break-after: avoid' /></a>
 	<a name='print'><hr size=0 /></a>
 	<table width='100%' class='item_header'>
 		<tr>
 			<td width='20%' align='left'><i><a href='claire.index.html#__category_index__'>categories</a></i></td>
-			<td width='20%' align='center'><i><a href='Printing.html#4611703541555063538'>Printing</a></i></td><td width='20%' align='center'><i>normal dispatch</i></td>
+			<td width='20%' align='center'><i><a href='Printing.html#4611703602812873458'>Printing</a></i></td><td width='20%' align='center'><i>normal dispatch</i></td>
 	<td width='20%' align='center'><i></i></td><td width='20%' align='right'><i>Kernel method</i></td>
-	</tr></table><h3>print(<font color='green'>x</font><font color='blue'>:</font>any)<font color='blue'> -&gt; </font>void</h3><p align='justify' class='doc_paragraph'> prints the <a href='Objects and Entities.html#4611703541553611170'><font color='#'>entity</font></a> <b>x</b> (<b>x</b> can be anything) on the current output (cout()).</p><a name='4611703541555698578'><hr size=0 style='page-break-after: avoid' /></a>
+	</tr></table><h3>print(<font color='green'>x</font><font color='blue'>:</font>any)<font color='blue'> -&gt; </font>void</h3><p align='justify' class='doc_paragraph'> prints the <a href='Objects and Entities.html#4611703602811421090'><font color='#'>entity</font></a> <b>x</b> (<b>x</b> can be anything) on the current output (cout()).</p><a name='4611703602813508498'><hr size=0 style='page-break-after: avoid' /></a>
 	<a name='print_in_string'><hr size=0 /></a>
 	<table width='100%' class='item_header'>
 		<tr>
 			<td width='20%' align='left'><i><a href='claire.index.html#__category_index__'>categories</a></i></td>
-			<td width='20%' align='center'><i><a href='Printing.html#4611703541555063538'>Printing</a></i></td><td width='20%' align='center'><i>normal dispatch</i></td>
+			<td width='20%' align='center'><i><a href='Printing.html#4611703602812873458'>Printing</a></i></td><td width='20%' align='center'><i>normal dispatch</i></td>
 	<td width='20%' align='center'><i></i></td><td width='20%' align='right'><i>Core method</i></td>
-	</tr></table><h3>print_in_string()<font color='blue'> -&gt; </font>void</h3><p align='justify' class='doc_paragraph'> print_in_string() opens a <a href='Classes.html#4611703541555700274'><font color='#'>new</font></a> output <a href='Communication ports.html#4611703541555012722'><font color='#'>port</font></a> that will be stored as a <a href='Strings.html#4611703541553610770'><font color='#'>string</font></a>.
- The user is given access to the <a href='Strings.html#4611703541553610770'><font color='#'>string</font></a> at the <a href='Modules.html#4611703541555465522'><font color='#'>end</font></a> of the transcription, when the
- <a href='Calls and Slot Access.html#4611703541555624690'><font color='#'>call</font></a> to <a href='Printing.html#4611703541555698818'><font color='#'>end_of_string</font></a>() returns this <a href='Strings.html#4611703541553610770'><font color='#'>string</font></a>. print_in_string may be used recursively.</p><a name='4611703541555462290'><hr size=0 style='page-break-after: avoid' /></a>
+	</tr></table><h3>print_in_string()<font color='blue'> -&gt; </font>void</h3><p align='justify' class='doc_paragraph'> print_in_string() opens a <a href='Classes.html#4611703602813510194'><font color='#'>new</font></a> output <a href='Communication ports.html#4611703602812822642'><font color='#'>port</font></a> that will be stored as a <a href='Strings.html#4611703602811420690'><font color='#'>string</font></a>.
+ The user is given access to the <a href='Strings.html#4611703602811420690'><font color='#'>string</font></a> at the <a href='Modules.html#4611703602813275442'><font color='#'>end</font></a> of the transcription, when the
+ <a href='Calls and Slot Access.html#4611703602813434610'><font color='#'>call</font></a> to <a href='Printing.html#4611703602813508738'><font color='#'>end_of_string</font></a>() returns this <a href='Strings.html#4611703602811420690'><font color='#'>string</font></a>. print_in_string may be used recursively.</p><a name='4611703602813272210'><hr size=0 style='page-break-after: avoid' /></a>
 	<a name='self_print'><hr size=0 /></a>
 	<table width='100%' class='item_header'>
 		<tr>
 			<td width='20%' align='left'><i><a href='claire.index.html#__category_index__'>categories</a></i></td>
-			<td width='20%' align='center'><i><a href='Printing.html#4611703541555063538'>Printing</a></i></td><td width='20%' align='center'><i>normal dispatch</i></td>
+			<td width='20%' align='center'><i><a href='Printing.html#4611703602812873458'>Printing</a></i></td><td width='20%' align='center'><i>normal dispatch</i></td>
 			<td  width='20%'></td><td width='20%' align='right'><i>Kernel interface</i></td>
-	</tr></table><h3>self_print<font color='blue'> :: </font>property(open = 3)</h3><p align='justify' class='doc_paragraph'> self_print <a href='Methods.html#4611703541555481762'><font color='#'>interface</font></a> is used to redefine the way an <a href='Objects and Entities.html#4611703541553611170'><font color='#'>entity</font></a> is printed
- by the standard <a href='Printing.html#4611703541555698866'><font color='#'>print</font></a> <a href='Methods.html#4611703541554221778'><font color='#'>method</font></a>. self_print can be redefined for each <a href='Classes.html#4611703541555700274'><font color='#'>new</font></a>
- created <a href='Classes.html#4611703541553622690'><font color='#'>class</font></a>, for instance&nbsp;:
+	</tr></table><h3>self_print<font color='blue'> :: </font>property(open = 3)</h3><p align='justify' class='doc_paragraph'> self_print <a href='Methods.html#4611703602813291682'><font color='#'>interface</font></a> is used to redefine the way an <a href='Objects and Entities.html#4611703602811421090'><font color='#'>entity</font></a> is printed
+ by the standard <a href='Printing.html#4611703602813508786'><font color='#'>print</font></a> <a href='Methods.html#4611703602812031698'><font color='#'>method</font></a>. self_print can be redefined for each <a href='Classes.html#4611703602813510194'><font color='#'>new</font></a>
+ created <a href='Classes.html#4611703602811432610'><font color='#'>class</font></a>, for instance&nbsp;:
  </p><table class='table_code' align=center border=0 width='85%'>
-										<tr><td class='doc_code'> account &lt;: ephemeral_object(account_id:<a href='Integers and Floats.html#4611703541553607058'><font color='#'>integer</font></a>)
+										<tr><td class='doc_code'> account &lt;: ephemeral_object(account_id:<a href='Integers and Floats.html#4611703602811416978'><font color='#'>integer</font></a>)
 
  self_print(self:account)&nbsp;: void -&gt;
- 	printf("&lt;account with <a href='driving optimizations.html#4611703541555702626'><font color='#'>id</font></a> ~S&gt;", self.account_id)
+ 	printf("&lt;account with <a href='driving optimizations.html#4611703602813512546'><font color='#'>id</font></a> ~S&gt;", self.account_id)
 </td></tr></table>
 							  <p align='justify' class='doc_paragraph'></p></body>
 	</html>

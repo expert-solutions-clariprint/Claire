@@ -76,63 +76,63 @@ a[href] {
 	</head>
 	<body><table width='100%' class='item_header'>
 		<tr>
-			<td width='33%' align='left' valign='bottom'><i><a href='Conditionals.html#4611703541553900258'>Conditionals</a></i></td>
-			<td width='33%' align='center' valign='top'><i><a href='claire.index.html#__category_index__'>categories</a><br/><a href='claire.index.html#4611703541553841394'>Lists, Sets and Instructions</a><br/><b>Loops</b>
+			<td width='33%' align='left' valign='bottom'><i><a href='Conditionals.html#4611703602811710178'>Conditionals</a></i></td>
+			<td width='33%' align='center' valign='top'><i><a href='claire.index.html#__category_index__'>categories</a><br/><a href='claire.index.html#4611703602811651314'>Lists, Sets and Instructions</a><br/><b>Loops</b>
 				</i></td>
-			<td width='33%' align='right' valign='bottom'><i><a href='Instantiation.html#4611703541554143698'>Instantiation</a></i></td>
+			<td width='33%' align='right' valign='bottom'><i><a href='Instantiation.html#4611703602811953618'>Instantiation</a></i></td>
 		</tr>
 	</table>
-	<h2><span class=pretitle>&nbsp;</span>&nbsp;<a name='4611703541554002930'>Loops</a>
+	<h2><span class=pretitle>&nbsp;</span>&nbsp;<a name='4611703602811812850'>Loops</a>
 			</h2>
-	<ul></ul><ul></ul><p align='justify' class='doc_paragraph'> CLAIRE supports two <a href='Types.html#4611703541554225330'><font color='#'>types</font></a> of <a href='Loops.html#4611703541554002930'><font color='#'>loops</font></a>: iteration and conditional <a href='Loops.html#4611703541554002930'><font color='#'>loops</font></a> (while and until).
+	<ul></ul><ul></ul><p align='justify' class='doc_paragraph'> CLAIRE supports two <a href='Types.html#4611703602812035250'><font color='#'>types</font></a> of <a href='Loops.html#4611703602811812850'><font color='#'>loops</font></a>: iteration and conditional <a href='Loops.html#4611703602811812850'><font color='#'>loops</font></a> (while and until).
  Iteration is uniquely performed with the for statement, it can be performed on any collection&nbsp;:
  </p><table class='table_code' align=center border=0 width='85%'>
 										<tr><td class='doc_code'> for x in (1 .. 3) a[x]&nbsp;:= a[x + 3]
- for x in <a href='Lists_comma Sets and Tuples.html#4611703541553841378'><font color='#'>list</font></a>{x in <a href='Classes.html#4611703541553622690'><font color='#'>class</font></a> | size(x.ancestors) &gt;= 4}
+ for x in <a href='Lists_comma Sets and Tuples.html#4611703602811651298'><font color='#'>list</font></a>{x in <a href='Classes.html#4611703602811432610'><font color='#'>class</font></a> | size(x.ancestors) &gt;= 4}
  	printf("~S <n",>x)
 </td></tr></table>
-							  <p align='justify' class='doc_paragraph'> A collection here is taken in a very general sense, i.e., an <a href='Objects and Entities.html#4611703541553611170'><font color='#'>object</font></a> that can be seen as a <a href='Lists_comma Sets and Tuples.html#4611703541553841378'><font color='#'>set</font></a>
- through the enumeration <a href='Methods.html#4611703541554221778'><font color='#'>method</font></a> set!. This includes all CLAIRE <a href='Types.html#4611703541554225330'><font color='#'>types</font></a> but is <a href='Objects and Entities.html#4611703541555698978'><font color='#'>not</font></a> restricted since
- this <a href='Methods.html#4611703541554221778'><font color='#'>method</font></a> can be defined on <a href='Classes.html#4611703541555700274'><font color='#'>new</font></a> user <a href='Classes.html#4611703541553622690'><font color='#'>classes</font></a> that inherit from the collection root. For instance,
- set!(n:<a href='Integers and Floats.html#4611703541553607058'><font color='#'>integer</font></a>) returns the subset of (0 .. 29) that is represented by the <a href='Integers and Floats.html#4611703541553607058'><font color='#'>integer</font></a> n taken as
- a bit-vector. To tell CLAIRE that her <a href='Classes.html#4611703541555700274'><font color='#'>new</font></a> <a href='Classes.html#4611703541553622690'><font color='#'>class</font></a> is a collection, the user must define it as a
+							  <p align='justify' class='doc_paragraph'> A collection here is taken in a very general sense, i.e., an <a href='Objects and Entities.html#4611703602811421090'><font color='#'>object</font></a> that can be seen as a <a href='Lists_comma Sets and Tuples.html#4611703602811651298'><font color='#'>set</font></a>
+ through the enumeration <a href='Methods.html#4611703602812031698'><font color='#'>method</font></a> set!. This includes all CLAIRE <a href='Types.html#4611703602812035250'><font color='#'>types</font></a> but is <a href='Objects and Entities.html#4611703602813508898'><font color='#'>not</font></a> restricted since
+ this <a href='Methods.html#4611703602812031698'><font color='#'>method</font></a> can be defined on <a href='Classes.html#4611703602813510194'><font color='#'>new</font></a> user <a href='Classes.html#4611703602811432610'><font color='#'>classes</font></a> that inherit from the collection root. For instance,
+ set!(n:<a href='Integers and Floats.html#4611703602811416978'><font color='#'>integer</font></a>) returns the subset of (0 .. 29) that is represented by the <a href='Integers and Floats.html#4611703602811416978'><font color='#'>integer</font></a> n taken as
+ a bit-vector. To tell CLAIRE that her <a href='Classes.html#4611703602813510194'><font color='#'>new</font></a> <a href='Classes.html#4611703602811432610'><font color='#'>class</font></a> is a collection, the user must define it as a
  subclass of collection. If x is a collection, then&nbsp;:
  </p><table class='table_code' align=center border=0 width='85%'>
 										<tr><td class='doc_code'> for z in x ...
 
- (z <a href='Types.html#4611703541555504450'><font color='#'>%</font></a> x)
+ (z <a href='Types.html#4611703602813314370'><font color='#'>%</font></a> x)
 </td></tr></table>
-							  <p align='justify' class='doc_paragraph'> are supported. When defining a <a href='Classes.html#4611703541555700274'><font color='#'>new</font></a> subclass of collection, the <a href='Methods.html#4611703541554221778'><font color='#'>methods</font></a> set! and <a href='Types.html#4611703541555504450'><font color='#'>%</font></a> must be
- defined for this <a href='Classes.html#4611703541555700274'><font color='#'>new</font></a> <a href='Classes.html#4611703541553622690'><font color='#'>class</font></a>, and it is also advisable to define size and <a href='Iterations.html#4611703541554694626'><font color='#'>iterate</font></a> to <a href='Classes.html#4611703541555561426'><font color='#'>get</font></a> compiler
- speed-ups (if size is <a href='Objects and Entities.html#4611703541555698978'><font color='#'>not</font></a> defined, an implicit <a href='Calls and Slot Access.html#4611703541555624690'><font color='#'>call</font></a> to set! is made). Other collection handling
- <a href='Methods.html#4611703541554221778'><font color='#'>methods</font></a>, such as <a href='Classes.html#4611703541555561714'><font color='#'>add</font></a>, <a href='Classes.html#4611703541555561922'><font color='#'>delete</font></a>, etc may be defined freely if needed.</p><p align='justify' class='doc_paragraph'> Notice that it is possible that the expression being evaluated inside the loop modifies the
- <a href='Lists_comma Sets and Tuples.html#4611703541553841378'><font color='#'>set</font></a> itself, such as in&nbsp;:
+							  <p align='justify' class='doc_paragraph'> are supported. When defining a <a href='Classes.html#4611703602813510194'><font color='#'>new</font></a> subclass of collection, the <a href='Methods.html#4611703602812031698'><font color='#'>methods</font></a> set! and <a href='Types.html#4611703602813314370'><font color='#'>%</font></a> must be
+ defined for this <a href='Classes.html#4611703602813510194'><font color='#'>new</font></a> <a href='Classes.html#4611703602811432610'><font color='#'>class</font></a>, and it is also advisable to define size and <a href='Iterations.html#4611703602812504546'><font color='#'>iterate</font></a> to <a href='Classes.html#4611703602813371346'><font color='#'>get</font></a> compiler
+ speed-ups (if size is <a href='Objects and Entities.html#4611703602813508898'><font color='#'>not</font></a> defined, an implicit <a href='Calls and Slot Access.html#4611703602813434610'><font color='#'>call</font></a> to set! is made). Other collection handling
+ <a href='Methods.html#4611703602812031698'><font color='#'>methods</font></a>, such as <a href='Classes.html#4611703602813371634'><font color='#'>add</font></a>, <a href='Classes.html#4611703602813371842'><font color='#'>delete</font></a>, etc may be defined freely if needed.</p><p align='justify' class='doc_paragraph'> Notice that it is possible that the expression being evaluated inside the loop modifies the
+ <a href='Lists_comma Sets and Tuples.html#4611703602811651298'><font color='#'>set</font></a> itself, such as in&nbsp;:
  </p><table class='table_code' align=center border=0 width='85%'>
 										<tr><td class='doc_code'> for x in {y in S | P(y)} P(x)&nbsp;:= false
 </td></tr></table>
 							  <p align='justify' class='doc_paragraph'> Because the CLAIRE compiler tries to optimize iteration using lazy evaluation, there is no
  guarantee about the result of the previous statement. In this case, it is necessary to use an
- explicit <a href='Strings.html#4611703541555469218'><font color='#'>copy</font></a> as follows&nbsp;:
+ explicit <a href='Strings.html#4611703602813279138'><font color='#'>copy</font></a> as follows&nbsp;:
  </p><table class='table_code' align=center border=0 width='85%'>
-										<tr><td class='doc_code'> for x in <a href='Strings.html#4611703541555469218'><font color='#'>copy</font></a>({y in S | P(y)}) P(x)&nbsp;:= false
+										<tr><td class='doc_code'> for x in <a href='Strings.html#4611703602813279138'><font color='#'>copy</font></a>({y in S | P(y)}) P(x)&nbsp;:= false
 </td></tr></table>
 							  <p align='justify' class='doc_paragraph'> The iteration control structure plays a major role in CLAIRE. It is possible to optimize its
- behavior by telling CLAIRE how to <a href='Iterations.html#4611703541554694626'><font color='#'>iterate</font></a> a <a href='Classes.html#4611703541555700274'><font color='#'>new</font></a> subclass (C) of collection. This is done through
- adding a <a href='Classes.html#4611703541555700274'><font color='#'>new</font></a> restriction of the <a href='Selectors_comma Properties and Operations.html#4611703541554686610'><font color='#'>property</font></a> <a href='Iterations.html#4611703541554694626'><font color='#'>iterate</font></a> for this <a href='Classes.html#4611703541553622690'><font color='#'>class</font></a> C, which tells how to <a href='Calls and Slot Access.html#4611703541556196130'><font color='#'>apply</font></a> a given
+ behavior by telling CLAIRE how to <a href='Iterations.html#4611703602812504546'><font color='#'>iterate</font></a> a <a href='Classes.html#4611703602813510194'><font color='#'>new</font></a> subclass (C) of collection. This is done through
+ adding a <a href='Classes.html#4611703602813510194'><font color='#'>new</font></a> restriction of the <a href='Selectors_comma Properties and Operations.html#4611703602812496530'><font color='#'>property</font></a> <a href='Iterations.html#4611703602812504546'><font color='#'>iterate</font></a> for this <a href='Classes.html#4611703602811432610'><font color='#'>class</font></a> C, which tells how to <a href='Calls and Slot Access.html#4611703602814005762'><font color='#'>apply</font></a> a given
  expression to all members of an instance of C. This may avoid the explicit construction of the
- equivalent <a href='Lists_comma Sets and Tuples.html#4611703541553841378'><font color='#'>set</font></a> which is performed through the set! <a href='Methods.html#4611703541554221778'><font color='#'>method</font></a>.</p><p align='justify' class='doc_paragraph'> Conditional <a href='Loops.html#4611703541554002930'><font color='#'>loops</font></a> are also standard (the exiting condition is executed before each loop in a while
+ equivalent <a href='Lists_comma Sets and Tuples.html#4611703602811651298'><font color='#'>set</font></a> which is performed through the set! <a href='Methods.html#4611703602812031698'><font color='#'>method</font></a>.</p><p align='justify' class='doc_paragraph'> Conditional <a href='Loops.html#4611703602811812850'><font color='#'>loops</font></a> are also standard (the exiting condition is executed before each loop in a while
  and after each loop in a until),
  </p><table class='table_code' align=center border=0 width='85%'>
 										<tr><td class='doc_code'> while (x &gt; 0) x&nbsp;:+ 1
  until (x = 12) x&nbsp;:+ 1
- while <a href='Objects and Entities.html#4611703541555698978'><font color='#'>not</font></a>(i = size(l))
+ while <a href='Objects and Entities.html#4611703602813508898'><font color='#'>not</font></a>(i = size(l))
  	(l[i]&nbsp;:= 1, i&nbsp;:+ 1)
 </td></tr></table>
-							  <p align='justify' class='doc_paragraph'> The value of a loop is false. However, <a href='Loops.html#4611703541554002930'><font color='#'>loops</font></a> can be exited with the break(x) instruction, in which
+							  <p align='justify' class='doc_paragraph'> The value of a loop is false. However, <a href='Loops.html#4611703602811812850'><font color='#'>loops</font></a> can be exited with the break(x) instruction, in which
  case the return value is the value of x&nbsp;:
  </p><table class='table_code' align=center border=0 width='85%'>
-										<tr><td class='doc_code'> for x in <a href='Classes.html#4611703541553622690'><font color='#'>class</font></a> (if (x <a href='Types.html#4611703541555504450'><font color='#'>%</font></a> subtype[<a href='Integers and Floats.html#4611703541553607058'><font color='#'>integer</font></a>]) break(x))
+										<tr><td class='doc_code'> for x in <a href='Classes.html#4611703602811432610'><font color='#'>class</font></a> (if (x <a href='Types.html#4611703602813314370'><font color='#'>%</font></a> subtype[<a href='Integers and Floats.html#4611703602811416978'><font color='#'>integer</font></a>]) break(x))
 </td></tr></table>
-							  <p align='justify' class='doc_paragraph'> There is one restriction with the use of break: it cannot be used to <a href='Strings.html#4611703541555471762'><font color='#'>escape</font></a> from a try ... catch
- <a href='Blocks.html#4611703541553845154'><font color='#'>block</font></a>. This situation will provoke an <a href='Exception Handling.html#4611703541554155506'><font color='#'>error</font></a> at compile-time.</p></body>
+							  <p align='justify' class='doc_paragraph'> There is one restriction with the use of break: it cannot be used to <a href='Strings.html#4611703602813281682'><font color='#'>escape</font></a> from a try ... catch
+ <a href='Blocks.html#4611703602811655074'><font color='#'>block</font></a>. This situation will provoke an <a href='Exception Handling.html#4611703602811965426'><font color='#'>error</font></a> at compile-time.</p></body>
 	</html>

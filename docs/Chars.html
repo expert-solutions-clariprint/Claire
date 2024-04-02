@@ -76,80 +76,80 @@ a[href] {
 	</head>
 	<body><table width='100%' class='item_header'>
 		<tr>
-			<td width='33%' align='left' valign='bottom'><i><a href='Dates and Times.html#4611703541553608578'>Dates and Times</a></i></td>
-			<td width='33%' align='center' valign='top'><i><a href='claire.index.html#__category_index__'>categories</a><br/><a href='claire.index.html#4611703541553607082'>Primitives</a><br/><b>Chars</b>
+			<td width='33%' align='left' valign='bottom'><i><a href='Dates and Times.html#4611703602811418498'>Dates and Times</a></i></td>
+			<td width='33%' align='center' valign='top'><i><a href='claire.index.html#__category_index__'>categories</a><br/><a href='claire.index.html#4611703602811417002'>Primitives</a><br/><b>Chars</b>
 				</i></td>
-			<td width='33%' align='right' valign='bottom'><i><a href='Strings.html#4611703541553610770'>Strings</a></i></td>
+			<td width='33%' align='right' valign='bottom'><i><a href='Strings.html#4611703602811420690'>Strings</a></i></td>
 		</tr>
 	</table>
-	<h2><span class=pretitle>&nbsp;</span>&nbsp;<a name='4611703541553608882'>Chars</a>
+	<h2><span class=pretitle>&nbsp;</span>&nbsp;<a name='4611703602811418802'>Chars</a>
 			</h2>
-	<ul></ul><ul><li><font font-face='Courier' class='item_index'><a href='Chars.html#4611703541555506018'>&lt;</a>(<font color='green'>x</font><font color='blue'>:</font>char, <font color='green'>y</font><font color='blue'>:</font>char)<font color='blue'> -&gt; </font>boolean</font></li><li><font font-face='Courier' class='item_index'><a href='Chars.html#4611703541555706258'>&lt;=</a>(<font color='green'>c1</font><font color='blue'>:</font>char, <font color='green'>c2</font><font color='blue'>:</font>char)<font color='blue'> -&gt; </font>boolean</font></li><li><font font-face='Courier' class='item_index'><a href='Chars.html#4611703541555505954'>&gt;</a>(<font color='green'>x</font><font color='blue'>:</font>char, <font color='green'>y</font><font color='blue'>:</font>char)<font color='blue'> -&gt; </font>boolean</font></li><li><font font-face='Courier' class='item_index'><a href='Chars.html#4611703541555506066'>&gt;=</a>(<font color='green'>x</font><font color='blue'>:</font>char, <font color='green'>y</font><font color='blue'>:</font>char)<font color='blue'> -&gt; </font>boolean</font></li><li><font font-face='Courier' class='item_index'><a href='Chars.html#4611703541555465154'>alpha?</a>(<font color='green'>c</font><font color='blue'>:</font>char)<font color='blue'> -&gt; </font>boolean <font color='red'>[XL]</font></font></li><li><font font-face='Courier' class='item_index'><a href='Chars.html#4611703541555470498'>digit?</a>(<font color='green'>c</font><font color='blue'>:</font>char)<font color='blue'> -&gt; </font>boolean <font color='red'>[XL]</font></font></li><li><font font-face='Courier' class='item_index'><a href='Chars.html#4611703541555481474'>integer!</a>(<font color='green'>c</font><font color='blue'>:</font>char)<font color='blue'> -&gt; </font>integer</font></li><li><font font-face='Courier' class='item_index'><a href='Chars.html#4611703541555484066'>lower?</a>(<font color='green'>c</font><font color='blue'>:</font>char)<font color='blue'> -&gt; </font>boolean <font color='red'>[XL]</font></font></li><li><font font-face='Courier' class='item_index'><a href='Chars.html#4611703541555496946'>space?</a>(<font color='green'>c</font><font color='blue'>:</font>char)<font color='blue'> -&gt; </font>boolean <font color='red'>[XL]</font></font></li><li><font font-face='Courier' class='item_index'><a href='Chars.html#4611703541555704674'>string!</a>(<font color='green'>self</font><font color='blue'>:</font>char)<font color='blue'> -&gt; </font>string <font color='red'>[XL]</font></font></li></ul><p align='justify' class='doc_paragraph'> In CLAIRE chars are true <a href='Objects and Entities.html#4611703541553611170'><font color='#'>object</font></a> (i.e. <a href='Objects and Entities.html#4611703541555698978'><font color='#'>not</font></a> primitive) that hold an 8 bit value, one can
- obtain this value with <a href='Integers and Floats.html#4611703541555622994'><font color='#'>integer!</font></a>(c:char) and make a char from an <a href='Integers and Floats.html#4611703541553607058'><font color='#'>integer</font></a> i with <a href='Integers and Floats.html#4611703541555468114'><font color='#'>char!</font></a>(i:<a href='Integers and Floats.html#4611703541553607058'><font color='#'>integer</font></a>).</p><p align='justify' class='doc_paragraph'> <font color='red'>[XL]</font> Starting with XL CLAIRE the internal 8 bit value is stored as an unsigned char (vs. signed char
- in CLAIRE 3) such the composition <a href='Integers and Floats.html#4611703541555468114'><font color='#'>char!</font></a>(<a href='Integers and Floats.html#4611703541555622994'><font color='#'>integer!</font></a>()) is actually the identity for all possible
- existing char in the system. If their is no char that hold a given value n then <a href='Integers and Floats.html#4611703541555468114'><font color='#'>char!</font></a>(n)
- will produce an <a href='Exception Handling.html#4611703541554155506'><font color='#'>error</font></a>.</p><a name='4611703541555506018'><hr size=0 style='page-break-after: avoid' /></a>
+	<ul></ul><ul><li><font font-face='Courier' class='item_index'><a href='Chars.html#4611703602813315938'>&lt;</a>(<font color='green'>x</font><font color='blue'>:</font>char, <font color='green'>y</font><font color='blue'>:</font>char)<font color='blue'> -&gt; </font>boolean</font></li><li><font font-face='Courier' class='item_index'><a href='Chars.html#4611703602813516178'>&lt;=</a>(<font color='green'>c1</font><font color='blue'>:</font>char, <font color='green'>c2</font><font color='blue'>:</font>char)<font color='blue'> -&gt; </font>boolean</font></li><li><font font-face='Courier' class='item_index'><a href='Chars.html#4611703602813315874'>&gt;</a>(<font color='green'>x</font><font color='blue'>:</font>char, <font color='green'>y</font><font color='blue'>:</font>char)<font color='blue'> -&gt; </font>boolean</font></li><li><font font-face='Courier' class='item_index'><a href='Chars.html#4611703602813315986'>&gt;=</a>(<font color='green'>x</font><font color='blue'>:</font>char, <font color='green'>y</font><font color='blue'>:</font>char)<font color='blue'> -&gt; </font>boolean</font></li><li><font font-face='Courier' class='item_index'><a href='Chars.html#4611703602813275074'>alpha?</a>(<font color='green'>c</font><font color='blue'>:</font>char)<font color='blue'> -&gt; </font>boolean <font color='red'>[XL]</font></font></li><li><font font-face='Courier' class='item_index'><a href='Chars.html#4611703602813280418'>digit?</a>(<font color='green'>c</font><font color='blue'>:</font>char)<font color='blue'> -&gt; </font>boolean <font color='red'>[XL]</font></font></li><li><font font-face='Courier' class='item_index'><a href='Chars.html#4611703602813291394'>integer!</a>(<font color='green'>c</font><font color='blue'>:</font>char)<font color='blue'> -&gt; </font>integer</font></li><li><font font-face='Courier' class='item_index'><a href='Chars.html#4611703602813293986'>lower?</a>(<font color='green'>c</font><font color='blue'>:</font>char)<font color='blue'> -&gt; </font>boolean <font color='red'>[XL]</font></font></li><li><font font-face='Courier' class='item_index'><a href='Chars.html#4611703602813306866'>space?</a>(<font color='green'>c</font><font color='blue'>:</font>char)<font color='blue'> -&gt; </font>boolean <font color='red'>[XL]</font></font></li><li><font font-face='Courier' class='item_index'><a href='Chars.html#4611703602813514594'>string!</a>(<font color='green'>self</font><font color='blue'>:</font>char)<font color='blue'> -&gt; </font>string <font color='red'>[XL]</font></font></li></ul><p align='justify' class='doc_paragraph'> In CLAIRE chars are true <a href='Objects and Entities.html#4611703602811421090'><font color='#'>object</font></a> (i.e. <a href='Objects and Entities.html#4611703602813508898'><font color='#'>not</font></a> primitive) that hold an 8 bit value, one can
+ obtain this value with <a href='Integers and Floats.html#4611703602813432914'><font color='#'>integer!</font></a>(c:char) and make a char from an <a href='Integers and Floats.html#4611703602811416978'><font color='#'>integer</font></a> i with <a href='Integers and Floats.html#4611703602813278034'><font color='#'>char!</font></a>(i:<a href='Integers and Floats.html#4611703602811416978'><font color='#'>integer</font></a>).</p><p align='justify' class='doc_paragraph'> <font color='red'>[XL]</font> Starting with XL CLAIRE the internal 8 bit value is stored as an unsigned char (vs. signed char
+ in CLAIRE 3) such the composition <a href='Integers and Floats.html#4611703602813278034'><font color='#'>char!</font></a>(<a href='Integers and Floats.html#4611703602813432914'><font color='#'>integer!</font></a>()) is actually the identity for all possible
+ existing char in the system. If their is no char that hold a given value n then <a href='Integers and Floats.html#4611703602813278034'><font color='#'>char!</font></a>(n)
+ will produce an <a href='Exception Handling.html#4611703602811965426'><font color='#'>error</font></a>.</p><a name='4611703602813315938'><hr size=0 style='page-break-after: avoid' /></a>
 	<a name='<'><hr size=0 /></a>
 	<table width='100%' class='item_header'>
 		<tr>
 			<td width='20%' align='left'><i><a href='claire.index.html#__category_index__'>categories</a></i></td>
-			<td width='20%' align='center'><i><a href='Chars.html#4611703541553608882'>Chars</a></i></td><td width='20%' align='center'><i>normal dispatch</i></td>
+			<td width='20%' align='center'><i><a href='Chars.html#4611703602811418802'>Chars</a></i></td><td width='20%' align='center'><i>normal dispatch</i></td>
 	<td width='20%' align='center'><i>operation</i></td><td width='20%' align='right'><i>Kernel method</i></td>
-	</tr></table><h3>&lt;(<font color='green'>x</font><font color='blue'>:</font>char, <font color='green'>y</font><font color='blue'>:</font>char)<font color='blue'> -&gt; </font>boolean</h3><p align='justify' class='doc_paragraph'> returns true if ASCII code of <b>x</b> is <a href='Strings.html#4611703541555484178'><font color='#'>lower</font></a> than ASCII code of <b>y</b></p><a name='4611703541555706258'><hr size=0 style='page-break-after: avoid' /></a>
+	</tr></table><h3>&lt;(<font color='green'>x</font><font color='blue'>:</font>char, <font color='green'>y</font><font color='blue'>:</font>char)<font color='blue'> -&gt; </font>boolean</h3><p align='justify' class='doc_paragraph'> returns true if ASCII code of <b>x</b> is <a href='Strings.html#4611703602813294098'><font color='#'>lower</font></a> than ASCII code of <b>y</b></p><a name='4611703602813516178'><hr size=0 style='page-break-after: avoid' /></a>
 	<a name='<='><hr size=0 /></a>
 	<table width='100%' class='item_header'>
 		<tr>
 			<td width='20%' align='left'><i><a href='claire.index.html#__category_index__'>categories</a></i></td>
-			<td width='20%' align='center'><i><a href='Chars.html#4611703541553608882'>Chars</a></i></td><td width='20%' align='center'><i>normal dispatch</i></td>
+			<td width='20%' align='center'><i><a href='Chars.html#4611703602811418802'>Chars</a></i></td><td width='20%' align='center'><i>normal dispatch</i></td>
 	<td width='20%' align='center'><i>operation</i></td><td width='20%' align='right'><i>Kernel method</i></td>
-	</tr></table><h3>&lt;=(<font color='green'>c1</font><font color='blue'>:</font>char, <font color='green'>c2</font><font color='blue'>:</font>char)<font color='blue'> -&gt; </font>boolean</h3><p align='justify' class='doc_paragraph'> returns true if ASCII code of x is <a href='Strings.html#4611703541555484178'><font color='#'>lower</font></a> or equal to ASCII code of y</p><a name='4611703541555505954'><hr size=0 style='page-break-after: avoid' /></a>
+	</tr></table><h3>&lt;=(<font color='green'>c1</font><font color='blue'>:</font>char, <font color='green'>c2</font><font color='blue'>:</font>char)<font color='blue'> -&gt; </font>boolean</h3><p align='justify' class='doc_paragraph'> returns true if ASCII code of x is <a href='Strings.html#4611703602813294098'><font color='#'>lower</font></a> or equal to ASCII code of y</p><a name='4611703602813315874'><hr size=0 style='page-break-after: avoid' /></a>
 	<a name='>'><hr size=0 /></a>
 	<table width='100%' class='item_header'>
 		<tr>
 			<td width='20%' align='left'><i><a href='claire.index.html#__category_index__'>categories</a></i></td>
-			<td width='20%' align='center'><i><a href='Chars.html#4611703541553608882'>Chars</a></i></td><td width='20%' align='center'><i>normal dispatch</i></td>
+			<td width='20%' align='center'><i><a href='Chars.html#4611703602811418802'>Chars</a></i></td><td width='20%' align='center'><i>normal dispatch</i></td>
 	<td width='20%' align='center'><i>operation</i></td><td width='20%' align='right'><i>Kernel method</i></td>
-	</tr></table><h3>&gt;(<font color='green'>x</font><font color='blue'>:</font>char, <font color='green'>y</font><font color='blue'>:</font>char)<font color='blue'> -&gt; </font>boolean</h3><p align='justify' class='doc_paragraph'> returns true if ASCII code of <b>x</b> is greater than ASCII code of <b>y</b></p><a name='4611703541555506066'><hr size=0 style='page-break-after: avoid' /></a>
+	</tr></table><h3>&gt;(<font color='green'>x</font><font color='blue'>:</font>char, <font color='green'>y</font><font color='blue'>:</font>char)<font color='blue'> -&gt; </font>boolean</h3><p align='justify' class='doc_paragraph'> returns true if ASCII code of <b>x</b> is greater than ASCII code of <b>y</b></p><a name='4611703602813315986'><hr size=0 style='page-break-after: avoid' /></a>
 	<a name='>='><hr size=0 /></a>
 	<table width='100%' class='item_header'>
 		<tr>
 			<td width='20%' align='left'><i><a href='claire.index.html#__category_index__'>categories</a></i></td>
-			<td width='20%' align='center'><i><a href='Chars.html#4611703541553608882'>Chars</a></i></td><td width='20%' align='center'><i>normal dispatch</i></td>
+			<td width='20%' align='center'><i><a href='Chars.html#4611703602811418802'>Chars</a></i></td><td width='20%' align='center'><i>normal dispatch</i></td>
 	<td width='20%' align='center'><i>operation</i></td><td width='20%' align='right'><i>Kernel method</i></td>
-	</tr></table><h3>&gt;=(<font color='green'>x</font><font color='blue'>:</font>char, <font color='green'>y</font><font color='blue'>:</font>char)<font color='blue'> -&gt; </font>boolean</h3><p align='justify' class='doc_paragraph'> returns true if ASCII code of <b>x</b> is greater or equal to ASCII code of <b>y</b></p><a name='4611703541555465154'><hr size=0 style='page-break-after: avoid' /></a>
+	</tr></table><h3>&gt;=(<font color='green'>x</font><font color='blue'>:</font>char, <font color='green'>y</font><font color='blue'>:</font>char)<font color='blue'> -&gt; </font>boolean</h3><p align='justify' class='doc_paragraph'> returns true if ASCII code of <b>x</b> is greater or equal to ASCII code of <b>y</b></p><a name='4611703602813275074'><hr size=0 style='page-break-after: avoid' /></a>
 	<a name='alpha?'><hr size=0 /></a>
 	<table width='100%' class='item_header'>
 		<tr>
 			<td width='20%' align='left'><i><a href='claire.index.html#__category_index__'>categories</a></i></td>
-			<td width='20%' align='center'><i><a href='Chars.html#4611703541553608882'>Chars</a></i></td><td width='20%' align='center'><i>normal dispatch</i></td>
+			<td width='20%' align='center'><i><a href='Chars.html#4611703602811418802'>Chars</a></i></td><td width='20%' align='center'><i>normal dispatch</i></td>
 	<td width='20%' align='center'><i></i></td><td width='20%' align='right'><i><font color='red'>[XL]</font> Kernel method</i></td>
-	</tr></table><h3>alpha?(<font color='green'>c</font><font color='blue'>:</font>char)<font color='blue'> -&gt; </font>boolean</h3><p align='justify' class='doc_paragraph'> alpha?(<b>c</b>) returns true when the <a href='Chars.html#4611703541553608882'><font color='#'>char</font></a> <b>c</b> is in the range ('a' .. 'z', 'A' .. 'Z').</p><a name='4611703541555470498'><hr size=0 style='page-break-after: avoid' /></a>
+	</tr></table><h3>alpha?(<font color='green'>c</font><font color='blue'>:</font>char)<font color='blue'> -&gt; </font>boolean</h3><p align='justify' class='doc_paragraph'> alpha?(<b>c</b>) returns true when the <a href='Chars.html#4611703602811418802'><font color='#'>char</font></a> <b>c</b> is in the range ('a' .. 'z', 'A' .. 'Z').</p><a name='4611703602813280418'><hr size=0 style='page-break-after: avoid' /></a>
 	<a name='digit?'><hr size=0 /></a>
 	<table width='100%' class='item_header'>
 		<tr>
 			<td width='20%' align='left'><i><a href='claire.index.html#__category_index__'>categories</a></i></td>
-			<td width='20%' align='center'><i><a href='Chars.html#4611703541553608882'>Chars</a></i></td><td width='20%' align='center'><i>normal dispatch</i></td>
+			<td width='20%' align='center'><i><a href='Chars.html#4611703602811418802'>Chars</a></i></td><td width='20%' align='center'><i>normal dispatch</i></td>
 	<td width='20%' align='center'><i></i></td><td width='20%' align='right'><i><font color='red'>[XL]</font> Kernel method</i></td>
-	</tr></table><h3>digit?(<font color='green'>c</font><font color='blue'>:</font>char)<font color='blue'> -&gt; </font>boolean</h3><p align='justify' class='doc_paragraph'> digit?(<b>c</b>) returns true if <b>c</b> is in the interval ('0' .. '9').</p><a name='4611703541555481474'><hr size=0 style='page-break-after: avoid' /></a>
+	</tr></table><h3>digit?(<font color='green'>c</font><font color='blue'>:</font>char)<font color='blue'> -&gt; </font>boolean</h3><p align='justify' class='doc_paragraph'> digit?(<b>c</b>) returns true if <b>c</b> is in the interval ('0' .. '9').</p><a name='4611703602813291394'><hr size=0 style='page-break-after: avoid' /></a>
 	<a name='integer!'><hr size=0 /></a>
 	<table width='100%' class='item_header'>
 		<tr>
 			<td width='20%' align='left'><i><a href='claire.index.html#__category_index__'>categories</a></i></td>
-			<td width='20%' align='center'><i><a href='Chars.html#4611703541553608882'>Chars</a></i></td><td width='20%' align='center'><i>normal dispatch</i></td>
+			<td width='20%' align='center'><i><a href='Chars.html#4611703602811418802'>Chars</a></i></td><td width='20%' align='center'><i>normal dispatch</i></td>
 	<td width='20%' align='center'><i></i></td><td width='20%' align='right'><i>Kernel method</i></td>
-	</tr></table><h3>integer!(<font color='green'>c</font><font color='blue'>:</font>char)<font color='blue'> -&gt; </font>integer</h3><p align='justify' class='doc_paragraph'> integer!(<b>c</b>) returns the ASCII code of <b>c</b></p><a name='4611703541555484066'><hr size=0 style='page-break-after: avoid' /></a>
+	</tr></table><h3>integer!(<font color='green'>c</font><font color='blue'>:</font>char)<font color='blue'> -&gt; </font>integer</h3><p align='justify' class='doc_paragraph'> integer!(<b>c</b>) returns the ASCII code of <b>c</b></p><a name='4611703602813293986'><hr size=0 style='page-break-after: avoid' /></a>
 	<a name='lower?'><hr size=0 /></a>
 	<table width='100%' class='item_header'>
 		<tr>
 			<td width='20%' align='left'><i><a href='claire.index.html#__category_index__'>categories</a></i></td>
-			<td width='20%' align='center'><i><a href='Chars.html#4611703541553608882'>Chars</a></i></td><td width='20%' align='center'><i>normal dispatch</i></td>
+			<td width='20%' align='center'><i><a href='Chars.html#4611703602811418802'>Chars</a></i></td><td width='20%' align='center'><i>normal dispatch</i></td>
 	<td width='20%' align='center'><i></i></td><td width='20%' align='right'><i><font color='red'>[XL]</font> Kernel method</i></td>
-	</tr></table><h3>lower?(<font color='green'>c</font><font color='blue'>:</font>char)<font color='blue'> -&gt; </font>boolean</h3><p align='justify' class='doc_paragraph'> lower?(<b>c</b>) returns true if <b>c</b> is <a href='Objects and Entities.html#4611703541555698978'><font color='#'>not</font></a> in ('A' .. 'Z').</p><a name='4611703541555496946'><hr size=0 style='page-break-after: avoid' /></a>
+	</tr></table><h3>lower?(<font color='green'>c</font><font color='blue'>:</font>char)<font color='blue'> -&gt; </font>boolean</h3><p align='justify' class='doc_paragraph'> lower?(<b>c</b>) returns true if <b>c</b> is <a href='Objects and Entities.html#4611703602813508898'><font color='#'>not</font></a> in ('A' .. 'Z').</p><a name='4611703602813306866'><hr size=0 style='page-break-after: avoid' /></a>
 	<a name='space?'><hr size=0 /></a>
 	<table width='100%' class='item_header'>
 		<tr>
 			<td width='20%' align='left'><i><a href='claire.index.html#__category_index__'>categories</a></i></td>
-			<td width='20%' align='center'><i><a href='Chars.html#4611703541553608882'>Chars</a></i></td><td width='20%' align='center'><i>normal dispatch</i></td>
+			<td width='20%' align='center'><i><a href='Chars.html#4611703602811418802'>Chars</a></i></td><td width='20%' align='center'><i>normal dispatch</i></td>
 	<td width='20%' align='center'><i></i></td><td width='20%' align='right'><i><font color='red'>[XL]</font> Kernel method</i></td>
 	</tr></table><h3>space?(<font color='green'>c</font><font color='blue'>:</font>char)<font color='blue'> -&gt; </font>boolean</h3><p align='justify' class='doc_paragraph'> space?(<b>c</b>) returns true if <b>c</b> is in {' ', '\t', '\r', '\n'}.
  </p><table class='table_code' align=center border=0 width='85%'>
@@ -157,14 +157,14 @@ a[href] {
  space?('<n')>-&gt; true
  space?('t') -&gt; false
 </td></tr></table>
-							  <p align='justify' class='doc_paragraph'></p><a name='4611703541555704674'><hr size=0 style='page-break-after: avoid' /></a>
+							  <p align='justify' class='doc_paragraph'></p><a name='4611703602813514594'><hr size=0 style='page-break-after: avoid' /></a>
 	<a name='string!'><hr size=0 /></a>
 	<table width='100%' class='item_header'>
 		<tr>
 			<td width='20%' align='left'><i><a href='claire.index.html#__category_index__'>categories</a></i></td>
-			<td width='20%' align='center'><i><a href='Chars.html#4611703541553608882'>Chars</a></i></td><td width='20%' align='center'><i>normal dispatch</i></td>
+			<td width='20%' align='center'><i><a href='Chars.html#4611703602811418802'>Chars</a></i></td><td width='20%' align='center'><i>normal dispatch</i></td>
 	<td width='20%' align='center'><i></i></td><td width='20%' align='right'><i><font color='red'>[XL]</font> Kernel method</i></td>
-	</tr></table><h3>string!(<font color='green'>self</font><font color='blue'>:</font>char)<font color='blue'> -&gt; </font>string</h3><p align='justify' class='doc_paragraph'> make a <a href='Classes.html#4611703541555700274'><font color='#'>new</font></a> <a href='Strings.html#4611703541553610770'><font color='#'>string</font></a> from a a <a href='Chars.html#4611703541553608882'><font color='#'>char</font></a> <b>self</b>. The returned <a href='Strings.html#4611703541553610770'><font color='#'>string</font></a> always has
- of <a href='Communication ports.html#4611703541555977634'><font color='#'>length</font></a> of 1. One could use <a href='Symbols.html#4611703541555701298'><font color='#'>make_string</font></a> to create a <a href='Strings.html#4611703541553610770'><font color='#'>string</font></a> of a given
- <a href='Communication ports.html#4611703541555977634'><font color='#'>length</font></a> filled with a given <a href='Chars.html#4611703541553608882'><font color='#'>char</font></a>.</p></body>
+	</tr></table><h3>string!(<font color='green'>self</font><font color='blue'>:</font>char)<font color='blue'> -&gt; </font>string</h3><p align='justify' class='doc_paragraph'> make a <a href='Classes.html#4611703602813510194'><font color='#'>new</font></a> <a href='Strings.html#4611703602811420690'><font color='#'>string</font></a> from a a <a href='Chars.html#4611703602811418802'><font color='#'>char</font></a> <b>self</b>. The returned <a href='Strings.html#4611703602811420690'><font color='#'>string</font></a> always has
+ of <a href='Communication ports.html#4611703602813787554'><font color='#'>length</font></a> of 1. One could use <a href='Symbols.html#4611703602813511218'><font color='#'>make_string</font></a> to create a <a href='Strings.html#4611703602811420690'><font color='#'>string</font></a> of a given
+ <a href='Communication ports.html#4611703602813787554'><font color='#'>length</font></a> filled with a given <a href='Chars.html#4611703602811418802'><font color='#'>char</font></a>.</p></body>
 	</html>

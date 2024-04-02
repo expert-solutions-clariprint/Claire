@@ -76,29 +76,29 @@ a[href] {
 	</head>
 	<body><table width='100%' class='item_header'>
 		<tr>
-			<td width='33%' align='left' valign='bottom'><i><a href='Calls and Slot Access.html#4611703541553806482'>Calls and Slot Access</a></i></td>
-			<td width='33%' align='center' valign='top'><i><a href='claire.index.html#__category_index__'>categories</a><br/><a href='claire.index.html#4611703541553611194'>Objects, Classes and Slots</a><br/><b>Updates</b>
+			<td width='33%' align='left' valign='bottom'><i><a href='Calls and Slot Access.html#4611703602811616402'>Calls and Slot Access</a></i></td>
+			<td width='33%' align='center' valign='top'><i><a href='claire.index.html#__category_index__'>categories</a><br/><a href='claire.index.html#4611703602811421114'>Objects, Classes and Slots</a><br/><b>Updates</b>
 				</i></td>
-			<td width='33%' align='right' valign='bottom'><i>Lists, Sets and Instructions<br/><a href='Lists_comma Sets and Tuples.html#4611703541553841378'>Lists, Sets and Tuples</a></i></td>
+			<td width='33%' align='right' valign='bottom'><i>Lists, Sets and Instructions<br/><a href='Lists_comma Sets and Tuples.html#4611703602811651298'>Lists, Sets and Tuples</a></i></td>
 		</tr>
 	</table>
-	<h2><span class=pretitle>&nbsp;</span>&nbsp;<a name='4611703541553810866'>Updates</a>
+	<h2><span class=pretitle>&nbsp;</span>&nbsp;<a name='4611703602811620786'>Updates</a>
 			</h2>
 	<ul></ul><ul></ul><p align='justify' class='doc_paragraph'> Assigning a value to a variable is always done with the operator&nbsp;:=. This applies to local
- variables but also to the <a href='Calls and Slot Access.html#4611703541553806482'><font color='#'>slots</font></a> of an <a href='Objects and Entities.html#4611703541553611170'><font color='#'>object</font></a>. The value returned by the assignment is always
+ variables but also to the <a href='Calls and Slot Access.html#4611703602811616402'><font color='#'>slots</font></a> of an <a href='Objects and Entities.html#4611703602811421090'><font color='#'>object</font></a>. The value returned by the assignment is always
  the value that was assigned&nbsp;:
  </p><table class='table_code' align=center border=0 width='85%'>
 										<tr><td class='doc_code'> x.age&nbsp;:= 10, John.father&nbsp;:= mary
 </td></tr></table>
 							  <p align='justify' class='doc_paragraph'> When the assignment depends on the former value of the variable, an implicit syntax ":op"
- can be used to combine the previous value with a <a href='Classes.html#4611703541555700274'><font color='#'>new</font></a> one using the <a href='Selectors_comma Properties and Operations.html#4611703541554686610'><font color='#'>operation</font></a> op. This can be
- done with any (built-in or user-defined) <a href='Selectors_comma Properties and Operations.html#4611703541554686610'><font color='#'>operation</font></a> (an <a href='Selectors_comma Properties and Operations.html#4611703541554686610'><font color='#'>operation</font></a> is a function with arity 2
- that has been explicitly declared as an <a href='Selectors_comma Properties and Operations.html#4611703541554686610'><font color='#'>operation</font></a>)&nbsp;:
+ can be used to combine the previous value with a <a href='Classes.html#4611703602813510194'><font color='#'>new</font></a> one using the <a href='Selectors_comma Properties and Operations.html#4611703602812496530'><font color='#'>operation</font></a> op. This can be
+ done with any (built-in or user-defined) <a href='Selectors_comma Properties and Operations.html#4611703602812496530'><font color='#'>operation</font></a> (an <a href='Selectors_comma Properties and Operations.html#4611703602812496530'><font color='#'>operation</font></a> is a function with arity 2
+ that has been explicitly declared as an <a href='Selectors_comma Properties and Operations.html#4611703602812496530'><font color='#'>operation</font></a>)&nbsp;:
  </p><table class='table_code' align=center border=0 width='85%'>
-										<tr><td class='doc_code'> x.age&nbsp;:+ 1, John.friends&nbsp;:<a href='Classes.html#4611703541555561714'><font color='#'>add</font></a> mary, x.price&nbsp;:<a href='Lists_comma Sets and Tuples.html#4611703541555705026'><font color='#'>min</font></a> 100
+										<tr><td class='doc_code'> x.age&nbsp;:+ 1, John.friends&nbsp;:<a href='Classes.html#4611703602813371634'><font color='#'>add</font></a> mary, x.price&nbsp;:<a href='Lists_comma Sets and Tuples.html#4611703602813514946'><font color='#'>min</font></a> 100
 </td></tr></table>
 							  <p align='justify' class='doc_paragraph'> Note that the use of&nbsp;:op is pure syntactical sugar: x.A&nbsp;:op y is equivalent to x.A&nbsp;:= (x.A op y).
- The receiving expression should <a href='Objects and Entities.html#4611703541555698978'><font color='#'>not</font></a>, therefore, contain side-effects as in the dangerous following
+ The receiving expression should <a href='Objects and Entities.html#4611703602813508898'><font color='#'>not</font></a>, therefore, contain side-effects as in the dangerous following
  example&nbsp;:
  </p><table class='table_code' align=center border=0 width='85%'>
 										<tr><td class='doc_code'> A(x&nbsp;:+ 1)&nbsp;:+ 1
