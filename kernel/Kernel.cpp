@@ -1944,7 +1944,6 @@ CL_INT ClaireAllocation::newChunk(CL_INT n)
        if ((i > logList) || (i < logList - 1 && j > logList))  // new anti-fragmentation device
            if (gcChunk(n, size, &value, &i))
 	   {
-		   printf("???????????????\n");
 			 return value;}
        value = entryList[i];
 	   CL_UNSIGNED _idx = (&(ADRTOPOIN(value)[FOLLOW])) - Cmemory;
@@ -2279,6 +2278,16 @@ void ClaireAllocation::markFreeableContainer() {
  list *l = Kernel._freeable_object->instances;
  MARKCELL(_oid_(l)); // mark the list
  (*l)[0] = -((*l)[0]); // and its content
+
+ // <xp> mark all freeable to be freed.
+ CL_INT i, len = l->length;
+ for (i = 1;i <= len;i++)
+ {
+    OID n = (*l)[i];
+    FreeableObject *x = OBJECT(FreeableObject,n);
+    mark(n); // mark() the object to be sure to keep associated data
+    if (SIZE(n) < 0) MARKCELL(n); // unmark, let markStack do for real
+  }
 }
 
 //<sb> here we check whether a freeable object has been marked or not
@@ -2298,12 +2307,10 @@ void ClaireAllocation::updateFreeme() {
       printf("updateFreeme of probe %d [%s]\n", SIZE(n), x->isa->name->name);
 #endif
     }
-    x->freeme_ask = (SIZE(n) > 0 ? CTRUE : CFALSE);}
- //<sb> now that we have updated the freeme? slot
- // we ensure that object that are to be freed are marked 
- for (i = 1;i <= len;i++)
-    {OID n = (*l)[i];
-    if(SIZE(n) > 0) MARK(n);}}
+    x->freeme_ask = (SIZE(n) > 0 ? CTRUE : CFALSE);
+    if(SIZE(n) > 0) MARKCELL(n);
+  }
+}
 
 //<sb> we have kept all freeable objects and now check their freeme? slot
 // such to free! objects that need to. The allocated cell will be freed on the next gc...
