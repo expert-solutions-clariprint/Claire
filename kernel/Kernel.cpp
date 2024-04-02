@@ -841,7 +841,7 @@ make_table->addMethod(   list::domain(3,_type,_type,_any),_table,
 add_star->addMethod(list::domain(2,_list,_list),_list,
                     NEW_ALLOC+SAFE_RESULT,_function_(add_star_list,"add_star_list"));
 _7_plus->addMethod(  list::domain(2,_list,_list),_list,
-                    NEW_ALLOC+SAFE_RESULT,_function_(append_list,"append_list"));
+                    NEW_ALLOC,_function_(append_list,"append_list"));
 nth_plus->addMethod(  list::domain(3,_list,_integer,_any),_list,
                     NEW_ALLOC+BAG_UPDATE+SAFE_RESULT,_function_(add_at_list,"add_at_list"));
 nth_dash->addMethod(   list::domain(2,_list,_integer),_list,
