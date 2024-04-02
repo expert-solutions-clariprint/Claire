@@ -132,8 +132,8 @@ else
 		mkdir(INSTALL_DIR / "lib"),
 
 	// where to find claire doc
-	if not(isdir?(INSTALL_DIR / "doc"))
-		mkdir(INSTALL_DIR / "doc"),
+	if not(isdir?(INSTALL_DIR / "docs"))
+		mkdir(INSTALL_DIR / "docs"),
 	
 	// where to find user libs available for all
 	if not(isdir?(INSTALL_DIR_BASE_BASE / "lib"))
@@ -162,16 +162,16 @@ else
 	// copy doc
 	printf("Installing CLAIRE documentation...\n"),
 	
-	for f in entries("doc")
-		(fcopy("doc" / f, INSTALL_DIR / "doc" / f),
-		chmod(INSTALL_DIR / "doc" / f, 33188)),
+	for f in entries("docs")
+		(fcopy("docs" / f, INSTALL_DIR / "docs" / f),
+		chmod(INSTALL_DIR / "docs" / f, 33188)),
 	
-	if isdir?("doc")
+	if isdir?("docs")
   	(// copy doc
   	printf("Installing CLAIRE documentation...\n"),
-  	for f in entries("doc")
-  		(fcopy("doc" / f, INSTALL_DIR / "doc" / f),
-  		chmod(INSTALL_DIR / "doc" / f, 33188))),
+  	for f in entries("docs")
+  		(fcopy("docs" / f, INSTALL_DIR / "docs" / f),
+  		chmod(INSTALL_DIR / "docs" / f, 33188))),
 	
 	// copy claire binary
 	printf("Installing CLAIRE binary...\n"),

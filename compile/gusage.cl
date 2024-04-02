@@ -602,8 +602,8 @@ home_path() : string ->
           chmod(mod_home / i, 33188)),
         rcopy("include", mod_home),
         rcopy(mod.source, p / fm / mod.source),
-        if isdir?("doc")
-          rcopy("doc", p / fm / "doc"),
+        if isdir?("docs")
+          rcopy("docs", p / fm / "docs"),
         //[3] == Call exported callback,
         try apply(get_value(mod, "exported"), list(exp?, %ov, p / fm,home_path()))
         catch any none, 

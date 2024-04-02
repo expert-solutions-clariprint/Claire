@@ -96,7 +96,7 @@ DOC_TITLE:string := ""
 *doc_links*:boolean := false
 *one_file*:boolean := false
 *per_cat_file*:boolean := false
-*directory*:string := "doc"
+*directory*:string := "docs"
 *only_doc_links*:boolean := false
 
 DEPOPTIONS:boolean := false
