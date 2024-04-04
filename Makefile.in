@@ -167,8 +167,7 @@ public/ccmain.cl: docs/index.html ./tmpclaire2 $(Dr)/ccmain.cl $(Dr)/configure $
 
 docs/index.html: tmpclaire2 meta/*.cl
 	./tmpclaire2 -s 8 0 -apidoc claire -q
-	mv doc docs
-	mv docs/claire.html docs/index.html
+	cp docs/claire.html docs/index.html
 
 
 a:

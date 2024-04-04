@@ -841,7 +841,7 @@ make_table->addMethod(   list::domain(3,_type,_type,_any),_table,
 add_star->addMethod(list::domain(2,_list,_list),_list,
                     NEW_ALLOC+SAFE_RESULT,_function_(add_star_list,"add_star_list"));
 _7_plus->addMethod(  list::domain(2,_list,_list),_list,
-                    NEW_ALLOC+SAFE_RESULT,_function_(append_list,"append_list"));
+                    NEW_ALLOC,_function_(append_list,"append_list"));
 nth_plus->addMethod(  list::domain(3,_list,_integer,_any),_list,
                     NEW_ALLOC+BAG_UPDATE+SAFE_RESULT,_function_(add_at_list,"add_at_list"));
 nth_dash->addMethod(   list::domain(2,_list,_integer),_list,
@@ -1944,7 +1944,6 @@ CL_INT ClaireAllocation::newChunk(CL_INT n)
        if ((i > logList) || (i < logList - 1 && j > logList))  // new anti-fragmentation device
            if (gcChunk(n, size, &value, &i))
 	   {
-		   printf("???????????????\n");
 			 return value;}
        value = entryList[i];
 	   CL_UNSIGNED _idx = (&(ADRTOPOIN(value)[FOLLOW])) - Cmemory;
@@ -2247,9 +2246,12 @@ void ClaireAllocation::gc(char *cause) {
     object_used += SIZE(n);
     MARKCELL(n);}
   }
+
   sweepChunk();
   sweepObject();
+
   if(inside_gc == 1) sweepFreeable();
+
   CL_INT tegc;
   msec(tegc);
   consumed_gc += (tegc - tgc);
@@ -2276,6 +2278,16 @@ void ClaireAllocation::markFreeableContainer() {
  list *l = Kernel._freeable_object->instances;
  MARKCELL(_oid_(l)); // mark the list
  (*l)[0] = -((*l)[0]); // and its content
+
+ // <xp> mark all freeable to be freed.
+ CL_INT i, len = l->length;
+ for (i = 1;i <= len;i++)
+ {
+    OID n = (*l)[i];
+    FreeableObject *x = OBJECT(FreeableObject,n);
+    mark(n); // mark() the object to be sure to keep associated data
+    if (SIZE(n) < 0) MARKCELL(n); // unmark, let markStack do for real
+  }
 }
 
 //<sb> here we check whether a freeable object has been marked or not
@@ -2295,12 +2307,10 @@ void ClaireAllocation::updateFreeme() {
       printf("updateFreeme of probe %d [%s]\n", SIZE(n), x->isa->name->name);
 #endif
     }
-    x->freeme_ask = (SIZE(n) > 0 ? CTRUE : CFALSE);}
- //<sb> now that we have updated the freeme? slot
- // we ensure that object that are to be freed are marked 
- for (i = 1;i <= len;i++)
-    {OID n = (*l)[i];
-    if(SIZE(n) > 0) MARK(n);}}
+    x->freeme_ask = (SIZE(n) > 0 ? CTRUE : CFALSE);
+    if(SIZE(n) > 0) MARKCELL(n);
+  }
+}
 
 //<sb> we have kept all freeable objects and now check their freeme? slot
 // such to free! objects that need to. The allocated cell will be freed on the next gc...

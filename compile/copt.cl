@@ -537,11 +537,11 @@ claire/*in_store*:boolean := false
         (if known?(of,self) cast!(seed,self.of)),
         if exists(x in self.args | not(c_func(x)))
            printf("OID ~A;~I",v,breakline()),
-        printf("~I~I= ~I~I;",
-               (if OPT.protection (c.stat :+ 1, printf("GC_ANY("))),   // v3.3.32
+        printf("~I~I=  ~I~I;",
+               (if true /* OPT.protection */ (c.stat :+ 1, printf("GC_ANY("))),   //<xp> force protection for bags !
                c_princ(s),
                bag_expression(PRODUCER,seed.isa,seed,of(seed),loop), // v3.2
-               (if OPT.protection printf(")"))),
+               (if true /* OPT.protection */ printf(")"))),
         for x in self.args
           let f := c_func(x) in
             printf("~I~I~I~I((OID)~I);", breakline(),
@@ -718,8 +718,10 @@ claire/*in_store*:boolean := false
           (if (self % Let*) OPT.alloc_stack := true,            // Let* uses a tuple of vars
            printf("~I ~I", interface!(sort(self.var)), c_princ(v)),
            if c_func(x)
-            printf(" = ~I;~I",
-               (if bool_exp?(x) bool_exp!(PRODUCER,x,loop) else expression(x, loop)),   // v3.1.12
+            printf(" = ~I ;~I",
+               (if bool_exp?(x) bool_exp!(PRODUCER,x,loop) else ( 
+                if (x % (List U Set U Tuple)) expression(to_protect(arg = x),loop) //<xp> add protection
+                else expression(x, loop))),   // v3.1.12
                    breakline())
 	           else printf("~I;~I~I",init_var(PRODUCER, sort(self.var)),
                                  breakline(), statement(x, v, loop)),
