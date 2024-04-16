@@ -4,6 +4,9 @@ CLAIRE is a fork of the ​Claire 3 language (from Yves Caseau) which is a high-
 
 Orginal Claire from Yves Caseau : https://github.com/ycaseau/CLAIRE3.4
 
+Read the updated documentation here :
+https://expert-solutions-clariprint.github.io/Claire/
+
 ## Key aspects
 
 ### Inherited from ​Claire 3 :
