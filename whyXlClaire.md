@@ -1,4 +1,4 @@
-# Why XL Claire + ClaireToolKit Ecosystem (v2)
+# Why XL Claire + ClaireToolKit Ecosystem (v4)
 
 XL Claire is not “just another language”.
 It’s a **problem‑solving language + a production‑oriented ecosystem** designed for domains where *modeling, constraints, rules, and exploration* matter as much as raw CRUD.
@@ -20,6 +20,7 @@ If your product is a **configurator / CPQ / pricing engine / planning system / w
 
 **Why it scales**
 - The **compile-to-C++** path is a straightforward lever for CPU-bound workloads (solvers, pricing, generation).
+- XL Claire includes a **fork-based parallel iteration** mechanism (`ffor ... by X`) that makes concurrent exploration natural and safe.
 - A clean “thin adapters + strong domain core” architecture scales both **technically** and **organizationally**.
 
 ---
@@ -41,12 +42,29 @@ Client / UI
 API Gateway (auth, rate limit, routing)
    |
 XL Claire Service  (rules + heuristics + solver)
-   |            |          -> Python FastAPI (embeddings / cosine similarity)
+   |         \
+   |          -> Python FastAPI (embeddings / cosine similarity)
    |
 DB / Redis / Files / PDF
 ```
 
 This is exactly how modern stacks work: **polyglot services** with clear responsibilities.
+
+---
+
+## Claire vs Python / TypeScript / Go (microservices)
+
+XL Claire is best positioned as a **Domain Engine microservice** (rules + heuristics + solvers + parallel exploration),
+not as a general-purpose CRUD/API framework.
+
+| Stack | Best for | Weak spot | Typical role with XL Claire |
+|---|---|---|---|
+| **XL Claire** | constraints, rules, search/backtracking, CPU-bound decisioning | smaller ecosystem, not “turnkey API framework” | **compute core** service |
+| **Python (FastAPI)** | ML (embeddings/similarity), rapid API delivery, data tooling | CPU-bound heavy logic cost/latency | ML sidecar / orchestration |
+| **TypeScript (Node)** | API edge, OpenAPI, auth, integrations, websockets | CPU-bound heavy compute | gateway/BFF/middleware |
+| **Go** | boring-fast services, concurrency, gRPC/REST, ops simplicity | modeling rules/constraints is manual | platform services / edge (optional) |
+
+For details and trade-offs, see: **`comparisons.md`**.
 
 ---
 
@@ -126,6 +144,35 @@ You get the best of both worlds, with clean boundaries.
 
 ---
 
+## Parallel exploration that fits modern scaling (ffor + forks)
+
+CPU-heavy search/optimization problems don’t scale by “more async”. They scale by **parallel exploration**.
+
+XL Claire includes a very practical mechanism:
+
+- `ffor ... by X` runs an iteration by **forking X workers**
+- each worker explores a branch independently (isolation by process memory)
+- **results are returned to the parent via built-in serialization/deserialization**
+- the parent aggregates results deterministically
+
+This is extremely effective for:
+- multi-start heuristics
+- portfolio solving (different strategies in parallel)
+- concurrent exploration of search neighborhoods
+- parallel scoring/validation of candidates
+
+Conceptual sketch:
+
+```claire
+ffor c in candidates by 8
+  (solve_and_score(c))     // each branch runs in its own fork
+// parent receives serialized results and selects the best
+```
+
+This matches the modern “workers + message passing” model, but it’s **native** and frictionless.
+
+---
+
 ## “Why it scales” without hand-waving (production checklist)
 
 Solver-backed endpoints are scalable if you make the contract explicit:
@@ -135,8 +182,9 @@ Solver-backed endpoints are scalable if you make the contract explicit:
 - return `best_effort` solutions with metadata (score, time, reason stopped)
 
 2) **Isolation**
-- prefer **multi-process workers** (N workers) over shared global mutable state
+- prefer **multi-process workers** over shared mutable state
 - keep solver instances per request (or per worker) with clear lifecycle
+- use `ffor ... by X` when parallel exploration is the right strategy
 
 3) **Caching**
 - cache expensive sub-results (e.g., embeddings, similarity queries, partial evaluations)
@@ -198,7 +246,8 @@ But if your core value is **complex logic**, investing in a stack designed for i
    - one **what‑if** exploration (worlds/backtracking) or a small solver model (choco)
 3) Wrap it behind an HTTP endpoint and connect DB/cache if needed.
 4) Add a Python embedding service call if your scoring needs semantic similarity.
-5) Measure:
+5) If the search space is large, test `ffor ... by X` to parallelize exploration.
+6) Measure:
    - dev time to correctness
    - complexity of the code
    - performance (interpreted vs compiled)
