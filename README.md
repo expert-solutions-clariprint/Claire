@@ -6,8 +6,11 @@ CLAIRE is implemented in **C++** and provides both an **interpreter** and a **co
 
 - Original Claire 3 repo: https://github.com/ycaseau/CLAIRE3.4
 
+## Why choose XL Claire ?
+- https://github.com/expert-solutions-clariprint/Claire/tree/master/whyXlClaire.md
+
 ## Documentation
-- Quick start documentation (MD): documentation.md
+- Quick start documentation (MD): https://github.com/expert-solutions-clariprint/Claire/tree/master/documentation.md
 - Canonical documentation (HTML manual): https://expert-solutions-clariprint.github.io/Claire/
 
 > This repository is the developer Git.
