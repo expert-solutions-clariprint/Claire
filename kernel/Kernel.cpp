@@ -5178,6 +5178,7 @@ static CL_INT fixdot(char* sprintfbuf) {
   CL_INT i = 0, len = strlen(sprintfbuf);
    for(;i < len;i++) {
      if(sprintfbuf[i] == '.') return 1;
+     if(sprintfbuf[i] == ',') return 1;
      if(sprintfbuf[i] == 'e') return 0;
    }
    strcat(sprintfbuf,".0");
